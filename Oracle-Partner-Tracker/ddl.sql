@@ -13,7 +13,13 @@ create user 'lukas'@'localhost' identified by 'Root12345!';
 create user 'pablo'@'localhost' identified by 'root';
 
 -- Grant section
-grant select, insert, delete, update on oracle_partner_network.* to 'admin'@'localhost';
+grant select, insert, delete, update on oracle_partner_network.* to 'alec'@'localhost';
+grant select, insert, delete, update on oracle_partner_network.* to 'danko'@'localhost';
+grant select, insert, delete, update on oracle_partner_network.* to 'larissa'@'localhost';
+grant select, insert, delete, update on oracle_partner_network.* to 'laroy'@'localhost';
+grant select, insert, delete, update on oracle_partner_network.* to 'lucas'@'localhost';
+grant select, insert, delete, update on oracle_partner_network.* to 'lukas'@'localhost';
+grant select, insert, delete, update on oracle_partner_network.* to 'pablo'@'localhost';
 
 use oracle_partner_network;
 
