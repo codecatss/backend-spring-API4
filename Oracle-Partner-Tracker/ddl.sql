@@ -67,6 +67,15 @@ create table opn_track (
     primary key (id)
 );
 
+create table user_and_company (
+    id varchar(50) not null,
+    user_id varchar(50) not null,
+    company_id varchar(50) not null,
+    primary key (id),
+    foreign key user_fk (user_id) references user (id) on delete restrict on update cascade,
+    foreign key company_fk (company_id) references company (id) on delete restrict on update cascade
+);
+
 create table user_and_expertise (
     id varchar(50) not null,
     user_id varchar(50) not null,
@@ -99,5 +108,6 @@ create table opn_track_and_company (
 );
 
 
--- Insert section
+-- Insert section it is in file "inserts.sql"
+
 
