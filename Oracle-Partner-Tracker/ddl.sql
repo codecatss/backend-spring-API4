@@ -4,7 +4,13 @@ drop user if exists 'admin'@'localhost';
 
 -- Create section
 create schema oracle_partner_network;
-create user 'admin'@'localhost' identified by 'Root12345!';
+create user 'alec'@'localhost' identified by 'root!';
+create user 'danko'@'localhost' identified by 'root!';
+create user 'larissa'@'localhost' identified by 'root!';
+create user 'laroy'@'localhost' identified by 'root!';
+create user 'lucas'@'localhost' identified by 'root!';
+create user 'lukas'@'localhost' identified by 'Root12345!';
+create user 'pablo'@'localhost' identified by 'root!';
 
 -- Grant section
 grant select, insert, delete, update on oracle_partner_network.* to 'admin'@'localhost';
