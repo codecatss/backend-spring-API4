@@ -80,7 +80,7 @@ create table service_expertise (
 create table opn_track (
     id varchar(50) not null,
     name varchar(20) not null,
-    constraint ck_opn_track_name check (UPPER(name) IN ('CLOUD BUILD',  'CLOUD SELL',  'CLOUD SERVICE,' 'INDUSTRY HEALTHCARE',  'LICENSE & HARDWARE')),
+    constraint ck_opn_track_name check (UPPER(name) IN ('CLOUD BUILD','CLOUD BUILD & SERVICE','CLOUD SELL','CLOUD SELL & SERVICE','CLOUD SERVICE','INDUSTRY HEALTHCARE','LICENSE AND HARDWARE','OPN MEMBER')),
     primary key (id)
 );
 
