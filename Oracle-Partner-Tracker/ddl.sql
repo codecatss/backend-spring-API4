@@ -1,31 +1,13 @@
 -- Drop section
 drop schema if exists oracle_partner_network;
-drop user if exists 'alec'@'localhost';
-drop user if exists 'danko'@'localhost';
-drop user if exists 'larissa'@'localhost';
-drop user if exists 'laroy'@'localhost';
-drop user if exists 'lucas'@'localhost';
 drop user if exists 'lukas'@'localhost';
-drop user if exists 'pablo'@'localhost';
 
 -- Create section
 create schema oracle_partner_network;
-create user 'alec'@'localhost' identified by 'Root12345!';
-create user 'danko'@'localhost' identified by 'Root12345!';
-create user 'larissa'@'localhost' identified by 'Root12345!';
-create user 'laroy'@'localhost' identified by 'Root12345!';
-create user 'lucas'@'localhost' identified by 'Root12345!';
-create user 'lukas'@'localhost' identified by 'Root12345!';
-create user 'pablo'@'localhost' identified by 'Root12345!';
+create user 'admin'@'localhost' identified by 'Root12345!';
 
 -- Grant section
-grant select, insert, delete, update on oracle_partner_network.* to 'alec'@'localhost';
-grant select, insert, delete, update on oracle_partner_network.* to 'danko'@'localhost';
-grant select, insert, delete, update on oracle_partner_network.* to 'larissa'@'localhost';
-grant select, insert, delete, update on oracle_partner_network.* to 'laroy'@'localhost';
-grant select, insert, delete, update on oracle_partner_network.* to 'lucas'@'localhost';
-grant select, insert, delete, update on oracle_partner_network.* to 'lukas'@'localhost';
-grant select, insert, delete, update on oracle_partner_network.* to 'pablo'@'localhost';
+grant select, insert, delete, update on oracle_partner_network.* to 'admin'@'localhost';
 
 use oracle_partner_network;
 
