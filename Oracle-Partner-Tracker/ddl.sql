@@ -29,6 +29,7 @@ create table user (
 create table company (
     id varchar(50) not null,
     name varchar(50) not null,
+    slogan varchar(200) not null,
     credit_hold boolean,
     cnpj varchar(150) not null,
     country varchar(20) not null,
