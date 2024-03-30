@@ -45,7 +45,7 @@ create table company (
 
 create table workload (
     id varchar(50) not null,
-    name varchar(50) not null,
+    name varchar(50) not null unique,
     description varchar(250),
     primary key (id)
 );
