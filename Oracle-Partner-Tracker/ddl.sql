@@ -31,7 +31,7 @@ use oracle_partner_network;
 
 -- Create table section
 create table user (
-    id bigint unsigned not null auto_increment,
+    id varchar(50) not null,
     email varchar(50) not null unique,
     password varchar(100) not null,
     name varchar(50) not null,
@@ -61,14 +61,14 @@ create table company (
 );
 
 create table workload (
-    id bigint unsigned not null auto_increment,
+    id varchar(50) not null,
     name varchar(50) not null,
     description varchar(250),
     primary key (id)
 );
 
 create table service_expertise (
-    id bigint unsigned not null auto_increment,
+    id varchar(50) not null,
     name varchar(50) not null,
     description varchar(250),
     min_score int,
@@ -78,16 +78,16 @@ create table service_expertise (
 );
 
 create table opn_track (
-    id bigint unsigned not null auto_increment,
+    id varchar(50) not null,
     name varchar(20) not null,
     constraint ck_opn_track_name check (UPPER(name) IN ('CLOUD BUILD',  'CLOUD SELL',  'CLOUD SERVICE,' 'INDUSTRY HEALTHCARE',  'LICENSE & HARDWARE')),
     primary key (id)
 );
 
 create table user_and_expertise (
-    id bigint unsigned not null auto_increment,
-    user_id bigint unsigned not null,
-    expertise_id bigint unsigned not null,
+    id varchar(50) not null,
+    user_id varchar(50) not null,
+    expertise_id varchar(50) not null,
     score numeric(2,2),
     status boolean,
     create_on timestamp,
@@ -98,17 +98,17 @@ create table user_and_expertise (
 );
 
 create table opn_track_and_expertise (
-    id bigint unsigned not null auto_increment,
-    opn_track_id bigint unsigned not null,
-    expertise_id bigint unsigned not null,
+    id varchar(50) not null,
+    opn_track_id varchar(50) not null,
+    expertise_id varchar(50) not null,
     primary key (id),
     foreign key opn_track_fk (opn_track_id) references opn_track (id) on delete restrict on update cascade,
     foreign key service_expertise_fk (expertise_id) references service_expertise (id) on delete restrict on update cascade
 );
 
 create table opn_track_and_company (
-    id bigint unsigned not null auto_increment,
-    opn_track_id bigint unsigned not null,
+    id varchar(50) not null,
+    opn_track_id varchar(50) not null,
     company_id varchar(50) not null,
     primary key (id),
     foreign key opn_track_fk (opn_track_id) references opn_track (id) on delete restrict on update cascade,
