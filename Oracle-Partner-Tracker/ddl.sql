@@ -1,6 +1,6 @@
 -- Drop section
 drop schema if exists oracle_partner_network;
-drop user if exists 'lukas'@'localhost';
+drop user if exists 'admin'@'localhost';
 
 -- Create section
 create schema oracle_partner_network;
@@ -20,7 +20,7 @@ create table user (
     role varchar(50) not null,
     membership_type varchar(10) not null,
     user_status boolean,
-    create_on timestamp,
+    create_on timestamp default current_timestamp,
     constraint ck_role check (UPPER(role) IN ('ADM', 'USER')),
     constraint ck_membership_type check (UPPER(membership_type) IN ('PRINCIPAL', 'WORLDWIDE')),
     primary key (id)
@@ -39,7 +39,7 @@ create table company (
     cep varchar(10) not null,
     opn_status boolean,
     company_status boolean,
-    create_on timestamp,
+    create_on timestamp default current_timestamp,
     primary key (id)
 );
 
@@ -73,7 +73,7 @@ create table user_and_expertise (
     expertise_id varchar(50) not null,
     score numeric(2,2),
     status boolean,
-    create_on timestamp,
+    create_on timestamp default current_timestamp,
     expiration_date timestamp,
     primary key (id),
     foreign key user_fk (user_id) references user (id) on delete restrict on update cascade,
