@@ -45,14 +45,14 @@ create table company (
 
 create table workload (
     id varchar(50) not null,
-    name varchar(50) not null,
+    name varchar(100) not null unique,
     description varchar(250),
     primary key (id)
 );
 
 create table service_expertise (
     id varchar(50) not null,
-    name varchar(50) not null,
+    name varchar(100) not null,
     description varchar(250),
     min_score int,
     max_score int,
@@ -107,6 +107,14 @@ create table opn_track_and_company (
     foreign key company_fk (company_id) references company (id) on delete restrict on update cascade
 );
 
+create table opn_track_and_workload (
+    id varchar(50) not null,
+    opn_track_id varchar(50) not null,
+    workload_id varchar(50) not null,
+    primary key (id),
+    foreign key opn_track_fk (opn_track_id) references opn_track (id) on delete restrict on update cascade,
+    foreign key workload_fk (workload_id) references workload (id) on delete restrict on update cascade
+);
 
 -- Insert section it is in file "inserts.sql"
 
