@@ -2,22 +2,15 @@ package Oracle.Partner.Tracker.dto;
 
 import Oracle.Partner.Tracker.entities.Company;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-
 public class CompanyDTO {
 
     @Schema(description = "ID da empresa", example = "1")
@@ -50,20 +43,28 @@ public class CompanyDTO {
     @Schema(description = "Data de criação da empresa", example = "2022-01-01T12:00:00")
     private LocalDateTime createOn;
 
+    @Schema(description = "Status de crédito da empresa", example = "true")
+    private Boolean creditHold;
 
+    @Schema(description = "Status da empresa", example = "true")
+    private Boolean companyStatus;
 
-    public CompanyDTO(Company entity){
-        id = entity.getId();
-        name = entity.getName();
-        opnStatus = entity.getOpnStatus();
-        cnpj = entity.getCnpj();
-        country = entity.getCountry();
-        state = entity.getState();
-        city = entity.getCity();
-        address = entity.getAddress();
-        cep = entity.getCep();
-        createOn = entity.getCreateOn();
+    @Schema(description = "Slogan da empresa", example = "Fazemos a diferença!")
+    private String slogan;
+
+    public CompanyDTO(Company entity) {
+        this.id = entity.getId();
+        this.name = entity.getName();
+        this.opnStatus = entity.getOpnStatus();
+        this.cnpj = entity.getCnpj();
+        this.country = entity.getCountry();
+        this.state = entity.getState();
+        this.city = entity.getCity();
+        this.address = entity.getAddress();
+        this.cep = entity.getCep();
+        this.createOn = entity.getCreateOn();
+        this.creditHold = entity.getCreditHold();
+        this.companyStatus = entity.getCompanyStatus();
+        this.slogan = entity.getSlogan();
     }
-
-
 }
