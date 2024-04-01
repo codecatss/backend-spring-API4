@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,7 +33,6 @@ public class CompanyService {
         Page<Company> companies = companyRepository.findAll(pageable);
         return companies.map(CompanyDTO::new);
     }
-
 
 
 
@@ -73,6 +73,53 @@ public class CompanyService {
         }
 
         Company company = new Company();
+
+        copyDTOtoEntity(companyDTO,company);
+
+        company = companyRepository.save(company);
+
+        return new CompanyDTO(company);
+    }
+
+
+    public CompanyDTO updateCompany(String id,CompanyDTO companyDTO) {
+
+        Company company = companyRepository.getReferenceById(id);
+
+
+        copyDTOtoEntity(companyDTO,company);
+
+
+
+        company = companyRepository.save(company);
+
+        return new CompanyDTO(company);
+    }
+
+
+    public void disableCompany(UUID id){
+        Company company = companyRepository.findById(String.valueOf(id)).orElse(null);
+        if(company != null){
+            company.setCompanyStatus(false);
+            companyRepository.save(company);
+        }else{
+            throw new RuntimeException("Company not found with id: " + id);
+        }
+    }
+
+    public void enableCompany(UUID id){
+        Company company = companyRepository.findById(String.valueOf(id)).orElse(null);
+        if(company != null){
+            company.setCompanyStatus(true);
+            companyRepository.save(company);
+
+        }else{
+            throw new RuntimeException("Company not found with id: " + id);
+        }
+    }
+
+
+    private void copyDTOtoEntity(CompanyDTO companyDTO, Company company) {
         company.setName(companyDTO.getName());
         company.setOpnStatus(companyDTO.getOpnStatus());
         company.setCnpj(companyDTO.getCnpj());
@@ -85,9 +132,6 @@ public class CompanyService {
         company.setCreditHold(companyDTO.getCreditHold());
         company.setSlogan(companyDTO.getSlogan());
         company.setCompanyStatus(companyDTO.getCompanyStatus());
-        company = companyRepository.save(company);
-
-        return new CompanyDTO(company);
     }
 
 
