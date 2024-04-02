@@ -20,28 +20,28 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @Column(name = "name", nullable = false, length = 50)
+    @Column(name = "name", nullable = true, length = 50)
     private String name;
 
     @Column(name = "opn_status" )
     private Boolean opnStatus;
 
-    @Column(name = "cnpj", unique = true, nullable = false, length = 150)
+    @Column(name = "cnpj", unique = false, nullable = true, length = 150)
     private String cnpj;
 
-    @Column(name = "country", nullable = false, length = 20)
+    @Column(name = "country", nullable = true, length = 20)
     private String country;
 
-    @Column(name = "state", nullable = false, length = 50)
+    @Column(name = "state", nullable = true, length = 50)
     private String state;
 
-    @Column(name = "city", nullable = false, length = 100)
+    @Column(name = "city", nullable = true, length = 100)
     private String city;
 
-    @Column(name = "address", nullable = false, length = 200)
+    @Column(name = "address", nullable = true, length = 200)
     private String address;
 
-    @Column(name = "cep", nullable = false, length = 10)
+    @Column(name = "cep", nullable = true, length = 10)
     private String cep;
 
     @Column(name = "create_on")
@@ -53,7 +53,7 @@ public class Company {
     @Column(name = "company_status")
     private Boolean companyStatus;
 
-    @Column(name = "slogan", nullable = false, length = 200)
+    @Column(name = "slogan", nullable = true, length = 200)
     private String slogan;
 
 
