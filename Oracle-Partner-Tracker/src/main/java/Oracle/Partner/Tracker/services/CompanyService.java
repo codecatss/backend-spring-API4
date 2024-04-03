@@ -10,10 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class CompanyService {
@@ -132,7 +131,89 @@ public class CompanyService {
         company.setCreditHold(companyDTO.getCreditHold());
         company.setSlogan(companyDTO.getSlogan());
         company.setCompanyStatus(companyDTO.getCompanyStatus());
+
     }
+
+
+
+    public List<CompanyDTO> mapCsvToCompanies(List<String[]> csvData) {
+
+        String[] header = csvData.get(0);
+        List<CompanyDTO> companies = new ArrayList<>();
+
+
+        for (int i = 1; i < csvData.size(); i++) {
+            String[] row = csvData.get(i);
+
+            CompanyDTO company =  mapRowToCompany(row, header);
+            companies.add(company);
+        }
+
+        return companies;
+    }
+    public CompanyDTO mapRowToCompany(String[] row, String[] header) {
+        CompanyDTO companyDTO = new CompanyDTO();
+
+
+        for (int i = 0; i < header.length; i++) {
+
+            switch (header[i]) {
+                case "Company Name":
+                    companyDTO.setName(row[i]);
+                    break;
+                case "OPN Status":
+                    if(row[i].equals("Active")){
+                        companyDTO.setOpnStatus(true);
+
+                    } else {
+                        companyDTO.setOpnStatus(false);
+                    }
+                    break;
+                case "Company ID":
+
+                    companyDTO.setCnpj(row[i]);
+                    break;
+                case "Country":
+
+                    companyDTO.setCountry(row[i]);
+                    break;
+                case "City":
+
+                    companyDTO.setCity(row[i]);
+                    break;
+                case "Address":
+
+                    companyDTO.setAddress(row[i]);
+                    break;
+                case "Credit Hold":
+                    companyDTO.setCreditHold(row[i]);
+                    break;
+                case "Slogan":
+                    companyDTO.setSlogan(row[i]);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
+
+
+
+        Company company = new Company();
+
+        copyDTOtoEntity(companyDTO, company);
+        company.setCompanyStatus(true);
+
+
+        companyRepository.save(company);
+
+        return companyDTO;
+    }
+
+
+
+
 
 
 }
