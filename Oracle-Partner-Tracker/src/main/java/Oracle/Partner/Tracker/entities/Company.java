@@ -48,7 +48,7 @@ public class Company {
     private LocalDateTime createOn;
 
     @Column(name = "credit_hold")
-    private Boolean creditHold;
+    private String creditHold;
 
     @Column(name = "company_status")
     private Boolean companyStatus;
