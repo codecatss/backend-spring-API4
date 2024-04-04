@@ -17,9 +17,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/company")
@@ -79,9 +82,37 @@ public class CompanyController {
 
 
     @PostMapping
-    public CompanyDTO insertCompany(@RequestBody CompanyDTO companyDTO){
-        return companyService.insertCompany(companyDTO);
+    @Operation(summary = "Insert Company", description = "Insert a new company")
+    @ApiResponse(responseCode = "201", description = "Company created",
+                content = @Content(schema = @Schema(implementation = CompanyDTO.class)))
+    public ResponseEntity<CompanyDTO> insertCompany(@RequestBody CompanyDTO companyDTO){
+        companyDTO =  companyService.insertCompany(companyDTO);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(companyDTO.getId()).toUri();
+        return ResponseEntity.created(uri).body(companyDTO);
     }
+
+
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<CompanyDTO> updateCompany(@PathVariable String id, @RequestBody CompanyDTO companyDTO){
+        companyDTO = companyService.updateCompany(id,companyDTO);
+        return ResponseEntity.ok(companyDTO);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> disableCompany(@PathVariable UUID id){
+        companyService.disableCompany(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping(value = "/{id}/enable")
+    public ResponseEntity<Void> enableCompany(@PathVariable UUID id){
+        companyService.enableCompany(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
 
 
 

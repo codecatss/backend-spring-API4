@@ -44,7 +44,7 @@ public class CompanyDTO {
     private LocalDateTime createOn;
 
     @Schema(description = "Status de crédito da empresa", example = "true")
-    private Boolean creditHold;
+    private String creditHold;
 
     @Schema(description = "Status da empresa", example = "true")
     private Boolean companyStatus;

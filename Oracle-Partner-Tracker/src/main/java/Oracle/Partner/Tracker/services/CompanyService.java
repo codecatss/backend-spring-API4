@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
 @Service
 public class CompanyService {
@@ -32,7 +32,6 @@ public class CompanyService {
         Page<Company> companies = companyRepository.findAll(pageable);
         return companies.map(CompanyDTO::new);
     }
-
 
 
 
@@ -73,6 +72,53 @@ public class CompanyService {
         }
 
         Company company = new Company();
+
+        copyDTOtoEntity(companyDTO,company);
+
+        company = companyRepository.save(company);
+
+        return new CompanyDTO(company);
+    }
+
+
+    public CompanyDTO updateCompany(String id,CompanyDTO companyDTO) {
+
+        Company company = companyRepository.getReferenceById(id);
+
+
+        copyDTOtoEntity(companyDTO,company);
+
+
+
+        company = companyRepository.save(company);
+
+        return new CompanyDTO(company);
+    }
+
+
+    public void disableCompany(UUID id){
+        Company company = companyRepository.findById(String.valueOf(id)).orElse(null);
+        if(company != null){
+            company.setCompanyStatus(false);
+            companyRepository.save(company);
+        }else{
+            throw new RuntimeException("Company not found with id: " + id);
+        }
+    }
+
+    public void enableCompany(UUID id){
+        Company company = companyRepository.findById(String.valueOf(id)).orElse(null);
+        if(company != null){
+            company.setCompanyStatus(true);
+            companyRepository.save(company);
+
+        }else{
+            throw new RuntimeException("Company not found with id: " + id);
+        }
+    }
+
+
+    private void copyDTOtoEntity(CompanyDTO companyDTO, Company company) {
         company.setName(companyDTO.getName());
         company.setOpnStatus(companyDTO.getOpnStatus());
         company.setCnpj(companyDTO.getCnpj());
@@ -85,10 +131,89 @@ public class CompanyService {
         company.setCreditHold(companyDTO.getCreditHold());
         company.setSlogan(companyDTO.getSlogan());
         company.setCompanyStatus(companyDTO.getCompanyStatus());
-        company = companyRepository.save(company);
 
-        return new CompanyDTO(company);
     }
+
+
+
+    public List<CompanyDTO> mapCsvToCompanies(List<String[]> csvData) {
+
+        String[] header = csvData.get(0);
+        List<CompanyDTO> companies = new ArrayList<>();
+
+
+        for (int i = 1; i < csvData.size(); i++) {
+            String[] row = csvData.get(i);
+
+            CompanyDTO company =  mapRowToCompany(row, header);
+            companies.add(company);
+        }
+
+        return companies;
+    }
+    public CompanyDTO mapRowToCompany(String[] row, String[] header) {
+        CompanyDTO companyDTO = new CompanyDTO();
+
+
+        for (int i = 0; i < header.length; i++) {
+
+            switch (header[i]) {
+                case "Company Name":
+                    companyDTO.setName(row[i]);
+                    break;
+                case "OPN Status":
+                    if(row[i].equals("Active")){
+                        companyDTO.setOpnStatus(true);
+
+                    } else {
+                        companyDTO.setOpnStatus(false);
+                    }
+                    break;
+                case "Company ID":
+
+                    companyDTO.setCnpj(row[i]);
+                    break;
+                case "Country":
+
+                    companyDTO.setCountry(row[i]);
+                    break;
+                case "City":
+
+                    companyDTO.setCity(row[i]);
+                    break;
+                case "Address":
+
+                    companyDTO.setAddress(row[i]);
+                    break;
+                case "Credit Hold":
+                    companyDTO.setCreditHold(row[i]);
+                    break;
+                case "Slogan":
+                    companyDTO.setSlogan(row[i]);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
+
+
+
+        Company company = new Company();
+
+        copyDTOtoEntity(companyDTO, company);
+        company.setCompanyStatus(true);
+
+
+        companyRepository.save(company);
+
+        return companyDTO;
+    }
+
+
+
+
 
 
 }
