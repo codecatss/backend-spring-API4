@@ -20,14 +20,22 @@ public class UserService {
     UserRepository userRepository;
 
     public List<User> findAllUsers() {
-        return userRepository.findAll();
+        List<User> allUsers = userRepository.findAll();
+        if (allUsers.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return allUsers;
     }
 
-    public User findUserById(UUID id) {
-        return userRepository.findById(id).get();
+    public User findUserById(String id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return user.get();
     }
 
-    public User registerNewtUser(UserDTO user) {
+    public User registerNewUser(UserDTO user) {
         if (userRepository.existsByEmail(user.email())){
             throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
@@ -36,18 +44,20 @@ public class UserService {
         return userRepository.save(newUser);
     }
 
-    public User updateUser(UUID id, UserDTO user){
-        Optional<User> userUpdate = userRepository.findById(id);
-        if (userUpdate.isEmpty()){
+    public User updateUser(String id, UserDTO userDTO){
+        Optional<User> user = userRepository.findById(id);
+        if (user.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        if ()
-
+        User userUpdate = user.get();
+        BeanUtils.copyProperties(userDTO, userUpdate);
+        return userRepository.save(userUpdate);
     }
 
-    public void deleteUser(UUID id) {
-        if (findUserById(id).getId() == null){
-            throw new IllegalArgumentException("ID não encontrado");
+    public void deleteUser(String id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         userRepository.deleteById(id);
     }
