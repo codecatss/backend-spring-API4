@@ -14,11 +14,11 @@ use oracle_partner_network;
 -- Create table section
 create table user (
     id varchar(50) not null,
-    email varchar(50) not null unique,
+    email varchar(50) unique,
     password varchar(100) not null,
-    name varchar(50) not null,
-    role varchar(50) not null,
-    membership_type varchar(10) not null,
+    name varchar(50),
+    role varchar(50),
+    membership_type varchar(10),
     user_status varchar(5),
     create_on timestamp default current_timestamp,
     constraint ck_role check (UPPER(role) IN ('ADM', 'USER')),
@@ -28,15 +28,15 @@ create table user (
 
 create table company (
     id varchar(50) not null,
-    name varchar(50) not null,
-    slogan varchar(200) not null,
+    name varchar(50),
+    slogan varchar(200),
     credit_hold boolean,
-    cnpj varchar(150) not null,
-    country varchar(20) not null,
-    state varchar(50) not null,
-    city varchar(100) not null,
-    address varchar(200) not null,
-    zip_code varchar(10) not null,
+    cnpj varchar(150),
+    country varchar(20),
+    state varchar(50),
+    city varchar(100),
+    address varchar(200),
+    zip_code varchar(10),
     opn_status boolean,
     company_status boolean,
     create_on timestamp default current_timestamp,
@@ -45,14 +45,14 @@ create table company (
 
 create table workload (
     id varchar(50) not null,
-    name varchar(100) not null unique,
+    name varchar(100) unique,
     description varchar(250),
     primary key (id)
 );
 
 create table service_expertise (
     id varchar(50) not null,
-    name varchar(100) not null,
+    name varchar(100),
     description varchar(250),
     min_score int,
     max_score int,
@@ -62,7 +62,7 @@ create table service_expertise (
 
 create table opn_track (
     id varchar(50) not null,
-    name varchar(20) not null,
+    name varchar(20),
     constraint ck_opn_track_name check (UPPER(name) IN ('CLOUD BUILD','CLOUD BUILD & SERVICE','CLOUD SELL','CLOUD SELL & SERVICE','CLOUD SERVICE','INDUSTRY HEALTHCARE','LICENSE AND HARDWARE','OPN MEMBER')),
     primary key (id)
 );
