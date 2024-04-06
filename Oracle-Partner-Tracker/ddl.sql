@@ -7,7 +7,7 @@ create schema oracle_partner_network;
 create user 'admin'@'localhost' identified by 'Root12345!';
 
 -- Grant section
-grant select, insert, delete, update on oracle_partner_network.* to 'admin'@'localhost';
+grant select, insert, delete, update, create on oracle_partner_network.* to 'admin'@'localhost';
 
 use oracle_partner_network;
 
