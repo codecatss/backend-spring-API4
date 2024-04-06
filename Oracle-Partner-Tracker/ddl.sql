@@ -88,7 +88,7 @@ create table user_and_expertise (
     foreign key user_fk (user_id) references user (id) on delete restrict on update cascade,
     foreign key service_expertise_fk (expertise_id) references service_expertise (id) on delete restrict on update cascade
 );
-/*
+
 create table opn_track_and_expertise (
     id varchar(50) not null,
     opn_track_id varchar(50) not null,
@@ -97,7 +97,7 @@ create table opn_track_and_expertise (
     foreign key opn_track_fk (opn_track_id) references opn_track (id) on delete restrict on update cascade,
     foreign key service_expertise_fk (expertise_id) references service_expertise (id) on delete restrict on update cascade
 );
-*/
+
 create table opn_track_and_company (
     id varchar(50) not null,
     opn_track_id varchar(50) not null,
