@@ -26,7 +26,7 @@ public class OpnTrackService {
     
     public OpnTrackDTO insertOpnTrack(OpnTrackDTO opnTrackDTO){
         if (opnTrackDTO.getName() == null || opnTrackDTO.getName().isBlank()){
-            throw new IllegalAccessException("O nome da OPN Track é obrigatório")
+            throw new RuntimeException("O nome da OPN Track é obrigatório");
         }
 
         OpnTrack opnTrack = new OpnTrack();
@@ -38,7 +38,33 @@ public class OpnTrackService {
 
     }
 
+    public OpnTrackDTO updateOpnTrack(String id, OpnTrackDTO opnTrackDTO){
+        OpnTrack opnTrack = opnTrackRepository.findById(id).orElseThrow(
+            () -> new RuntimeException("OPN Track não encontrada com o id: " + id)
+            );
+        copyDTOtoEntity(opnTrackDTO, opnTrack);
+        opnTrack = opnTrackRepository.save(opnTrack);
+        return new OpnTrackDTO(opnTrack);
+    }
+
+    public void disableOpnTrack(String id){
+        OpnTrack opnTrack = opnTrackRepository.findById(id).orElseThrow(
+            () -> new RuntimeException("OPN Track não encontrada com o id: " + id)
+            );
+        opnTrack.setOpnTrackStatus(false);
+        opnTrackRepository.save(opnTrack);
+    }
+
+    public void enableOpnTrack(String id){
+        OpnTrack opnTrack = opnTrackRepository.findById(id).orElseThrow(
+            () -> new RuntimeException("OPN Track não encontrada com o id: " + id)
+            );
+        opnTrack.setOpnTrackStatus(true);
+        opnTrackRepository.save(opnTrack);
+    }
+
     private void copyDTOtoEntity(OpnTrackDTO opnTrackDTO, OpnTrack opnTrack){
         opnTrack.setName(opnTrackDTO.getName());
+        opnTrack.setOpnTrackStatus(opnTrackDTO.getOpnTrackStatus());
     }
 }
