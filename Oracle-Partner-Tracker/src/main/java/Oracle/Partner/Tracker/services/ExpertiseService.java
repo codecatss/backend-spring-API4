@@ -25,12 +25,6 @@ public class ExpertiseService {
     }
 
     public Expertise findExpertiseById(String id){
-//        Optional<Expertise> optionalExpertise = expertiseRepository.findById(id);
-//        if(optionalExpertise.isPresent()){
-//            return optionalExpertise.get();
-//        }
-//        return null;
-
         return expertiseRepository.findById(id).orElse(null);
     }
 
