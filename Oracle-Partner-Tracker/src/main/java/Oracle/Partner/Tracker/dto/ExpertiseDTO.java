@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ExpertiseDTO {
-    @Schema(description = "ID da expertise", example = "1")
-    private String id;
+//    @Schema(description = "ID da expertise", example = "1")
+//    private String id;
 
     @Schema(description = "Nome da expertise", example = "Expertise XYZ")
     private String name;
@@ -27,13 +27,4 @@ public class ExpertiseDTO {
 
     @Schema(description = "Quantos meses essa expertise esta valida", example = "24")
     private Integer lifeTimeMonth;
-
-    public ExpertiseDTO(Expertise expertise) {
-        this.id = expertise.getId();
-        this.name = expertise.getName();
-        this.description = expertise.getDescription();
-        this.minScore = expertise.getMinScore();
-        this.maxScore = expertise.getMaxScore();
-        this.lifeTimeMonth = expertise.getLifeTimeMonth();
-    }
 }
