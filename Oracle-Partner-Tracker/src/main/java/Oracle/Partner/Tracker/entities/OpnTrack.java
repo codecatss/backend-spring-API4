@@ -19,4 +19,7 @@ public class OpnTrack {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "opn_track_status")
+    private Boolean opnTrackStatus;
+
 }
