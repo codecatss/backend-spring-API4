@@ -3,10 +3,12 @@ package Oracle.Partner.Tracker.dto;
 import Oracle.Partner.Tracker.entities.OpnTrack;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class OpnTrackDTO {
 
     @Schema(description = "ID da OPN Track", example = "123")
