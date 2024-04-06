@@ -17,9 +17,13 @@ public class OpnTrackDTO {
     @Schema(description = "Nome da OPN Track", example = "CLOUD BUILD")
     private String name;
 
+    @Schema(description = "Status da OPN Track", example = "true")
+    private Boolean opnTrackStatus;
+
     public OpnTrackDTO(OpnTrack entity){
         this.id = entity.getId();
         this.name = entity.getName();
+        this.opnTrackStatus = entity.getOpnTrackStatus();
     }
     
 }
