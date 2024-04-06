@@ -60,8 +60,7 @@ create table service_expertise (
     name varchar(100) unique,
     description varchar(250),
     life_time_month int,
-    status varchar(10),
-    constraint ck_expertise_status check (status IN ('ACTIVE', 'INACTIVE')),
+    status enum('ACTIVE', 'INACTIVE'),
     primary key (id)
 );
 
