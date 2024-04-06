@@ -1,5 +1,8 @@
 package Oracle.Partner.Tracker.controllers;
 
+import Oracle.Partner.Tracker.dto.CompanyDTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import Oracle.Partner.Tracker.dto.ExpertiseDTO;
 import Oracle.Partner.Tracker.entities.Expertise;
@@ -24,8 +27,14 @@ public class ExpertiseController {
         return expertiseService.findAllExpertise();
     }
 
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Expertise> getExpertise(@PathVariable String id){
+        Expertise expertise = expertiseService.findExpertiseById(id);
+        return expertise == null ? new ResponseEntity<>(null, HttpStatus.NOT_FOUND) : new ResponseEntity<>(expertise, HttpStatus.OK);
+    }
+
     @PostMapping
-    public void addNewExpertise(ExpertiseDTO expertiseDTO){
+    public void addNewExpertise(@RequestBody ExpertiseDTO expertiseDTO){
         expertiseService.saveExpertise(expertiseDTO);
     }
 }
