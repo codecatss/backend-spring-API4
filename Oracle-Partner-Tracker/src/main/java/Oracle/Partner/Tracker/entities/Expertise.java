@@ -1,5 +1,6 @@
 package Oracle.Partner.Tracker.entities;
 
+import Oracle.Partner.Tracker.dto.ExpertiseDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,4 +34,13 @@ public class Expertise {
 
     @Column(name = "life_time_month", nullable = true)
     private Integer lifeTimeMonth;
+
+    public Expertise(ExpertiseDTO expertiseDTO) {
+        this.id = expertiseDTO.getId();
+        this.name = expertiseDTO.getName();
+        this.description = expertiseDTO.getDescription();
+        this.minScore = expertiseDTO.getMinScore();
+        this.maxScore = expertiseDTO.getMaxScore();
+        this.lifeTimeMonth = expertiseDTO.getLifeTimeMonth();
+    }
 }
