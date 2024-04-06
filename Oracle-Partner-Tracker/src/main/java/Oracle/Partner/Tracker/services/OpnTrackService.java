@@ -19,6 +19,11 @@ public class OpnTrackService {
         return new OpnTrackDTO(opnTrack);
     }
 
+    public OpnTrackDTO findOpnTrackByName(String name){
+        OpnTrack opnTrack = opnTrackRepository.findByName(name);
+        return new OpnTrackDTO(opnTrack);
+    }
+
     public Page<OpnTrackDTO> findAllOpnTracks(Pageable pageable){
         Page<OpnTrack> opnTracks = opnTrackRepository.findAll(pageable);
         return opnTracks.map(OpnTrackDTO::new);
