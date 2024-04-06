@@ -36,7 +36,7 @@ public class Expertise {
     private Integer lifeTimeMonth;
 
     public Expertise(ExpertiseDTO expertiseDTO) {
-        this.id = expertiseDTO.getId();
+//        this.id = expertiseDTO.getId();
         this.name = expertiseDTO.getName();
         this.description = expertiseDTO.getDescription();
         this.minScore = expertiseDTO.getMinScore();
