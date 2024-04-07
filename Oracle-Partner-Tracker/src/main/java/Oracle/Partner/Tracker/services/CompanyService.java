@@ -3,6 +3,8 @@ package Oracle.Partner.Tracker.services;
 import Oracle.Partner.Tracker.dto.CompanyDTO;
 import Oracle.Partner.Tracker.entities.Company;
 import Oracle.Partner.Tracker.repositories.CompanyRepository;
+import Oracle.Partner.Tracker.utils.companyEnum.CompanyStatus;
+import Oracle.Partner.Tracker.utils.companyEnum.OpnStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -99,7 +101,7 @@ public class CompanyService {
     public void disableCompany(UUID id){
         Company company = companyRepository.findById(String.valueOf(id)).orElse(null);
         if(company != null){
-            company.setCompanyStatus(false);
+            company.setCompanyStatus(CompanyStatus.ACTIVE);
             companyRepository.save(company);
         }else{
             throw new RuntimeException("Company not found with id: " + id);
@@ -109,7 +111,7 @@ public class CompanyService {
     public void enableCompany(UUID id){
         Company company = companyRepository.findById(String.valueOf(id)).orElse(null);
         if(company != null){
-            company.setCompanyStatus(true);
+            company.setCompanyStatus(CompanyStatus.ACTIVE);
             companyRepository.save(company);
 
         }else{
@@ -163,10 +165,10 @@ public class CompanyService {
                     break;
                 case "OPN Status":
                     if(row[i].equals("Active")){
-                        companyDTO.setOpnStatus(true);
+                        companyDTO.setOpnStatus(OpnStatus.ACTIVE);
 
                     } else {
-                        companyDTO.setOpnStatus(false);
+                        companyDTO.setOpnStatus(OpnStatus.EXPIRED);
                     }
                     break;
                 case "Company ID":
@@ -203,7 +205,7 @@ public class CompanyService {
         Company company = new Company();
 
         copyDTOtoEntity(companyDTO, company);
-        company.setCompanyStatus(true);
+        company.setCompanyStatus(CompanyStatus.ACTIVE);
 
 
         companyRepository.save(company);

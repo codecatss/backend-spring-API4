@@ -1,5 +1,7 @@
 package Oracle.Partner.Tracker.entities;
 
+import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
+import Oracle.Partner.Tracker.utils.companyEnum.OpnStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +9,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+
+import Oracle.Partner.Tracker.utils.companyEnum.CompanyStatus;
 
 @Entity
 @Data
@@ -17,14 +21,14 @@ import java.time.LocalDateTime;
 public class Company {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "name", nullable = true, length = 50)
     private String name;
 
     @Column(name = "opn_status" )
-    private Boolean opnStatus;
+    private OpnStatus opnStatus;
 
     @Column(name = "cnpj", unique = false, nullable = true, length = 150)
     private String cnpj;
@@ -44,14 +48,17 @@ public class Company {
     @Column(name = "cep", nullable = true, length = 10)
     private String cep;
 
-    @Column(name = "create_on")
+    @Column(name = "created_at")
     private LocalDateTime createOn;
+
+    @Column(name= "ingestion_operation")
+    private IngestionOperation injestionOperation;
 
     @Column(name = "credit_hold")
     private String creditHold;
 
     @Column(name = "company_status")
-    private Boolean companyStatus;
+    private CompanyStatus companyStatus;
 
     @Column(name = "slogan", nullable = true, length = 200)
     private String slogan;
