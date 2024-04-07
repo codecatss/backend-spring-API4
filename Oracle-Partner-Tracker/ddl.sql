@@ -20,7 +20,7 @@ create table user (
     role enum('ADM', 'USER'),
     membership_type enum('PRINCIPAL', 'WORLDWIDE'),
     status enum('ACTIVE', 'INACTIVE'),
-    create_on timestamp default current_timestamp,
+    created_on timestamp default current_timestamp,
     updated_on timestamp default current_timestamp,
     primary key (id)
 );
@@ -39,7 +39,7 @@ create table company (
     opn_status enum('MEMBER'),
     ingestion_operation enum('CSV', 'MANUAL'),
     status enum('ACTIVE', 'INACTIVE'),
-    create_on timestamp default current_timestamp,
+    created_on timestamp default current_timestamp,
     updated_on timestamp default current_timestamp,
     primary key (id)
 );
@@ -49,7 +49,7 @@ create table workload (
     name varchar(100) unique,
     description varchar(250),
     status enum('ACTIVE', 'INACTIVE'),
-    create_on timestamp default current_timestamp,
+    created_on timestamp default current_timestamp,
     updated_on timestamp default current_timestamp,
     primary key (id)
 );
@@ -60,7 +60,7 @@ create table service_expertise (
     description varchar(250),
     life_time_month int,
     status enum('ACTIVE', 'INACTIVE'),
-    create_on timestamp default current_timestamp,
+    created_on timestamp default current_timestamp,
     updated_on timestamp default current_timestamp,
     primary key (id)
 );
@@ -69,7 +69,7 @@ create table opn_track (
     id bigint unsigned not null auto_increment,
     name varchar(20),
     status enum('ACTIVE', 'INACTIVE'),
-    create_on timestamp default current_timestamp,
+    created_on timestamp default current_timestamp,
     updated_on timestamp default current_timestamp,
     primary key (id)
 );
@@ -98,7 +98,7 @@ create table company_and_workload (
     workload_id bigint unsigned not null,
     score numeric(3,2),
     status enum('PASSED', 'FAILED'),
-    create_on timestamp default current_timestamp,
+    created_on timestamp default current_timestamp,
     expiration_date timestamp,
     primary key (id),
     foreign key company_fk (company_id) references company (id) on delete restrict on update cascade,
@@ -136,7 +136,7 @@ create table user_and_expertise (
     expertise_id bigint unsigned not null,
     score numeric(2,2),
     status enum('ACTIVE', 'INACTIVE'),
-    create_on timestamp default current_timestamp,
+    created_on timestamp default current_timestamp,
     expiration_date timestamp,
     primary key (id),
     foreign key user_fk (user_id) references user (id) on delete restrict on update cascade,
