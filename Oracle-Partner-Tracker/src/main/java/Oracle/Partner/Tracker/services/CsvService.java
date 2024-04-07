@@ -1,6 +1,7 @@
 package Oracle.Partner.Tracker.services;
 
 import Oracle.Partner.Tracker.dto.CompanyDTO;
+import Oracle.Partner.Tracker.dto.ExpertiseDTO;
 import Oracle.Partner.Tracker.entities.Company;
 import Oracle.Partner.Tracker.repositories.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,29 +9,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.opencsv.CSVReader;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CsvService {
-
-
     @Autowired
     private CompanyRepository companyRepository;
 
     @Autowired
     private CompanyService companyService;
 
+    @Autowired
+    private ExpertiseService expertiseService;
 
     public List<CompanyDTO> processCsv(MultipartFile file) {
         try {
-
             List<String[]> csvData = readCsvData(file);
-
             return companyService.mapCsvToCompanies(csvData);
         } catch (Exception e) {
             e.printStackTrace();
@@ -38,6 +35,9 @@ public class CsvService {
         }
     }
 
+    public List<ExpertiseDTO> processCsvExpertise(MultipartFile file){
+        return expertiseService.mapCsvToExpertise(file);
+    }
 
     private List<String[]> readCsvData(MultipartFile file) throws Exception {
 
@@ -50,10 +50,4 @@ public class CsvService {
         reader.close();
         return csvData;
     }
-
-
-
-
-
-
 }
