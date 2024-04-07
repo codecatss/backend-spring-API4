@@ -74,9 +74,12 @@ public class ExpertiseService {
                     break;
                 case "life time month":
                     expertiseDTO.setLifeTimeMonth(Integer.valueOf(row));
+                    break;
                 case "status":
                     expertiseDTO.setStatus(Status.toStatus(row));
+                    break;
                 default:
+                    expertiseDTO.setStatus(Status.ACTIVE);
                     break;
             }
         }

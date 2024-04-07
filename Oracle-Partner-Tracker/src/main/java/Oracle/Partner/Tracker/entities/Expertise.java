@@ -34,6 +34,7 @@ public class Expertise {
     private Integer lifeTimeMonth;
 
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     @Column(name = "created_at")
