@@ -86,7 +86,12 @@ public class OpnTrackService implements GenericService<OpnTrackDTO> {
             opnTrackDTO.setStatus(Status.ACTIVE);
         }
         opnTrack.setStatus(opnTrackDTO.getStatus());
-        opnTrack.setCreatedAt(LocalDateTime.now());
+        if(opnTrackDTO.getCreatedAt() == null || opnTrackDTO.getCreatedAt().toString().isBlank()){
+            opnTrack.setCreatedAt(LocalDateTime.now());
+        }else{
+            opnTrack.setCreatedAt(opnTrackDTO.getCreatedAt());
+        }
+        opnTrack.setUpdatedAt(LocalDateTime.now());
     }
 
     @Override
