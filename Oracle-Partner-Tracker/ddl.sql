@@ -70,7 +70,7 @@ create table service_expertise (
 
 create table opn_track (
     id bigint unsigned not null auto_increment,
-    name varchar(20),
+    name varchar(50),
     ingestion_operation enum('CSV', 'MANUAL'),
     status enum('ACTIVE', 'INACTIVE'),
     created_at timestamp default current_timestamp,
