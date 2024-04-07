@@ -1,5 +1,7 @@
 package Oracle.Partner.Tracker.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,14 +16,14 @@ public class OpnTrackService {
     @Autowired
     private OpnTrackRepository opnTrackRepository;
 
-    public OpnTrackDTO findOpnTrackById(String id){
+    public OpnTrackDTO findOpnTrackById(Long id){
         OpnTrack opnTrack = opnTrackRepository.findById(id).get();
         return new OpnTrackDTO(opnTrack);
     }
 
-    public OpnTrackDTO findOpnTrackByName(String name){
+    public Optional<OpnTrackDTO> findOpnTrackByName(String name){
         OpnTrack opnTrack = opnTrackRepository.findByName(name);
-        return new OpnTrackDTO(opnTrack);
+        return Optional.ofNullable(opnTrack).map(OpnTrackDTO::new);
     }
 
     public Page<OpnTrackDTO> findAllOpnTracks(Pageable pageable){
@@ -43,7 +45,7 @@ public class OpnTrackService {
 
     }
 
-    public OpnTrackDTO updateOpnTrack(String id, OpnTrackDTO opnTrackDTO){
+    public OpnTrackDTO updateOpnTrack(Long id, OpnTrackDTO opnTrackDTO){
         OpnTrack opnTrack = opnTrackRepository.findById(id).orElseThrow(
             () -> new RuntimeException("OPN Track não encontrada com o id: " + id)
             );
@@ -52,7 +54,7 @@ public class OpnTrackService {
         return new OpnTrackDTO(opnTrack);
     }
 
-    public void disableOpnTrack(String id){
+    public void disableOpnTrack(Long id){
         OpnTrack opnTrack = opnTrackRepository.findById(id).orElseThrow(
             () -> new RuntimeException("OPN Track não encontrada com o id: " + id)
             );
@@ -60,7 +62,7 @@ public class OpnTrackService {
         opnTrackRepository.save(opnTrack);
     }
 
-    public void enableOpnTrack(String id){
+    public void enableOpnTrack(Long id){
         OpnTrack opnTrack = opnTrackRepository.findById(id).orElseThrow(
             () -> new RuntimeException("OPN Track não encontrada com o id: " + id)
             );
