@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class OpnTrackDTO {
 
     @Schema(description = "ID da OPN Track", example = "123")
-    private String id;
+    private Long id;
 
     @Schema(description = "Nome da OPN Track", example = "CLOUD BUILD")
     private String name;
