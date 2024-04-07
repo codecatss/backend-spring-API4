@@ -30,12 +30,16 @@ public class OpnTrackDTO {
     @Schema(description = "Data de criação da OpnTrack", example = "2022-01-01T12:00:00")
     private LocalDateTime createdAt;
 
+    @Schema(description = "Data de atualização da OpnTrack", example = "2022-01-01T12:00:00")
+    private LocalDateTime updatedAt;
+
     public OpnTrackDTO(OpnTrack entity){
         this.id = entity.getId();
         this.name = entity.getName();
         this.ingestionOperation = entity.getIngestionOperation();
         this.status = entity.getStatus();
         this.createdAt = entity.getCreatedAt();
+        this.updatedAt = entity.getUpdatedAt();
     }
     
 }
