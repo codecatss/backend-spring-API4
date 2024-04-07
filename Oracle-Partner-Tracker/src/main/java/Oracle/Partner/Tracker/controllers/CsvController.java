@@ -28,8 +28,9 @@ public class CsvController {
             return ResponseEntity.badRequest().body(null);
         }
 
-        List<CompanyDTO> companies = csvService.processCsv(file);
-//        List<ExpertiseDTO> expertises = csvService.processCsv(file);
+//        List<CompanyDTO> companies = csvService.processCsv(file);
+        List<CompanyDTO> companies = null;
+        List<ExpertiseDTO> expertises = csvService.processCsvExpertise(file);
 
         if (companies != null) {
             return ResponseEntity.ok(companies);
