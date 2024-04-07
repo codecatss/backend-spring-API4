@@ -1,6 +1,8 @@
 package Oracle.Partner.Tracker.services;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +75,48 @@ public class OpnTrackService {
 
     private void copyDTOtoEntity(OpnTrackDTO opnTrackDTO, OpnTrack opnTrack){
         opnTrack.setName(opnTrackDTO.getName());
+        if (opnTrackDTO.getOpnTrackStatus() == null || opnTrackDTO.getOpnTrackStatus()){
+            opnTrack.setOpnTrackStatus(true);
+        } else {
+            opnTrack.setOpnTrackStatus(opnTrackDTO.getOpnTrackStatus());
+        }
         opnTrack.setOpnTrackStatus(opnTrackDTO.getOpnTrackStatus());
         opnTrack.setCreatedAt(LocalDateTime.now());
     }
+
+    public List<OpnTrackDTO> mapCsvToOpnTracks(List<String[]> csvData){
+        String[] header = csvData.get(0);
+        List<OpnTrackDTO> opnTracks = new ArrayList<>();
+
+        for (int i = 1; i < csvData.size(); i++){
+            String[] row = csvData.get(i);
+
+            OpnTrackDTO opnTrackDTO = mapRowToOpnTrack(row, header);
+            opnTracks.add(opnTrackDTO);
+        }
+        return opnTracks;
+    }
+
+    public OpnTrackDTO mapRowToOpnTrack(String[] row, String[] header){
+        OpnTrackDTO opnTrackDTO = new OpnTrackDTO();
+        
+        for (int j = 0; j < header.length; j++){
+            switch (header[j]){
+                case "OpnTrack Name":
+                    opnTrackDTO.setName(row[j]);
+                    break;
+                case "OpnTrack Status":
+                    opnTrackDTO.setOpnTrackStatus(Boolean.parseBoolean(row[j]));
+                    break;
+            }
+        }
+
+        OpnTrack opnTrack = new OpnTrack();
+        copyDTOtoEntity(opnTrackDTO, opnTrack);
+
+        opnTrackRepository.save(opnTrack);
+
+        return new OpnTrackDTO(opnTrack);
+    }
+
 }
