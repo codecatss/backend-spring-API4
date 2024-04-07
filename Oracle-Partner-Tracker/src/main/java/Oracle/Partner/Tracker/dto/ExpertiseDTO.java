@@ -10,9 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ExpertiseDTO {
-//    @Schema(description = "ID da expertise", example = "1")
-//    private String id;
-
     @Schema(description = "Nome da expertise", example = "Expertise XYZ")
     private String name;
 
