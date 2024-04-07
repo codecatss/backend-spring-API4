@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -23,4 +25,7 @@ public class OpnTrack {
 
     @Column(name = "opn_track_status", nullable = false, length = 20)
     private Boolean opnTrackStatus;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 }
