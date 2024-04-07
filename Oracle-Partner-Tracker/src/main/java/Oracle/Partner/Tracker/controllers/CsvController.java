@@ -2,7 +2,6 @@ package Oracle.Partner.Tracker.controllers;
 
 import Oracle.Partner.Tracker.dto.CompanyDTO;
 import Oracle.Partner.Tracker.dto.ExpertiseDTO;
-import Oracle.Partner.Tracker.entities.Company;
 import Oracle.Partner.Tracker.services.CsvService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,10 +28,23 @@ public class CsvController {
         }
 
         List<CompanyDTO> companies = csvService.processCsv(file);
-        List<ExpertiseDTO> expertises = csvService.processCsvExpertise(file);
-
         if (companies != null) {
             return ResponseEntity.ok(companies);
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @PostMapping("/api/import-expertise-csv")
+    public ResponseEntity<List<ExpertiseDTO>> importExpertiseCsv(@RequestParam("file") MultipartFile file) {
+        if (file == null || file.isEmpty()) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
+        List<ExpertiseDTO> expertises = csvService.processCsvExpertise(file);
+
+        if (expertises != null) {
+            return ResponseEntity.ok(expertises);
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
