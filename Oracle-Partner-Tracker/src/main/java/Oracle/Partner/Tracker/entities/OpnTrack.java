@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+import Oracle.Partner.Tracker.util.Status;
+import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -20,11 +23,16 @@ public class OpnTrack {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = true, length = 20)
+    @Column(name = "name", nullable = false, length = 50)
     private String name;
 
-    @Column(name = "opn_track_status", nullable = false, length = 20)
-    private Boolean opnTrackStatus;
+    @Column(name = "ingestion_operation", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private IngestionOperation ingestionOperation;
+
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
