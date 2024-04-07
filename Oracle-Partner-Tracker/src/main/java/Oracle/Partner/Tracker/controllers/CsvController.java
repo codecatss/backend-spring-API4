@@ -1,6 +1,7 @@
 package Oracle.Partner.Tracker.controllers;
 
 import Oracle.Partner.Tracker.dto.CompanyDTO;
+import Oracle.Partner.Tracker.dto.ExpertiseDTO;
 import Oracle.Partner.Tracker.dto.OpnTrackDTO;
 import Oracle.Partner.Tracker.services.CompanyCsvService;
 import Oracle.Partner.Tracker.services.OpnTrackCsvService;
@@ -32,6 +33,8 @@ public class CsvController {
         }
 
         List<OpnTrackDTO> opnTracks = opnTrackCsvService.processCsv(file);
+        List<ExpertiseDTO> expertises = csvService.processCsvExpertise(file);
+
         List<CompanyDTO> companies = companyCsvService.processCsv(file);
         
         

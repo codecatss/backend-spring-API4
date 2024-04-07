@@ -7,27 +7,27 @@ create schema oracle_partner_network;
 create user 'admin'@'localhost' identified by 'Root12345!';
 
 -- Grant section
-grant create, select, insert, delete, update on oracle_partner_network.* to 'admin'@'localhost';
+grant select, insert, delete, update, create on oracle_partner_network.* to 'admin'@'localhost';
 
 use oracle_partner_network;
 
 -- Create table section
 create table user (
-    id varchar(50) not null,
+    id bigint unsigned not null auto_increment,
     email varchar(50) unique,
     password varchar(100) not null,
     name varchar(50),
-    role varchar(50),
-    membership_type varchar(10),
-    user_status varchar(5),
-    create_on timestamp default current_timestamp,
-    constraint ck_role check (UPPER(role) IN ('ADM', 'USER')),
-    constraint ck_membership_type check (UPPER(membership_type) IN ('PRINCIPAL', 'WORLDWIDE')),
+    role enum('ADM', 'USER'),
+    membership_type enum('PRINCIPAL', 'WORLDWIDE'),
+    ingestion_operation enum('CSV', 'MANUAL'),
+    status enum('ACTIVE', 'INACTIVE'),
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp,
     primary key (id)
 );
 
 create table company (
-    id varchar(50) not null,
+    id bigint unsigned not null auto_increment,
     name varchar(50),
     slogan varchar(200),
     credit_hold boolean,
@@ -37,91 +37,93 @@ create table company (
     city varchar(100),
     address varchar(200),
     zip_code varchar(10),
-    opn_status boolean,
-    company_status boolean,
-    create_on timestamp default current_timestamp,
+    opn_status enum('MEMBER', 'EXPIRED'),
+    ingestion_operation enum('CSV', 'MANUAL'),
+    status enum('ACTIVE', 'INACTIVE'),
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp,
     primary key (id)
 );
 
 create table workload (
-    id varchar(50) not null,
+    id bigint unsigned not null auto_increment,
     name varchar(100) unique,
     description varchar(250),
+    ingestion_operation enum('CSV', 'MANUAL'),
+    status enum('ACTIVE', 'INACTIVE'),
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp,
     primary key (id)
 );
 
 create table service_expertise (
-    id varchar(50) not null,
-    name varchar(100),
+    id bigint unsigned not null auto_increment,
+    name varchar(100) unique,
     description varchar(250),
-    min_score int,
-    max_score int,
     life_time_month int,
+    ingestion_operation enum('CSV', 'MANUAL'),
+    status enum('ACTIVE', 'INACTIVE'),
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp,
     primary key (id)
 );
 
 create table opn_track (
-    id int auto_increment,
+    id bigint unsigned not null auto_increment,
     name varchar(20),
-    opn_track_status varchar(20),
+    ingestion_operation enum('CSV', 'MANUAL'),
+    status enum('ACTIVE', 'INACTIVE'),
     created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp,
     primary key (id)
 );
 
-create table user_and_company (
-    id varchar(50) not null,
-    user_id varchar(50) not null unique,
-    company_id varchar(50) not null,
+create table company_and_user (
+    id bigint unsigned not null auto_increment,
+    company_id bigint unsigned not null,
+    user_id bigint unsigned not null unique,
     primary key (id),
-    foreign key user_fk (user_id) references user (id) on delete restrict on update cascade,
-    foreign key company_fk (company_id) references company (id) on delete restrict on update cascade
+    foreign key company_fk (company_id) references company (id) on delete restrict on update cascade,
+    foreign key user_fk (user_id) references user (id) on delete restrict on update cascade
 );
 
-create table user_and_expertise (
-    id varchar(50) not null,
-    user_id varchar(50) not null,
-    expertise_id varchar(50) not null,
-    score numeric(2,2),
-    status boolean,
-    create_on timestamp default current_timestamp,
+create table company_and_opn_track (
+    id bigint unsigned not null auto_increment,
+    company_id bigint unsigned not null,
+    opn_track_id bigint unsigned not null,
+    primary key (id),
+    foreign key company_fk (company_id) references company (id) on delete restrict on update cascade,
+    foreign key opn_track_fk (opn_track_id) references opn_track (id) on delete restrict on update cascade
+);
+
+create table company_and_workload (
+    id bigint unsigned not null auto_increment,
+    company_id bigint unsigned not null,
+    workload_id bigint unsigned not null,
+    score numeric(3,2),
+    status enum('PASSED', 'IN PROGRESS', 'EXPIRED'),
+    created_at timestamp default current_timestamp,
     expiration_date timestamp,
     primary key (id),
-    foreign key user_fk (user_id) references user (id) on delete restrict on update cascade,
-    foreign key service_expertise_fk (expertise_id) references service_expertise (id) on delete restrict on update cascade
-);
-
-create table opn_track_and_expertise (
-    id varchar(50) not null,
-    opn_track_id int not null,
-    expertise_id varchar(50) not null,
-    primary key (id),
-    foreign key opn_track_fk (opn_track_id) references opn_track (id) on delete restrict on update cascade,
-    foreign key service_expertise_fk (expertise_id) references service_expertise (id) on delete restrict on update cascade
-);
-
-create table opn_track_and_company (
-    id varchar(50) not null,
-    opn_track_id int not null,
-    company_id varchar(50) not null,
-    primary key (id),
-    foreign key opn_track_fk (opn_track_id) references opn_track (id) on delete restrict on update cascade,
-    foreign key company_fk (company_id) references company (id) on delete restrict on update cascade
-);
-
-create table opn_track_and_workload (
-    id varchar(50) not null,
-    opn_track_id int not null,
-    workload_id varchar(50) not null,
-    primary key (id),
-    foreign key opn_track_fk (opn_track_id) references opn_track (id) on delete restrict on update cascade,
+    foreign key company_fk (company_id) references company (id) on delete restrict on update cascade,
     foreign key workload_fk (workload_id) references workload (id) on delete restrict on update cascade
 );
 
+create table opn_track_and_expertise (
+    id bigint unsigned not null auto_increment,
+    opn_track_id bigint unsigned not null,
+    expertise_id bigint unsigned not null,
+    primary key (id),
+    foreign key opn_track_fk (opn_track_id) references opn_track (id) on delete restrict on update cascade,
+    foreign key service_expertise_fk (expertise_id) references service_expertise (id) on delete restrict on update cascade
+);
+
 create table workload_and_expertise (
-    id varchar(50) not null,
-    workload_id varchar(50) not null,
-    expertise_id varchar(50) not null,
+    id bigint unsigned not null auto_increment,
+    workload_id bigint unsigned not null,
+    expertise_id bigint unsigned not null,
     primary key (id),
     foreign key workload_fk (workload_id) references workload (id) on delete restrict on update cascade,
     foreign key service_expertise_fk (expertise_id) references service_expertise (id) on delete restrict on update cascade
 );
+
