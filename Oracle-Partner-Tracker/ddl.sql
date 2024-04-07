@@ -7,7 +7,7 @@ create schema oracle_partner_network;
 create user 'admin'@'localhost' identified by 'Root12345!';
 
 -- Grant section
-grant select, insert, delete, update on oracle_partner_network.* to 'admin'@'localhost';
+grant create, select, insert, delete, update on oracle_partner_network.* to 'admin'@'localhost';
 
 use oracle_partner_network;
 
@@ -61,9 +61,10 @@ create table service_expertise (
 );
 
 create table opn_track (
-    id varchar(50) not null,
+    id int auto_increment,
     name varchar(20),
-    constraint ck_opn_track_name check (UPPER(name) IN ('CLOUD BUILD','CLOUD BUILD & SERVICE','CLOUD SELL','CLOUD SELL & SERVICE','CLOUD SERVICE','INDUSTRY HEALTHCARE','LICENSE AND HARDWARE','OPN MEMBER')),
+    opn_track_status varchar(20),
+    created_at timestamp default current_timestamp,
     primary key (id)
 );
 
@@ -91,7 +92,7 @@ create table user_and_expertise (
 
 create table opn_track_and_expertise (
     id varchar(50) not null,
-    opn_track_id varchar(50) not null,
+    opn_track_id int not null,
     expertise_id varchar(50) not null,
     primary key (id),
     foreign key opn_track_fk (opn_track_id) references opn_track (id) on delete restrict on update cascade,
@@ -100,7 +101,7 @@ create table opn_track_and_expertise (
 
 create table opn_track_and_company (
     id varchar(50) not null,
-    opn_track_id varchar(50) not null,
+    opn_track_id int not null,
     company_id varchar(50) not null,
     primary key (id),
     foreign key opn_track_fk (opn_track_id) references opn_track (id) on delete restrict on update cascade,
@@ -109,7 +110,7 @@ create table opn_track_and_company (
 
 create table opn_track_and_workload (
     id varchar(50) not null,
-    opn_track_id varchar(50) not null,
+    opn_track_id int not null,
     workload_id varchar(50) not null,
     primary key (id),
     foreign key opn_track_fk (opn_track_id) references opn_track (id) on delete restrict on update cascade,
