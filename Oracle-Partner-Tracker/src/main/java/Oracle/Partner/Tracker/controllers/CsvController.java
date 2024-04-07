@@ -1,37 +1,44 @@
 package Oracle.Partner.Tracker.controllers;
 
 import Oracle.Partner.Tracker.dto.CompanyDTO;
-import Oracle.Partner.Tracker.entities.Company;
-import Oracle.Partner.Tracker.services.CsvService;
-import org.springframework.http.HttpStatus;
+import Oracle.Partner.Tracker.dto.OpnTrackDTO;
+import Oracle.Partner.Tracker.services.CompanyCsvService;
+import Oracle.Partner.Tracker.services.OpnTrackCsvService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class CsvController {
 
-    private final CsvService csvService;
-
-    public CsvController(CsvService csvService) {
-        this.csvService = csvService;
-    }
+    @Autowired
+    private CompanyCsvService companyCsvService;
+    
+    @Autowired
+    private OpnTrackCsvService opnTrackCsvService;
 
     @PostMapping("/api/import-csv")
-    public ResponseEntity<List<CompanyDTO>> importCsv(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<Map<String, List<?>>> importCsv(@RequestParam("file") MultipartFile file) {
         if (file == null || file.isEmpty()) {
             return ResponseEntity.badRequest().body(null);
         }
 
-        List<CompanyDTO> companies = csvService.processCsv(file);
-        if (companies != null) {
-            return ResponseEntity.ok(companies);
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
+        List<OpnTrackDTO> opnTracks = opnTrackCsvService.processCsv(file);
+        List<CompanyDTO> companies = companyCsvService.processCsv(file);
+        
+        
+        Map<String, List<?>> response = new HashMap<>();
+        response.put("companies", companies);
+        response.put("opnTracks", opnTracks);
+    
+        return ResponseEntity.ok(response);
     }
 }
