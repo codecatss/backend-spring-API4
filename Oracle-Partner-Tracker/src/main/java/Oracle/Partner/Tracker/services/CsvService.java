@@ -1,37 +1,27 @@
 package Oracle.Partner.Tracker.services;
 
-import Oracle.Partner.Tracker.dto.CompanyDTO;
-import Oracle.Partner.Tracker.entities.Company;
-import Oracle.Partner.Tracker.repositories.CompanyRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.opencsv.CSVReader;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
-@Service
-public class CsvService {
+public abstract class CsvService<T> {
 
+    protected final GenericService<T> service;
 
-    @Autowired
-    private CompanyRepository companyRepository;
+    public CsvService(GenericService<T> service) {
+        this.service = service;
+    }
 
-    @Autowired
-    private CompanyService companyService;
-
-
-    public List<CompanyDTO> processCsv(MultipartFile file) {
+    public List<T> processCsv(MultipartFile file) {
         try {
 
             List<String[]> csvData = readCsvData(file);
 
-            return companyService.mapCsvToCompanies(csvData);
+            return service.mapCsvToEntities(csvData);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -50,10 +40,5 @@ public class CsvService {
         reader.close();
         return csvData;
     }
-
-
-
-
-
 
 }
