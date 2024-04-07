@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -24,7 +25,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
@@ -69,7 +69,7 @@ public class OpnTrackController {
             description = "OpnTrack not found"
         )
     })
-    public ResponseEntity<OpnTrackDTO> getOpnTrackById(@PathVariable String id){
+    public ResponseEntity<OpnTrackDTO> getOpnTrackById(@PathVariable Long id){
         OpnTrackDTO opnTrackDTO = opnTrackService.findOpnTrackById(id);
         if (opnTrackDTO != null){
             return new ResponseEntity<>(opnTrackDTO, HttpStatus.OK);
@@ -94,7 +94,7 @@ public class OpnTrackController {
         )
     })
     public ResponseEntity<OpnTrackDTO> insertOpnTrack(@RequestBody OpnTrackDTO opnTrackDTO){
-        Optional<OpnTrackDTO> optionalOpnTrack= Optional.ofNullable(opnTrackService.findOpnTrackByName(opnTrackDTO.getName()));
+        Optional<OpnTrackDTO> optionalOpnTrack= opnTrackService.findOpnTrackByName(opnTrackDTO.getName());
         if (optionalOpnTrack.isPresent()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -113,7 +113,7 @@ public class OpnTrackController {
             schema = @Schema(implementation = OpnTrackDTO.class)
         )
     )
-    public ResponseEntity<OpnTrackDTO> updateOpnTrack(@PathVariable String id, @RequestBody OpnTrackDTO opnTrackDTO){
+    public ResponseEntity<OpnTrackDTO> updateOpnTrack(@PathVariable Long id, @RequestBody OpnTrackDTO opnTrackDTO){
         opnTrackDTO = opnTrackService.updateOpnTrack(id, opnTrackDTO);
         return new ResponseEntity<>(opnTrackDTO, HttpStatus.OK);
     }
@@ -124,7 +124,7 @@ public class OpnTrackController {
         responseCode = "204",
         description = "OpnTrack disabled"
     )
-    public ResponseEntity<Void> disableOpnTrack(@PathVariable String id){
+    public ResponseEntity<Void> disableOpnTrack(@PathVariable Long id){
         opnTrackService.disableOpnTrack(id);
         return ResponseEntity.noContent().build();
     }
@@ -135,7 +135,7 @@ public class OpnTrackController {
         responseCode = "204",
         description = "OpnTrack enabled"
     )
-    public ResponseEntity<Void> enableOpnTrack(@PathVariable String id){
+    public ResponseEntity<Void> enableOpnTrack(@PathVariable Long id){
         opnTrackService.enableOpnTrack(id);
         return ResponseEntity.noContent().build();
     }
