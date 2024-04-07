@@ -17,13 +17,10 @@ create table user (
     email varchar(50) unique,
     password varchar(100) not null,
     name varchar(50),
-    role varchar(50),
-    membership_type varchar(10),
-    status varchar(10),
+    role enum('ADM', 'USER'),
+    membership_type enum('PRINCIPAL', 'WORLDWIDE'),
+    status enum('ACTIVE', 'INACTIVE'),
     create_on timestamp default current_timestamp,
-    constraint ck_role check (role IN ('ADM', 'USER')),
-    constraint ck_user_status check (status IN ('ACTIVE', 'INACTIVE')),
-    constraint ck_membership_type check (UPPER(membership_type) IN ('PRINCIPAL', 'WORLDWIDE')),
     primary key (id)
 );
 
@@ -38,10 +35,8 @@ create table company (
     city varchar(100),
     address varchar(200),
     zip_code varchar(10),
-    opn_status varchar(15),
-    status varchar(10),
-    constraint ck_company_status check (status IN ('ACTIVE', 'INACTIVE')),
-    constraint ck_opn_status check (opn_status IN ('MEMBER')),
+    opn_status enum('MEMBER'),
+    status enum('ACTIVE', 'INACTIVE'),
     create_on timestamp default current_timestamp,
     primary key (id)
 );
@@ -50,8 +45,7 @@ create table workload (
     id bigint unsigned not null auto_increment,
     name varchar(100) unique,
     description varchar(250),
-    status varchar(10),
-    constraint ck_workload_status check (status IN ('ACTIVE', 'INACTIVE')),
+    status enum('ACTIVE', 'INACTIVE'),
     primary key (id)
 );
 
@@ -67,8 +61,7 @@ create table service_expertise (
 create table opn_track (
     id bigint unsigned not null auto_increment,
     name varchar(20),
-    status varchar(10),
-    constraint ck_opn_track_status check (status IN ('ACTIVE', 'INACTIVE')),
+    status enum('ACTIVE', 'INACTIVE'),
     primary key (id)
 );
 
@@ -86,10 +79,9 @@ create table user_and_expertise (
     user_id bigint unsigned not null,
     expertise_id bigint unsigned not null,
     score numeric(2,2),
-    status varchar(10),
+    status enum('ACTIVE', 'INACTIVE'),
     create_on timestamp default current_timestamp,
     expiration_date timestamp,
-    constraint ck_user_and_expertise_status check (status IN ('ACTIVE', 'INACTIVE')),
     primary key (id),
     foreign key user_fk (user_id) references user (id) on delete restrict on update cascade,
     foreign key service_expertise_fk (expertise_id) references service_expertise (id) on delete restrict on update cascade
