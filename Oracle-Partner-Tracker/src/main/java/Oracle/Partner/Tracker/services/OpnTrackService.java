@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import Oracle.Partner.Tracker.dto.OpnTrackDTO;
 import Oracle.Partner.Tracker.entities.OpnTrack;
 import Oracle.Partner.Tracker.repositories.OpnTrackRepository;
+import Oracle.Partner.Tracker.util.Status;
+import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
 
 @Service
 public class OpnTrackService implements GenericService<OpnTrackDTO> {
@@ -65,7 +67,7 @@ public class OpnTrackService implements GenericService<OpnTrackDTO> {
         OpnTrack opnTrack = opnTrackRepository.findById(id).orElseThrow(
             () -> new RuntimeException("OPN Track não encontrada com o id: " + id)
             );
-        opnTrack.setOpnTrackStatus(false);
+        opnTrack.setStatus(Status.INACTIVE);
         opnTrackRepository.save(opnTrack);
     }
 
@@ -73,17 +75,17 @@ public class OpnTrackService implements GenericService<OpnTrackDTO> {
         OpnTrack opnTrack = opnTrackRepository.findById(id).orElseThrow(
             () -> new RuntimeException("OPN Track não encontrada com o id: " + id)
             );
-        opnTrack.setOpnTrackStatus(true);
+        opnTrack.setStatus(Status.ACTIVE);
         opnTrackRepository.save(opnTrack);
     }
 
     private void copyDTOtoEntity(OpnTrackDTO opnTrackDTO, OpnTrack opnTrack){
         opnTrack.setName(opnTrackDTO.getName());
-        if (opnTrackDTO.getOpnTrackStatus() == null || opnTrackDTO.getOpnTrackStatus()){
-            opnTrackDTO.setOpnTrackStatus(Boolean.TRUE);
+        opnTrack.setIngestionOperation(opnTrackDTO.getIngestionOperation());
+        if (opnTrackDTO.getStatus() == null || opnTrackDTO.getStatus().name().isBlank()){
+            opnTrackDTO.setStatus(Status.ACTIVE);
         }
-        opnTrack.setOpnTrackStatus(opnTrackDTO.getOpnTrackStatus());
-        opnTrack.setOpnTrackStatus(opnTrackDTO.getOpnTrackStatus());
+        opnTrack.setStatus(opnTrackDTO.getStatus());
         opnTrack.setCreatedAt(LocalDateTime.now());
     }
 
@@ -107,12 +109,13 @@ public class OpnTrackService implements GenericService<OpnTrackDTO> {
         OpnTrackDTO opnTrackDTO = new OpnTrackDTO();
         
         for (int j = 0; j < header.length; j++){
+            opnTrackDTO.setIngestionOperation(IngestionOperation.CSV);
             switch (header[j]){
                 case "OPN Track":
                     opnTrackDTO.setName(row[j]);
                     break;
                 case "OpnTrack Status":
-                    opnTrackDTO.setOpnTrackStatus(Boolean.parseBoolean(row[j]));
+                    opnTrackDTO.setStatus(Status.toStatus(row[j]));
                     break;
             }
         }
