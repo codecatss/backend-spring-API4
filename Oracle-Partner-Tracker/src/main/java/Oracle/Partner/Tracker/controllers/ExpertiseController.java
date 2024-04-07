@@ -17,10 +17,10 @@ import java.util.UUID;
 @RequestMapping(value = "/expertise")
 public class ExpertiseController {
     @Autowired
-    ExpertiseRepository expertiseRepository;
+    private ExpertiseRepository expertiseRepository;
 
     @Autowired
-    ExpertiseService expertiseService;
+    private ExpertiseService expertiseService;
 
     @GetMapping
     public List<Expertise> getAllExpertise(){

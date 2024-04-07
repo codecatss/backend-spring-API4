@@ -1,6 +1,7 @@
 package Oracle.Partner.Tracker.controllers;
 
 import Oracle.Partner.Tracker.dto.CompanyDTO;
+import Oracle.Partner.Tracker.dto.ExpertiseDTO;
 import Oracle.Partner.Tracker.entities.Company;
 import Oracle.Partner.Tracker.services.CsvService;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,8 @@ public class CsvController {
         }
 
         List<CompanyDTO> companies = csvService.processCsv(file);
+//        List<ExpertiseDTO> expertises = csvService.processCsv(file);
+
         if (companies != null) {
             return ResponseEntity.ok(companies);
         } else {

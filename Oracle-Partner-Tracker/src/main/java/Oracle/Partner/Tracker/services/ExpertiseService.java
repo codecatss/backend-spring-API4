@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class ExpertiseService {
     @Autowired
-    ExpertiseRepository expertiseRepository;
+    private ExpertiseRepository expertiseRepository;
 
     public void saveExpertise(ExpertiseDTO expertiseDTO){
         expertiseRepository.save(new Expertise(expertiseDTO));
