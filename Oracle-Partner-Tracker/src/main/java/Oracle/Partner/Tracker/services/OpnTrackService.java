@@ -1,5 +1,6 @@
 package Oracle.Partner.Tracker.services;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,5 +74,6 @@ public class OpnTrackService {
     private void copyDTOtoEntity(OpnTrackDTO opnTrackDTO, OpnTrack opnTrack){
         opnTrack.setName(opnTrackDTO.getName());
         opnTrack.setOpnTrackStatus(opnTrackDTO.getOpnTrackStatus());
+        opnTrack.setCreatedAt(LocalDateTime.now());
     }
 }
