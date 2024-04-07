@@ -20,9 +20,7 @@ create table user (
     role enum('ADM', 'USER'),
     membership_type enum('PRINCIPAL', 'WORLDWIDE'),
     status enum('ACTIVE', 'INACTIVE'),
-    create_on timestamp default current_timestamp,
-    primary key (id)
-);
+};
 
 create table company (
     id bigint unsigned not null auto_increment,
