@@ -1,6 +1,7 @@
 package Oracle.Partner.Tracker.controllers;
 
 import java.net.URI;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -69,9 +70,9 @@ public class OpnTrackController {
         )
     })
     public ResponseEntity<OpnTrackDTO> getOpnTrackById(@PathVariable Long id){
-        OpnTrackDTO opnTrackDTO = opnTrackService.findOpnTrackById(id);
+        Optional<OpnTrackDTO> opnTrackDTO = opnTrackService.findOpnTrackById(id);
         if (opnTrackDTO != null){
-            return new ResponseEntity<>(opnTrackDTO, HttpStatus.OK);
+            return new ResponseEntity<>(opnTrackDTO.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
