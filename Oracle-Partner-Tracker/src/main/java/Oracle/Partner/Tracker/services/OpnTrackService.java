@@ -26,9 +26,14 @@ public class OpnTrackService extends CsvService<OpnTrackDTO>{
         this.opnTrackRepository = opnTrackRepository;
     }
 
+    public Optional<OpnTrackDTO> findOpnTrackById(Long id){
+        Optional<OpnTrack> opnTrack = opnTrackRepository.findById(id);
+        return Optional.ofNullable(opnTrack).orElse(null).map(OpnTrackDTO::new);
+    }
+
     public Optional<OpnTrackDTO> findOpnTrackByName(String name){
-        OpnTrack opnTrack = opnTrackRepository.findByName(name);
-        return Optional.ofNullable(opnTrack).map(OpnTrackDTO::new);
+        Optional<OpnTrack> opnTrack = Optional.ofNullable(opnTrackRepository.findByName(name));
+        return Optional.ofNullable(opnTrack).orElse(null).map(OpnTrackDTO::new);
     }
 
     public Page<OpnTrackDTO> findAllOpnTracks(Pageable pageable){
