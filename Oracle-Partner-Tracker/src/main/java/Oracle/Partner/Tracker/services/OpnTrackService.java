@@ -17,13 +17,13 @@ import Oracle.Partner.Tracker.util.Status;
 import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
 
 @Service
-public class OpnTrackService implements GenericService<OpnTrackDTO> {
-    @Autowired
+public class OpnTrackService extends CsvService<OpnTrackDTO>{
+
     private OpnTrackRepository opnTrackRepository;
 
-    public OpnTrackDTO findOpnTrackById(Long id){
-        OpnTrack opnTrack = opnTrackRepository.findById(id).get();
-        return new OpnTrackDTO(opnTrack);
+    @Autowired
+    public void setOpnTrackRepository(OpnTrackRepository opnTrackRepository) {
+        this.opnTrackRepository = opnTrackRepository;
     }
 
     public Optional<OpnTrackDTO> findOpnTrackByName(String name){
