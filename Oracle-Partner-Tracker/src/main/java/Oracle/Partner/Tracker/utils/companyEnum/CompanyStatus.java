@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public enum CompanyStatus {
-    ACTIVE("Active"),INACTIVE("Inactive");
+    ACTIVE("ACTIVE"),INACTIVE("INACTIVE");
 
     private String status;
 }
