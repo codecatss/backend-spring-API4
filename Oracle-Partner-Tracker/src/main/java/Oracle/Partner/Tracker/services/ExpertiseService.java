@@ -1,5 +1,6 @@
 package Oracle.Partner.Tracker.services;
 
+import Oracle.Partner.Tracker.dto.OpnTrackDTO;
 import Oracle.Partner.Tracker.util.Status;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +14,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class ExpertiseService {
+public class ExpertiseService extends CsvService<ExpertiseDTO>{
     @Autowired
     private ExpertiseRepository expertiseRepository;
 
@@ -90,5 +92,21 @@ public class ExpertiseService {
         catch (Exception error){}
 
         return expertiseDTO;
+    }
+
+    @Override
+    public List<ExpertiseDTO> mapCsvToEntities(List<String[]> csvData) {
+        String[] header = csvData.get(0);
+        List<ExpertiseDTO> expertises = new ArrayList<>();
+
+        for (int i = 1; i < csvData.size(); i++){
+            String[] row = csvData.get(i)[0].split(";");
+
+            ExpertiseDTO expertiseDTO = mapRowToExpertise(row, header);
+            if (expertiseDTO != null){
+                expertises.add(expertiseDTO);
+            }
+        }
+        return expertises;
     }
 }
