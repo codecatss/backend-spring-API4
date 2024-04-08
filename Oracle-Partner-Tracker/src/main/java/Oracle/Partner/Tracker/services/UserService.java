@@ -11,7 +11,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class UserService {
@@ -27,7 +26,7 @@ public class UserService {
         return allUsers;
     }
 
-    public User findUserById(String id) {
+    public User findUserById(Long id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -44,7 +43,7 @@ public class UserService {
         return userRepository.save(newUser);
     }
 
-    public User updateUser(String id, UserDTO userDTO){
+    public User updateUser(Long id, UserDTO userDTO){
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -54,7 +53,7 @@ public class UserService {
         return userRepository.save(userUpdate);
     }
 
-    public void deleteUser(String id) {
+    public void deleteUser(Long id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);

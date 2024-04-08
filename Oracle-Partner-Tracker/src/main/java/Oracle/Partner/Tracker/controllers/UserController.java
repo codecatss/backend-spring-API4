@@ -5,14 +5,10 @@ import Oracle.Partner.Tracker.entities.User;
 import Oracle.Partner.Tracker.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.PublicKey;
 import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/user")
@@ -22,7 +18,7 @@ public class UserController {
     UserService userService;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<User> findbyId(@PathVariable String id){
+    public ResponseEntity<User> findbyId(@PathVariable Long id){
         return ResponseEntity.ok(userService.findUserById(id));
     }
 
@@ -37,14 +33,14 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Object> updateUser(@PathVariable String id,
+    public ResponseEntity<Object> updateUser(@PathVariable Long id,
                                              @RequestBody UserDTO userDTO){
 
         return ResponseEntity.status(HttpStatus.OK).body(userService.updateUser(id, userDTO));
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Object> deleteUser(@PathVariable String id){
+    public ResponseEntity<Object> deleteUser(@PathVariable Long id){
         userService.deleteUser(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

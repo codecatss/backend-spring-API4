@@ -1,4 +1,4 @@
-package Oracle.Partner.Tracker.util;
+package Oracle.Partner.Tracker.utils.userenum;
 
 public enum Status {
     ACTIVE,

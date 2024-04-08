@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import Oracle.Partner.Tracker.dto.OpnTrackDTO;
 import Oracle.Partner.Tracker.entities.OpnTrack;
 import Oracle.Partner.Tracker.repositories.OpnTrackRepository;
-import Oracle.Partner.Tracker.util.Status;
+import Oracle.Partner.Tracker.utils.userenum.Status;
 import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
 
 @Service

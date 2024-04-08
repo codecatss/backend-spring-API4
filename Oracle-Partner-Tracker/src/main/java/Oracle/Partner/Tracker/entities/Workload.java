@@ -2,8 +2,6 @@ package Oracle.Partner.Tracker.entities;
 
 import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
 
-import Oracle.Partner.Tracker.util.Status;
-
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;

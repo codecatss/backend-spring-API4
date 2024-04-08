@@ -1,5 +1,9 @@
 package Oracle.Partner.Tracker.entities;
 
+import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
+import Oracle.Partner.Tracker.utils.userenum.MembershipEnum;
+import Oracle.Partner.Tracker.utils.userenum.RoleEnum;
+import Oracle.Partner.Tracker.utils.userenum.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +22,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
-    private String id;
+    private Long id;
     @Column(name = "name")
     private String name;
     @Column(name = "email")
@@ -26,12 +30,16 @@ public class User {
     @Column(name = "password")
     private String password;
     @Column(name = "role")
-    private String role;
-    @Column(name = "user_status")
-    private Boolean userStatus;
+    private RoleEnum role;
+    @Column(name = "status")
+    private Status userStatus;
+    @Column(name = "ingestion_operation")
+    private IngestionOperation ingestionOperation;
     @Column(name = "membership_type")
-    private String memberShipType;
-    @Column(name = "create_on")
-    private LocalDateTime createOn = LocalDateTime.now();
+    private MembershipEnum memberShipType;
+    @Column(name = "updated_at")
+    private LocalDateTime updateAt;
+    @Column(name = "create_at")
+    private LocalDateTime createAt;
 
 }
