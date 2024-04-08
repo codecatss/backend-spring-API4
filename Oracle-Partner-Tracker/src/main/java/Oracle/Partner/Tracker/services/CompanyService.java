@@ -17,10 +17,14 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class CompanyService implements GenericService<CompanyDTO> {
+public class CompanyService extends CsvService<CompanyDTO>{
+
+    private CompanyRepository companyRepository;
 
     @Autowired
-    private CompanyRepository companyRepository;
+    public void setCompanyRepository(CompanyRepository companyRepository) {
+        this.companyRepository = companyRepository;
+    }
 
     @Transactional(readOnly = true)
     public CompanyDTO findCompanyById(String id){
