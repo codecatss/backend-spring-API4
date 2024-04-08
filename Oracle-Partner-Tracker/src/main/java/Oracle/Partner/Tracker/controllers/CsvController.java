@@ -33,4 +33,19 @@ public class CsvController {
     
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/api/import-expertise-csv")
+    public ResponseEntity<List<ExpertiseDTO>> importExpertiseCsv(@RequestParam("file") MultipartFile file) {
+        if (file == null || file.isEmpty()) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
+        List<ExpertiseDTO> expertises = csvService.processCsvExpertise(file);
+
+        if (expertises != null) {
+            return ResponseEntity.ok(expertises);
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
 }

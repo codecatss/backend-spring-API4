@@ -34,12 +34,13 @@ public class Expertise {
     private Integer lifeTimeMonth;
 
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private Status status;
 
-    @Column(name = "created_on")
+    @Column(name = "created_at")
     private Timestamp createdOn;
 
-    @Column(name = "updated_on")
+    @Column(name = "updated_at")
     private Timestamp updatedOn;
 
     public Expertise(ExpertiseDTO expertiseDTO) {
