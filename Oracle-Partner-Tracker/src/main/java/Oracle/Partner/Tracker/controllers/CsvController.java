@@ -1,11 +1,6 @@
 package Oracle.Partner.Tracker.controllers;
 
-import Oracle.Partner.Tracker.dto.CompanyDTO;
-import Oracle.Partner.Tracker.dto.ExpertiseDTO;
-import Oracle.Partner.Tracker.dto.OpnTrackDTO;
-import Oracle.Partner.Tracker.services.CompanyCsvService;
-import Oracle.Partner.Tracker.services.OpnTrackCsvService;
-
+import Oracle.Partner.Tracker.services.CsvService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,10 +16,7 @@ import java.util.Map;
 public class CsvController {
 
     @Autowired
-    private CompanyCsvService companyCsvService;
-    
-    @Autowired
-    private OpnTrackCsvService opnTrackCsvService;
+    private List<CsvService<?>> csvServices;
 
     @PostMapping("/api/import-csv")
     public ResponseEntity<Map<String, List<?>>> importCsv(@RequestParam("file") MultipartFile file) {
@@ -32,15 +24,12 @@ public class CsvController {
             return ResponseEntity.badRequest().body(null);
         }
 
-        List<OpnTrackDTO> opnTracks = opnTrackCsvService.processCsv(file);
-        List<ExpertiseDTO> expertises = csvService.processCsvExpertise(file);
-
-        List<CompanyDTO> companies = companyCsvService.processCsv(file);
-        
-        
         Map<String, List<?>> response = new HashMap<>();
-        response.put("companies", companies);
-        response.put("opnTracks", opnTracks);
+
+        for (CsvService<?> csvService : csvServices) {
+            List<?> entities = csvService.processCsv(file);
+            response.put(csvService.getClass().getSimpleName(), entities);
+        }
     
         return ResponseEntity.ok(response);
     }
