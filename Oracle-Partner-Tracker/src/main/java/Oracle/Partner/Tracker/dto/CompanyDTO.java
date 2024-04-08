@@ -39,9 +39,6 @@ public class CompanyDTO {
     @Schema(description = "Endereço da empresa", example = "Av. Paulista, 123")
     private String address;
 
-    @Schema(description = "CEP da empresa", example = "12345-678")
-    private String cep;
-
     @Schema(description = "Data de criação da empresa", example = "2022-01-01T12:00:00")
     private LocalDateTime createOn;
 
@@ -63,7 +60,7 @@ public class CompanyDTO {
         this.state = entity.getState();
         this.city = entity.getCity();
         this.address = entity.getAddress();
-        this.cep = entity.getCep();
+
         this.createOn = entity.getCreateOn();
         this.creditHold = entity.getCreditHold();
         this.companyStatus = entity.getCompanyStatus();
