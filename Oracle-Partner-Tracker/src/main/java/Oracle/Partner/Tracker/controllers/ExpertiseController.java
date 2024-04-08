@@ -28,7 +28,7 @@ public class ExpertiseController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Expertise> getExpertise(@PathVariable String id){
+    public ResponseEntity<Expertise> getExpertise(@PathVariable Long id){
         Expertise expertise = expertiseService.findExpertiseById(id);
         return expertise == null ? new ResponseEntity<>(null, HttpStatus.NOT_FOUND) : new ResponseEntity<>(expertise, HttpStatus.OK);
     }

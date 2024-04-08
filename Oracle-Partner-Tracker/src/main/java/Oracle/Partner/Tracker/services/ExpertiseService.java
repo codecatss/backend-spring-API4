@@ -27,7 +27,7 @@ public class ExpertiseService {
         return expertiseRepository.findAll();
     }
 
-    public Expertise findExpertiseById(String id){
+    public Expertise findExpertiseById(Long id){
         return expertiseRepository.findById(id).orElse(null);
     }
 

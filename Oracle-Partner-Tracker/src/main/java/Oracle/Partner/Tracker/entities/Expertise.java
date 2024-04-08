@@ -22,7 +22,7 @@ import lombok.Data;
 public class Expertise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     @Column(name = "name", nullable = true, length = 100)
     private String name;
