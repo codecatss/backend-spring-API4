@@ -14,21 +14,21 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
-public class CsvService {
-    @Autowired
-    private CompanyRepository companyRepository;
+public abstract class CsvService<T> {
 
-    @Autowired
-    private CompanyService companyService;
+    protected final GenericService<T> service;
 
+    public CsvService(GenericService<T> service) {
+        this.service = service;
+    }
     @Autowired
     private ExpertiseService expertiseService;
 
-    public List<CompanyDTO> processCsv(MultipartFile file) {
+    public List<T> processCsv(MultipartFile file) {
         try {
             List<String[]> csvData = readCsvData(file);
-            return companyService.mapCsvToCompanies(csvData);
+
+            return service.mapCsvToEntities(csvData);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -50,4 +50,5 @@ public class CsvService {
         reader.close();
         return csvData;
     }
+
 }

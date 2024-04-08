@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class CompanyService {
+public class CompanyService implements GenericService<CompanyDTO> {
 
     @Autowired
     private CompanyRepository companyRepository;
@@ -137,8 +137,8 @@ public class CompanyService {
     }
 
 
-
-    public List<CompanyDTO> mapCsvToCompanies(List<String[]> csvData) {
+    @Override
+    public List<CompanyDTO> mapCsvToEntities(List<String[]> csvData) {
 
         String[] header = csvData.get(0);
         List<CompanyDTO> companies = new ArrayList<>();
