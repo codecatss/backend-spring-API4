@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public enum IngestionOperation {
     
-        CSV("Csv"), MANUAL("Manual");
+        CSV("CSV"), MANUAL("MANUAL");
 
         private String operation;
 }
