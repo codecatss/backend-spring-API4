@@ -68,10 +68,6 @@ public class CompanyService implements GenericService<CompanyDTO> {
             throw new IllegalArgumentException("O endereço da empresa é obrigatório.");
         }
 
-        // Verificando se o CEP da empresa é válido
-        if (companyDTO.getCep() == null || companyDTO.getCep().isBlank()) {
-            throw new IllegalArgumentException("O CEP da empresa é obrigatório.");
-        }
 
         Company company = new Company();
 
@@ -128,7 +124,7 @@ public class CompanyService implements GenericService<CompanyDTO> {
         company.setState(companyDTO.getState());
         company.setCity(companyDTO.getCity());
         company.setAddress(companyDTO.getAddress());
-        company.setCep(companyDTO.getCep());
+
         company.setCreateOn(LocalDateTime.now());
         company.setCreditHold(companyDTO.getCreditHold());
         company.setSlogan(companyDTO.getSlogan());
