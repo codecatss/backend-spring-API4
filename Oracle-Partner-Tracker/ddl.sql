@@ -27,22 +27,21 @@ create table user (
 );
 
 create table company (
-    id bigint unsigned not null auto_increment,
-    name varchar(50),
-    slogan varchar(200),
-    credit_hold boolean,
-    cnpj varchar(150),
-    country varchar(20),
-    state varchar(50),
-    city varchar(100),
-    address varchar(200),
-    zip_code varchar(10),
-    opn_status enum('MEMBER', 'EXPIRED'),
-    ingestion_operation enum('CSV', 'MANUAL'),
-    status enum('ACTIVE', 'INACTIVE'),
-    created_at timestamp default current_timestamp,
-    updated_at timestamp default current_timestamp,
-    primary key (id)
+     id bigint unsigned not null auto_increment,
+     name varchar(50),
+     slogan varchar(200),
+     credit_hold varchar(40),
+     cnpj varchar(150),
+     country varchar(20),
+     state varchar(50),
+     city varchar(100),
+     address varchar(200),
+     opn_status enum('MEMBER', 'EXPIRED','INACTIVE'),
+     ingestion_operation enum('CSV', 'MANUAL'),
+     company_status enum('ACTIVE', 'INACTIVE'),
+     created_at timestamp default current_timestamp,
+     updated_at timestamp default current_timestamp,
+     primary key (id)
 );
 
 create table workload (
