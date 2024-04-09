@@ -215,9 +215,3 @@ teste teste teste
 - **expertise_id**
     - Type: bigint unsigned
     - Description: Foreign key referencing the service_expertise table by ID.
-
-
-
-
-
-
