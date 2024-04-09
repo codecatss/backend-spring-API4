@@ -3,6 +3,7 @@ package Oracle.Partner.Tracker.dto;
 import Oracle.Partner.Tracker.entities.Workload;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
+import Oracle.Partner.Tracker.util.Status;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import Oracle.Partner.Tracker.utils.companyEnum.WorkloadStatus;
@@ -24,7 +25,7 @@ public class WorkloadDTO {
     private String description;
 
     @Schema(description = "Status do Workload", example = "true")
-    private Boolean workloadStatus;
+    private Status status;
 
     @Schema(description = "Data de criação do workload", example = "2022-01-01T12:00:00")
     private LocalDateTime created_at;
@@ -39,7 +40,7 @@ public class WorkloadDTO {
         this.id = entity.getId();
         this.name = entity.getName();
         this.description = entity.getDescription();
-        this.workloadStatus = entity.getWorkloadStatus();
+        this.status = entity.getStatus();
         this.created_at = entity.getCreatedAt();
         this.updated_at = entity.getUpdatedAt();
         this.ingestionOperation = entity.getIngestionOperation();
