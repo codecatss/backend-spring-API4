@@ -10,4 +10,6 @@ public enum IngestionOperation {
         CSV("CSV"), MANUAL("MANUAL");
 
         private String operation;
+
+
 }

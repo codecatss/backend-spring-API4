@@ -7,7 +7,7 @@ public enum MembershipEnum {
     private String membership;
 
 
-    MembershipEnum(String S) {
-        this.membership = S;
+    MembershipEnum(String s) {
+        this.membership = s;
     }
 }

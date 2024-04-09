@@ -9,11 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService extends CsvService<UserDTO>{
 
     @Autowired
     UserRepository userRepository;
@@ -49,6 +50,8 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         User userUpdate = user.get();
+        userUpdate.setUpdateAt(LocalDateTime.now());
+
         BeanUtils.copyProperties(userDTO, userUpdate);
         return userRepository.save(userUpdate);
     }
@@ -59,5 +62,10 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public List<UserDTO> mapCsvToEntities(List<String[]> csvData) {
+        return null;
     }
 }
