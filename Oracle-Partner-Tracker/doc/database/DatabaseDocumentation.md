@@ -1,7 +1,5 @@
 
-<div style="font-size: 25pt; font-weight: bold;">
-   Database Documentation
-</div>
+# Database Documentation 
 
 # 1. Visão Geral
 teste teste teste
