@@ -99,8 +99,8 @@ public class ExpertiseService extends CsvService<ExpertiseDTO>{
     @Override
     public List<ExpertiseDTO> mapCsvToEntities(List<String[]> csvData) {
         List<ExpertiseDTO> expertises = new ArrayList<>();
-        String csvDelimiter = ";";
-        String[] header = csvData.get(0)[0].split(csvDelimiter);
+        String[] header = csvData.get(0);
+
         for (int i = 1; i < csvData.size(); i++) {
             ExpertiseDTO expertiseDTO = mapRowToExpertise(csvData.get(i), header);
             if(expertiseDTO != null){
