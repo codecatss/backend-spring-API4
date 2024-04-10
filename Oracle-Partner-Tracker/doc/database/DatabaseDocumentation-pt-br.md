@@ -1,5 +1,5 @@
 
-# Database Documentation 
+# Documentação do banco de dados
 
 # 1. Visão Geral
 Este banco de dados esta sendo usado na API da FATEC do 4° Semestre.
