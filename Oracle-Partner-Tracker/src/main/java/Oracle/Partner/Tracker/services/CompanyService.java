@@ -15,7 +15,7 @@ import Oracle.Partner.Tracker.entities.OpnTrack;
 import Oracle.Partner.Tracker.repositories.OpnTrackRepository;
 import Oracle.Partner.Tracker.util.Status;
 import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
-
+import Oracle.Partner.Tracker.utils.companyEnum.OpnStatus;
 import Oracle.Partner.Tracker.dto.CompanyDTO;
 import Oracle.Partner.Tracker.entities.Company;
 import Oracle.Partner.Tracker.repositories.CompanyRepository;
@@ -128,6 +128,13 @@ public class CompanyService extends CsvService<CompanyDTO>{
 
     private void copyDTOtoEntity(CompanyDTO companyDTO, Company company) {
         company.setName(company.getName());
+        company.setAddress(company.getAddress());
+        company.setCity(company.getCity());
+        company.setCountry(company.getCountry());
+        company.setCnpj(company.getCnpj());
+        company.setCreditHold(company.getCreditHold());
+        company.setSlogan(company.getSlogan());
+
         company.setIngestionOperation(company.getIngestionOperation());
         if (companyDTO.getStatus() == null || companyDTO.getStatus().name().isBlank()){
             companyDTO.setStatus(Status.ACTIVE);
@@ -164,6 +171,7 @@ public class CompanyService extends CsvService<CompanyDTO>{
         CompanyDTO companyDTO = new CompanyDTO();
     
         for (int i = 0; i < header.length; i++) {
+            companyDTO.setIngestionOperation(IngestionOperation.CSV);
             switch (header[i]) {
                 case "Company Name":
                     String companyName = row[i];
@@ -174,11 +182,17 @@ public class CompanyService extends CsvService<CompanyDTO>{
                         return Optional.empty();
                     }
                     break;
-                case "Company Status":
+                case "Status":
                     companyDTO.setStatus(Status.toStatus(row[i]));
+                    break;
+                case "Opn_status":
+                    companyDTO.setOpnStatus(OpnStatus.valueOf(row[i]));
                     break;
                 case "Company ID":
                     companyDTO.setCnpj(row[i]);
+                    break;
+                case "State":
+                    companyDTO.setState(row[i]);
                     break;
                 case "Country":
                     companyDTO.setCountry(row[i]);
