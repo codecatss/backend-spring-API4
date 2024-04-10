@@ -46,13 +46,15 @@ public class Company {
     @Column(name = "address", nullable = true, length = 200)
     private String address;
 
+    @Column(name = "cep", nullable = true, length = 10)
+    private String cep;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Enumerated(EnumType.STRING)
     @Column(name= "ingestion_operation")
     private IngestionOperation ingestionOperation;
 

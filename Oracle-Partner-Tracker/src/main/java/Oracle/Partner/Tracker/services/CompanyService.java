@@ -25,9 +25,9 @@ import java.util.UUID;
 @Service
 public class CompanyService extends CsvService<CompanyDTO>{
 
+    @Autowired
     private CompanyRepository companyRepository;
 
-    @Autowired
     public void setCompanyRepository(CompanyRepository companyRepository) {
         this.companyRepository = companyRepository;
     }

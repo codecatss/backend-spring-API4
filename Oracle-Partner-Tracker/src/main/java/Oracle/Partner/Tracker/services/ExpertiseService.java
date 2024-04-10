@@ -15,9 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ExpertiseService {
-    @Autowired
+public class ExpertiseService extends CsvService<ExpertiseDTO>{
     private ExpertiseRepository expertiseRepository;
+
+    @Autowired
+    public void setExpertiseRepository(ExpertiseRepository expertiseRepository) {
+        this.expertiseRepository = expertiseRepository;
+    }
 
     public void saveExpertise(ExpertiseDTO expertiseDTO){
         expertiseRepository.save(new Expertise(expertiseDTO));
@@ -83,12 +87,26 @@ public class ExpertiseService {
                     break;
             }
         }
-
         try{
             expertiseRepository.save(new Expertise(expertiseDTO));
         }
-        catch (Exception error){}
-
+        catch (Exception error){
+            return null;
+        }
         return expertiseDTO;
+    }
+
+    @Override
+    public List<ExpertiseDTO> mapCsvToEntities(List<String[]> csvData) {
+        List<ExpertiseDTO> expertises = new ArrayList<>();
+        String[] header = csvData.get(0);
+
+        for (int i = 1; i < csvData.size(); i++) {
+            ExpertiseDTO expertiseDTO = mapRowToExpertise(csvData.get(i), header);
+            if(expertiseDTO != null){
+                expertises.add(expertiseDTO);
+            }
+        }
+        return expertises;
     }
 }
