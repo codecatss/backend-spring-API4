@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@CrossOrigin
 public class CsvController {
 
     @Autowired
