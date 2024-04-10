@@ -2,7 +2,7 @@
 # Documentação do banco de dados
 
 # 1. Visão Geral
-Este banco de dados está sendo usado no 4° Semestre da API da FATEC. 
+Este banco de dados está sendo usado no [4° Semestre da API da FATEC](https://github.com/codecatss/API-BD4). 
 Utilizamos um script DDL para criar o banco antes de executar o script Java, 
 assim garantimos que a qualidade do script SQL seja a melhor possível.
 
