@@ -216,4 +216,4 @@
 
 # 3. Diagram
 
-![img_1.png](img_1.png)
+![image](https://github.com/codecatss/backend-spring-API4/assets/94874696/45a459c8-e81f-48a0-b2e0-ebfa603d019d)
