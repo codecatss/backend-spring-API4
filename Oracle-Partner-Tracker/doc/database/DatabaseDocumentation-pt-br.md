@@ -6,6 +6,7 @@ Este banco de dados está sendo usado na API da FATEC do 4° Semestre.
 Utilizamos um script DDL para criar o banco antes de executar o script Java, 
 assim garantimos que a qualidade do script SQL seja a melhor possível.
 
+
 # 2. Modelo de Dados
 
 ## 2.1 Tabelas
