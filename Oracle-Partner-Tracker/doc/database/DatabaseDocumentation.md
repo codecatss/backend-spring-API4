@@ -1,13 +1,13 @@
 
 # Database Documentation 
 
-# 1. Visão Geral
-Este banco de dados esta sendo usado na API da FATEC do 4° Semestre. 
-Usamos um script DDL para criar o banco antes de rodar o script java, 
-assim garantimos que a qualidade do script sql seja a melhor possivel.
+# 1. Overview
+This database is being used in the 4th Semester FATEC API.
+We use a DDL script to create the database before running the Java script,
+thus ensuring the SQL script quality is the best possible.
 
 
-# 2. Modelo de Dados
+# 2. Data Model
 
 ## 2.1 Tables
 
