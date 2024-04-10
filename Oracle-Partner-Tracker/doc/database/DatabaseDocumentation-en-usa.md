@@ -2,6 +2,9 @@
 # Database Documentation
 
 # 1. Overview
+This database is being used in the 4th Semester of FATEC API.
+We use a DDL script to create the database before running the project in Java,
+this way we're ensuring the SQL script's quality is the best possible.
 
 
 # 2. Data Model
@@ -9,6 +12,10 @@
 ## 2.1 Tables
 
 ### Table user
+**Table Description:**
+- This table stores user information, including Oracle user and company responsible user.
+
+**Fields:** 
 - **id**
   - Type: bigint unsigned
   - Description: Unique identifier of the user.
@@ -42,6 +49,10 @@
 - primary key (id)
 
 ### Table company
+**Table Description:**
+- This table stores company information, such as CNPJ, city, among others.
+
+**Fields:**
 - **id**
   - Type: bigint unsigned
   - Description: Unique identifier of the company.
@@ -87,6 +98,10 @@
 - primary key (id)
 
 ### Table workload
+**Table Description:**
+- This table stores workload information.
+
+**Fields:**
 - **id**
   - Type: bigint unsigned
   - Description: Unique identifier of the workload.
@@ -111,6 +126,10 @@
 - primary key (id)
 
 ### Table service_expertise
+**Table Description:**
+- This table stores expertise information.
+
+**Fields:**
 - **id**
   - Type: bigint unsigned
   - Description: Unique identifier of the expertise.
@@ -138,6 +157,10 @@
 - primary key (id)
 
 ### Table opn_track
+**Table Description:**
+- This table stores opn track information.
+
+**Fields:**
 - **id**
   - Type: bigint unsigned
   - Description: Unique identifier of the opn track.
@@ -162,6 +185,11 @@
 ## 2.2 Table Relationships
 
 ### Table company_and_user
+**Relation Description:**
+- This relation will join the Company and User tables, where a user can be related to only one company.
+- Relation: Company (0-1 : 1-n) User.
+
+**Fields:**
 - **company_id**
   - Type: bigint unsigned
   - Description: Foreign key referencing the company table by ID.
@@ -170,6 +198,11 @@
   - Description: Foreign key referencing the user table by ID.
 
 ### Table company_and_opn_track
+**Relation Description:**
+- This relation will join the Company and Opn_track tables.
+- Relation: Company (n-n : n-n) Opn_track.
+
+**Fields:**
 - **company_id**
   - Type: bigint unsigned
   - Description: Foreign key referencing the company table by ID.
@@ -178,6 +211,11 @@
   - Description: Foreign key referencing the opn_track table by ID.
 
 ### Table company_and_workload
+**Relation Description:**
+- This relation will join the Company and Workload tables and save the workload progress (percentage of workload completed by the company).
+- Relation: Company (0-n : 0-n) Workload.
+
+**Fields:**
 - **company_id**
   - Type: bigint unsigned
   - Description: Foreign key referencing the company table by ID.
@@ -198,6 +236,11 @@
   - Description: Expiration date of the relationship between the company and the workload.
 
 ### Table opn_track_and_expertise
+**Relation Description:**
+- This relation will join the Opn_track and Service_expertise tables.
+- Relation: Opn_track (0-n : 0-n) Service_expertise.
+
+**Fields:**
 - **opn_track_id**
   - Type: bigint unsigned
   - Description: Foreign key referencing the opn_track table by ID.
@@ -206,6 +249,11 @@
   - Description: Foreign key referencing the service_expertise table by ID.
 
 ### Table workload_and_expertise
+**Relation Description:**
+- This relation will join the Workload and Service_expertise tables.
+- Relation: Workload (0-n : 0-n) Service_expertise.
+
+**Fields:**
 - **workload_id**
   - Type: bigint unsigned
   - Description: Foreign key referencing the workload table by ID.
@@ -217,3 +265,5 @@
 # 3. Diagram
 
 ![image](https://github.com/codecatss/backend-spring-API4/assets/94874696/45a459c8-e81f-48a0-b2e0-ebfa603d019d)
+
+

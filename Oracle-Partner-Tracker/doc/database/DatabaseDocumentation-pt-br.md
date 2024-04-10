@@ -2,7 +2,7 @@
 # Documentação do banco de dados
 
 # 1. Visão Geral
-Este banco de dados está sendo usado na API da FATEC do 4° Semestre. 
+Este banco de dados está sendo usado no 4° Semestre da API da FATEC. 
 Utilizamos um script DDL para criar o banco antes de executar o script Java, 
 assim garantimos que a qualidade do script SQL seja a melhor possível.
 
@@ -11,7 +11,11 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
 
 ## 2.1 Tabelas
 
-### Tabela user
+### Tabela user: 
+**Descrição da tabela:** 
+- Esta tabela armazena as informações do usuário, onde haverá usuário Oracle e usuário responsável da empresa.
+
+**Campos:**
 - **id**
   - Tipo: bigint unsigned
   - Descrição: Identificador único do usuário.
@@ -45,6 +49,10 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
 - primary key (id)
 
 ### Tabela company
+**Descrição da tabela:**
+- Esta tabela armazena as informações da empresa, como CNPJ, cidade, entre outros.
+
+**Campos:**
 - **id**
   - Tipo: bigint unsigned
   - Descrição: Identificador único da empresa.
@@ -90,6 +98,10 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
 - primary key (id)
 
 ### Tabela workload
+**Descrição da tabela:**
+- Esta tabela armazena as informações da workload.
+
+**Campos:**
 - **id**
   - Tipo: bigint unsigned
   - Descrição: Identificador único da carga de trabalho.
@@ -114,6 +126,10 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
 - primary key (id)
 
 ### Tabela service_expertise
+**Descrição da tabela:**
+- Esta tabela armazena as informações da expertise.
+
+**Campos:**
 - **id**
   - Tipo: bigint unsigned
   - Descrição: Identificador único da expertise.
@@ -141,6 +157,10 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
 - primary key (id)
 
 ### Tabela opn_track
+**Descrição da tabela:**
+- Esta tabela armazena as informações da opn track.
+
+**Campos:**
 - **id**
   - Tipo: bigint unsigned
   - Descrição: Identificador único da opn track.
@@ -165,6 +185,11 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
 ## 2.2 Relações entre Tabelas
 
 ### Tabela company_and_user
+**Descrição da Relação:**
+- Esta relação vai juntar as tabelas Company e User, onde um usuário pode estar relacionado a apenas uma empresa.
+- Relação: Company (0-1 : 0-n) User.
+
+**Campos:**
 - **company_id**
   - Tipo: bigint unsigned
   - Descrição: Chave estrangeira que referencia a tabela company pelo ID.
@@ -173,6 +198,11 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
   - Descrição: Chave estrangeira que referencia a tabela user pelo ID.
 
 ### Tabela company_and_opn_track
+**Descrição da Relação:**
+- Esta relação vai juntar as tabelas Company e Opn_track.
+- Relação: Company (0-n : 0-n) Opn_track.
+
+**Campos:**
 - **company_id**
   - Tipo: bigint unsigned
   - Descrição: Chave estrangeira que referencia a tabela company pelo ID.
@@ -181,6 +211,11 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
   - Descrição: Chave estrangeira que referencia a tabela opn_track pelo ID.
 
 ### Tabela company_and_workload
+**Descrição da Relação:**
+- Esta relação vai juntar as tabelas Company e Workload e salvar o progresso da workload (quantos por cento da workload a empresa já concluiu).
+- Relação: Company (0-n : 0-n) Workload.
+
+**Campos:**
 - **company_id**
   - Tipo: bigint unsigned
   - Descrição: Chave estrangeira que referencia a tabela company pelo ID.
@@ -201,6 +236,11 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
   - Descrição: Data de expiração da relação entre a empresa e a carga de trabalho.
 
 ### Tabela opn_track_and_expertise
+**Descrição da Relação:**
+- Esta relação vai juntar as tabelas Opn_track e Service_expertise.
+- Relação: Opn_track (0-n : 0-n) Service_expertise.
+
+**Campos:**
 - **opn_track_id**
   - Tipo: bigint unsigned
   - Descrição: Chave estrangeira que referencia a tabela opn_track pelo ID.
@@ -209,6 +249,11 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
   - Descrição: Chave estrangeira que referencia a tabela service_expertise pelo ID.
 
 ### Tabela workload_and_expertise
+**Descrição da Relação:**
+- Esta relação vai juntar as tabelas Workload e Service_expertise.
+- Relação: Workload (0-n : 0-n) Service_expertise.
+
+**Campos:**
 - **workload_id**
   - Tipo: bigint unsigned
   - Descrição: Chave estrangeira que referencia a tabela workload pelo ID.
