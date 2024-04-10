@@ -2,7 +2,9 @@
 # Database Documentation 
 
 # 1. Visão Geral
-teste teste teste
+Este banco de dados esta sendo usado na API da FATEC do 4° Semestre. 
+Usamos um script DDL para criar o banco antes de rodar o script java, 
+assim garantimos que a qualidade do script sql seja a melhor possivel.
 
 
 # 2. Modelo de Dados
