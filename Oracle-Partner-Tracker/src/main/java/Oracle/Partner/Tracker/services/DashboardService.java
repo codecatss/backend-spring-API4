@@ -5,6 +5,7 @@ import Oracle.Partner.Tracker.repositories.ExpertiseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,14 +19,13 @@ public class DashboardService {
         DashboardDTO data = new DashboardDTO();
 
         for(Object[] obj : kpis){
-            data.setQtyPartners((Integer) obj[0]);
-            data.setQtyPartnersActive((Integer) obj[1]);
-            data.setQtyPartnersInactive((Integer) obj[2]);
+            data.setQtyPartners(Integer.parseInt(String.valueOf(obj[0])));
+            data.setQtyPartnersActive(Integer.parseInt(String.valueOf(obj[1])));
+            data.setQtyPartnersInactive(Integer.parseInt(String.valueOf(obj[2])));
             data.setAverageTracksPerPartners((BigDecimal) obj[3]);
-            data.setQtyUsers((Integer) obj[4]);
-            data.setQtyTracks((Integer) obj[5]);
-            data.setQtyExpertise((Integer) obj[6]);
-            data.setAverageExpertisePerUsers((BigDecimal) obj[7]);
+            data.setQtyUsers(Integer.parseInt(String.valueOf(obj[4])));
+            data.setQtyTracks(Integer.parseInt(String.valueOf(obj[5])));
+            data.setQtyExpertise(Integer.parseInt(String.valueOf(obj[6])));
         }
         return data;
     }
