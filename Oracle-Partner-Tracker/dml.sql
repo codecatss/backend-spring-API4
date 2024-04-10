@@ -76,6 +76,7 @@ INSERT INTO `company_and_opn_track`(`id`,`company_id`,`opn_track_id`)VALUES(1,1,
 INSERT INTO `company_and_opn_track`(`id`,`company_id`,`opn_track_id`)VALUES(2,2,2);
 INSERT INTO `company_and_opn_track`(`id`,`company_id`,`opn_track_id`)VALUES(3,3,3);
 INSERT INTO `company_and_opn_track`(`id`,`company_id`,`opn_track_id`)VALUES(4,2,3);
+INSERT INTO `company_and_opn_track`(`id`,`company_id`,`opn_track_id`)VALUES(5,2,1);
 
 -- COMPANY_AND_USER
 INSERT INTO `company_and_user`(`id`,`company_id`,`user_id`) VALUES (1,1,1);
