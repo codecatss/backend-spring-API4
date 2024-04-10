@@ -3,6 +3,11 @@ package Oracle.Partner.Tracker.services;
 import Oracle.Partner.Tracker.dto.UserDTO;
 import Oracle.Partner.Tracker.entities.User;
 import Oracle.Partner.Tracker.repositories.UserRepository;
+import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
+import Oracle.Partner.Tracker.utils.userenum.MembershipEnum;
+import Oracle.Partner.Tracker.utils.userenum.RoleEnum;
+import Oracle.Partner.Tracker.utils.userenum.Status;
+import Oracle.Partner.Tracker.utils.userenum.UserBuilder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,14 +15,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 @Service
 public class UserService extends CsvService<UserDTO>{
 
     @Autowired
     UserRepository userRepository;
+
 
     public List<User> findAllUsers() {
         List<User> allUsers = userRepository.findAll();
@@ -65,7 +75,45 @@ public class UserService extends CsvService<UserDTO>{
     }
 
     @Override
-    public List<UserDTO> mapCsvToEntities(List<String[]> csvData) {
-        return null;
+    public List<UserDTO> mapCsvToEntities(List<String[]> csvData){
+        List<UserDTO> users = new ArrayList<>();
+
+        String[] header = csvData.get(0);
+
+        for (int i = 1; i < csvData.size(); i++) {
+            String[] row = csvData.get(i);
+            users.add(mapRowToUser(header, row).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST)));
+        }
+
+        return users;
+    }
+
+    private Optional<UserDTO> mapRowToUser(String[] header, String[] row){
+        UserBuilder userBuilder = new UserBuilder();
+        for (int i = 0; i < header.length; i++){
+            if (i >= row.length) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Row has fewer elements than header");
+            }
+            String headerValue = header[i];
+            String rowValue = row[i];
+            switch (headerValue){
+                case "name" -> userBuilder.setName(rowValue);
+                case "email" -> userBuilder.setEmail(rowValue);
+                case "password" -> userBuilder.setPassword(rowValue);
+                case "role" -> userBuilder.setRole(RoleEnum.toRole(rowValue));
+                case "ingestionOperation" -> userBuilder.setIngestionOperation(IngestionOperation.toIngestionOperation(rowValue));
+                case "userStatus" -> userBuilder.setUserStatus(Status.toStatus(rowValue));
+                case "memberShipType" -> userBuilder.setMemberShipType(MembershipEnum.toMembership(rowValue));
+                default -> throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            }
+        }
+        UserDTO userDTO = new UserDTO(userBuilder.getName(), userBuilder.getEmail(), userBuilder.getPassword(), userBuilder.getRole(), userBuilder.getIngestionOperation(), userBuilder.getUserStatus(), userBuilder.getMemberShipType());
+        User user = new User();
+        BeanUtils.copyProperties(userBuilder, userDTO);
+        BeanUtils.copyProperties(userDTO, user);
+
+        userRepository.save(user);
+
+        return Optional.of(userDTO);
     }
 }

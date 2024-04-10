@@ -42,7 +42,7 @@ public class OpnTrackService extends CsvService<OpnTrackDTO>{
     }
     
     public Optional<OpnTrackDTO> insertOpnTrack(OpnTrackDTO opnTrackDTO){
-        Optional<OpnTrackDTO> optionalOpnTrack= this.findOpnTrackByName(opnTrackDTO.getName());
+        Optional<OpnTrackDTO> optionalOpnTrack= findOpnTrackByName(opnTrackDTO.getName());
         if (optionalOpnTrack.isPresent()){
             return Optional.empty();
         }

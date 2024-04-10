@@ -1,5 +1,9 @@
 package Oracle.Partner.Tracker.utils.userenum;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+
 public enum Status {
     ACTIVE,
     INACTIVE;

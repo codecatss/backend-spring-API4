@@ -1,16 +1,15 @@
 package Oracle.Partner.Tracker.services;
 
+import Oracle.Partner.Tracker.dto.ExpertiseDTO;
+import Oracle.Partner.Tracker.dto.UserDTO;
+import com.opencsv.CSVReader;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.opencsv.CSVReader;
-
-import Oracle.Partner.Tracker.dto.ExpertiseDTO;
 
 public abstract class CsvService<T> implements GenericService<T>{
     private ExpertiseService expertiseService;
@@ -46,5 +45,18 @@ public abstract class CsvService<T> implements GenericService<T>{
         reader.close();
         return csvData;
     }
+
+    public List<UserDTO> processCsvUser(MultipartFile file, UserService userService) {
+        try {
+            List<String[]> csvData = readCsvData(file);
+
+            // Chame o método mapCsvToEntities do UserService
+            return userService.mapCsvToEntities(csvData);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
 }

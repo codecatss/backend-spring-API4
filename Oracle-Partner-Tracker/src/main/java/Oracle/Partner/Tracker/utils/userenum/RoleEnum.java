@@ -1,8 +1,14 @@
 package Oracle.Partner.Tracker.utils.userenum;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
 public enum RoleEnum {
 
-    ADM("ADMIN"),
+    ADM("ADM"),
     USER("USER");
 
     private String role;
@@ -13,13 +19,5 @@ public enum RoleEnum {
             case "user" -> RoleEnum.USER;
             default -> null;
         };
-    }
-
-    RoleEnum(String role) {
-        this.role = role;
-    }
-
-    public String getRole() {
-        return role;
     }
 }
