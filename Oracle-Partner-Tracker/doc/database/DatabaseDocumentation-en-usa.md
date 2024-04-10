@@ -2,7 +2,7 @@
 # Database Documentation
 
 # 1. Overview
-This database is being used in the 4th Semester of FATEC API.
+This database is being used in the [4th Semester of FATEC API](https://github.com/codecatss/API-BD4).
 We use a DDL script to create the database before running the project in Java,
 this way we're ensuring the SQL script's quality is the best possible.
 
