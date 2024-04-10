@@ -212,3 +212,8 @@
 - **expertise_id**
   - Type: bigint unsigned
   - Description: Foreign key referencing the service_expertise table by ID.
+
+
+# 3. Diagram
+
+![img_1.png](img_1.png)

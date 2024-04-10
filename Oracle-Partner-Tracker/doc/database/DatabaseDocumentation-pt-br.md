@@ -215,3 +215,10 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
 - **expertise_id**
   - Tipo: bigint unsigned
   - Descrição: Chave estrangeira que referencia a tabela service_expertise pelo ID.
+
+
+# 3. Diagrama
+
+![img.png](img.png)
+
+
