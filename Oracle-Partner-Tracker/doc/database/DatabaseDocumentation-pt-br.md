@@ -219,6 +219,6 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
 
 # 3. Diagrama
 
-![img.png](img.png)
+![image](https://github.com/codecatss/backend-spring-API4/assets/94874696/92a671e8-c9da-4ed3-8368-911a8c9345b7)
 
 
