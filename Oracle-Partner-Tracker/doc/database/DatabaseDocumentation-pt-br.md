@@ -32,7 +32,7 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
   - Descrição: Tipo de adesão do usuário (principal ou global).
 - **ingestion_operation**
   - Tipo: enum('CSV', 'MANUAL')
-  - Descrição: Método de ingestão de dados preferido pelo usuário.
+  - Descrição: Método de ingestão de dados que foi usado para salvar o usuário.
 - **status**
   - Tipo: enum('ACTIVE', 'INACTIVE')
   - Descrição: Status da conta do usuário (ativo ou inativo).
@@ -77,7 +77,7 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
   - Descrição: Status da empresa no sistema.
 - **ingestion_operation**
   - Tipo: enum('CSV', 'MANUAL')
-  - Descrição: Método de ingestão de dados preferido pela empresa.
+  - Descrição: Método de ingestão de dados que foi usado para salvar a empresa.
 - **company_status**
   - Tipo: enum('ACTIVE', 'INACTIVE')
   - Descrição: Status da empresa (ativo ou inativo).
@@ -95,16 +95,16 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
   - Descrição: Identificador único da carga de trabalho.
 - **name**
   - Tipo: varchar(100)
-  - Descrição: Nome da carga de trabalho.
+  - Descrição: Nome da workload.
 - **description**
   - Tipo: varchar(250)
-  - Descrição: Descrição da carga de trabalho.
+  - Descrição: Descrição da workload.
 - **ingestion_operation**
   - Tipo: enum('CSV', 'MANUAL')
-  - Descrição: Método de ingestão de dados preferido para a carga de trabalho.
+  - Descrição: Método de ingestão de dados que foi usado para salvar a workload.
 - **status**
   - Tipo: enum('ACTIVE', 'INACTIVE')
-  - Descrição: Status da carga de trabalho (ativo ou inativo).
+  - Descrição: Status da workload (ativo ou inativo).
 - **created_at**
   - Tipo: timestamp
   - Descrição: Data e hora de criação do registro.
@@ -116,22 +116,22 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
 ### Tabela service_expertise
 - **id**
   - Tipo: bigint unsigned
-  - Descrição: Identificador único da expertise de serviço.
+  - Descrição: Identificador único da expertise.
 - **name**
   - Tipo: varchar(100)
-  - Descrição: Nome da expertise de serviço.
+  - Descrição: Nome da expertise.
 - **description**
   - Tipo: varchar(250)
-  - Descrição: Descrição da expertise de serviço.
+  - Descrição: Descrição da expertise.
 - **life_time_month**
   - Tipo: int
-  - Descrição: Tempo de vida da expertise de serviço em meses.
+  - Descrição: Quantos meses essa expertise tem validade.
 - **ingestion_operation**
   - Tipo: enum('CSV', 'MANUAL')
-  - Descrição: Método de ingestão de dados preferido para a expertise de serviço.
+  - Descrição: Método de ingestão de dados que foi usado para salvar a expertise.
 - **status**
   - Tipo: enum('ACTIVE', 'INACTIVE')
-  - Descrição: Status da expertise de serviço (ativo ou inativo).
+  - Descrição: Status da expertise (ativo ou inativo).
 - **created_at**
   - Tipo: timestamp
   - Descrição: Data e hora de criação do registro.
@@ -143,16 +143,16 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
 ### Tabela opn_track
 - **id**
   - Tipo: bigint unsigned
-  - Descrição: Identificador único do rastreamento de operação.
+  - Descrição: Identificador único da opn track.
 - **name**
   - Tipo: varchar(50)
-  - Descrição: Nome do rastreamento de operação.
+  - Descrição: Nome da opn track.
 - **ingestion_operation**
   - Tipo: enum('CSV', 'MANUAL')
-  - Descrição: Método de ingestão de dados preferido para o rastreamento de operação.
+  - Descrição: Método de ingestão de dados que foi usado para salvar a opn track.
 - **status**
   - Tipo: enum('ACTIVE', 'INACTIVE')
-  - Descrição: Status do rastreamento de operação (ativo ou inativo).
+  - Descrição: Status da opn track (ativo ou inativo).
 - **created_at**
   - Tipo: timestamp
   - Descrição: Data e hora de criação do registro.
@@ -166,52 +166,52 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
 
 ### Tabela company_and_user
 - **company_id**
-  - Type: bigint unsigned
-  - Description: Foreign key referencing the company table by ID.
+  - Tipo: bigint unsigned
+  - Descrição: Chave estrangeira que referencia a tabela company pelo ID.
 - **user_id**
-  - Type: bigint unsigned
-  - Description: Foreign key referencing the user table by ID.
+  - Tipo: bigint unsigned
+  - Descrição: Chave estrangeira que referencia a tabela user pelo ID.
 
 ### Tabela company_and_opn_track
 - **company_id**
-  - Type: bigint unsigned
-  - Description: Foreign key referencing the company table by ID.
+  - Tipo: bigint unsigned
+  - Descrição: Chave estrangeira que referencia a tabela company pelo ID.
 - **opn_track_id**
-  - Type: bigint unsigned
-  - Description: Foreign key referencing the opn_track table by ID.
+  - Tipo: bigint unsigned
+  - Descrição: Chave estrangeira que referencia a tabela opn_track pelo ID.
 
 ### Tabela company_and_workload
 - **company_id**
-  - Type: bigint unsigned
-  - Description: Foreign key referencing the company table by ID.
+  - Tipo: bigint unsigned
+  - Descrição: Chave estrangeira que referencia a tabela company pelo ID.
 - **workload_id**
-  - Type: bigint unsigned
-  - Description: Foreign key referencing the workload table by ID.
+  - Tipo: bigint unsigned
+  - Descrição: Chave estrangeira que referencia a tabela workload pelo ID.
 - **score**
-  - Type: numeric(3,2)
-  - Description: Score associated with the relationship between the company and the workload.
+  - Tipo: numeric(3,2)
+  - Descrição: Quantos por cento da workload a empresa já concluiu.
 - **status**
-  - Type: enum('PASSED', 'IN PROGRESS', 'EXPIRED')
-  - Description: Status of the relationship between the company and the workload.
+  - Tipo: enum('PASSED', 'IN PROGRESS', 'EXPIRED')
+  - Descrição: Status para acompanhar o progresso da workload.
 - **created_at**
-  - Type: timestamp
-  - Description: Date and time when the record was created.
+  - Tipo: timestamp
+  - Descrição: Data e hora de criação do registro.
 - **expiration_date**
-  - Type: timestamp
-  - Description: Expiration date of the relationship between the company and the workload.
+  - Tipo: timestamp
+  - Descrição: Data de expiração da relação entre a empresa e a carga de trabalho.
 
 ### Tabela opn_track_and_expertise
 - **opn_track_id**
-  - Type: bigint unsigned
-  - Description: Foreign key referencing the opn_track table by ID.
+  - Tipo: bigint unsigned
+  - Descrição: Chave estrangeira que referencia a tabela opn_track pelo ID.
 - **expertise_id**
-  - Type: bigint unsigned
-  - Description: Foreign key referencing the service_expertise table by ID.
+  - Tipo: bigint unsigned
+  - Descrição: Chave estrangeira que referencia a tabela service_expertise pelo ID.
 
 ### Tabela workload_and_expertise
 - **workload_id**
-  - Type: bigint unsigned
-  - Description: Foreign key referencing the workload table by ID.
+  - Tipo: bigint unsigned
+  - Descrição: Chave estrangeira que referencia a tabela workload pelo ID.
 - **expertise_id**
-  - Type: bigint unsigned
-  - Description: Foreign key referencing the service_expertise table by ID.
+  - Tipo: bigint unsigned
+  - Descrição: Chave estrangeira que referencia a tabela service_expertise pelo ID.
