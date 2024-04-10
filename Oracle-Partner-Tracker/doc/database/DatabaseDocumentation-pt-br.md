@@ -2,10 +2,9 @@
 # Documentação do banco de dados
 
 # 1. Visão Geral
-Este banco de dados esta sendo usado na API da FATEC do 4° Semestre.
-Usamos um script DDL para criar o banco antes de rodar o script java,
-assim garantimos que a qualidade do script sql seja a melhor possivel.
-
+Este banco de dados está sendo usado na API da FATEC do 4° Semestre. 
+Utilizamos um script DDL para criar o banco antes de executar o script Java, 
+assim garantimos que a qualidade do script SQL seja a melhor possível.
 
 # 2. Modelo de Dados
 
