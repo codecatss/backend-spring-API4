@@ -13,6 +13,7 @@ select * from workload;
 select * from workload_and_expertise;
 select * from get_all_kpis;
 
+-- VIEW's
 create view DashboardDTO as
 SELECT 
     (SELECT COUNT(*) FROM company c WHERE c.opn_status = 'MEMBER') AS qtyPartners,
@@ -23,13 +24,14 @@ SELECT
     (SELECT COUNT(*) FROM opn_track o WHERE o.status = 'ACTIVE') AS qtyTracks,
     (SELECT COUNT(*) FROM service_expertise s WHERE s.status = 'ACTIVE') AS DashboardDTO;
     
+create view TrackPerCompany as
 select 
-c.name,
-count(o.name) qtde
+o.name,
+count(c.name) qtde
 from company c 
 left join company_and_opn_track co on co.company_id = c.id
 left join opn_track o on o.id = co.opn_track_id 
-group by c.name;
+group by o.name;
 
 -- TERMINAR - averageExpertisePerCompany
 select count(w.workload_id) as workload, w.expertise_id from workload_and_expertise w group by w.expertise_id;
