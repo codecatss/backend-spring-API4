@@ -2,7 +2,7 @@ package Oracle.Partner.Tracker.entities;
 
 import Oracle.Partner.Tracker.utils.companyEnum.CompanyStatus;
 import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
-import Oracle.Partner.Tracker.utils.companyEnum.OpnStatus;
+import Oracle.Partner.Tracker.utils.companyEnum.OPNStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +10,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import Oracle.Partner.Tracker.util.Status;
 
 
 @Entity
@@ -30,7 +29,7 @@ public class Company {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "opn_status" )
-    private OpnStatus opnStatus;
+    private OPNStatus opnStatus;
 
     @Column(name = "cnpj", unique = false, nullable = true, length = 150)
     private String cnpj;
