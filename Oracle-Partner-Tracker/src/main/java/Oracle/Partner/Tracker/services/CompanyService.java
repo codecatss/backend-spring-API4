@@ -120,6 +120,7 @@ public class CompanyService extends CsvService<CompanyDTO>{
         company.setName(companyDTO.getName());
         company.setAddress(companyDTO.getAddress());
         company.setCity(companyDTO.getCity());
+        company.setState(companyDTO.getState());
         company.setCountry(companyDTO.getCountry());
         company.setCnpj(companyDTO.getCnpj());
         company.setCreditHold(companyDTO.getCreditHold());
