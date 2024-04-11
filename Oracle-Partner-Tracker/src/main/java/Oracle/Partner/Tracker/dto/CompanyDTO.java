@@ -42,7 +42,7 @@ public class CompanyDTO {
     private String address;
 
     @Schema(description = "Status do company", example = "true")
-    private Status status;
+    private CompanyStatus companyStatus;
 
     @Schema(description = "Data de criação do company", example = "2022-01-01T12:00:00")
     private LocalDateTime created_at;
@@ -69,7 +69,7 @@ public class CompanyDTO {
         this.state = entity.getState();
         this.city = entity.getCity();
         this.address = entity.getAddress();
-        this.status = entity.getStatus();
+        this.companyStatus = entity.getCompanyStatus();
         this.created_at = entity.getCreatedAt();
         this.updated_at = entity.getUpdatedAt();
         this.ingestionOperation = entity.getIngestionOperation();
