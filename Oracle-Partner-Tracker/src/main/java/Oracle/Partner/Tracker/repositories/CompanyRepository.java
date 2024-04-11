@@ -8,4 +8,5 @@ public interface CompanyRepository extends JpaRepository <Company,Long>{
     boolean existsByCnpj(String cnpj);
     Optional<Company> findById(Long id);
     Company findByName(String name);
+    Company findByCnpj(String cnpj);
 }
