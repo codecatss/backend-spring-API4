@@ -2,11 +2,10 @@ package Oracle.Partner.Tracker.dto;
 
 import Oracle.Partner.Tracker.entities.Company;
 import Oracle.Partner.Tracker.utils.companyEnum.CompanyStatus;
-import Oracle.Partner.Tracker.utils.companyEnum.OpnStatus;
+import Oracle.Partner.Tracker.utils.companyEnum.OPNStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import Oracle.Partner.Tracker.util.Status;
 import lombok.NoArgsConstructor;
 import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
 
@@ -24,7 +23,7 @@ public class CompanyDTO {
     private String name;
 
     @Schema(description = "Status da OPN (Oracle Partner Network) da empresa", example = "true")
-    private OpnStatus opnStatus;
+    private OPNStatus opnStatus;
 
     @Schema(description = "CNPJ da empresa", example = "12345678901234")
     private String cnpj;
