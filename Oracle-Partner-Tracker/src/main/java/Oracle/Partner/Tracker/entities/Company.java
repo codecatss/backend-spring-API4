@@ -1,5 +1,6 @@
 package Oracle.Partner.Tracker.entities;
 
+import Oracle.Partner.Tracker.utils.companyEnum.CompanyStatus;
 import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
 import Oracle.Partner.Tracker.utils.companyEnum.OpnStatus;
 import jakarta.persistence.*;
@@ -59,9 +60,9 @@ public class Company {
     @Column(name = "credit_hold")
     private String creditHold;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "company_status", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private CompanyStatus companyStatus;
 
     @Column(name = "slogan", nullable = true, length = 200)
     private String slogan;
