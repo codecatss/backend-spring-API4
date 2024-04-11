@@ -10,8 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public enum OpnStatus {
 
-    ACTIVE,INACTIVE,EXPIRED;
-
+    ACTIVE("ACTIVE"),INACTIVE("INACTIVE"),EXPIRED("EXPIRED");
 
     private String status;
 
