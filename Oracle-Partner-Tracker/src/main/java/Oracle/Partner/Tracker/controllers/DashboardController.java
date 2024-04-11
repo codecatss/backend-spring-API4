@@ -19,7 +19,11 @@ public class DashboardController {
 
     @GetMapping
     public ResponseEntity<DashboardDTO> getAllKPI(){
+        
         DashboardDTO data = dashboardService.getAll();
+        if(data == null){
+            return ResponseEntity.notFound().build();
+        }
         return  ResponseEntity.ok(data);
     }
 }
