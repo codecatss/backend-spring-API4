@@ -46,9 +46,6 @@ public class Company {
     @Column(name = "address", nullable = true, length = 200)
     private String address;
 
-    @Column(name = "cep", nullable = true, length = 10)
-    private String cep;
-
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
@@ -56,6 +53,7 @@ public class Company {
     private LocalDateTime updatedAt;
 
     @Column(name= "ingestion_operation")
+    @Enumerated(EnumType.STRING)
     private IngestionOperation ingestionOperation;
 
     @Column(name = "credit_hold")
