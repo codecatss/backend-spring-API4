@@ -9,8 +9,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import Oracle.Partner.Tracker.util.Status;
 
-import Oracle.Partner.Tracker.utils.companyEnum.CompanyStatus;
 
 @Entity
 @Data
@@ -46,20 +46,22 @@ public class Company {
     @Column(name = "address", nullable = true, length = 200)
     private String address;
 
-    @Column(name = "cep", nullable = true, length = 10)
-    private String cep;
-
     @Column(name = "created_at")
-    private LocalDateTime createOn;
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     @Column(name= "ingestion_operation")
-    private IngestionOperation injestionOperation;
+    @Enumerated(EnumType.STRING)
+    private IngestionOperation ingestionOperation;
 
     @Column(name = "credit_hold")
     private String creditHold;
 
-    @Column(name = "company_status")
-    private CompanyStatus companyStatus;
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @Column(name = "slogan", nullable = true, length = 200)
     private String slogan;
