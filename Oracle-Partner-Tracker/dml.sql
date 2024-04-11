@@ -13,15 +13,7 @@ select * from workload;
 select * from workload_and_expertise;
 select * from get_all_kpis;
 
-select count(*) AS 'qtyPartners' from company c where c.opn_status = "MEMBER";
-select count(*) AS 'qtyPartnersActive' from company c where c.opn_status = "MEMBER" AND c.company_status='ACTIVE';
-select count(*) AS 'qtyPartnersInactive' from company c where c.opn_status = "MEMBER" AND c.company_status='INACTIVE';
-select avg(repeat_id) as 'averageTracksPerPartners' from (select count(*) as repeat_id from company_and_opn_track c group by company_id) as TracksPerPartners;
-select count(*) AS 'qtyUsers' from user u where u.status='ACTIVE';
-select count(*) AS 'qtyTracks' from opn_track o where o.status='ACTIVE';
-select count(*) AS 'qtyExpertise' from service_expertise s where s.status='ACTIVE';
-
-create view get_all_kpis as
+create view DashboardDTO as
 SELECT 
     (SELECT COUNT(*) FROM company c WHERE c.opn_status = 'MEMBER') AS qtyPartners,
     (SELECT COUNT(*) FROM company c WHERE c.opn_status = 'MEMBER' AND c.company_status = 'ACTIVE') AS qtyPartnersActive,
@@ -29,7 +21,15 @@ SELECT
     (SELECT AVG(repeat_id) FROM (SELECT COUNT(*) AS repeat_id FROM company_and_opn_track c GROUP BY company_id) AS TracksPerPartners) AS averageTracksPerPartners,
     (SELECT COUNT(*) FROM user u WHERE u.status = 'ACTIVE') AS qtyUsers,
     (SELECT COUNT(*) FROM opn_track o WHERE o.status = 'ACTIVE') AS qtyTracks,
-    (SELECT COUNT(*) FROM service_expertise s WHERE s.status = 'ACTIVE') AS getAllKPIs;
+    (SELECT COUNT(*) FROM service_expertise s WHERE s.status = 'ACTIVE') AS DashboardDTO;
+    
+select 
+c.name,
+count(o.name) qtde
+from company c 
+left join company_and_opn_track co on co.company_id = c.id
+left join opn_track o on o.id = co.opn_track_id 
+group by c.name;
 
 -- TERMINAR - averageExpertisePerCompany
 select count(w.workload_id) as workload, w.expertise_id from workload_and_expertise w group by w.expertise_id;
