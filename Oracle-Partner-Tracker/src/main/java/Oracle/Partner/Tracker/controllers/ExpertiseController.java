@@ -17,9 +17,6 @@ import java.util.UUID;
 @RequestMapping(value = "/expertise")
 public class ExpertiseController {
     @Autowired
-    private ExpertiseRepository expertiseRepository;
-
-    @Autowired
     private ExpertiseService expertiseService;
 
     @GetMapping
