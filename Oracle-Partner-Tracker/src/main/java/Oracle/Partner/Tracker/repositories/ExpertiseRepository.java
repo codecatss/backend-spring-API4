@@ -6,6 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ExpertiseRepository extends JpaRepository <Expertise,String>{
-    @Query(value = "select * from get_all_kpis;", nativeQuery = true)
-    public List<Object[]> getAllKPIs();
+    @Query(value = "select * from DashboardDTO;", nativeQuery = true)
+    public List<Object[]> getDashboardDTO();
+
+    @Query(value = "select * from TrackPerCompany;", nativeQuery = true)
+    public List<Object[]> getTrackPerCompany();
 }
