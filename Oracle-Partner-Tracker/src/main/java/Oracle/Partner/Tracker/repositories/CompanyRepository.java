@@ -1,6 +1,8 @@
 package Oracle.Partner.Tracker.repositories;
 
 import java.util.Optional;
+
+import Oracle.Partner.Tracker.dto.StatePerCompany;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import Oracle.Partner.Tracker.entities.Company;
@@ -12,7 +14,7 @@ public interface CompanyRepository extends JpaRepository <Company,Long>{
     Company findByName(String name);
     Company findByCnpj(String cnpj);
 
-    @Query(value = "SELECT * FROM company;", nativeQuery = true)
+    @Query(value = "select * from StatePerCompany;", nativeQuery = true)
     List<Object[]> getCompaniesByState();
 
 }

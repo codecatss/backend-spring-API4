@@ -60,7 +60,7 @@ public class DashboardService {
         for(Object[] obj : kpis){
             StatePerCompany state = new StatePerCompany();
             state.setState((String) obj[0]);
-            state.setCompanyCount(((Number) obj[1]).intValue()); 
+            state.setCompanyCount(Integer.parseInt(String.valueOf(obj[1])));
             data.add(state);
         }
 

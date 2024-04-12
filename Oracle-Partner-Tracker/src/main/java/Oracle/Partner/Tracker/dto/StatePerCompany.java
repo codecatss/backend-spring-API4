@@ -8,5 +8,4 @@ import lombok.NoArgsConstructor;
 public class StatePerCompany {
     private String state;
     private Integer companyCount;
-
 }
