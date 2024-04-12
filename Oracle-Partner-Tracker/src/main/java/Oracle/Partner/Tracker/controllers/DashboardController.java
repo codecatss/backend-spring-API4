@@ -2,6 +2,7 @@ package Oracle.Partner.Tracker.controllers;
 
 import Oracle.Partner.Tracker.dto.DashboardDTO;
 import Oracle.Partner.Tracker.dto.TrackPerCompany;
+import Oracle.Partner.Tracker.dto.StatePerCompany;
 import Oracle.Partner.Tracker.services.DashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,4 +40,15 @@ public class DashboardController {
         }
         return  ResponseEntity.ok(data);
     }
+
+    @GetMapping(value="/state-per-company")
+    public ResponseEntity<List<StatePerCompany>> getStatePerCompany(){
+
+    List<StatePerCompany> data = dashboardService.getStatePerCompany();
+    if(data == null){
+        return ResponseEntity.notFound().build();
+    }
+    return  ResponseEntity.ok(data);
+}
+
 }
