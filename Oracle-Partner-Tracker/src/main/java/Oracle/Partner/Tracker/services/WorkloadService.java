@@ -112,7 +112,6 @@ public class WorkloadService extends CsvService<WorkloadDTO>{
 
         for (int i = 1; i < csvData.size(); i++){
             String[] row = csvData.get(i);
-            System.out.println(row);
 
             Optional<WorkloadDTO> workloadDTO = mapRowToWorkload(row, header);
             if (workloadDTO.isPresent()){
@@ -141,7 +140,6 @@ public class WorkloadService extends CsvService<WorkloadDTO>{
         Workload workload = new Workload();
         copyDTOtoEntity(workloadDTO, workload);
 
-        System.out.println("Workload inserida: " + workloadDTO);
         Optional<WorkloadDTO> optionalWorkload = this.insertWorkload(workloadDTO);            
         if (optionalWorkload.isPresent()){
             return Optional.empty();
