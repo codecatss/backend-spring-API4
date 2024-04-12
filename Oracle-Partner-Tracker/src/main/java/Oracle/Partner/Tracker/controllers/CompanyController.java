@@ -1,6 +1,5 @@
 package Oracle.Partner.Tracker.controllers;
 
-
 import Oracle.Partner.Tracker.dto.CompanyDTO;
 import Oracle.Partner.Tracker.entities.Company;
 import Oracle.Partner.Tracker.repositories.CompanyRepository;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,31 +27,26 @@ import java.util.UUID;
 public class CompanyController {
 
     @Autowired
-    private CompanyRepository companyRepository;
-    @Autowired
     private CompanyService companyService;
 
     @GetMapping
-    @Operation( summary = "Company", description = "Get all companies" )
+    @Operation(summary = "Company", description = "Get all companies")
     @ApiResponses(value = {
             @ApiResponse(
-                responseCode = "200",
-                content = @Content(
-                    array = @ArraySchema(
-                        schema = @Schema(implementation = Company.class)
-                    )
-                ),
-                description = "Companies retrieved"
-                
-                ),
+                    responseCode = "200",
+                    content = @Content(
+                            array = @ArraySchema(
+                                    schema = @Schema(implementation = Company.class)
+                            )
+                    ),
+                    description = "Companies retrieved"
+            ),
             @ApiResponse(responseCode = "404", description = "Companies not found")
     })
     public ResponseEntity<Page<CompanyDTO>> getAllCompanies(Pageable pageable) {
         Page<CompanyDTO> companies = companyService.findAllCompanies(pageable);
         return new ResponseEntity<>(companies, HttpStatus.OK);
-
     }
-
 
     @GetMapping(value = "/{id}")
     @Operation(summary = "Find Company by ID", description = "Get a company by its ID")
@@ -70,8 +63,8 @@ public class CompanyController {
                     description = "Company not found"
             )
     })
-    public ResponseEntity<CompanyDTO> findCompanyById(@PathVariable String id) {
-        CompanyDTO companyDTO = companyService.findCompanyById(id);
+    public ResponseEntity<CompanyDTO> getCompanyById(@PathVariable Long id) {
+        CompanyDTO companyDTO = companyService.getCompanyById(id);
         if (companyDTO != null) {
             return new ResponseEntity<>(companyDTO, HttpStatus.OK);
         } else {
@@ -79,41 +72,39 @@ public class CompanyController {
         }
     }
 
-
-
     @PostMapping
     @Operation(summary = "Insert Company", description = "Insert a new company")
-    @ApiResponse(responseCode = "201", description = "Company created",
-                content = @Content(schema = @Schema(implementation = CompanyDTO.class)))
-    public ResponseEntity<CompanyDTO> insertCompany(@RequestBody CompanyDTO companyDTO){
-        companyDTO =  companyService.insertCompany(companyDTO);
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Company created",
+                    content = @Content(
+                            schema = @Schema(implementation = CompanyDTO.class)
+                    )
+            )
+    })
+    public ResponseEntity<CompanyDTO> insertCompany(@RequestBody CompanyDTO companyDTO) {
+        companyDTO = companyService.insertCompany(companyDTO).get();
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(companyDTO.getId()).toUri();
         return ResponseEntity.created(uri).body(companyDTO);
     }
 
-
-
     @PutMapping(value = "/{id}")
-    public ResponseEntity<CompanyDTO> updateCompany(@PathVariable String id, @RequestBody CompanyDTO companyDTO){
-        companyDTO = companyService.updateCompany(id,companyDTO);
+    public ResponseEntity<CompanyDTO> updateCompany(@PathVariable Long id, @RequestBody CompanyDTO companyDTO) {
+        companyDTO = companyService.updateCompany(id, companyDTO);
         return ResponseEntity.ok(companyDTO);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> disableCompany(@PathVariable UUID id){
+    public ResponseEntity<Void> disableCompany(@PathVariable Long id) {
         companyService.disableCompany(id);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping(value = "/{id}/enable")
-    public ResponseEntity<Void> enableCompany(@PathVariable UUID id){
+    public ResponseEntity<Void> enableCompany(@PathVariable Long id) {
         companyService.enableCompany(id);
         return ResponseEntity.noContent().build();
     }
-
-
-
-
-
 }

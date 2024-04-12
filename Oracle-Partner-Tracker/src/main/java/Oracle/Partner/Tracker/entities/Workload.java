@@ -5,7 +5,6 @@ import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -33,8 +32,9 @@ public class Workload {
     @Enumerated(EnumType.STRING)
     private IngestionOperation ingestionOperation;
 
-    @Column(name = "workload_status", nullable = false, length = 20)
-    private Boolean workloadStatus;
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

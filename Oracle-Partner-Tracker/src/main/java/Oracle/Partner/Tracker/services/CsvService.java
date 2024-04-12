@@ -12,13 +12,6 @@ import java.io.Reader;
 import java.util.List;
 
 public abstract class CsvService<T> implements GenericService<T>{
-    private ExpertiseService expertiseService;
-
-    @Autowired
-    public void setExpertiseService(ExpertiseService expertiseService) {
-        this.expertiseService = expertiseService;
-    }
-
 	public List<T> processCsv(MultipartFile file) {
         try {
             List<String[]> csvData = readCsvData(file);
@@ -31,7 +24,8 @@ public abstract class CsvService<T> implements GenericService<T>{
     }
 
     public List<ExpertiseDTO> processCsvExpertise(MultipartFile file){
-        return expertiseService.mapCsvToExpertise(file);
+//        return expertiseService.mapCsvToExpertise(file);
+        return null;
     }
 
     private List<String[]> readCsvData(MultipartFile file) throws Exception {

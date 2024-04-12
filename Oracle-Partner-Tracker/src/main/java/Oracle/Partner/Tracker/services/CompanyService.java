@@ -1,55 +1,61 @@
 package Oracle.Partner.Tracker.services;
 
-import Oracle.Partner.Tracker.dto.CompanyDTO;
-import Oracle.Partner.Tracker.entities.Company;
-import Oracle.Partner.Tracker.repositories.CompanyRepository;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import Oracle.Partner.Tracker.utils.companyEnum.CompanyStatus;
-import Oracle.Partner.Tracker.utils.companyEnum.OpnStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
+import Oracle.Partner.Tracker.utils.companyEnum.OPNStatus;
+import Oracle.Partner.Tracker.dto.CompanyDTO;
+import Oracle.Partner.Tracker.entities.Company;
+import Oracle.Partner.Tracker.repositories.CompanyRepository;
 
 @Service
 public class CompanyService extends CsvService<CompanyDTO>{
 
+    @Autowired
     private CompanyRepository companyRepository;
 
-    @Autowired
     public void setCompanyRepository(CompanyRepository companyRepository) {
         this.companyRepository = companyRepository;
     }
 
-    @Transactional(readOnly = true)
-    public CompanyDTO findCompanyById(String id){
-        Company company = companyRepository.findById(id).get();
-        return new CompanyDTO(company);
+    public CompanyDTO getCompanyById(Long id) {
+        Optional<Company> company = companyRepository.findById(id);
+        return company.map(CompanyDTO::new).orElse(null);
     }
 
+    public CompanyDTO findCompanyByCnpj(String cnpj){
+        Optional<Company> company = Optional.ofNullable(companyRepository.findByCnpj(cnpj));
+        return company.map(CompanyDTO::new).orElse(null);
+    }
 
-    @Transactional(readOnly = true)
+    public Optional<CompanyDTO> findCompanyByName(String name){
+        Optional<Company> company = Optional.ofNullable(companyRepository.findByName(name));
+        return Optional.ofNullable(company).orElse(null).map(CompanyDTO::new);
+    }
+
     public Page<CompanyDTO> findAllCompanies(Pageable pageable){
         Page<Company> companies = companyRepository.findAll(pageable);
         return companies.map(CompanyDTO::new);
     }
 
-
-
-    public CompanyDTO insertCompany(CompanyDTO companyDTO) {
-        // Verificando se o nome da empresa é válido
-        if (companyDTO.getName() == null || companyDTO.getName().isBlank()) {
-            throw new IllegalArgumentException("O nome da empresa é obrigatório.");
-        }
+    public Optional<CompanyDTO> insertCompany(CompanyDTO companyDTO) {   
 
         // Verificando se o CNPJ da empresa é válido
         if (companyDTO.getCnpj() == null || companyDTO.getCnpj().isBlank()) {
             throw new IllegalArgumentException("O CNPJ da empresa é obrigatório.");
+        }
+
+        if (companyDTO.getName() == null || companyDTO.getName().isBlank()){
+            throw new IllegalArgumentException("O nome da empresa é obrigatório.");
         }
 
         // Verificando se o país da empresa é válido
@@ -72,68 +78,66 @@ public class CompanyService extends CsvService<CompanyDTO>{
             throw new IllegalArgumentException("O endereço da empresa é obrigatório.");
         }
 
-
         Company company = new Company();
 
         copyDTOtoEntity(companyDTO,company);
 
         company = companyRepository.save(company);
 
-        return new CompanyDTO(company);
+        return Optional.of(new CompanyDTO(company));
     }
 
 
-    public CompanyDTO updateCompany(String id,CompanyDTO companyDTO) {
+    public CompanyDTO updateCompany(Long id,CompanyDTO companyDTO) {
 
-        Company company = companyRepository.getReferenceById(id);
-
-
-        copyDTOtoEntity(companyDTO,company);
-
-
-
+        Company company = companyRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Company not found with id: " + id)
+        );
+        copyDTOtoEntity(companyDTO, company);
         company = companyRepository.save(company);
-
         return new CompanyDTO(company);
     }
 
-
-    public void disableCompany(UUID id){
-        Company company = companyRepository.findById(String.valueOf(id)).orElse(null);
-        if(company != null){
-            company.setCompanyStatus(CompanyStatus.ACTIVE);
-            companyRepository.save(company);
-        }else{
-            throw new RuntimeException("Company not found with id: " + id);
-        }
+    public void disableCompany(Long id){
+        Company company = companyRepository.findById(id).orElseThrow(
+            () -> new RuntimeException("Company não encontrada com o id: " + id)
+            );
+        company.setCompanyStatus(CompanyStatus.INACTIVE);
+        companyRepository.save(company);
     }
 
-    public void enableCompany(UUID id){
-        Company company = companyRepository.findById(String.valueOf(id)).orElse(null);
-        if(company != null){
+    public void enableCompany(Long id){
+        Company company = companyRepository.findById(id).orElseThrow(
+            () -> new RuntimeException("Workload não encontrada com o id: " + id)
+            );
             company.setCompanyStatus(CompanyStatus.ACTIVE);
             companyRepository.save(company);
 
-        }else{
-            throw new RuntimeException("Company not found with id: " + id);
         }
-    }
 
 
     private void copyDTOtoEntity(CompanyDTO companyDTO, Company company) {
         company.setName(companyDTO.getName());
-        company.setOpnStatus(companyDTO.getOpnStatus());
-        company.setCnpj(companyDTO.getCnpj());
-        company.setCountry(companyDTO.getCountry());
-        company.setState(companyDTO.getState());
-        company.setCity(companyDTO.getCity());
         company.setAddress(companyDTO.getAddress());
-
-        company.setCreateOn(LocalDateTime.now());
+        company.setCity(companyDTO.getCity());
+        company.setState(companyDTO.getState());
+        company.setCountry(companyDTO.getCountry());
+        company.setCnpj(companyDTO.getCnpj());
         company.setCreditHold(companyDTO.getCreditHold());
         company.setSlogan(companyDTO.getSlogan());
-        company.setCompanyStatus(companyDTO.getCompanyStatus());
+        company.setIngestionOperation(companyDTO.getIngestionOperation());
+        company.setOpnStatus(companyDTO.getOpnStatus());
 
+        if (companyDTO.getCompanyStatus() == null || companyDTO.getCompanyStatus().name().isBlank()){
+            companyDTO.setCompanyStatus(CompanyStatus.ACTIVE);
+        }
+        company.setCompanyStatus(companyDTO.getCompanyStatus());
+        if(companyDTO.getCreated_at() == null || companyDTO.getCreated_at().toString().isBlank()){
+            company.setCreatedAt(LocalDateTime.now());
+        }else{
+            company.setCreatedAt(companyDTO.getCreated_at());
+        }
+        company.setUpdatedAt(LocalDateTime.now());
     }
 
 
@@ -147,44 +151,58 @@ public class CompanyService extends CsvService<CompanyDTO>{
         for (int i = 1; i < csvData.size(); i++) {
             String[] row = csvData.get(i);
 
-            CompanyDTO company =  mapRowToCompany(row, header);
-            companies.add(company);
+            Optional<CompanyDTO> companyDTO =  mapRowToCompany(row, header);
+            if (companyDTO != null){
+                companies.add(companyDTO.get());
+            }
         }
 
         return companies;
     }
-    public CompanyDTO mapRowToCompany(String[] row, String[] header) {
+    public Optional<CompanyDTO> mapRowToCompany(String[] row, String[] header) {
         CompanyDTO companyDTO = new CompanyDTO();
-
-
+    
         for (int i = 0; i < header.length; i++) {
-
+            companyDTO.setIngestionOperation(IngestionOperation.CSV);
             switch (header[i]) {
                 case "Company Name":
-                    companyDTO.setName(row[i]);
-                    break;
-                case "OPN Status":
-                    if(row[i].equals("Active")){
-                        companyDTO.setOpnStatus(OpnStatus.ACTIVE);
-
+                    String companyName = row[i];
+                    if (companyName != null && !companyName.isBlank()) {
+                        companyDTO.setName(companyName);
                     } else {
-                        companyDTO.setOpnStatus(OpnStatus.EXPIRED);
+                        // Se o nome da empresa for nulo ou vazio, pule esta linha
+                        return Optional.empty();
                     }
                     break;
+                case "Status":
+                    if(row[i].equals("Active")){
+                        companyDTO.setCompanyStatus(CompanyStatus.ACTIVE);
+                    }else{
+                        companyDTO.setCompanyStatus(CompanyStatus.INACTIVE);
+                    }
+                    break;
+                case "OPN Status":
+                    System.out.println(row[i]);
+                    if(row[i].equals("Active")){
+                        System.out.println("AAAAAAAAA");
+                        companyDTO.setOpnStatus(OPNStatus.MEMBER);
+                    }else{
+                        companyDTO.setOpnStatus(OPNStatus.EXPIRED);
+                    };
+                    break;
                 case "Company ID":
-
                     companyDTO.setCnpj(row[i]);
                     break;
+                case "State":
+                    companyDTO.setState(row[i]);
+                    break;
                 case "Country":
-
                     companyDTO.setCountry(row[i]);
                     break;
                 case "City":
-
                     companyDTO.setCity(row[i]);
                     break;
                 case "Address":
-
                     companyDTO.setAddress(row[i]);
                     break;
                 case "Credit Hold":
@@ -197,25 +215,29 @@ public class CompanyService extends CsvService<CompanyDTO>{
                     break;
             }
         }
+    
+        // Verifique se o nome da empresa foi definido
+        if (companyDTO.getName() == null || companyDTO.getName().isBlank()) {
+            // Se o nome da empresa ainda for nulo ou vazio, retorne Optional.empty()
+            return Optional.empty();
+        }
+    
+        // Verifique se a empresa já existe no banco de dados antes de inserir
+        CompanyDTO optionalCompany = this.findCompanyByCnpj(companyDTO.getCnpj());
+        if (optionalCompany != null) {
 
-
-
-
-
+            // Se a empresa já existir, retorne Optional.empty()
+            return null;
+        }
+    
         Company company = new Company();
-
         copyDTOtoEntity(companyDTO, company);
-        company.setCompanyStatus(CompanyStatus.ACTIVE);
-
-
-        companyRepository.save(company);
-
-        return companyDTO;
+    
+        // Insira a empresa no banco de dados
+        company = companyRepository.save(company);
+    
+        return Optional.of(new CompanyDTO(company));
     }
+    
 
-
-
-
-
-
-}
+}    
