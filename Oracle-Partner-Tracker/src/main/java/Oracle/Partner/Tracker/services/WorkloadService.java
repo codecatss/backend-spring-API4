@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import Oracle.Partner.Tracker.dto.WorkloadDTO;
 import Oracle.Partner.Tracker.entities.Workload;
 import Oracle.Partner.Tracker.repositories.WorkloadRepository;
-import Oracle.Partner.Tracker.util.Status;
+import Oracle.Partner.Tracker.utils.userenum.Status;
 import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
 
 @Service
