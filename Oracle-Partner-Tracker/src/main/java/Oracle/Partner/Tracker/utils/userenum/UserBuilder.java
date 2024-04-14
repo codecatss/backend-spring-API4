@@ -14,7 +14,7 @@ public class UserBuilder {
     private String password;
     private RoleEnum role;
     private Status status;
-    private IngestionOperation ingestionOperation = IngestionOperation.MANUAL;
+    private IngestionOperation ingestionOperation;
     private MembershipEnum memberShipType;
 
     // getters and setters for all fields
