@@ -1,8 +1,6 @@
 package Oracle.Partner.Tracker.services;
 
-import Oracle.Partner.Tracker.util.Status;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import Oracle.Partner.Tracker.utils.userenum.Status;
 import org.springframework.stereotype.Service;
 import Oracle.Partner.Tracker.dto.ExpertiseDTO;
 import Oracle.Partner.Tracker.entities.Expertise;

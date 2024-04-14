@@ -1,5 +1,9 @@
 package Oracle.Partner.Tracker.entities;
 
+import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
+import Oracle.Partner.Tracker.utils.userenum.MembershipEnum;
+import Oracle.Partner.Tracker.utils.userenum.RoleEnum;
+import Oracle.Partner.Tracker.utils.userenum.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,9 +20,9 @@ import java.util.UUID;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private String id;
+    private Long id;
     @Column(name = "name")
     private String name;
     @Column(name = "email")
@@ -26,12 +30,20 @@ public class User {
     @Column(name = "password")
     private String password;
     @Column(name = "role")
-    private String role;
-    @Column(name = "user_status")
-    private Boolean userStatus;
+    @Enumerated(EnumType.STRING)
+    private RoleEnum role;
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private Status userStatus;
+    @Column(name = "ingestion_operation")
+    @Enumerated(EnumType.STRING)
+    private IngestionOperation ingestionOperation;
     @Column(name = "membership_type")
-    private String memberShipType;
-    @Column(name = "create_on")
-    private LocalDateTime createOn = LocalDateTime.now();
+    @Enumerated(EnumType.STRING)
+    private MembershipEnum memberShipType;
+    @Column(name = "updated_at")
+    private LocalDateTime updateAt = LocalDateTime.now();
+    @Column(name = "created_at")
+    private LocalDateTime createAt = LocalDateTime.now();
 
 }
