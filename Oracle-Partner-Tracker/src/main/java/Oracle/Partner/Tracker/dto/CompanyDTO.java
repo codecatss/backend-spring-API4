@@ -2,11 +2,12 @@ package Oracle.Partner.Tracker.dto;
 
 import Oracle.Partner.Tracker.entities.Company;
 import Oracle.Partner.Tracker.utils.companyEnum.CompanyStatus;
-import Oracle.Partner.Tracker.utils.companyEnum.OpnStatus;
+import Oracle.Partner.Tracker.utils.companyEnum.OPNStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
 
 import java.time.LocalDateTime;
 
@@ -22,7 +23,7 @@ public class CompanyDTO {
     private String name;
 
     @Schema(description = "Status da OPN (Oracle Partner Network) da empresa", example = "true")
-    private OpnStatus opnStatus;
+    private OPNStatus opnStatus;
 
     @Schema(description = "CNPJ da empresa", example = "12345678901234")
     private String cnpj;
@@ -39,17 +40,21 @@ public class CompanyDTO {
     @Schema(description = "Endereço da empresa", example = "Av. Paulista, 123")
     private String address;
 
-    @Schema(description = "CEP da empresa", example = "12345-678")
-    private String cep;
+    @Schema(description = "Status do company", example = "true")
+    private CompanyStatus companyStatus;
 
-    @Schema(description = "Data de criação da empresa", example = "2022-01-01T12:00:00")
-    private LocalDateTime createOn;
+    @Schema(description = "Data de criação do company", example = "2022-01-01T12:00:00")
+    private LocalDateTime created_at;
 
+    @Schema(description = "Data de atualização do company", example = "2022-01-01T12:00:00")
+    private LocalDateTime updated_at;
+
+    @Schema(name= "ingestion_operation")
+    private IngestionOperation ingestionOperation;
+    
     @Schema(description = "Status de crédito da empresa", example = "true")
     private String creditHold;
 
-    @Schema(description = "Status da empresa", example = "true")
-    private CompanyStatus companyStatus;
 
     @Schema(description = "Slogan da empresa", example = "Fazemos a diferença!")
     private String slogan;
@@ -63,10 +68,11 @@ public class CompanyDTO {
         this.state = entity.getState();
         this.city = entity.getCity();
         this.address = entity.getAddress();
-        this.cep = entity.getCep();
-        this.createOn = entity.getCreateOn();
-        this.creditHold = entity.getCreditHold();
         this.companyStatus = entity.getCompanyStatus();
+        this.created_at = entity.getCreatedAt();
+        this.updated_at = entity.getUpdatedAt();
+        this.ingestionOperation = entity.getIngestionOperation();
+        this.creditHold = entity.getCreditHold();
         this.slogan = entity.getSlogan();
     }
 }

@@ -4,8 +4,10 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
+
 @OpenAPIDefinition(
 		info = @Info(
 				title = "Oracle Partner Network",
@@ -23,6 +25,7 @@ public class OraclePartnerTrackerApplication {
 		System.out.println("  /\\_/\\");
 		System.out.println(" ( o.o )");
 		System.out.println("  > ^ <");
+		System.out.println("  MEEOW!");
 	}
 
 }

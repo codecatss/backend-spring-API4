@@ -1,6 +1,8 @@
 package Oracle.Partner.Tracker.services;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,20 +13,27 @@ import org.springframework.stereotype.Service;
 import Oracle.Partner.Tracker.dto.OpnTrackDTO;
 import Oracle.Partner.Tracker.entities.OpnTrack;
 import Oracle.Partner.Tracker.repositories.OpnTrackRepository;
+import Oracle.Partner.Tracker.utils.userenum.Status;
+import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
 
 @Service
-public class OpnTrackService {
-    @Autowired
+public class OpnTrackService extends CsvService<OpnTrackDTO>{
+
     private OpnTrackRepository opnTrackRepository;
 
-    public OpnTrackDTO findOpnTrackById(Long id){
-        OpnTrack opnTrack = opnTrackRepository.findById(id).get();
-        return new OpnTrackDTO(opnTrack);
+    @Autowired
+    public void setOpnTrackRepository(OpnTrackRepository opnTrackRepository) {
+        this.opnTrackRepository = opnTrackRepository;
+    }
+
+    public Optional<OpnTrackDTO> findOpnTrackById(Long id){
+        Optional<OpnTrack> opnTrack = opnTrackRepository.findById(id);
+        return Optional.ofNullable(opnTrack).orElse(null).map(OpnTrackDTO::new);
     }
 
     public Optional<OpnTrackDTO> findOpnTrackByName(String name){
-        OpnTrack opnTrack = opnTrackRepository.findByName(name);
-        return Optional.ofNullable(opnTrack).map(OpnTrackDTO::new);
+        Optional<OpnTrack> opnTrack = Optional.ofNullable(opnTrackRepository.findByName(name));
+        return Optional.ofNullable(opnTrack).orElse(null).map(OpnTrackDTO::new);
     }
 
     public Page<OpnTrackDTO> findAllOpnTracks(Pageable pageable){
@@ -32,9 +41,13 @@ public class OpnTrackService {
         return opnTracks.map(OpnTrackDTO::new);
     }
     
-    public OpnTrackDTO insertOpnTrack(OpnTrackDTO opnTrackDTO){
+    public Optional<OpnTrackDTO> insertOpnTrack(OpnTrackDTO opnTrackDTO){
+        Optional<OpnTrackDTO> optionalOpnTrack= findOpnTrackByName(opnTrackDTO.getName());
+        if (optionalOpnTrack.isPresent()){
+            return Optional.empty();
+        }
         if (opnTrackDTO.getName() == null || opnTrackDTO.getName().isBlank()){
-            throw new RuntimeException("O nome da OPN Track é obrigatório");
+            return Optional.empty();
         }
 
         OpnTrack opnTrack = new OpnTrack();
@@ -42,7 +55,7 @@ public class OpnTrackService {
 
         opnTrack = opnTrackRepository.save(opnTrack);
 
-        return new OpnTrackDTO(opnTrack);
+        return Optional.of(new OpnTrackDTO(opnTrack));
 
     }
 
@@ -59,7 +72,7 @@ public class OpnTrackService {
         OpnTrack opnTrack = opnTrackRepository.findById(id).orElseThrow(
             () -> new RuntimeException("OPN Track não encontrada com o id: " + id)
             );
-        opnTrack.setOpnTrackStatus(false);
+        opnTrack.setStatus(Status.INACTIVE);
         opnTrackRepository.save(opnTrack);
     }
 
@@ -67,13 +80,67 @@ public class OpnTrackService {
         OpnTrack opnTrack = opnTrackRepository.findById(id).orElseThrow(
             () -> new RuntimeException("OPN Track não encontrada com o id: " + id)
             );
-        opnTrack.setOpnTrackStatus(true);
+        opnTrack.setStatus(Status.ACTIVE);
         opnTrackRepository.save(opnTrack);
     }
 
     private void copyDTOtoEntity(OpnTrackDTO opnTrackDTO, OpnTrack opnTrack){
         opnTrack.setName(opnTrackDTO.getName());
-        opnTrack.setOpnTrackStatus(opnTrackDTO.getOpnTrackStatus());
-        opnTrack.setCreatedAt(LocalDateTime.now());
+        opnTrack.setIngestionOperation(opnTrackDTO.getIngestionOperation());
+        if (opnTrackDTO.getStatus() == null || opnTrackDTO.getStatus().name().isBlank()){
+            opnTrackDTO.setStatus(Status.ACTIVE);
+        }
+        opnTrack.setStatus(opnTrackDTO.getStatus());
+        if(opnTrackDTO.getCreatedAt() == null || opnTrackDTO.getCreatedAt().toString().isBlank()){
+            opnTrack.setCreatedAt(LocalDateTime.now());
+        }else{
+            opnTrack.setCreatedAt(opnTrackDTO.getCreatedAt());
+        }
+        opnTrack.setUpdatedAt(LocalDateTime.now());
     }
+
+    @Override
+    public List<OpnTrackDTO> mapCsvToEntities(List<String[]> csvData){
+        String[] header = csvData.get(0);
+        List<OpnTrackDTO> opnTracks = new ArrayList<>();
+
+        for (int i = 1; i < csvData.size(); i++){
+            String[] row = csvData.get(i);
+
+            Optional<OpnTrackDTO> opnTrackDTO = mapRowToOpnTrack(row, header);
+            if (opnTrackDTO.isPresent()){
+                opnTracks.add(opnTrackDTO.get());
+            }
+        }
+        return opnTracks;
+    }
+
+    public Optional<OpnTrackDTO> mapRowToOpnTrack(String[] row, String[] header){
+        OpnTrackDTO opnTrackDTO = new OpnTrackDTO();
+        
+        for (int j = 0; j < header.length; j++){
+            opnTrackDTO.setIngestionOperation(IngestionOperation.CSV);
+            switch (header[j]){
+                case "OPN Track":
+                    opnTrackDTO.setName(row[j]);
+                    break;
+                case "OpnTrack Status":
+                    opnTrackDTO.setStatus(Status.toStatus(row[j]));
+                    break;
+            }
+        }
+
+        
+        OpnTrack opnTrack = new OpnTrack();
+        copyDTOtoEntity(opnTrackDTO, opnTrack);
+
+        Optional<OpnTrackDTO> optionalOpnTrack = this.insertOpnTrack(opnTrackDTO);            
+
+        if (optionalOpnTrack.isPresent()){
+            return Optional.empty();
+        }
+
+        return Optional.of(new OpnTrackDTO(opnTrack));
+    }
+
 }

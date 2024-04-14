@@ -49,6 +49,7 @@ public class OpnTrackController {
         ),
         @ApiResponse(responseCode = "404", description = "OpnTracks not found")
     })
+
     public ResponseEntity<Page<OpnTrackDTO>> getAllOpnTracks(Pageable pageable) {
         Page<OpnTrackDTO> opnTracks = opnTrackService.findAllOpnTracks(pageable);
         return new ResponseEntity<>(opnTracks, HttpStatus.OK);
@@ -69,10 +70,12 @@ public class OpnTrackController {
             description = "OpnTrack not found"
         )
     })
+
+
     public ResponseEntity<OpnTrackDTO> getOpnTrackById(@PathVariable Long id){
-        OpnTrackDTO opnTrackDTO = opnTrackService.findOpnTrackById(id);
+        Optional<OpnTrackDTO> opnTrackDTO = opnTrackService.findOpnTrackById(id);
         if (opnTrackDTO != null){
-            return new ResponseEntity<>(opnTrackDTO, HttpStatus.OK);
+            return new ResponseEntity<>(opnTrackDTO.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -94,11 +97,11 @@ public class OpnTrackController {
         )
     })
     public ResponseEntity<OpnTrackDTO> insertOpnTrack(@RequestBody OpnTrackDTO opnTrackDTO){
-        Optional<OpnTrackDTO> optionalOpnTrack= opnTrackService.findOpnTrackByName(opnTrackDTO.getName());
-        if (optionalOpnTrack.isPresent()){
+        
+        opnTrackDTO = opnTrackService.insertOpnTrack(opnTrackDTO).get();
+        if (opnTrackDTO == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        opnTrackDTO = opnTrackService.insertOpnTrack(opnTrackDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(opnTrackDTO.getId()).toUri();
         return ResponseEntity.created(uri).body(opnTrackDTO);

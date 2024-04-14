@@ -1,7 +1,8 @@
 package Oracle.Partner.Tracker.entities;
 
+import Oracle.Partner.Tracker.utils.companyEnum.CompanyStatus;
 import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
-import Oracle.Partner.Tracker.utils.companyEnum.OpnStatus;
+import Oracle.Partner.Tracker.utils.companyEnum.OPNStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +11,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-import Oracle.Partner.Tracker.utils.companyEnum.CompanyStatus;
 
 @Entity
 @Data
@@ -27,8 +27,9 @@ public class Company {
     @Column(name = "name", nullable = true, length = 50)
     private String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "opn_status" )
-    private OpnStatus opnStatus;
+    private OPNStatus opnStatus;
 
     @Column(name = "cnpj", unique = false, nullable = true, length = 150)
     private String cnpj;
@@ -45,19 +46,21 @@ public class Company {
     @Column(name = "address", nullable = true, length = 200)
     private String address;
 
-    @Column(name = "cep", nullable = true, length = 10)
-    private String cep;
-
     @Column(name = "created_at")
-    private LocalDateTime createOn;
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     @Column(name= "ingestion_operation")
-    private IngestionOperation injestionOperation;
+    @Enumerated(EnumType.STRING)
+    private IngestionOperation ingestionOperation;
 
     @Column(name = "credit_hold")
     private String creditHold;
 
-    @Column(name = "company_status")
+    @Column(name = "company_status", nullable = false)
+    @Enumerated(EnumType.STRING)
     private CompanyStatus companyStatus;
 
     @Column(name = "slogan", nullable = true, length = 200)
