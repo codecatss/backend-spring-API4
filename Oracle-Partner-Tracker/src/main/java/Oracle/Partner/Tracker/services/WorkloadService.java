@@ -47,7 +47,7 @@ public class WorkloadService extends CsvService<WorkloadDTO>{
             return Optional.empty();
         }
         if (workloadDTO.getName() == null || workloadDTO.getName().isBlank()){
-            throw new RuntimeException("O nome da Workload é obrigatório");
+            return Optional.empty();
         }
 
         Workload workload = new Workload();
