@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import Oracle.Partner.Tracker.dto.OpnTrackDTO;
 import Oracle.Partner.Tracker.entities.OpnTrack;
 import Oracle.Partner.Tracker.repositories.OpnTrackRepository;
-import Oracle.Partner.Tracker.util.Status;
+import Oracle.Partner.Tracker.utils.userenum.Status;
 import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
 
 @Service
@@ -42,12 +42,12 @@ public class OpnTrackService extends CsvService<OpnTrackDTO>{
     }
     
     public Optional<OpnTrackDTO> insertOpnTrack(OpnTrackDTO opnTrackDTO){
-        Optional<OpnTrackDTO> optionalOpnTrack= this.findOpnTrackByName(opnTrackDTO.getName());
+        Optional<OpnTrackDTO> optionalOpnTrack= findOpnTrackByName(opnTrackDTO.getName());
         if (optionalOpnTrack.isPresent()){
             return Optional.empty();
         }
         if (opnTrackDTO.getName() == null || opnTrackDTO.getName().isBlank()){
-            throw new RuntimeException("O nome da OPN Track é obrigatório");
+            return Optional.empty();
         }
 
         OpnTrack opnTrack = new OpnTrack();

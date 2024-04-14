@@ -3,7 +3,7 @@ package Oracle.Partner.Tracker.dto;
 import Oracle.Partner.Tracker.entities.Workload;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
-import Oracle.Partner.Tracker.util.Status;
+import Oracle.Partner.Tracker.utils.userenum.Status;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import Oracle.Partner.Tracker.utils.companyEnum.WorkloadStatus;

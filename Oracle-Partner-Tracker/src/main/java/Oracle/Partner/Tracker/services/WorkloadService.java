@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import Oracle.Partner.Tracker.dto.WorkloadDTO;
 import Oracle.Partner.Tracker.entities.Workload;
 import Oracle.Partner.Tracker.repositories.WorkloadRepository;
-import Oracle.Partner.Tracker.util.Status;
+import Oracle.Partner.Tracker.utils.userenum.Status;
 import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
 
 @Service
@@ -47,7 +47,7 @@ public class WorkloadService extends CsvService<WorkloadDTO>{
             return Optional.empty();
         }
         if (workloadDTO.getName() == null || workloadDTO.getName().isBlank()){
-            throw new RuntimeException("O nome da Workload é obrigatório");
+            return Optional.empty();
         }
 
         Workload workload = new Workload();

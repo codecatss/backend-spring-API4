@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-import Oracle.Partner.Tracker.util.Status;
+import Oracle.Partner.Tracker.utils.userenum.Status;
 import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
 
 @Entity
