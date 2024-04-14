@@ -182,9 +182,7 @@ public class CompanyService extends CsvService<CompanyDTO>{
                     }
                     break;
                 case "OPN Status":
-                    System.out.println(row[i]);
                     if(row[i].equals("Active")){
-                        System.out.println("AAAAAAAAA");
                         companyDTO.setOpnStatus(OPNStatus.MEMBER);
                     }else{
                         companyDTO.setOpnStatus(OPNStatus.EXPIRED);
