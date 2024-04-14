@@ -42,19 +42,19 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.registerNewUser(user));
     }
 
-    @PostMapping("/api/import-csv")
-    public ResponseEntity<Object> importCsv(@RequestParam("file") MultipartFile file){
-        if (file == null || file.isEmpty()) {
-            return ResponseEntity.badRequest().body(null);
-        }
-
-        List<UserDTO> users = csvService.processCsvUser(file, userService);
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("users", users);
-
-        return ResponseEntity.ok(response);
-    }
+//    @PostMapping("/api/import-csv")
+//    public ResponseEntity<Object> importCsv(@RequestParam("file") MultipartFile file){
+//        if (file == null || file.isEmpty()) {
+//            return ResponseEntity.badRequest().body(null);
+//        }
+//
+//        List<UserDTO> users = csvService.processCsvUser(file, userService);
+//
+//        Map<String, Object> response = new HashMap<>();
+//        response.put("users", users);
+//
+//        return ResponseEntity.ok(response);
+//    }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Object> updateUser(@PathVariable Long id,

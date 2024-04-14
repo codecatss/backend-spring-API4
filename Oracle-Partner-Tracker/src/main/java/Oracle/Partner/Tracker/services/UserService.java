@@ -18,9 +18,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 @Service
 public class UserService extends CsvService<UserDTO>{
@@ -50,6 +47,8 @@ public class UserService extends CsvService<UserDTO>{
             throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
         User newUser = new User();
+        newUser.setUserStatus(Status.ACTIVE);
+        newUser.setIngestionOperation(IngestionOperation.MANUAL);
         BeanUtils.copyProperties(user, newUser);
         return userRepository.save(newUser);
     }
@@ -82,7 +81,10 @@ public class UserService extends CsvService<UserDTO>{
 
         for (int i = 1; i < csvData.size(); i++) {
             String[] row = csvData.get(i);
-            users.add(mapRowToUser(header, row).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST)));
+            Optional<UserDTO> userDTO = mapRowToUser(header, row);
+            if (userDTO.isPresent()) {
+                users.add(userDTO.get());
+            }
         }
 
         return users;
@@ -96,21 +98,28 @@ public class UserService extends CsvService<UserDTO>{
             }
             String headerValue = header[i];
             String rowValue = row[i];
-            switch (headerValue){
-                case "name" -> userBuilder.setName(rowValue);
-                case "email" -> userBuilder.setEmail(rowValue);
-                case "password" -> userBuilder.setPassword(rowValue);
-                case "role" -> userBuilder.setRole(RoleEnum.toRole(rowValue));
-                case "ingestionOperation" -> userBuilder.setIngestionOperation(IngestionOperation.toIngestionOperation(rowValue));
-                case "userStatus" -> userBuilder.setUserStatus(Status.toStatus(rowValue));
-                case "memberShipType" -> userBuilder.setMemberShipType(MembershipEnum.toMembership(rowValue));
-                default -> throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            if ("email".equals(headerValue) && userRepository.existsByEmail(rowValue)){
+                // Se o email já existir, retorne Optional.empty()
+                return Optional.empty();
             }
+            if (headerValue.equals("OPN Admin Name") || headerValue.equals("OPN Admin Email") || headerValue.equals("password") || headerValue.equals("role") || headerValue.equals("Membership Type")){
+                switch (headerValue){
+                    case "OPN Admin Name" -> userBuilder.setName(rowValue);
+                    case "OPN Admin Email" -> userBuilder.setEmail(rowValue);
+                    case "password" -> userBuilder.setPassword(rowValue);
+                    case "role" -> userBuilder.setRole(RoleEnum.toRole(rowValue));
+                    case "Membership Type" -> userBuilder.setMemberShipType(MembershipEnum.toMembership(rowValue));
+                    default -> {}
+                }
+            }
+
         }
-        UserDTO userDTO = new UserDTO(userBuilder.getName(), userBuilder.getEmail(), userBuilder.getPassword(), userBuilder.getRole(), userBuilder.getIngestionOperation(), userBuilder.getUserStatus(), userBuilder.getMemberShipType());
+        UserDTO userDTO = new UserDTO(userBuilder.getName(), userBuilder.getEmail(), userBuilder.getPassword(), userBuilder.getRole(), userBuilder.getStatus(), userBuilder.getIngestionOperation(), userBuilder.getMemberShipType());
         User user = new User();
         BeanUtils.copyProperties(userBuilder, userDTO);
         BeanUtils.copyProperties(userDTO, user);
+        user.setIngestionOperation(IngestionOperation.CSV);
+        user.setUserStatus(Status.ACTIVE);
 
         userRepository.save(user);
 

@@ -13,8 +13,8 @@ public class UserBuilder {
     private String email;
     private String password;
     private RoleEnum role;
-    private IngestionOperation ingestionOperation;
-    private Status userStatus;
+    private Status status;
+    private IngestionOperation ingestionOperation = IngestionOperation.MANUAL;
     private MembershipEnum memberShipType;
 
     // getters and setters for all fields

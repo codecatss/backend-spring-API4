@@ -9,17 +9,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public record UserDTO (
         @Schema(description = "Nome do usuário", example = "João da Silva")
         String name,
-        @Schema(description = "E-mail do usuário", example = "abcd@oracle.com.br")
+        @Schema(description = "E-mail do usuário", example = "abcd@fatec.com.br")
         String email,
         @Schema(description = "Senha do usuário", example = "123456")
         String password,
-        @Schema(description = "Função do usuário", example = "Admin")
+        @Schema(description = "Função do usuário", example = "USER")
         RoleEnum role,
-        @Schema(description = "Operação de ingestão do usuário", example = "CSV")
+        @Schema(description = "Status do usuário", example = "ACTIVE")
+        Status status,
+        @Schema(description = "Operação de ingestão do usuário", example = "MANUAL")
         IngestionOperation ingestionOperation,
-        @Schema(description = "Status do usuário", example = "true")
-        Status userStatus,
-        @Schema(description = "Tipo de associação do usuário", example = "Gold")
+        @Schema(description = "Tipo de associação do usuário", example = "PRINCIPAL")
         MembershipEnum memberShipType
 ){
 }
