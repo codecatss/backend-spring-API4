@@ -47,7 +47,7 @@ public class OpnTrackService extends CsvService<OpnTrackDTO>{
             return Optional.empty();
         }
         if (opnTrackDTO.getName() == null || opnTrackDTO.getName().isBlank()){
-            throw new RuntimeException("O nome da OPN Track é obrigatório");
+            return Optional.empty();
         }
 
         OpnTrack opnTrack = new OpnTrack();
