@@ -25,6 +25,7 @@ public class OraclePartnerTrackerApplication {
 		System.out.println("  /\\_/\\");
 		System.out.println(" ( o.o )");
 		System.out.println("  > ^ <");
+		System.out.println("  MEEOW!");
 	}
 
 }
