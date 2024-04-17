@@ -54,16 +54,6 @@ public class DashboardService {
     }
 
     public List<StatePerCompany> getStatePerCompany(){
-        List<Object[]> kpis = companyRepository.getCompaniesByState();
-        List<StatePerCompany> data = new ArrayList<>();
-
-        for(Object[] obj : kpis){
-            StatePerCompany state = new StatePerCompany();
-            state.setState((String) obj[0]);
-            state.setCompanyCount(Integer.parseInt(String.valueOf(obj[1])));
-            data.add(state);
-        }
-
-        return data;
+        return companyRepository.getCompaniesByState();
     }
 }
