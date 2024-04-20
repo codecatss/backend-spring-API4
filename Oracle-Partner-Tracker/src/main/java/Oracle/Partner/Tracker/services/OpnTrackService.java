@@ -5,16 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import Oracle.Partner.Tracker.util.IngestionOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import Oracle.Partner.Tracker.dto.OpnTrackDTO;
 import Oracle.Partner.Tracker.entities.OpnTrack;
 import Oracle.Partner.Tracker.repositories.OpnTrackRepository;
 import Oracle.Partner.Tracker.util.Status;
-import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
 
 @Service
 public class OpnTrackService extends CsvService<OpnTrackDTO>{
@@ -91,12 +90,12 @@ public class OpnTrackService extends CsvService<OpnTrackDTO>{
             opnTrackDTO.setStatus(Status.ACTIVE);
         }
         opnTrack.setStatus(opnTrackDTO.getStatus());
-        if(opnTrackDTO.getCreatedAt() == null || opnTrackDTO.getCreatedAt().toString().isBlank()){
-            opnTrack.setCreatedAt(LocalDateTime.now());
+        if(opnTrackDTO.getCreateAt() == null || opnTrackDTO.getCreateAt().toString().isBlank()){
+            opnTrack.setCreateAt(LocalDateTime.now());
         }else{
-            opnTrack.setCreatedAt(opnTrackDTO.getCreatedAt());
+            opnTrack.setCreateAt(opnTrackDTO.getCreateAt());
         }
-        opnTrack.setUpdatedAt(LocalDateTime.now());
+        opnTrack.setUpdateAt(LocalDateTime.now());
     }
 
     @Override

@@ -2,11 +2,10 @@ package Oracle.Partner.Tracker.entities;
 
 import Oracle.Partner.Tracker.dto.ExpertiseDTO;
 import Oracle.Partner.Tracker.util.Status;
-
 import jakarta.persistence.*;
-
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -23,32 +22,20 @@ public class Expertise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
-
-    @Column(name = "name", nullable = true, length = 100)
     private String name;
-
-    @Column(name = "description", nullable = true, length = 250)
     private String description;
-
-    @Column(name = "life_time_month", nullable = true)
-    private Integer lifeTimeMonth;
-
-    @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private Status status;
-
-    @Column(name = "created_at")
-    private Timestamp createdOn;
-
-    @Column(name = "updated_at")
-    private Timestamp updatedOn;
+    @Column(name = "create_at")
+    private LocalDateTime createAt;
+    @Column(name = "update_at")
+    private LocalDateTime updateAt;
 
     public Expertise(ExpertiseDTO expertiseDTO) {
         this.name = expertiseDTO.getName();
         this.description = expertiseDTO.getDescription();
-        this.lifeTimeMonth = expertiseDTO.getLifeTimeMonth();
         this.status = expertiseDTO.getStatus();
-        this.createdOn = new Timestamp(Instant.now().toEpochMilli());
-        this.updatedOn = new Timestamp(Instant.now().toEpochMilli());
+        this.createAt = LocalDateTime.now();
+        this.updateAt = LocalDateTime.now();
     }
 }
