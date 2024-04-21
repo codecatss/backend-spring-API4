@@ -33,6 +33,13 @@ left join company_and_opn_track co on co.company_id = c.id
 left join opn_track o on o.id = co.opn_track_id 
 group by o.name;
 
+create view StatePerCompany as
+select 
+c.state,
+count(c.name) qtde
+from company c 
+group by c.state;
+
 -- TERMINAR - averageExpertisePerCompany
 select count(w.workload_id) as workload, w.expertise_id from workload_and_expertise w group by w.expertise_id;
 
