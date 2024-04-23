@@ -43,12 +43,48 @@ public class DashboardController {
 
     @GetMapping(value="/state-per-company")
     public ResponseEntity<List<StatePerCompany>> getStatePerCompany(){
-
-    List<StatePerCompany> data = dashboardService.getStatePerCompany();
-    if(data == null){
-        return ResponseEntity.notFound().build();
+        List<StatePerCompany> data = dashboardService.getStatePerCompany();
+        if(data == null){
+            return ResponseEntity.notFound().build();
+        }
+        return  ResponseEntity.ok(data);
     }
-    return  ResponseEntity.ok(data);
-}
+
+    @GetMapping(path = "/opntrack/visualization")
+    public String getTesteAPI(){
+        String toReturn = """
+                {
+                  "1": {
+                    "subtitle": "Cloud Build for build",
+                    "amount": "82",
+                    "title": "Cloud Build",
+                    "avatarColor": "success",
+                    "avatarIcon": "bx-bar-chart-alt-2"
+                  },
+                  "2": {
+                    "subtitle": "Cloud Sell for sell",
+                    "amount": "70",
+                    "title": "Cloud Sell",
+                    "avatarColor": "primary",
+                    "avatarIcon": "bx-bar-chart-alt-2"
+                  },
+                  "3": {
+                    "subtitle": "Cloud Service for service",
+                    "amount": "50",
+                    "avatarColor": "secondary",
+                    "title": "Cloud Service",
+                    "avatarIcon": "bx-bar-chart-alt-2"
+                  },
+                  "5":{
+                    "subtitle": "License and Hardware for computer",
+                    "amount": "45",
+                    "title": "License and Hardware",
+                    "avatarColor": "info",
+                    "avatarIcon": "bx-bar-chart-alt-2"
+                  }
+                }
+                """;
+        return toReturn;
+    }
 
 }
