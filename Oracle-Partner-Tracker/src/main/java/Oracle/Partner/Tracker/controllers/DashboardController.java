@@ -52,6 +52,19 @@ public class DashboardController {
 
     @GetMapping(path = "/opntrack/visualization")
     public String getTesteAPI(){
+
+        System.out.println("\n\n\n\n\n");
+        try{
+            List<StatePerCompany> lista = dashboardService.getTrackAndCount();
+            for(StatePerCompany a : lista){
+                System.out.println(a);
+            }
+        }
+        catch (Exception e){
+            System.out.println("Erro: \ne"+e);
+        }
+        System.out.println("\n\n\n\n\n");
+
         String toReturn = """
                 {
                   "1": {

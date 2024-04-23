@@ -5,6 +5,7 @@ import Oracle.Partner.Tracker.dto.StatePerCompany;
 import Oracle.Partner.Tracker.dto.TrackPerCompany;
 import Oracle.Partner.Tracker.repositories.CompanyRepository;
 import Oracle.Partner.Tracker.repositories.ExpertiseRepository;
+import Oracle.Partner.Tracker.repositories.OpnTrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
@@ -17,11 +18,13 @@ public class DashboardService {
 
     private final ExpertiseRepository expertiseRepository;
     private final CompanyRepository companyRepository;
+    private final OpnTrackRepository opnTrackRepository;
 
     @Autowired
-    public DashboardService(ExpertiseRepository expertiseRepository, CompanyRepository companyRepository) {
+    public DashboardService(ExpertiseRepository expertiseRepository, CompanyRepository companyRepository, OpnTrackRepository opnTrackRepository) {
         this.expertiseRepository = expertiseRepository;
         this.companyRepository = companyRepository;
+        this.opnTrackRepository = opnTrackRepository;
     }
 
     public DashboardDTO getAll(){
@@ -55,5 +58,9 @@ public class DashboardService {
 
     public List<StatePerCompany> getStatePerCompany(){
         return companyRepository.getCompaniesByState();
+    }
+
+    public List<StatePerCompany> getTrackAndCount(){
+        return opnTrackRepository.getOpnTrackContByCompany();
     }
 }
