@@ -5,16 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import Oracle.Partner.Tracker.utils.IngestionOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import Oracle.Partner.Tracker.dto.WorkloadDTO;
 import Oracle.Partner.Tracker.entities.Workload;
 import Oracle.Partner.Tracker.repositories.WorkloadRepository;
-import Oracle.Partner.Tracker.utils.userenum.Status;
-import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
+import Oracle.Partner.Tracker.utils.Status;
 
 @Service
 public class WorkloadService extends CsvService<WorkloadDTO>{
@@ -47,7 +46,7 @@ public class WorkloadService extends CsvService<WorkloadDTO>{
             return Optional.empty();
         }
         if (workloadDTO.getName() == null || workloadDTO.getName().isBlank()){
-            return Optional.empty();
+            throw new RuntimeException("O nome da Workload é obrigatório");
         }
 
         Workload workload = new Workload();
@@ -91,10 +90,10 @@ public class WorkloadService extends CsvService<WorkloadDTO>{
             workloadDTO.setStatus(Status.ACTIVE);
         }
         workload.setStatus(workloadDTO.getStatus());
-        if(workloadDTO.getCreated_at() == null || workloadDTO.getCreated_at().toString().isBlank()){
-            workload.setCreatedAt(LocalDateTime.now());
+        if(workloadDTO.getCreateAt() == null || workloadDTO.getCreateAt().toString().isBlank()){
+            workload.setCreateAt(LocalDateTime.now());
         }else{
-            workload.setCreatedAt(workloadDTO.getCreated_at());
+            workload.setCreateAt(workloadDTO.getCreateAt());
         }
         if(
             workloadDTO.getDescription() == null || workloadDTO.getDescription().isBlank()){
@@ -102,7 +101,7 @@ public class WorkloadService extends CsvService<WorkloadDTO>{
             }else{
                 workload.setDescription(workloadDTO.getDescription());
             }
-        workload.setUpdatedAt(LocalDateTime.now());
+        workload.setUpdateAt(LocalDateTime.now());
     }
 
     @Override

@@ -14,7 +14,6 @@ public interface CompanyRepository extends JpaRepository <Company,Long>{
     Company findByName(String name);
     Company findByCnpj(String cnpj);
 
-    @Query(value = "select * from StatePerCompany;", nativeQuery = true)
-    List<Object[]> getCompaniesByState();
-
+    @Query(value = "select new Oracle.Partner.Tracker.dto.StatePerCompany(c.state, COUNT(c.state) as companyCount) from Company c GROUP BY c.state")
+    List<StatePerCompany> getCompaniesByState();
 }
