@@ -2,8 +2,8 @@ package Oracle.Partner.Tracker.entities;
 
 import Oracle.Partner.Tracker.dto.ExpertiseDTO;
 import Oracle.Partner.Tracker.util.Status;
+
 import jakarta.persistence.*;
-import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
 
@@ -34,6 +34,7 @@ public class Expertise {
     public Expertise(ExpertiseDTO expertiseDTO) {
         this.name = expertiseDTO.getName();
         this.description = expertiseDTO.getDescription();
+        this.lifeTimeMonth = expertiseDTO.getLifeTimeMonth();
         this.status = expertiseDTO.getStatus();
         this.createAt = LocalDateTime.now();
         this.updateAt = LocalDateTime.now();

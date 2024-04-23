@@ -20,11 +20,15 @@ use oracle_partner_network;
 -- left join opn_track o on o.id = co.opn_track_id
 -- group by o.name;
 
--- select
--- c.state,
--- count(c.state) qtde
--- from company c
--- group by c.state;
+create view StatePerCompany as
+select
+c.state,
+count(c.name) qtde
+from company c
+group by c.state;
+
+-- TERMINAR - averageExpertisePerCompany
+select count(w.workload_id) as workload, w.expertise_id from workload_and_expertise w group by w.expertise_id;
 
 -- INSERT
 
@@ -68,6 +72,9 @@ INSERT INTO `company_and_opn_track`(`id`,`company_id`,`opn_track_id`)VALUES(2,2,
 INSERT INTO `company_and_opn_track`(`id`,`company_id`,`opn_track_id`)VALUES(3,3,3);
 INSERT INTO `company_and_opn_track`(`id`,`company_id`,`opn_track_id`)VALUES(4,2,3);
 INSERT INTO `company_and_opn_track`(`id`,`company_id`,`opn_track_id`)VALUES(5,2,1);
+
+-- COMPANY_AND_USER
+INSERT INTO `company_and_user`(`id`,`company_id`,`user_id`) VALUES (1,1,1);
 
 -- COMPANY_AND_WORKLOAD
 INSERT INTO `company_and_workload`(`id`,`company_id`,`workload_id`,`score`,`status`,`create_at`,`expiration_date`) VALUES (1,1,1,0.80,"PASSED","2024-04-09 00:00:00","2026-04-09 00:00:00");
