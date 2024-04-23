@@ -3,6 +3,7 @@ package Oracle.Partner.Tracker.repositories;
 import java.util.Optional;
 
 import Oracle.Partner.Tracker.dto.StatePerCompany;
+import Oracle.Partner.Tracker.dto.TrackPerCompany;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import Oracle.Partner.Tracker.entities.Company;
@@ -16,4 +17,9 @@ public interface CompanyRepository extends JpaRepository <Company,Long>{
 
     @Query(value = "select new Oracle.Partner.Tracker.dto.StatePerCompany(c.state, COUNT(c.state) as companyCount) from Company c GROUP BY c.state")
     List<StatePerCompany> getCompaniesByState();
+
+    @Query("SELECT new Oracle.Partner.Tracker.dto.TrackPerCompany(o.name, COUNT(DISTINCT c.id)) FROM Company c " +
+            "LEFT JOIN c.opnTracks o " +
+            "GROUP BY o.name")
+    public List<TrackPerCompany> getTrackPerCompany();
 }

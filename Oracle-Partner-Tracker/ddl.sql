@@ -94,10 +94,10 @@ create table certification (
 create table company_opn_tracks (
     id bigint unsigned not null auto_increment,
     company_id bigint unsigned not null,
-    opn_track_id bigint unsigned not null,
+    opn_tracks_id bigint unsigned not null,
     primary key (id),
     foreign key company_fk (company_id) references company (id) on delete restrict on update cascade,
-    foreign key opn_track_fk (opn_track_id) references opn_track (id) on delete restrict on update cascade
+    foreign key opn_track_fk (opn_tracks_id) references opn_track (id) on delete restrict on update cascade
 );
 
 create table user_certification (

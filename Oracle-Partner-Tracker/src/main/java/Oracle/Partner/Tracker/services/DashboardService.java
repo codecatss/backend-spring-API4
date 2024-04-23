@@ -41,16 +41,7 @@ public class DashboardService {
     }
 
     public List<TrackPerCompany> getTrackPerCompany(){
-        List<Object[]> kpis = expertiseRepository.getTrackPerCompany();
-        List<TrackPerCompany> data = new ArrayList<>();
-
-        for(Object[] obj : kpis){
-            TrackPerCompany track = new TrackPerCompany();
-            track.setName((String) obj[0]);
-            track.setQtde(Integer.parseInt(String.valueOf(obj[1])));
-            data.add(track);
-        }
-        return data;
+        return companyRepository.getTrackPerCompany();
     }
 
     public List<StatePerCompany> getStatePerCompany(){
