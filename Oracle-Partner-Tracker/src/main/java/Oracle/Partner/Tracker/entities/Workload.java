@@ -1,7 +1,7 @@
 package Oracle.Partner.Tracker.entities;
 
-import Oracle.Partner.Tracker.util.IngestionOperation;
-import Oracle.Partner.Tracker.util.Status;
+import Oracle.Partner.Tracker.utils.IngestionOperation;
+import Oracle.Partner.Tracker.utils.Status;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;

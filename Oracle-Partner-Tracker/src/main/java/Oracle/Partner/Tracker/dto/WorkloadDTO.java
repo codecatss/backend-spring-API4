@@ -1,10 +1,10 @@
 package Oracle.Partner.Tracker.dto;
 
 import Oracle.Partner.Tracker.entities.Workload;
-import Oracle.Partner.Tracker.util.IngestionOperation;
+import Oracle.Partner.Tracker.utils.IngestionOperation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
-import Oracle.Partner.Tracker.utils.userenum.Status;
+import Oracle.Partner.Tracker.utils.Status;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;

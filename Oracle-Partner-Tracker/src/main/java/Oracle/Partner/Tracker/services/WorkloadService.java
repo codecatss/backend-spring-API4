@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import Oracle.Partner.Tracker.util.IngestionOperation;
+import Oracle.Partner.Tracker.utils.IngestionOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import Oracle.Partner.Tracker.dto.WorkloadDTO;
 import Oracle.Partner.Tracker.entities.Workload;
 import Oracle.Partner.Tracker.repositories.WorkloadRepository;
-import Oracle.Partner.Tracker.util.Status;
+import Oracle.Partner.Tracker.utils.Status;
 
 @Service
 public class WorkloadService extends CsvService<WorkloadDTO>{

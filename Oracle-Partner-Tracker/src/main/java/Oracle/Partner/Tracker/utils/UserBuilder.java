@@ -1,6 +1,5 @@
-package Oracle.Partner.Tracker.utils.userenum;
+package Oracle.Partner.Tracker.utils;
 
-import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,8 +15,5 @@ public class UserBuilder {
     private Status status;
     private IngestionOperation ingestionOperation;
     private MembershipEnum memberShipType;
-
-    // getters and setters for all fields
-    // ...
 }
 

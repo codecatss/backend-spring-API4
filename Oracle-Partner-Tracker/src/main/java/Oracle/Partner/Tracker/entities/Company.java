@@ -1,8 +1,8 @@
 package Oracle.Partner.Tracker.entities;
 
-import Oracle.Partner.Tracker.util.IngestionOperation;
-import Oracle.Partner.Tracker.util.Status;
-import Oracle.Partner.Tracker.util.OPNStatus;
+import Oracle.Partner.Tracker.utils.IngestionOperation;
+import Oracle.Partner.Tracker.utils.Status;
+import Oracle.Partner.Tracker.utils.OPNStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

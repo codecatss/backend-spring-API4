@@ -1,9 +1,9 @@
 package Oracle.Partner.Tracker.dto;
 
 import Oracle.Partner.Tracker.entities.Company;
-import Oracle.Partner.Tracker.util.IngestionOperation;
-import Oracle.Partner.Tracker.util.OPNStatus;
-import Oracle.Partner.Tracker.util.Status;
+import Oracle.Partner.Tracker.utils.IngestionOperation;
+import Oracle.Partner.Tracker.utils.OPNStatus;
+import Oracle.Partner.Tracker.utils.Status;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;

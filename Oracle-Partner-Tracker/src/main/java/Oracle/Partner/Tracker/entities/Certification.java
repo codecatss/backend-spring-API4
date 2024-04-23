@@ -1,6 +1,6 @@
 package Oracle.Partner.Tracker.entities;
 
-import Oracle.Partner.Tracker.util.IngestionOperation;
+import Oracle.Partner.Tracker.utils.IngestionOperation;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

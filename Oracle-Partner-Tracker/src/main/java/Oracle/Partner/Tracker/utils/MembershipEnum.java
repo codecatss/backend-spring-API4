@@ -1,4 +1,4 @@
-package Oracle.Partner.Tracker.utils.userenum;
+package Oracle.Partner.Tracker.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

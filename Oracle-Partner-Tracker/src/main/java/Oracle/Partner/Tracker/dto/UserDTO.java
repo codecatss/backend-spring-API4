@@ -1,9 +1,9 @@
 package Oracle.Partner.Tracker.dto;
 
-import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
-import Oracle.Partner.Tracker.utils.userenum.MembershipEnum;
-import Oracle.Partner.Tracker.utils.userenum.RoleEnum;
-import Oracle.Partner.Tracker.utils.userenum.Status;
+import Oracle.Partner.Tracker.utils.IngestionOperation;
+import Oracle.Partner.Tracker.utils.MembershipEnum;
+import Oracle.Partner.Tracker.utils.RoleEnum;
+import Oracle.Partner.Tracker.utils.Status;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 public record UserDTO (
