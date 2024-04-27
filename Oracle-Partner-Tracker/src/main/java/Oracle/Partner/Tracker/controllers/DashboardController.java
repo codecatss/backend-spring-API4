@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
@@ -43,12 +44,15 @@ public class DashboardController {
 
     @GetMapping(value="/state-per-company")
     public ResponseEntity<List<StatePerCompany>> getStatePerCompany(){
-
-    List<StatePerCompany> data = dashboardService.getStatePerCompany();
-    if(data == null){
-        return ResponseEntity.notFound().build();
+        List<StatePerCompany> data = dashboardService.getStatePerCompany();
+        if(data == null){
+            return ResponseEntity.notFound().build();
+        }
+        return  ResponseEntity.ok(data);
     }
-    return  ResponseEntity.ok(data);
-}
 
+    @GetMapping(path = "/opntrack/visualization")
+    public Map<Integer, Map<String, String>> getOpnTrackUsageCount(){
+        return dashboardService.getOpnTrackUsageCount();
+    }
 }
