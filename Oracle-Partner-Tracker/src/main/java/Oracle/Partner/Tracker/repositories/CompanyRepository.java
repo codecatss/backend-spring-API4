@@ -15,11 +15,11 @@ public interface CompanyRepository extends JpaRepository <Company,Long>{
     Company findByName(String name);
     Company findByCnpj(String cnpj);
 
-    @Query(value = "select new Oracle.Partner.Tracker.dto.StatePerCompany(c.state, COUNT(c.state) as companyCount) from Company c GROUP BY c.state")
-    List<StatePerCompany> getCompaniesByState();
-
-    @Query("SELECT new Oracle.Partner.Tracker.dto.TrackPerCompany(o.name, COUNT(DISTINCT c.id)) FROM Company c " +
-            "LEFT JOIN c.opnTracks o " +
-            "GROUP BY o.name")
-    public List<TrackPerCompany> getTrackPerCompany();
+//    @Query(value = "select new Oracle.Partner.Tracker.dto.StatePerCompany(c.state, COUNT(c.state) as companyCount) from Company c GROUP BY c.state")
+//    List<StatePerCompany> getCompaniesByState();
+//
+//    @Query("SELECT new Oracle.Partner.Tracker.dto.TrackPerCompany(o.name, COUNT(DISTINCT c.id)) FROM Company c " +
+//            "LEFT JOIN c.companyOpnTracks o " +
+//            "GROUP BY o.name")
+//    public List<TrackPerCompany> getTrackPerCompany();
 }

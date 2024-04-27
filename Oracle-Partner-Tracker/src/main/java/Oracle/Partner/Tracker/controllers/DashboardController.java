@@ -21,34 +21,34 @@ public class DashboardController {
     @Autowired
     private DashboardService dashboardService;
 
-    @GetMapping
-    public ResponseEntity<DashboardDTO> getAllKPI(){
-        
-        DashboardDTO data = dashboardService.getAll();
-        if(data == null){
-            return ResponseEntity.notFound().build();
-        }
-        return  ResponseEntity.ok(data);
-    }
+//    @GetMapping
+//    public ResponseEntity<DashboardDTO> getAllKPI(){
+//
+//        DashboardDTO data = dashboardService.getAll();
+//        if(data == null){
+//            return ResponseEntity.notFound().build();
+//        }
+//        return  ResponseEntity.ok(data);
+//    }
 
-    @GetMapping(value="/track-per-company")
-    public ResponseEntity<List<TrackPerCompany>> getTrackPerCompany(){
-
-        List<TrackPerCompany> data = dashboardService.getTrackPerCompany();
-        if(data == null){
-            return ResponseEntity.notFound().build();
-        }
-        return  ResponseEntity.ok(data);
-    }
-
-    @GetMapping(value="/state-per-company")
-    public ResponseEntity<List<StatePerCompany>> getStatePerCompany(){
-
-    List<StatePerCompany> data = dashboardService.getStatePerCompany();
-    if(data == null){
-        return ResponseEntity.notFound().build();
-    }
-    return  ResponseEntity.ok(data);
-}
+//    @GetMapping(value="/track-per-company")
+//    public ResponseEntity<List<TrackPerCompany>> getTrackPerCompany(){
+//
+//        List<TrackPerCompany> data = dashboardService.getTrackPerCompany();
+//        if(data == null){
+//            return ResponseEntity.notFound().build();
+//        }
+//        return  ResponseEntity.ok(data);
+//    }
+//
+//    @GetMapping(value="/state-per-company")
+//    public ResponseEntity<List<StatePerCompany>> getStatePerCompany(){
+//
+//    List<StatePerCompany> data = dashboardService.getStatePerCompany();
+//    if(data == null){
+//        return ResponseEntity.notFound().build();
+//    }
+//    return  ResponseEntity.ok(data);
+//}
 
 }

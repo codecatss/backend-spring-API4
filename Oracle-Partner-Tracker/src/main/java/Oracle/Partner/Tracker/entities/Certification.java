@@ -1,5 +1,7 @@
 package Oracle.Partner.Tracker.entities;
 
+import Oracle.Partner.Tracker.entities.relations.ExpertiseCertification;
+import Oracle.Partner.Tracker.entities.relations.UserCertificartion;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,5 +32,17 @@ public class Certification {
     @Enumerated(EnumType.STRING)
     private IngestionOperation ingestionOperation;
     @OneToMany(mappedBy = "certification")
-    private List<UserCertificartion> certificartions = new ArrayList<>();
+    private List<UserCertificartion> userCertification = new ArrayList<>();
+    @OneToMany(mappedBy = "certification")
+    private List<ExpertiseCertification> expertiseCertification = new ArrayList<>();
+
+    public void addUserCertificartion(UserCertificartion userCertificartion){
+        userCertificartion.setCertification(this);
+        this.userCertification.add(userCertificartion);
+    }
+
+    public void addExpertiseCertification(ExpertiseCertification expertiseCertification){
+        expertiseCertification.setCertification(this);
+        this.expertiseCertification.add(expertiseCertification);
+    }
 }
