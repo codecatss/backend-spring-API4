@@ -1,9 +1,11 @@
 package Oracle.Partner.Tracker.repositories;
 
+import Oracle.Partner.Tracker.dto.GenericDTO;
 import Oracle.Partner.Tracker.dto.TrackPerCompany;
 import Oracle.Partner.Tracker.entities.OpnTrack;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,7 +16,7 @@ public interface OpnTrackRepository extends JpaRepository <OpnTrack,Long>{
 
     OpnTrack findByName(String name);
 
-    @Query("select new Oracle.Partner.Tracker.dto.TrackPerCompany(opt.name, COUNT(*)) FROM CompanyOpnTrack cot JOIN cot.opnTrack opt GROUP BY opt.name")
-    List<TrackPerCompany> getOpnTrackUsageCount();
+    @Query("select opt.name, count(*) from CompanyOpnTrack cot JOIN cot.opnTrack opt GROUP BY opt.name")
+    List<Object[]> getOpnTrackUsageCount();
 
 } 
