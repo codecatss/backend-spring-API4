@@ -1,14 +1,12 @@
 package Oracle.Partner.Tracker.services;
 
 import Oracle.Partner.Tracker.dto.DashboardDTO;
-import Oracle.Partner.Tracker.dto.GenericDTO;
 import Oracle.Partner.Tracker.dto.StatePerCompany;
 import Oracle.Partner.Tracker.dto.TrackPerCompany;
 import Oracle.Partner.Tracker.repositories.CompanyRepository;
 import Oracle.Partner.Tracker.repositories.ExpertiseRepository;
 import Oracle.Partner.Tracker.repositories.OpnTrackRepository;
 import Oracle.Partner.Tracker.utils.DashboardColorEnum;
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
