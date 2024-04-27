@@ -1,5 +1,7 @@
 package Oracle.Partner.Tracker.entities;
 
+import Oracle.Partner.Tracker.entities.relations.CompanyOpnTrack;
+import Oracle.Partner.Tracker.entities.relations.OpnTrackExpertise;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,6 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import Oracle.Partner.Tracker.utils.Status;
 
@@ -31,6 +34,17 @@ public class OpnTrack {
     private LocalDateTime createAt;
     @Column(name = "update_at")
     private LocalDateTime updateAt;
-    @ManyToMany
-    private List<Company> companies;
+    @OneToMany(mappedBy = "opnTrack")
+    private List<CompanyOpnTrack> companyOpnTrack = new ArrayList<>();
+    @OneToMany(mappedBy = "opnTrack")
+    private List<OpnTrackExpertise> opnTrackExpertise = new ArrayList<>();
+
+    public void addOpnTracksExpertise(OpnTrackExpertise opnTrackExpertise){
+        opnTrackExpertise.setOpnTrack(this);
+        this.opnTrackExpertise.add(opnTrackExpertise);
+    }
+    public void addCompanyOpnTrack(CompanyOpnTrack companyOpnTrack){
+        companyOpnTrack.setOpnTrack(this);
+        this.companyOpnTrack.add(companyOpnTrack);
+    }
 }
