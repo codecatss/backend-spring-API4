@@ -5,6 +5,7 @@ import Oracle.Partner.Tracker.dto.StatePerCompany;
 import Oracle.Partner.Tracker.dto.TrackPerCompany;
 import Oracle.Partner.Tracker.repositories.CompanyRepository;
 import Oracle.Partner.Tracker.repositories.ExpertiseRepository;
+import Oracle.Partner.Tracker.repositories.OpnTrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
@@ -19,6 +20,8 @@ public class DashboardService {
     private ExpertiseRepository expertiseRepository;
     @Autowired
     private CompanyRepository companyRepository;
+    @Autowired
+    private OpnTrackRepository opnTrackRepository;
 
     public DashboardDTO getAll(){
         List<Object[]> kpis = expertiseRepository.getDashboardDTO();
@@ -42,5 +45,9 @@ public class DashboardService {
 
     public List<StatePerCompany> getStatePerCompany(){
         return companyRepository.getCompaniesByState();
+    }
+
+    public List<TrackPerCompany> getOpnTrackUsageCount(){
+        return opnTrackRepository.getOpnTrackUsageCount();
     }
 }

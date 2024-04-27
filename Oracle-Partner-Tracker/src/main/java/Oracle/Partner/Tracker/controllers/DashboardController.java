@@ -55,9 +55,9 @@ public class DashboardController {
 
         System.out.println("\n\n\n\n\n");
         try{
-            List<StatePerCompany> lista = dashboardService.getTrackAndCount();
-            for(StatePerCompany a : lista){
-                System.out.println(a);
+            List<TrackPerCompany> lista = dashboardService.getOpnTrackUsageCount();
+            for(TrackPerCompany opn : lista){
+                System.out.println("Nome: "+opn.getName() + "     Quantidade: "+opn.getQtde());
             }
         }
         catch (Exception e){

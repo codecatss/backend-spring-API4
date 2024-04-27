@@ -1,6 +1,6 @@
 package Oracle.Partner.Tracker.repositories;
 
-import Oracle.Partner.Tracker.dto.StatePerCompany;
+import Oracle.Partner.Tracker.dto.TrackPerCompany;
 import Oracle.Partner.Tracker.entities.OpnTrack;
 
 import java.util.List;
@@ -14,6 +14,7 @@ public interface OpnTrackRepository extends JpaRepository <OpnTrack,Long>{
 
     OpnTrack findByName(String name);
 
-    @Query(value = "select new Oracle.Partner.Tracker.dto.StatePerCompany(opn.name, COUNT(*) as companyCount) from OpnTrack opn join Company c")
-    List<StatePerCompany> getOpnTrackContByCompany();
+    @Query("select new Oracle.Partner.Tracker.dto.TrackPerCompany(opt.name, COUNT(*)) FROM CompanyOpnTrack cot JOIN cot.opnTrack opt GROUP BY opt.name")
+    List<TrackPerCompany> getOpnTrackUsageCount();
+
 } 
