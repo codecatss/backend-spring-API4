@@ -5,7 +5,6 @@ import Oracle.Partner.Tracker.dto.StatePerCompany;
 import Oracle.Partner.Tracker.dto.TrackPerCompany;
 import Oracle.Partner.Tracker.repositories.CompanyRepository;
 import Oracle.Partner.Tracker.repositories.ExpertiseRepository;
-import Oracle.Partner.Tracker.repositories.OpnTrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
@@ -16,16 +15,10 @@ import java.util.stream.Collectors;
 @Service
 public class DashboardService {
 
-    private final ExpertiseRepository expertiseRepository;
-    private final CompanyRepository companyRepository;
-    private final OpnTrackRepository opnTrackRepository;
-
     @Autowired
-    public DashboardService(ExpertiseRepository expertiseRepository, CompanyRepository companyRepository, OpnTrackRepository opnTrackRepository) {
-        this.expertiseRepository = expertiseRepository;
-        this.companyRepository = companyRepository;
-        this.opnTrackRepository = opnTrackRepository;
-    }
+    private ExpertiseRepository expertiseRepository;
+    @Autowired
+    private CompanyRepository companyRepository;
 
     public DashboardDTO getAll(){
         List<Object[]> kpis = expertiseRepository.getDashboardDTO();
@@ -44,23 +37,10 @@ public class DashboardService {
     }
 
     public List<TrackPerCompany> getTrackPerCompany(){
-        List<Object[]> kpis = expertiseRepository.getTrackPerCompany();
-        List<TrackPerCompany> data = new ArrayList<>();
-
-        for(Object[] obj : kpis){
-            TrackPerCompany track = new TrackPerCompany();
-            track.setName((String) obj[0]);
-            track.setQtde(Integer.parseInt(String.valueOf(obj[1])));
-            data.add(track);
-        }
-        return data;
+        return companyRepository.getTrackPerCompany();
     }
 
     public List<StatePerCompany> getStatePerCompany(){
         return companyRepository.getCompaniesByState();
-    }
-
-    public List<StatePerCompany> getTrackAndCount(){
-        return opnTrackRepository.getOpnTrackContByCompany();
     }
 }

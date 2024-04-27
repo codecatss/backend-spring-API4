@@ -1,5 +1,6 @@
 package Oracle.Partner.Tracker.entities;
 
+import Oracle.Partner.Tracker.entities.relations.CompanyOpnTrack;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
 import Oracle.Partner.Tracker.utils.Status;
 import Oracle.Partner.Tracker.utils.OPNStatus;
@@ -47,6 +48,11 @@ public class Company {
     private String slogan;
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<User> users = new ArrayList();
-    @ManyToMany
-    private List<OpnTrack> opnTracks;
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    private List<CompanyOpnTrack> companyOpnTrack = new ArrayList<>();
+
+    public void addCompanyOpnTrack(CompanyOpnTrack companyOpnTrack){
+        companyOpnTrack.setCompany(this);
+        this.companyOpnTrack.add(companyOpnTrack);
+    }
 }

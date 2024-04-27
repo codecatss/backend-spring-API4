@@ -1,6 +1,8 @@
 package Oracle.Partner.Tracker.dto;
 
 import java.time.LocalDateTime;
+
+import Oracle.Partner.Tracker.entities.Expertise;
 import Oracle.Partner.Tracker.entities.OpnTrack;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
 import Oracle.Partner.Tracker.utils.Status;
