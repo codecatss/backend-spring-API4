@@ -18,7 +18,7 @@ public class OpnTrackExpertise {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "opnTracksExpertise")
+    @JoinColumn(name = "expertise_id")
     private Expertise expertise;
 
     @ManyToOne(fetch = FetchType.LAZY)
