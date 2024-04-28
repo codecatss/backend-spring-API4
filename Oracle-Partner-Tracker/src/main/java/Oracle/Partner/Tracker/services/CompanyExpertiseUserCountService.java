@@ -16,7 +16,7 @@ public class CompanyExpertiseUserCountService {
     private CompanyExpertiseUserCountRepository companyExpertiseUserCountRepository;
 
     public List<CompanyExpertiseUserCount> findAllCompanies(){
-        List<CompanyExpertiseUserCount> companies = companyExpertiseUserCountRepository.findAll();
-        return companies;
+        List<CompanyExpertiseUserCount> companyExpertiseUserCount = companyExpertiseUserCountRepository.findAll();
+        return companyExpertiseUserCount;
     }
 }
