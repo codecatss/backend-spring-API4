@@ -56,6 +56,13 @@ public class DashboardService {
         return mapObjectList(opnTrackRepository.getOpnTrackUsageCount(), columnsName, additionalInformation);
     }
 
+    public Map<Integer, Map<String, String>> getExpertiseUsageCount(){
+        String[] columnsName = {"title", "amount"};
+        Map<String, String> additionalInformation = new HashMap<>();
+        additionalInformation.put("avatarIcon", "bx-bar-chart-alt-2");
+        return mapObjectList(expertiseRepository.getExpertiseUsageCount(), columnsName, additionalInformation);
+    }
+
     private Map<Integer, Map<String, String>> mapObjectList(List<Object[]> objectList, String[] columnsName, Map<String, String> additionalInformation){
         List<DashboardColorEnum> listOfColorsAlreadyUsed = new ArrayList<>();
         DashboardColorEnum color = DashboardColorEnum.getRandom();

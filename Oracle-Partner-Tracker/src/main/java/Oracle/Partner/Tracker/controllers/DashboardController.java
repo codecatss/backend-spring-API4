@@ -55,4 +55,9 @@ public class DashboardController {
     public Map<Integer, Map<String, String>> getOpnTrackUsageCount(){
         return dashboardService.getOpnTrackUsageCount();
     }
+
+    @GetMapping(path = "/expertise/visualization")
+    public Map<Integer, Map<String, String>> getExpertiseUsageCount(){
+        return dashboardService.getExpertiseUsageCount();
+    }
 }
