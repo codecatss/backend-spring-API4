@@ -20,8 +20,8 @@ public class UserCertificartion {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    @Column(name = "epiration_date")
-    private LocalDateTime expirationDate;
+    @Column(name = "expires_at")
+    private LocalDateTime expiresAt;
     @Enumerated(EnumType.STRING)
     private Status status;
     @Column(name = "create_at")
