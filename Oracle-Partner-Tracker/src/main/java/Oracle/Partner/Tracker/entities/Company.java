@@ -1,5 +1,6 @@
 package Oracle.Partner.Tracker.entities;
 
+import Oracle.Partner.Tracker.entities.relations.CompanyExpertise;
 import Oracle.Partner.Tracker.entities.relations.CompanyOpnTrack;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
 import Oracle.Partner.Tracker.utils.Status;
@@ -50,6 +51,14 @@ public class Company {
     private List<User> users = new ArrayList();
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<CompanyOpnTrack> companyOpnTrack = new ArrayList<>();
+
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    private List<CompanyExpertise> companyExpertise = new ArrayList<>();
+
+    public void addCompanyExpertise(CompanyExpertise companyExpertise){
+        companyExpertise.setCompany(this);
+        this.companyExpertise.add(companyExpertise);
+    }
 
     public void addCompanyOpnTrack(CompanyOpnTrack companyOpnTrack){
         companyOpnTrack.setCompany(this);
