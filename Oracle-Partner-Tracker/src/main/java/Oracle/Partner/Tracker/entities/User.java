@@ -1,6 +1,6 @@
 package Oracle.Partner.Tracker.entities;
 
-import Oracle.Partner.Tracker.entities.relations.UserCertificartion;
+import Oracle.Partner.Tracker.entities.relations.UserCertification;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
 import Oracle.Partner.Tracker.utils.Status;
 import jakarta.persistence.*;
@@ -40,9 +40,9 @@ public class User {
     @Column(name = "update_at")
     private LocalDateTime updateAt = LocalDateTime.now();
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<UserCertificartion> userCertification = new ArrayList<>();
+    private List<UserCertification> userCertification = new ArrayList<>();
 
-    public void addUserCertificartion(UserCertificartion userCertificartion){
+    public void addUserCertificartion(UserCertification userCertificartion){
         userCertificartion.setUser(this);
         this.userCertification.add(userCertificartion);
     }

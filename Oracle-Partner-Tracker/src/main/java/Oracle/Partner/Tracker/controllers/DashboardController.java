@@ -2,6 +2,8 @@ package Oracle.Partner.Tracker.controllers;
 
 import Oracle.Partner.Tracker.dto.DashboardDTO;
 import Oracle.Partner.Tracker.dto.TrackPerCompany;
+import Oracle.Partner.Tracker.dto.UserCertificationDTO;
+import Oracle.Partner.Tracker.entities.relations.UserCertification;
 import Oracle.Partner.Tracker.dto.StatePerCompany;
 import Oracle.Partner.Tracker.services.DashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,15 @@ public class DashboardController {
     @GetMapping(value="/state-per-company")
     public ResponseEntity<List<StatePerCompany>> getStatePerCompany(){
         List<StatePerCompany> data = dashboardService.getStatePerCompany();
+        if(data == null){
+            return ResponseEntity.notFound().build();
+        }
+        return  ResponseEntity.ok(data);
+    }
+
+    @GetMapping(value="/certification-per-user")
+    public ResponseEntity<List<UserCertificationDTO>> getUserCertification(){
+        List<UserCertificationDTO> data = dashboardService.getCertificationsNearExpiration(90);
         if(data == null){
             return ResponseEntity.notFound().build();
         }
