@@ -443,7 +443,113 @@ INSERT INTO user_certification (certification_id, user_id, expires_at, status) V
       (25, 75, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
       (16, 76, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN PROGRESS'),
       (7, 77, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-      (8, 78, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN PROGRESS');-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED');
+      (8, 78, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN PROGRESS');
+
+
+
+
+-- Associação de uma expertise para cada empresa
+INSERT INTO company_expertise (company_id, expertise_id) VALUES
+-- InovaTech
+(1, 1),
+-- Alimentos Saudáveis
+(2, 6),
+-- AutoPeças 2000
+(3, 11),
+-- Consultoria Empresarial Ltda
+(4, 16),
+-- Construções Rápidas
+(5, 21),
+-- Farmácia Central
+(6, 26),
+-- Energia Solar Ltda
+(7, 31),
+-- Moda Jovem
+(8, 36),
+-- Tecnologia Avançada S.A.
+(9, 11),
+-- Educação Inteligente
+(10, 16),
+-- Beleza Natural
+(11, 2),
+-- Agricultura Moderna
+(12, 7),
+-- Tecnologia da Informação Ltda
+(13, 12),
+-- Automotiva Nacional
+(14, 17),
+-- Saúde em Foco
+(15, 22),
+-- Construções Sustentáveis
+(16, 27),
+-- Moda Fashion
+(17, 32),
+-- Gastronomia Gourmet
+(18, 37),
+-- Tecnologia Aplicada
+(19, 12),
+-- Educação Moderna
+(20, 37),
+-- Indústria Têxtil Ltda
+(21, 3),
+-- Tech Solutions
+(22, 8),
+-- Culinária Caseira
+(23, 13),
+-- Saúde Integral
+(24, 18),
+-- Construções S/A
+(25, 23),
+-- Farmácia Popular
+(26, 28),
+-- Energia Renovável Ltda
+(27, 33),
+-- Fashion Store
+(28, 38),
+-- Tecnologia Futura
+(29, 13),
+-- Educação Digital
+(30, 40),
+-- Bem-Estar & Saúde
+(31, 4),
+-- Agronegócio Brasileiro
+(32, 9),
+-- Software Solutions
+(33, 14),
+-- AutoMecânica 2000
+(34, 19),
+-- Saúde & Bem-Estar
+(35, 24),
+-- Construções Modernas
+(36, 29),
+-- Moda Estilosa
+(37, 34),
+-- Gastronomia Deliciosa
+(38, 39),
+-- Tecnologia Avançada
+(39, 24),
+-- Educação Moderna
+(40, 17),
+-- Consultoria Empresarial
+(41, 5),
+-- Automotiva Nacional
+(42, 10),
+-- Saúde & Bem-Estar
+(43, 15),
+-- Construções Modernas
+(44, 20),
+-- Moda Estilosa
+(45, 25),
+-- Gastronomia Deliciosa
+(46, 30),
+-- Tecnologia Avançada
+(47, 35),
+-- Educação Moderna
+(48, 40),
+-- Consultoria Empresarial
+(49, 25),
+-- Automotiva Nacional
+(50, 10);
 
 
 
