@@ -90,6 +90,15 @@ public class DashboardService {
         }
         return queryDataMap;
     }
+
+    @Autowired
+    private UserCertificationRepository userCertificationRepository;
+
+    public List<Object[]> getCertificationsNearExpiration(int daysThreshold) {
+        LocalDateTime currentDate = LocalDateTime.now();
+        LocalDateTime expirationDateThreshold = currentDate.plusDays(daysThreshold);
+        return userCertificationRepository.getUserCertifications(currentDate, expirationDateThreshold);
+    }
     
     
 }

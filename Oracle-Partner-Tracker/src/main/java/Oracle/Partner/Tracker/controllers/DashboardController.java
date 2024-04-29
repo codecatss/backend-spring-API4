@@ -66,13 +66,11 @@ public class DashboardController {
     public Map<Integer, Map<String, String>> getExpertiseUsageCount() {
         return dashboardService.getExpertiseUsageCount();
     }
-
-    @Autowired
-    UserCertificationService userCertificationService;
+;
 
     @GetMapping(value="/certification-per-user")
     public List<Object[]> getUserCertification(){
-        return userCertificationService.getCertificationsNearExpiration(90);
+        return dashboardService.getCertificationsNearExpiration(90);
 }
 
 
