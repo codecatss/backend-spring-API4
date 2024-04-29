@@ -7,8 +7,6 @@ import Oracle.Partner.Tracker.entities.relations.UserCertification;
 import Oracle.Partner.Tracker.dto.StatePerCompany;
 import Oracle.Partner.Tracker.repositories.CompanyRepository;
 import Oracle.Partner.Tracker.services.DashboardService;
-import Oracle.Partner.Tracker.services.UserCertificationService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
