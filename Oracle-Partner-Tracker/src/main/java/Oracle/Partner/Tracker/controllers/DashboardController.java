@@ -1,14 +1,14 @@
 package Oracle.Partner.Tracker.controllers;
 
-import Oracle.Partner.Tracker.entities.CompanyExpertiseUserCount;
 import Oracle.Partner.Tracker.dto.DashboardDTO;
 import Oracle.Partner.Tracker.dto.TrackPerCompany;
 import Oracle.Partner.Tracker.dto.UserCertificationDTO;
 import Oracle.Partner.Tracker.entities.relations.UserCertification;
 import Oracle.Partner.Tracker.dto.StatePerCompany;
 import Oracle.Partner.Tracker.repositories.CompanyRepository;
-import Oracle.Partner.Tracker.services.CompanyExpertiseUserCountService;
 import Oracle.Partner.Tracker.services.DashboardService;
+import Oracle.Partner.Tracker.services.UserCertificationService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -55,15 +55,7 @@ public class DashboardController {
         }
         return ResponseEntity.ok(data);
     }
-
-    @GetMapping(value="/certification-per-user")
-    public ResponseEntity<List<UserCertificationDTO>> getUserCertification(){
-        List<UserCertificationDTO> data = dashboardService.getCertificationsNearExpiration(90);
-        if(data == null){
-            return ResponseEntity.notFound().build();
-        }
-        return  ResponseEntity.ok(data);
-    }
+    
 
     @GetMapping(path = "/opntrack/visualization")
     public Map<Integer, Map<String, String>> getOpnTrackUsageCount() {
@@ -75,13 +67,13 @@ public class DashboardController {
         return dashboardService.getExpertiseUsageCount();
     }
 
-
     @Autowired
-    CompanyExpertiseUserCountService companyExpertiseUserCountService;
+    UserCertificationService userCertificationService;
 
-    @GetMapping(path = "/companyexpertiseusercountservice")
-    public List<CompanyExpertiseUserCount> getCompanyExpertiseUserCount() {
-        return companyExpertiseUserCountService.findAllCompanies();
-    }
+    @GetMapping(value="/certification-per-user")
+    public List<Object[]> getUserCertification(){
+        return userCertificationService.getCertificationsNearExpiration(90);
+}
+
 
 }

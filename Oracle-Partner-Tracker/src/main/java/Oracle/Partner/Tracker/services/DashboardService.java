@@ -8,6 +8,7 @@ import Oracle.Partner.Tracker.entities.relations.UserCertification;
 import Oracle.Partner.Tracker.repositories.CompanyRepository;
 import Oracle.Partner.Tracker.repositories.ExpertiseRepository;
 import Oracle.Partner.Tracker.repositories.OpnTrackRepository;
+import Oracle.Partner.Tracker.repositories.UserCertificationRepository;
 import Oracle.Partner.Tracker.utils.DashboardColorEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -89,17 +90,6 @@ public class DashboardService {
         }
         return queryDataMap;
     }
-    public List<UserCertificationDTO> getCertificationsNearExpiration(int daysThreshold) {
-        LocalDateTime currentDate = LocalDateTime.now();
-        LocalDateTime expirationDateThreshold = currentDate.plusDays(daysThreshold);
-        List<UserCertification> userCertifications = companyRepository.findUserCertifications(currentDate, expirationDateThreshold);
-        
-        return userCertifications.stream()
-                .map(certification -> new UserCertificationDTO(
-                        certification.getUser().getName(),
-                        certification.getCertification().getName(),
-                        ChronoUnit.DAYS.between(currentDate, certification.getExpirationDate()),
-                        certification.getExpirationDate()))
-                .collect(Collectors.toList());
-    }
+    
+    
 }

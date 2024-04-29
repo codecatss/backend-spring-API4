@@ -1,17 +1,25 @@
 package Oracle.Partner.Tracker.utils;
 
-
 public enum CertificationStatus {
-    PASSED, 
-    IN_PROGRESS, 
-    EXPIRED;
+    PASSED("PASSED"), 
+    IN_PROGRESS("IN_PROGRESS"), 
+    EXPIRED("EXPIRED");
 
-    public static CertificationStatus toStatus(String statusString){
-        return switch (statusString.toLowerCase().trim()) {
-            case "passed" -> CertificationStatus.PASSED;
-            case "in_progress" -> CertificationStatus.IN_PROGRESS;
-            default -> EXPIRED;
-        };
+    private final String statusText;
+
+    CertificationStatus(String statusText) {
+        this.statusText = statusText;
     }
 
+    public String getStatusText() {
+        return statusText;
+    }
+    public static CertificationStatus toStatus(String statusString) {
+        return switch (statusString.toUpperCase().trim()) {
+            case "PASSED" -> CertificationStatus.PASSED;
+            case "IN_PROGRESS" -> CertificationStatus.IN_PROGRESS;
+            case "EXPIRED" -> CertificationStatus.EXPIRED;
+            default -> null;
+        };
+    }
 }

@@ -29,11 +29,5 @@ public interface CompanyRepository extends JpaRepository <Company,Long>{
             "GROUP BY o.name")
     public List<TrackPerCompany> getTrackPerCompany();
 
-    @Query("SELECT uc FROM UserCertification uc " +
-            "INNER JOIN uc.user u " +
-            "INNER JOIN u.company c " +
-            "INNER JOIN uc.certification ce " +
-            "WHERE uc.expirationDate BETWEEN :currentDate AND :expirationDate")
-    List<UserCertification> findUserCertifications(@Param("currentDate") LocalDateTime currentDate, @Param("expirationDate") LocalDateTime expirationDate);
 }
 

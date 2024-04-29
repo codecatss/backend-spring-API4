@@ -23,7 +23,8 @@ public class UserCertification {
     @Column(name = "expires_at")
     private LocalDateTime expiresAt;
     @Enumerated(EnumType.STRING)
-    private CertificationStatus certification_Status;
+    @Column(name= "status")
+    private CertificationStatus status;
     @Column(name = "create_at")
     private LocalDateTime createAt;
     @ManyToOne(fetch = FetchType.LAZY)
