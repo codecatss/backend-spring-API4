@@ -1,7 +1,4 @@
-package Oracle.Partner.Tracker.utils.userenum;
-
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+package Oracle.Partner.Tracker.utils;
 
 
 public enum Status {

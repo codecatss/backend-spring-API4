@@ -1,6 +1,7 @@
 package Oracle.Partner.Tracker.dto;
 
-import Oracle.Partner.Tracker.utils.userenum.Status;
+import Oracle.Partner.Tracker.entities.OpnTrack;
+import Oracle.Partner.Tracker.utils.Status;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,9 +17,6 @@ public class ExpertiseDTO {
     @Schema(description = "Descrição da expertise", example = "A expertise XYZ é essencial para a Track de Cloud Sell")
     private String description;
 
-    @Schema(description = "Quantos meses essa expertise esta valida", example = "24")
-    private Integer lifeTimeMonth;
-
     @Schema(description = "Status da expertise, se esta 'ACTIVE' ou 'INACTIVE'", example = "ACTIVE")
     private Status status;
 
@@ -31,6 +29,5 @@ public class ExpertiseDTO {
         }
         this.name = name;
         this.description = description;
-        this.lifeTimeMonth = lifeTimeMonth;
     }
 }

@@ -1,6 +1,6 @@
 package Oracle.Partner.Tracker.services;
 
-import Oracle.Partner.Tracker.utils.userenum.Status;
+import Oracle.Partner.Tracker.utils.Status;
 import org.springframework.stereotype.Service;
 import Oracle.Partner.Tracker.dto.ExpertiseDTO;
 import Oracle.Partner.Tracker.entities.Expertise;
@@ -73,9 +73,6 @@ public class ExpertiseService extends CsvService<ExpertiseDTO>{
                     break;
                 case "description":
                     expertiseDTO.setDescription(row);
-                    break;
-                case "life time month":
-                    expertiseDTO.setLifeTimeMonth(Integer.valueOf(row));
                     break;
                 case "status":
                     expertiseDTO.setStatus(Status.toStatus(row));

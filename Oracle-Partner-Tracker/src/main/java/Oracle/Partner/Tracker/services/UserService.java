@@ -3,11 +3,7 @@ package Oracle.Partner.Tracker.services;
 import Oracle.Partner.Tracker.dto.UserDTO;
 import Oracle.Partner.Tracker.entities.User;
 import Oracle.Partner.Tracker.repositories.UserRepository;
-import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
-import Oracle.Partner.Tracker.utils.userenum.MembershipEnum;
-import Oracle.Partner.Tracker.utils.userenum.RoleEnum;
-import Oracle.Partner.Tracker.utils.userenum.Status;
-import Oracle.Partner.Tracker.utils.userenum.UserBuilder;
+import Oracle.Partner.Tracker.utils.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,7 +43,7 @@ public class UserService extends CsvService<UserDTO>{
             throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
         User newUser = new User();
-        newUser.setUserStatus(Status.ACTIVE);
+        newUser.setStatus(Status.ACTIVE);
         newUser.setIngestionOperation(IngestionOperation.MANUAL);
         BeanUtils.copyProperties(user, newUser);
         return userRepository.save(newUser);
@@ -119,7 +115,7 @@ public class UserService extends CsvService<UserDTO>{
         BeanUtils.copyProperties(userBuilder, userDTO);
         BeanUtils.copyProperties(userDTO, user);
         user.setIngestionOperation(IngestionOperation.CSV);
-        user.setUserStatus(Status.ACTIVE);
+        user.setStatus(Status.ACTIVE);
 
         userRepository.save(user);
 

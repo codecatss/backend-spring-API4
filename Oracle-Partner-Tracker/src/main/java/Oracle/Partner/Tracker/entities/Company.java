@@ -1,15 +1,18 @@
 package Oracle.Partner.Tracker.entities;
 
-import Oracle.Partner.Tracker.utils.companyEnum.CompanyStatus;
-import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
-import Oracle.Partner.Tracker.utils.companyEnum.OPNStatus;
+import Oracle.Partner.Tracker.entities.relations.CompanyExpertise;
+import Oracle.Partner.Tracker.entities.relations.CompanyOpnTrack;
+import Oracle.Partner.Tracker.utils.IngestionOperation;
+import Oracle.Partner.Tracker.utils.Status;
+import Oracle.Partner.Tracker.utils.OPNStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -21,50 +24,44 @@ import java.time.LocalDateTime;
 public class Company {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "name", nullable = true, length = 50)
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
     private String name;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "opn_status" )
     private OPNStatus opnStatus;
-
-    @Column(name = "cnpj", unique = false, nullable = true, length = 150)
     private String cnpj;
-
-    @Column(name = "country", nullable = true, length = 20)
     private String country;
-
-    @Column(name = "state", nullable = true, length = 50)
     private String state;
-
-    @Column(name = "city", nullable = true, length = 100)
     private String city;
-
-    @Column(name = "address", nullable = true, length = 200)
     private String address;
-
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    @Column(name= "ingestion_operation")
+    @Column(name = "create_at")
+    private LocalDateTime createAt;
+    @Column(name = "update_at")
+    private LocalDateTime updateAt;
     @Enumerated(EnumType.STRING)
+    @Column(name= "ingestion_operation")
     private IngestionOperation ingestionOperation;
-
     @Column(name = "credit_hold")
     private String creditHold;
-
-    @Column(name = "company_status", nullable = false)
     @Enumerated(EnumType.STRING)
-    private CompanyStatus companyStatus;
-
-    @Column(name = "slogan", nullable = true, length = 200)
+    private Status status;
     private String slogan;
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    private List<User> users = new ArrayList();
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    private List<CompanyOpnTrack> companyOpnTrack = new ArrayList<>();
 
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    private List<CompanyExpertise> companyExpertise = new ArrayList<>();
 
+    public void addCompanyExpertise(CompanyExpertise companyExpertise){
+        companyExpertise.setCompany(this);
+        this.companyExpertise.add(companyExpertise);
+    }
+
+    public void addCompanyOpnTrack(CompanyOpnTrack companyOpnTrack){
+        companyOpnTrack.setCompany(this);
+        this.companyOpnTrack.add(companyOpnTrack);
+    }
 }

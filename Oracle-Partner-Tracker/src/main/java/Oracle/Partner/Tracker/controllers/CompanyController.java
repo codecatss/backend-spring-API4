@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -30,22 +31,22 @@ public class CompanyController {
     private CompanyService companyService;
 
     @GetMapping
-    @Operation(summary = "Company", description = "Get all companies")
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    content = @Content(
-                            array = @ArraySchema(
-                                    schema = @Schema(implementation = Company.class)
-                            )
-                    ),
-                    description = "Companies retrieved"
-            ),
-            @ApiResponse(responseCode = "404", description = "Companies not found")
-    })
-    public ResponseEntity<Page<CompanyDTO>> getAllCompanies(Pageable pageable) {
-        Page<CompanyDTO> companies = companyService.findAllCompanies(pageable);
-        return new ResponseEntity<>(companies, HttpStatus.OK);
+    //@Operation(summary = "Company", description = "Get all companies")
+    //@ApiResponses(value = {
+    //        @ApiResponse(
+    //                responseCode = "200",
+    //                content = @Content(
+    //                        array = @ArraySchema(
+    //                                schema = @Schema(implementation = Company.class)
+    //                        )
+    //                ),
+    //                description = "Companies retrieved"
+    //        ),
+    //        @ApiResponse(responseCode = "404", description = "Companies not found")
+    //})
+    public ResponseEntity<List<Company>> getAllCompanies() {
+        List<Company> companies = companyService.findAllCompanies();
+        return ResponseEntity.ok(companies);
     }
 
     @GetMapping(value = "/{id}")

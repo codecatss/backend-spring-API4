@@ -2,9 +2,10 @@ package Oracle.Partner.Tracker.dto;
 
 import java.time.LocalDateTime;
 
+import Oracle.Partner.Tracker.entities.Expertise;
 import Oracle.Partner.Tracker.entities.OpnTrack;
-import Oracle.Partner.Tracker.utils.userenum.Status;
-import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
+import Oracle.Partner.Tracker.utils.IngestionOperation;
+import Oracle.Partner.Tracker.utils.Status;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,18 +29,18 @@ public class OpnTrackDTO {
     private Status status;
 
     @Schema(description = "Data de criação da OpnTrack", example = "2022-01-01T12:00:00")
-    private LocalDateTime createdAt;
+    private LocalDateTime createAt;
 
     @Schema(description = "Data de atualização da OpnTrack", example = "2022-01-01T12:00:00")
-    private LocalDateTime updatedAt;
+    private LocalDateTime updateAt;
 
     public OpnTrackDTO(OpnTrack entity){
         this.id = entity.getId();
         this.name = entity.getName();
         this.ingestionOperation = entity.getIngestionOperation();
         this.status = entity.getStatus();
-        this.createdAt = entity.getCreatedAt();
-        this.updatedAt = entity.getUpdatedAt();
+        this.createAt = entity.getCreateAt();
+        this.updateAt = entity.getUpdateAt();
     }
     
 }

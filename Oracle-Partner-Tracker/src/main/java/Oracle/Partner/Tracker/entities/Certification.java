@@ -1,8 +1,8 @@
 package Oracle.Partner.Tracker.entities;
 
+import Oracle.Partner.Tracker.entities.relations.ExpertiseCertification;
 import Oracle.Partner.Tracker.entities.relations.UserCertificartion;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
-import Oracle.Partner.Tracker.utils.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,33 +17,32 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-@Table(name = "user")
-public class User {
-
+@Table(name = "certification")
+public class Certification {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id")
-    private Company company;
     private String name;
-    private String email;
-    private String password;
-    private String role;
-    private IngestionOperation ingestionOperation;
-    @Enumerated(EnumType.STRING)
-    private Status status;
-    @Column(name = "membership_type")
-    private String memberShipType;
+    private String description;
     @Column(name = "create_at")
     private LocalDateTime createAt = LocalDateTime.now();
-    @Column(name = "update_at")
-    private LocalDateTime updateAt = LocalDateTime.now();
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @Column(name = "life_time_month")
+    private Integer lifeTimeMonth;
+    @Column(name = "ingestion_operation")
+    @Enumerated(EnumType.STRING)
+    private IngestionOperation ingestionOperation;
+    @OneToMany(mappedBy = "certification")
     private List<UserCertificartion> userCertification = new ArrayList<>();
+    @OneToMany(mappedBy = "certification")
+    private List<ExpertiseCertification> expertiseCertification = new ArrayList<>();
 
     public void addUserCertificartion(UserCertificartion userCertificartion){
-        userCertificartion.setUser(this);
+        userCertificartion.setCertification(this);
         this.userCertification.add(userCertificartion);
+    }
+
+    public void addExpertiseCertification(ExpertiseCertification expertiseCertification){
+        expertiseCertification.setCertification(this);
+        this.expertiseCertification.add(expertiseCertification);
     }
 }

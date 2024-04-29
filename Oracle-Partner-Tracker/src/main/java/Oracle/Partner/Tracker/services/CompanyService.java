@@ -4,15 +4,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import Oracle.Partner.Tracker.utils.companyEnum.CompanyStatus;
+import Oracle.Partner.Tracker.utils.IngestionOperation;
+import Oracle.Partner.Tracker.utils.Status;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
-import Oracle.Partner.Tracker.utils.companyEnum.OPNStatus;
+import Oracle.Partner.Tracker.utils.OPNStatus;
 import Oracle.Partner.Tracker.dto.CompanyDTO;
 import Oracle.Partner.Tracker.entities.Company;
 import Oracle.Partner.Tracker.repositories.CompanyRepository;
@@ -42,9 +38,9 @@ public class CompanyService extends CsvService<CompanyDTO>{
         return Optional.ofNullable(company).orElse(null).map(CompanyDTO::new);
     }
 
-    public Page<CompanyDTO> findAllCompanies(Pageable pageable){
-        Page<Company> companies = companyRepository.findAll(pageable);
-        return companies.map(CompanyDTO::new);
+    public List<Company> findAllCompanies(){
+        List<Company> companies = companyRepository.findAll();
+        return companies;
     }
 
     public Optional<CompanyDTO> insertCompany(CompanyDTO companyDTO) {   
@@ -102,7 +98,7 @@ public class CompanyService extends CsvService<CompanyDTO>{
         Company company = companyRepository.findById(id).orElseThrow(
             () -> new RuntimeException("Company não encontrada com o id: " + id)
             );
-        company.setCompanyStatus(CompanyStatus.INACTIVE);
+        company.setStatus(Status.INACTIVE);
         companyRepository.save(company);
     }
 
@@ -110,7 +106,7 @@ public class CompanyService extends CsvService<CompanyDTO>{
         Company company = companyRepository.findById(id).orElseThrow(
             () -> new RuntimeException("Workload não encontrada com o id: " + id)
             );
-            company.setCompanyStatus(CompanyStatus.ACTIVE);
+            company.setStatus(Status.ACTIVE);
             companyRepository.save(company);
 
         }
@@ -128,16 +124,16 @@ public class CompanyService extends CsvService<CompanyDTO>{
         company.setIngestionOperation(companyDTO.getIngestionOperation());
         company.setOpnStatus(companyDTO.getOpnStatus());
 
-        if (companyDTO.getCompanyStatus() == null || companyDTO.getCompanyStatus().name().isBlank()){
-            companyDTO.setCompanyStatus(CompanyStatus.ACTIVE);
+        if (companyDTO.getStatus() == null || companyDTO.getStatus().name().isBlank()){
+            companyDTO.setStatus(Status.ACTIVE);
         }
-        company.setCompanyStatus(companyDTO.getCompanyStatus());
-        if(companyDTO.getCreated_at() == null || companyDTO.getCreated_at().toString().isBlank()){
-            company.setCreatedAt(LocalDateTime.now());
+        company.setStatus(companyDTO.getStatus());
+        if(companyDTO.getCreateAt() == null || companyDTO.getCreateAt().toString().isBlank()){
+            company.setCreateAt(LocalDateTime.now());
         }else{
-            company.setCreatedAt(companyDTO.getCreated_at());
+            company.setCreateAt(companyDTO.getCreateAt());
         }
-        company.setUpdatedAt(LocalDateTime.now());
+        company.setUpdateAt(LocalDateTime.now());
     }
 
 
@@ -176,9 +172,9 @@ public class CompanyService extends CsvService<CompanyDTO>{
                     break;
                 case "Status":
                     if(row[i].equals("Active")){
-                        companyDTO.setCompanyStatus(CompanyStatus.ACTIVE);
+                        companyDTO.setStatus(Status.ACTIVE);
                     }else{
-                        companyDTO.setCompanyStatus(CompanyStatus.INACTIVE);
+                        companyDTO.setStatus(Status.INACTIVE);
                     }
                     break;
                 case "OPN Status":

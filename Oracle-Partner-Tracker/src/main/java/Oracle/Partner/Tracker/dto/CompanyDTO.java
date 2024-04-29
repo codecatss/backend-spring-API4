@@ -1,13 +1,13 @@
 package Oracle.Partner.Tracker.dto;
 
 import Oracle.Partner.Tracker.entities.Company;
-import Oracle.Partner.Tracker.utils.companyEnum.CompanyStatus;
-import Oracle.Partner.Tracker.utils.companyEnum.OPNStatus;
+import Oracle.Partner.Tracker.utils.IngestionOperation;
+import Oracle.Partner.Tracker.utils.OPNStatus;
+import Oracle.Partner.Tracker.utils.Status;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import Oracle.Partner.Tracker.utils.companyEnum.IngestionOperation;
 
 import java.time.LocalDateTime;
 
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class CompanyDTO {
 
     @Schema(description = "ID da empresa", example = "1")
-    private Long id;
+    private String id;
 
     @Schema(description = "Nome da empresa", example = "Empresa XYZ")
     private String name;
@@ -41,13 +41,13 @@ public class CompanyDTO {
     private String address;
 
     @Schema(description = "Status do company", example = "true")
-    private CompanyStatus companyStatus;
+    private Status status;
 
     @Schema(description = "Data de criação do company", example = "2022-01-01T12:00:00")
-    private LocalDateTime created_at;
+    private LocalDateTime createAt;
 
     @Schema(description = "Data de atualização do company", example = "2022-01-01T12:00:00")
-    private LocalDateTime updated_at;
+    private LocalDateTime updateAt;
 
     @Schema(name= "ingestion_operation")
     private IngestionOperation ingestionOperation;
@@ -68,9 +68,9 @@ public class CompanyDTO {
         this.state = entity.getState();
         this.city = entity.getCity();
         this.address = entity.getAddress();
-        this.companyStatus = entity.getCompanyStatus();
-        this.created_at = entity.getCreatedAt();
-        this.updated_at = entity.getUpdatedAt();
+        this.status = entity.getStatus();
+        this.createAt = entity.getCreateAt();
+        this.updateAt = entity.getUpdateAt();
         this.ingestionOperation = entity.getIngestionOperation();
         this.creditHold = entity.getCreditHold();
         this.slogan = entity.getSlogan();

@@ -1,11 +1,13 @@
 package Oracle.Partner.Tracker.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class TrackPerCompany {
+@AllArgsConstructor
+public class TrackPerCompany{
     private String name;
-    private Integer qtde;
+    private Long quantity;
 }
