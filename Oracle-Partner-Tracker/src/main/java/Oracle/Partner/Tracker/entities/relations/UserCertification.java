@@ -18,10 +18,10 @@ import java.time.LocalDateTime;
 @Table(name = "user_certification")
 public class UserCertification {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
     @Column(name = "expires_at")
-    private LocalDateTime expirationDate;
+    private LocalDateTime expiresAt;
     @Enumerated(EnumType.STRING)
     private CertificationStatus certification_Status;
     @Column(name = "create_at")

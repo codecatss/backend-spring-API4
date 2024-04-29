@@ -1,6 +1,7 @@
 package Oracle.Partner.Tracker.entities;
 
 import Oracle.Partner.Tracker.dto.ExpertiseDTO;
+import Oracle.Partner.Tracker.entities.relations.CompanyExpertise;
 import Oracle.Partner.Tracker.entities.relations.ExpertiseCertification;
 import Oracle.Partner.Tracker.entities.relations.OpnTrackExpertise;
 import Oracle.Partner.Tracker.entities.relations.WorkloadExpertise;
@@ -39,6 +40,15 @@ public class Expertise {
     private LocalDateTime createAt;
     @Column(name = "update_at")
     private LocalDateTime updateAt;
+
+
+    @OneToMany(mappedBy = "expertise", cascade = CascadeType.ALL)
+    private List<CompanyExpertise> companyExpertise = new ArrayList<>();
+
+    public void addCompanyExpertise(CompanyExpertise companyExpertise){
+        companyExpertise.setExpertise(this);
+        this.companyExpertise.add(companyExpertise);
+    }
 
     public Expertise(ExpertiseDTO expertiseDTO) {
         this.name = expertiseDTO.getName();

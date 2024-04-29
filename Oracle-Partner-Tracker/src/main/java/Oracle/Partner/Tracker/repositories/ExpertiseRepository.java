@@ -17,4 +17,8 @@ public interface ExpertiseRepository extends JpaRepository <Expertise,String>{
             "(SELECT COUNT(e) FROM Expertise e WHERE e.status = 'ACTIVE') AS DashboardDTO " +
             "FROM Company c")
     List<Object[]> getDashboardDTO();
+
+    @Query("select e.name, count(*) from OpnTrackExpertise opne join opne.expertise e group by e.name")
+    List<Object[]> getExpertiseUsageCount();
+
 }
