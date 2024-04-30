@@ -147,3 +147,12 @@ create table expertise_certification (
     foreign key certification_fk (certification_id) references certification (id) on delete restrict on update cascade,
     foreign key expertise_fk (expertise_id) references service_expertise (id) on delete restrict on update cascade
 );
+
+create table company_expertise (
+    id bigint unsigned not null auto_increment,
+    company_id bigint unsigned not null,
+    expertise_id bigint unsigned not null,
+    primary key (id),
+    foreign key company_fk (company_id) references company (id) on delete restrict on update cascade,
+    foreign key expertise_fk (expertise_id) references service_expertise (id) on delete restrict on update cascade
+);
