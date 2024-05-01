@@ -15,4 +15,5 @@ public class DashboardDTO {
     private Integer qtyUsers;
     private Integer qtyTracks;
     private Integer qtyExpertise;
+    private Double qtygrowth;
 }
