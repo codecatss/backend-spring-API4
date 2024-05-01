@@ -37,6 +37,14 @@ public class DashboardService {
             data.setQtyUsers(Integer.parseInt(String.valueOf(obj[4])));
             data.setQtyTracks(Integer.parseInt(String.valueOf(obj[5])));
             data.setQtyExpertise(Integer.parseInt(String.valueOf(obj[6])));
+
+            Long lastMonthCount = (Long) obj[7];
+            Long monthCount = (Long) obj[8];
+            Double growthPercentage = ((double) monthCount - lastMonthCount) / lastMonthCount * 100;
+
+            data.setQtygrowth(growthPercentage);
+
+
         }
         return data;
     }
