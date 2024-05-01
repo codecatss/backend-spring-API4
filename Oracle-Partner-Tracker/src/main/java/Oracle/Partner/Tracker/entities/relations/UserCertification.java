@@ -2,7 +2,7 @@ package Oracle.Partner.Tracker.entities.relations;
 
 import Oracle.Partner.Tracker.entities.Certification;
 import Oracle.Partner.Tracker.entities.User;
-import Oracle.Partner.Tracker.utils.Status;
+import Oracle.Partner.Tracker.utils.CertificationStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,14 +16,15 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Table(name = "user_certification")
-public class UserCertificartion {
+public class UserCertification {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     @Column(name = "expires_at")
     private LocalDateTime expiresAt;
     @Enumerated(EnumType.STRING)
-    private Status status;
+    @Column(name= "status")
+    private CertificationStatus status;
     @Column(name = "create_at")
     private LocalDateTime createAt;
     @ManyToOne(fetch = FetchType.LAZY)
