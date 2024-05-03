@@ -22,7 +22,7 @@ public interface ExpertiseRepository extends JpaRepository <Expertise,String>{
             "FROM Company c")
     List<Object[]> getDashboardDTO();
 
-    @Query("select e.name, count(*) from OpnTrackExpertise opne join opne.expertise e group by e.name")
+    @Query("select e.name, count(*) from CompanyExpertise ce join ce.expertise e group by e.name")
     List<Object[]> getExpertiseUsageCount();
 
 }
