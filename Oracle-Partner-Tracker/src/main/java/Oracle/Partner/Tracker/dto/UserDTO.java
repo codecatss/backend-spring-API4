@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public record UserDTO (
         @Schema(description = "Nome do usuário", example = "João da Silva")
         String name,
-        Company companyId,
         @Schema(description = "E-mail do usuário", example = "abcd@fatec.com.br")
         String email,
         @Schema(description = "Senha do usuário", example = "123456")

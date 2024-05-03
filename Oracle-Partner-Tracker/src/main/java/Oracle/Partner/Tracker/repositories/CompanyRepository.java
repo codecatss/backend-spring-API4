@@ -25,5 +25,4 @@ public interface CompanyRepository extends JpaRepository <Company,Long>{
             "GROUP BY o.name")
     public List<TrackPerCompany> getTrackPerCompany();
 
-    public Objects getCompanyIdByName(String name);
 }

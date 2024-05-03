@@ -37,6 +37,7 @@ public class User {
     @Column(name = "ingestion_operation")
     private IngestionOperation ingestionOperation;
     @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     private Status status;
     @Column(name = "membership_type")
     private String memberShipType;

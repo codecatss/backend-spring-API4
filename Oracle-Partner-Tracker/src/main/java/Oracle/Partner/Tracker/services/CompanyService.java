@@ -19,7 +19,7 @@ import Oracle.Partner.Tracker.repositories.CompanyRepository;
 public class CompanyService extends CsvService<CompanyDTO>{
 
     @Autowired
-    private static CompanyRepository companyRepository;
+    private CompanyRepository companyRepository;
 
     public void setCompanyRepository(CompanyRepository companyRepository) {
         this.companyRepository = companyRepository;
@@ -155,10 +155,10 @@ public class CompanyService extends CsvService<CompanyDTO>{
         return companyRepository.save(company);
     }
 
-    public static String getCompanyId(String name){
-        Company company = companyRepository.findByName(name);
-        return company.getId();
-    }
+//    public static String getCompanyId(String name){
+//        Company company = companyRepository.findByName(name);
+//        return company.getId();
+//    }
 
     public Optional<CompanyDTO> mapRowToCompany(String[] row, String[] header) {
         CompanyDTO companyDTO = new CompanyDTO();
@@ -196,7 +196,6 @@ public class CompanyService extends CsvService<CompanyDTO>{
         copyDTOtoEntity(companyDTO, company);
         company = companyRepository.save(company);
 
-        getCompanyId(companyDTO.getName());
 
         return Optional.of(new CompanyDTO(company));
     }

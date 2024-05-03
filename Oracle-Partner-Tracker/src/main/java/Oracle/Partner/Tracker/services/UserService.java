@@ -89,13 +89,13 @@ public class UserService extends CsvService<UserDTO>{
 
     private Optional<UserDTO> mapRowToUser(String[] header, String[] row){
         UserBuilder userBuilder = new UserBuilder();
-        Company company = new Company();
+        CompanyDTO companyDTO;
         Map<String, BiConsumer<String, UserBuilder>> fieldSetterMap = new HashMap<>();
         fieldSetterMap.put("OPN Admin Name", (value, builder) -> builder.setName(value));
         fieldSetterMap.put("OPN Admin Email", (value, builder) -> builder.setEmail(value));
         fieldSetterMap.put("Membership Type", (value, builder) -> builder.setMemberShipType(MembershipEnum.toMembership(value)));
-
-        UserDTO userDTO = new UserDTO(userBuilder.getName(), userBuilder.getCompany(),userBuilder.getEmail(), userBuilder.getPassword(),userBuilder.getRole(),userBuilder.getStatus(), userBuilder.getIngestionOperation(), userBuilder.getMemberShipType());
+//        fieldSetterMap.put("Company ID", (value, builder) -> builder.setCompany(companyRepository.findByCnpj(value)));
+        UserDTO userDTO = new UserDTO(userBuilder.getName(),userBuilder.getEmail(), userBuilder.getPassword(),userBuilder.getRole(),userBuilder.getStatus(), userBuilder.getIngestionOperation(), userBuilder.getMemberShipType());
         User user = new User();
         BeanUtils.copyProperties(userBuilder, userDTO);
         BeanUtils.copyProperties(userDTO, user);
@@ -103,8 +103,6 @@ public class UserService extends CsvService<UserDTO>{
         user.setStatus(Status.ACTIVE);
         user.setPassword("123456");
         user.setRole(RoleEnum.USER.name());
-//        user.setCompany();
-
 
         userRepository.save(user);
 
