@@ -1,5 +1,6 @@
 package Oracle.Partner.Tracker.repositories;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import Oracle.Partner.Tracker.dto.StatePerCompany;
@@ -23,4 +24,6 @@ public interface CompanyRepository extends JpaRepository <Company,Long>{
             "LEFT JOIN co.opnTrack o " +
             "GROUP BY o.name")
     public List<TrackPerCompany> getTrackPerCompany();
+
+    public Objects getCompanyIdByName(String name);
 }

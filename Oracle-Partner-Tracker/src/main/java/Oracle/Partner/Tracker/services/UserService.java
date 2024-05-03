@@ -1,7 +1,10 @@
 package Oracle.Partner.Tracker.services;
 
+import Oracle.Partner.Tracker.dto.CompanyDTO;
 import Oracle.Partner.Tracker.dto.UserDTO;
+import Oracle.Partner.Tracker.entities.Company;
 import Oracle.Partner.Tracker.entities.User;
+import Oracle.Partner.Tracker.repositories.CompanyRepository;
 import Oracle.Partner.Tracker.repositories.UserRepository;
 import Oracle.Partner.Tracker.utils.*;
 import org.springframework.beans.BeanUtils;
@@ -11,15 +14,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService extends CsvService<UserDTO>{
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    CompanyService companyService;
+    @Autowired
+    CompanyRepository companyRepository;
 
 
     public List<User> findAllUsers() {
@@ -71,51 +79,32 @@ public class UserService extends CsvService<UserDTO>{
 
     @Override
     public List<UserDTO> mapCsvToEntities(List<String[]> csvData){
-        List<UserDTO> users = new ArrayList<>();
-
         String[] header = csvData.get(0);
-
-        for (int i = 1; i < csvData.size(); i++) {
-            String[] row = csvData.get(i);
-            Optional<UserDTO> userDTO = mapRowToUser(header, row);
-            if (userDTO.isPresent()) {
-                users.add(userDTO.get());
-            }
-        }
-
-        return users;
+        return csvData.stream().skip(1)
+                .map(row -> mapRowToUser(header, row))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList());
     }
 
     private Optional<UserDTO> mapRowToUser(String[] header, String[] row){
         UserBuilder userBuilder = new UserBuilder();
-        for (int i = 0; i < header.length; i++){
-            if (i >= row.length) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Row has fewer elements than header");
-            }
-            String headerValue = header[i];
-            String rowValue = row[i];
-            if ("email".equals(headerValue) && userRepository.existsByEmail(rowValue)){
-                // Se o email já existir, retorne Optional.empty()
-                return Optional.empty();
-            }
-            if (headerValue.equals("OPN Admin Name") || headerValue.equals("OPN Admin Email") || headerValue.equals("password") || headerValue.equals("role") || headerValue.equals("Membership Type")){
-                switch (headerValue){
-                    case "OPN Admin Name" -> userBuilder.setName(rowValue);
-                    case "OPN Admin Email" -> userBuilder.setEmail(rowValue);
-                    case "password" -> userBuilder.setPassword(rowValue);
-                    case "role" -> userBuilder.setRole(RoleEnum.toRole(rowValue));
-                    case "Membership Type" -> userBuilder.setMemberShipType(MembershipEnum.toMembership(rowValue));
-                    default -> {}
-                }
-            }
+        Company company = new Company();
+        Map<String, BiConsumer<String, UserBuilder>> fieldSetterMap = new HashMap<>();
+        fieldSetterMap.put("OPN Admin Name", (value, builder) -> builder.setName(value));
+        fieldSetterMap.put("OPN Admin Email", (value, builder) -> builder.setEmail(value));
+        fieldSetterMap.put("Membership Type", (value, builder) -> builder.setMemberShipType(MembershipEnum.toMembership(value)));
 
-        }
-        UserDTO userDTO = new UserDTO(userBuilder.getName(), userBuilder.getEmail(), userBuilder.getPassword(), userBuilder.getRole(), userBuilder.getStatus(), userBuilder.getIngestionOperation(), userBuilder.getMemberShipType());
+        UserDTO userDTO = new UserDTO(userBuilder.getName(), userBuilder.getCompany(),userBuilder.getEmail(), userBuilder.getPassword(),userBuilder.getRole(),userBuilder.getStatus(), userBuilder.getIngestionOperation(), userBuilder.getMemberShipType());
         User user = new User();
         BeanUtils.copyProperties(userBuilder, userDTO);
         BeanUtils.copyProperties(userDTO, user);
         user.setIngestionOperation(IngestionOperation.CSV);
         user.setStatus(Status.ACTIVE);
+        user.setPassword("123456");
+        user.setRole(RoleEnum.USER.name());
+//        user.setCompany();
+
 
         userRepository.save(user);
 

@@ -22,7 +22,9 @@ public class Certification {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "description")
     private String description;
     @Column(name = "create_at")
     private LocalDateTime createAt = LocalDateTime.now();

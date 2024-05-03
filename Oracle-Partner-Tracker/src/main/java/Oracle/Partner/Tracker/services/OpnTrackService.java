@@ -1,9 +1,10 @@
 package Oracle.Partner.Tracker.services;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import Oracle.Partner.Tracker.utils.IngestionOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,45 +102,30 @@ public class OpnTrackService extends CsvService<OpnTrackDTO>{
     @Override
     public List<OpnTrackDTO> mapCsvToEntities(List<String[]> csvData){
         String[] header = csvData.get(0);
-        List<OpnTrackDTO> opnTracks = new ArrayList<>();
-
-        for (int i = 1; i < csvData.size(); i++){
-            String[] row = csvData.get(i);
-
-            Optional<OpnTrackDTO> opnTrackDTO = mapRowToOpnTrack(row, header);
-            if (opnTrackDTO.isPresent()){
-                opnTracks.add(opnTrackDTO.get());
-            }
-        }
-        return opnTracks;
+        return csvData.stream().skip(1)
+                .map(row -> mapRowToOpnTrack(row, header))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList());
     }
 
-    public Optional<OpnTrackDTO> mapRowToOpnTrack(String[] row, String[] header){
+    public Optional<OpnTrackDTO> mapRowToOpnTrack(String[] row, String[] header) {
         OpnTrackDTO opnTrackDTO = new OpnTrackDTO();
-        
-        for (int j = 0; j < header.length; j++){
-            opnTrackDTO.setIngestionOperation(IngestionOperation.CSV);
-            switch (header[j]){
-                case "OPN Track":
-                    opnTrackDTO.setName(row[j]);
-                    break;
-                case "OpnTrack Status":
-                    opnTrackDTO.setStatus(Status.toStatus(row[j]));
-                    break;
-            }
-        }
+        opnTrackDTO.setIngestionOperation(IngestionOperation.CSV);
 
-        
+        Map<String, BiConsumer<String, OpnTrackDTO>> fieldSetterMap = new HashMap<>();
+        fieldSetterMap.put("OPN Track", (value, dto) -> dto.setName(value));
+
+        IntStream.range(0, header.length).forEach(i -> {
+            BiConsumer<String, OpnTrackDTO> fieldSetter = fieldSetterMap.get(header[i]);
+            if (fieldSetter != null) {
+                fieldSetter.accept(row[i], opnTrackDTO);
+            }
+        });
+
         OpnTrack opnTrack = new OpnTrack();
         copyDTOtoEntity(opnTrackDTO, opnTrack);
 
-        Optional<OpnTrackDTO> optionalOpnTrack = this.insertOpnTrack(opnTrackDTO);            
-
-        if (optionalOpnTrack.isPresent()){
-            return Optional.empty();
-        }
-
-        return Optional.of(new OpnTrackDTO(opnTrack));
+        return this.insertOpnTrack(opnTrackDTO).isPresent() ? Optional.empty() : Optional.of(new OpnTrackDTO(opnTrack));
     }
-
 }

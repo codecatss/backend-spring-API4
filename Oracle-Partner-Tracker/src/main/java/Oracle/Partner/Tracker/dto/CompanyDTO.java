@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class CompanyDTO {
 
-    @Schema(description = "ID da empresa", example = "1")
     private String id;
 
     @Schema(description = "Nome da empresa", example = "Empresa XYZ")

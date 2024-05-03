@@ -21,15 +21,20 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
+    @Column(name = "name")
     private String name;
+    @Column(name = "email")
     private String email;
+    @Column(name = "password")
     private String password;
+    @Column(name = "role")
     private String role;
+    @Column(name = "ingestion_operation")
     private IngestionOperation ingestionOperation;
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -42,8 +47,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserCertificartion> userCertification = new ArrayList<>();
 
-    public void addUserCertificartion(UserCertificartion userCertificartion){
-        userCertificartion.setUser(this);
-        this.userCertification.add(userCertificartion);
+    public void addUserCertification(UserCertificartion userCertification){
+        userCertification.setUser(this);
+        this.userCertification.add(userCertification);
     }
 }

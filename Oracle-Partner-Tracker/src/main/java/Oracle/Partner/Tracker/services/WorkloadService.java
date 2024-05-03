@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 import Oracle.Partner.Tracker.utils.IngestionOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class WorkloadService extends CsvService<WorkloadDTO>{
         Page<Workload> workloads = workloadRepository.findAll(pageable);
         return workloads.map(WorkloadDTO::new);
     }
-    
+
     public Optional<WorkloadDTO> insertWorkload(WorkloadDTO workloadDTO){
         Optional<WorkloadDTO> optionalWorkload= this.findWorkloadByName(workloadDTO.getName());
         if (optionalWorkload.isPresent()){
@@ -60,8 +61,8 @@ public class WorkloadService extends CsvService<WorkloadDTO>{
 
     public WorkloadDTO updateWorkload(Long id, WorkloadDTO workloadDTO){
         Workload workload = workloadRepository.findById(id).orElseThrow(
-            () -> new RuntimeException("Workload não encontrada com o id: " + id)
-            );
+                () -> new RuntimeException("Workload não encontrada com o id: " + id)
+        );
         copyDTOtoEntity(workloadDTO, workload);
         workload = workloadRepository.save(workload);
         return new WorkloadDTO(workload);
@@ -69,16 +70,16 @@ public class WorkloadService extends CsvService<WorkloadDTO>{
 
     public void disableWorkload(Long id){
         Workload workload = workloadRepository.findById(id).orElseThrow(
-            () -> new RuntimeException("Workload não encontrada com o id: " + id)
-            );
+                () -> new RuntimeException("Workload não encontrada com o id: " + id)
+        );
         workload.setStatus(Status.INACTIVE);
         workloadRepository.save(workload);
     }
 
     public void enableWorkload(Long id){
         Workload workload = workloadRepository.findById(id).orElseThrow(
-            () -> new RuntimeException("Workload não encontrada com o id: " + id)
-            );
+                () -> new RuntimeException("Workload não encontrada com o id: " + id)
+        );
         workload.setStatus(Status.ACTIVE);
         workloadRepository.save(workload);
     }
@@ -96,35 +97,32 @@ public class WorkloadService extends CsvService<WorkloadDTO>{
             workload.setCreateAt(workloadDTO.getCreateAt());
         }
         if(
-            workloadDTO.getDescription() == null || workloadDTO.getDescription().isBlank()){
+                workloadDTO.getDescription() == null || workloadDTO.getDescription().isBlank()){
             workload.setDescription("No description");
-            }else{
-                workload.setDescription(workloadDTO.getDescription());
-            }
+        }else{
+            workload.setDescription(workloadDTO.getDescription());
+        }
         workload.setUpdateAt(LocalDateTime.now());
     }
 
     @Override
     public List<WorkloadDTO> mapCsvToEntities(List<String[]> csvData){
-        String[] header = csvData.get(0);
         List<WorkloadDTO> workloads = new ArrayList<>();
+        String[] header = csvData.get(0);
 
-        for (int i = 1; i < csvData.size(); i++){
-            String[] row = csvData.get(i);
-
+        csvData.stream().skip(1).forEach(row -> {
             Optional<WorkloadDTO> workloadDTO = mapRowToWorkload(row, header);
-            if (workloadDTO.isPresent()){
-                workloads.add(workloadDTO.get());
-            }
-        }
+            workloadDTO.ifPresent(workloads::add);
+        });
+
         return workloads;
     }
 
     public Optional<WorkloadDTO> mapRowToWorkload(String[] row, String[] header){
         WorkloadDTO workloadDTO = new WorkloadDTO();
-        
-        for (int j = 0; j < header.length; j++){
-            workloadDTO.setIngestionOperation(IngestionOperation.CSV);
+        workloadDTO.setIngestionOperation(IngestionOperation.CSV);
+
+        IntStream.range(0, header.length).forEach(j -> {
             switch (header[j]){
                 case "Workload":
                     workloadDTO.setName(row[j]);
@@ -133,18 +131,11 @@ public class WorkloadService extends CsvService<WorkloadDTO>{
                     workloadDTO.setStatus(Status.toStatus(row[j]));
                     break;
             }
-        }
+        });
 
-        
-        Workload workload = new Workload();
-        copyDTOtoEntity(workloadDTO, workload);
+        copyDTOtoEntity(workloadDTO, new Workload());
 
-        Optional<WorkloadDTO> optionalWorkload = this.insertWorkload(workloadDTO);            
-        if (optionalWorkload.isPresent()){
-            return Optional.empty();
-        }
-
-        return Optional.of(new WorkloadDTO(workload));
+        return this.insertWorkload(workloadDTO).isEmpty() ? Optional.of(new WorkloadDTO(new Workload())) : Optional.empty();
     }
 
 }

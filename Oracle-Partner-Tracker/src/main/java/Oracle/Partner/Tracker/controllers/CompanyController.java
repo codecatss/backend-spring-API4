@@ -84,6 +84,7 @@ public class CompanyController {
                     )
             )
     })
+
     public ResponseEntity<CompanyDTO> insertCompany(@RequestBody CompanyDTO companyDTO) {
         companyDTO = companyService.insertCompany(companyDTO).get();
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")

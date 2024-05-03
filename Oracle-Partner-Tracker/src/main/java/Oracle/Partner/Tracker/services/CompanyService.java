@@ -1,9 +1,11 @@
 package Oracle.Partner.Tracker.services;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import Oracle.Partner.Tracker.utils.IngestionOperation;
 import Oracle.Partner.Tracker.utils.Status;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ import Oracle.Partner.Tracker.repositories.CompanyRepository;
 public class CompanyService extends CsvService<CompanyDTO>{
 
     @Autowired
-    private CompanyRepository companyRepository;
+    private static CompanyRepository companyRepository;
 
     public void setCompanyRepository(CompanyRepository companyRepository) {
         this.companyRepository = companyRepository;
@@ -139,97 +141,63 @@ public class CompanyService extends CsvService<CompanyDTO>{
 
     @Override
     public List<CompanyDTO> mapCsvToEntities(List<String[]> csvData) {
-
         String[] header = csvData.get(0);
-        List<CompanyDTO> companies = new ArrayList<>();
-
-
-        for (int i = 1; i < csvData.size(); i++) {
-            String[] row = csvData.get(i);
-
-            Optional<CompanyDTO> companyDTO =  mapRowToCompany(row, header);
-            if (companyDTO != null){
-                companies.add(companyDTO.get());
-            }
-        }
-
-        return companies;
+        return csvData.stream().skip(1)
+                .map(row -> mapRowToCompany(row, header))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList());
     }
-    public Optional<CompanyDTO> mapRowToCompany(String[] row, String[] header) {
-        CompanyDTO companyDTO = new CompanyDTO();
-    
-        for (int i = 0; i < header.length; i++) {
-            companyDTO.setIngestionOperation(IngestionOperation.CSV);
-            switch (header[i]) {
-                case "Company Name":
-                    String companyName = row[i];
-                    if (companyName != null && !companyName.isBlank()) {
-                        companyDTO.setName(companyName);
-                    } else {
-                        // Se o nome da empresa for nulo ou vazio, pule esta linha
-                        return Optional.empty();
-                    }
-                    break;
-                case "Status":
-                    if(row[i].equals("Active")){
-                        companyDTO.setStatus(Status.ACTIVE);
-                    }else{
-                        companyDTO.setStatus(Status.INACTIVE);
-                    }
-                    break;
-                case "OPN Status":
-                    if(row[i].equals("Active")){
-                        companyDTO.setOpnStatus(OPNStatus.MEMBER);
-                    }else{
-                        companyDTO.setOpnStatus(OPNStatus.EXPIRED);
-                    };
-                    break;
-                case "Company ID":
-                    companyDTO.setCnpj(row[i]);
-                    break;
-                case "State":
-                    companyDTO.setState(row[i]);
-                    break;
-                case "Country":
-                    companyDTO.setCountry(row[i]);
-                    break;
-                case "City":
-                    companyDTO.setCity(row[i]);
-                    break;
-                case "Address":
-                    companyDTO.setAddress(row[i]);
-                    break;
-                case "Credit Hold":
-                    companyDTO.setCreditHold(row[i]);
-                    break;
-                case "Slogan":
-                    companyDTO.setSlogan(row[i]);
-                    break;
-                default:
-                    break;
-            }
-        }
-    
-        // Verifique se o nome da empresa foi definido
-        if (companyDTO.getName() == null || companyDTO.getName().isBlank()) {
-            // Se o nome da empresa ainda for nulo ou vazio, retorne Optional.empty()
-            return Optional.empty();
-        }
-    
-        // Verifique se a empresa já existe no banco de dados antes de inserir
-        CompanyDTO optionalCompany = this.findCompanyByCnpj(companyDTO.getCnpj());
-        if (optionalCompany != null) {
 
-            // Se a empresa já existir, retorne Optional.empty()
-            return null;
-        }
-    
+    public Company createCompany(CompanyDTO companyDTO) {
         Company company = new Company();
         copyDTOtoEntity(companyDTO, company);
-    
-        // Insira a empresa no banco de dados
+        return companyRepository.save(company);
+    }
+
+    public static String getCompanyId(String name){
+        Company company = companyRepository.findByName(name);
+        return company.getId();
+    }
+
+    public Optional<CompanyDTO> mapRowToCompany(String[] row, String[] header) {
+        CompanyDTO companyDTO = new CompanyDTO();
+        companyDTO.setIngestionOperation(IngestionOperation.CSV);
+
+        Map<String, BiConsumer<String, CompanyDTO>> fieldSetterMap = new HashMap<>();
+        fieldSetterMap.put("Company Name", (value, dto) -> dto.setName(value));
+        fieldSetterMap.put("Status", (value, dto) -> dto.setStatus("Active".equals(value) ? Status.ACTIVE : Status.INACTIVE));
+        fieldSetterMap.put("OPN Status", (value, dto) -> dto.setOpnStatus("Active".equals(value) ? OPNStatus.MEMBER : OPNStatus.EXPIRED));
+        fieldSetterMap.put("Company ID", (value, dto) -> dto.setCnpj(value));
+        fieldSetterMap.put("State", (value, dto) -> dto.setState(value));
+        fieldSetterMap.put("Country", (value, dto) -> dto.setCountry(value));
+        fieldSetterMap.put("City", (value, dto) -> dto.setCity(value));
+        fieldSetterMap.put("Address", (value, dto) -> dto.setAddress(value));
+        fieldSetterMap.put("Credit Hold", (value, dto) -> dto.setCreditHold(value));
+        fieldSetterMap.put("Slogan", (value, dto) -> dto.setSlogan(value));
+
+        IntStream.range(0, header.length).forEach(i -> {
+            BiConsumer<String, CompanyDTO> fieldSetter = fieldSetterMap.get(header[i]);
+            if (fieldSetter != null) {
+                fieldSetter.accept(row[i], companyDTO);
+            }
+        });
+
+        if (companyDTO.getName() == null || companyDTO.getName().isBlank()) {
+            return Optional.empty();
+        }
+
+        if (this.findCompanyByCnpj(companyDTO.getCnpj()) != null) {
+            return Optional.empty();
+        }
+
+
+        Company company = new Company();
+        copyDTOtoEntity(companyDTO, company);
         company = companyRepository.save(company);
-    
+
+        getCompanyId(companyDTO.getName());
+
         return Optional.of(new CompanyDTO(company));
     }
     

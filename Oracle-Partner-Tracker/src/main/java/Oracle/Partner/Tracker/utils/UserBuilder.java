@@ -1,5 +1,6 @@
 package Oracle.Partner.Tracker.utils;
 
+import Oracle.Partner.Tracker.entities.Company;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class UserBuilder {
     private String name;
+    private Company company;
     private String email;
     private String password;
     private RoleEnum role;
