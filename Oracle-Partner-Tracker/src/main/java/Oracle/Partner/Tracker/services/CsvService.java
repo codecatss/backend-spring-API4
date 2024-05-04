@@ -2,6 +2,7 @@ package Oracle.Partner.Tracker.services;
 
 import Oracle.Partner.Tracker.dto.CompanyDTO;
 import Oracle.Partner.Tracker.dto.GenericDTO;
+import Oracle.Partner.Tracker.entities.Company;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -46,7 +47,6 @@ public class CsvService {
 //        }
 
     }
-
 
     public List<GenericDTO> mapCsvEntitiesToList(MultipartFile file, GenericService genericService) {
         try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {

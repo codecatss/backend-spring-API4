@@ -43,6 +43,10 @@ public class CompanyService implements GenericService{
         return companies;
     }
 
+    public void saveCompany(List<Company> companies){
+        companyRepository.saveAll(companies);
+    }
+
     public Optional<CompanyDTO> insertCompany(CompanyDTO companyDTO) {   
 
         // Verificando se o CNPJ da empresa é válido
