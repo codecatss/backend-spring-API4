@@ -1,7 +1,8 @@
 package Oracle.Partner.Tracker.services;
 
+import org.springframework.http.ResponseEntity;
 import java.util.List;
 
-public interface GenericService<T> {
-    List<T> mapCsvToEntities(List<String[]> csvData);
+public interface GenericService {
+    void mapCsvToEntities(List<String[]> csvData);
 }

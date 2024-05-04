@@ -14,8 +14,7 @@ import Oracle.Partner.Tracker.entities.Company;
 import Oracle.Partner.Tracker.repositories.CompanyRepository;
 
 @Service
-public class CompanyService extends CsvService<CompanyDTO>{
-
+public class CompanyService implements GenericService{
     @Autowired
     private CompanyRepository companyRepository;
 
@@ -138,22 +137,8 @@ public class CompanyService extends CsvService<CompanyDTO>{
 
 
     @Override
-    public List<CompanyDTO> mapCsvToEntities(List<String[]> csvData) {
+    public void mapCsvToEntities(List<String[]> csvData) {
 
-        String[] header = csvData.get(0);
-        List<CompanyDTO> companies = new ArrayList<>();
-
-
-        for (int i = 1; i < csvData.size(); i++) {
-            String[] row = csvData.get(i);
-
-            Optional<CompanyDTO> companyDTO =  mapRowToCompany(row, header);
-            if (companyDTO != null){
-                companies.add(companyDTO.get());
-            }
-        }
-
-        return companies;
     }
     public Optional<CompanyDTO> mapRowToCompany(String[] row, String[] header) {
         CompanyDTO companyDTO = new CompanyDTO();

@@ -21,12 +21,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @Autowired
-    private List<CsvService<?>> csvServices;
-
-    @Autowired
-    private CsvService<UserDTO> csvService;
-
     @GetMapping(value = "/{id}")
     public ResponseEntity<User> findbyId(@PathVariable Long id){
         return ResponseEntity.ok(userService.findUserById(id));

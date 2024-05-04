@@ -16,7 +16,7 @@ import Oracle.Partner.Tracker.repositories.OpnTrackRepository;
 import Oracle.Partner.Tracker.utils.Status;
 
 @Service
-public class OpnTrackService extends CsvService<OpnTrackDTO>{
+public class OpnTrackService implements GenericService{
 
     private OpnTrackRepository opnTrackRepository;
 
@@ -99,20 +99,25 @@ public class OpnTrackService extends CsvService<OpnTrackDTO>{
     }
 
     @Override
-    public List<OpnTrackDTO> mapCsvToEntities(List<String[]> csvData){
-        String[] header = csvData.get(0);
-        List<OpnTrackDTO> opnTracks = new ArrayList<>();
+    public void mapCsvToEntities(List<String[]> csvData) {
 
-        for (int i = 1; i < csvData.size(); i++){
-            String[] row = csvData.get(i);
-
-            Optional<OpnTrackDTO> opnTrackDTO = mapRowToOpnTrack(row, header);
-            if (opnTrackDTO.isPresent()){
-                opnTracks.add(opnTrackDTO.get());
-            }
-        }
-        return opnTracks;
     }
+
+//    @Override
+//    public List<OpnTrackDTO> mapCsvToEntities(List<String[]> csvData){
+//        String[] header = csvData.get(0);
+//        List<OpnTrackDTO> opnTracks = new ArrayList<>();
+//
+//        for (int i = 1; i < csvData.size(); i++){
+//            String[] row = csvData.get(i);
+//
+//            Optional<OpnTrackDTO> opnTrackDTO = mapRowToOpnTrack(row, header);
+//            if (opnTrackDTO.isPresent()){
+//                opnTracks.add(opnTrackDTO.get());
+//            }
+//        }
+//        return opnTracks;
+//    }
 
     public Optional<OpnTrackDTO> mapRowToOpnTrack(String[] row, String[] header){
         OpnTrackDTO opnTrackDTO = new OpnTrackDTO();

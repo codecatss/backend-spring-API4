@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService extends CsvService<UserDTO>{
+public class UserService implements GenericService{
 
     @Autowired
     UserRepository userRepository;
@@ -70,21 +70,26 @@ public class UserService extends CsvService<UserDTO>{
     }
 
     @Override
-    public List<UserDTO> mapCsvToEntities(List<String[]> csvData){
-        List<UserDTO> users = new ArrayList<>();
+    public void mapCsvToEntities(List<String[]> csvData) {
 
-        String[] header = csvData.get(0);
-
-        for (int i = 1; i < csvData.size(); i++) {
-            String[] row = csvData.get(i);
-            Optional<UserDTO> userDTO = mapRowToUser(header, row);
-            if (userDTO.isPresent()) {
-                users.add(userDTO.get());
-            }
-        }
-
-        return users;
     }
+
+//    @Override
+//    public List<UserDTO> mapCsvToEntities(List<String[]> csvData){
+//        List<UserDTO> users = new ArrayList<>();
+//
+//        String[] header = csvData.get(0);
+//
+//        for (int i = 1; i < csvData.size(); i++) {
+//            String[] row = csvData.get(i);
+//            Optional<UserDTO> userDTO = mapRowToUser(header, row);
+//            if (userDTO.isPresent()) {
+//                users.add(userDTO.get());
+//            }
+//        }
+//
+//        return users;
+//    }
 
     private Optional<UserDTO> mapRowToUser(String[] header, String[] row){
         UserBuilder userBuilder = new UserBuilder();

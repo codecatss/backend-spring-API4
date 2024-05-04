@@ -16,7 +16,7 @@ import Oracle.Partner.Tracker.repositories.WorkloadRepository;
 import Oracle.Partner.Tracker.utils.Status;
 
 @Service
-public class WorkloadService extends CsvService<WorkloadDTO>{
+public class WorkloadService implements GenericService{
 
     private WorkloadRepository workloadRepository;
 
@@ -105,20 +105,25 @@ public class WorkloadService extends CsvService<WorkloadDTO>{
     }
 
     @Override
-    public List<WorkloadDTO> mapCsvToEntities(List<String[]> csvData){
-        String[] header = csvData.get(0);
-        List<WorkloadDTO> workloads = new ArrayList<>();
+    public void mapCsvToEntities(List<String[]> csvData) {
 
-        for (int i = 1; i < csvData.size(); i++){
-            String[] row = csvData.get(i);
-
-            Optional<WorkloadDTO> workloadDTO = mapRowToWorkload(row, header);
-            if (workloadDTO.isPresent()){
-                workloads.add(workloadDTO.get());
-            }
-        }
-        return workloads;
     }
+
+//    @Override
+//    public List<WorkloadDTO> mapCsvToEntities(List<String[]> csvData){
+//        String[] header = csvData.get(0);
+//        List<WorkloadDTO> workloads = new ArrayList<>();
+//
+//        for (int i = 1; i < csvData.size(); i++){
+//            String[] row = csvData.get(i);
+//
+//            Optional<WorkloadDTO> workloadDTO = mapRowToWorkload(row, header);
+//            if (workloadDTO.isPresent()){
+//                workloads.add(workloadDTO.get());
+//            }
+//        }
+//        return workloads;
+//    }
 
     public Optional<WorkloadDTO> mapRowToWorkload(String[] row, String[] header){
         WorkloadDTO workloadDTO = new WorkloadDTO();

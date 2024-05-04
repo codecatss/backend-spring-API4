@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ExpertiseService extends CsvService<ExpertiseDTO>{
+public class ExpertiseService implements GenericService{
     private ExpertiseRepository expertiseRepository;
 
     @Autowired
@@ -92,16 +92,21 @@ public class ExpertiseService extends CsvService<ExpertiseDTO>{
     }
 
     @Override
-    public List<ExpertiseDTO> mapCsvToEntities(List<String[]> csvData) {
-        List<ExpertiseDTO> expertises = new ArrayList<>();
-        String[] header = csvData.get(0);
+    public void mapCsvToEntities(List<String[]> csvData) {
 
-        for (int i = 1; i < csvData.size(); i++) {
-            ExpertiseDTO expertiseDTO = mapRowToExpertise(csvData.get(i), header);
-            if(expertiseDTO != null){
-                expertises.add(expertiseDTO);
-            }
-        }
-        return expertises;
     }
+
+//    @Override
+//    public List<ExpertiseDTO> mapCsvToEntities(List<String[]> csvData) {
+//        List<ExpertiseDTO> expertises = new ArrayList<>();
+//        String[] header = csvData.get(0);
+//
+//        for (int i = 1; i < csvData.size(); i++) {
+//            ExpertiseDTO expertiseDTO = mapRowToExpertise(csvData.get(i), header);
+//            if(expertiseDTO != null){
+//                expertises.add(expertiseDTO);
+//            }
+//        }
+//        return expertises;
+//    }
 }
