@@ -1,19 +1,20 @@
 package Oracle.Partner.Tracker.entities;
 
-import org.hibernate.annotations.Immutable;
-import org.hibernate.annotations.Subselect;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-
+@Entity
 @Data
 @NoArgsConstructor
-@Entity(name = "company_expertise_user_count")
+@Table(name = "company_expertise_user_count")
 public class CompanyExpertiseUserCount {
+
     @Id
     @Column(name = "company_name")
     private String companyName;
@@ -46,3 +47,4 @@ public class CompanyExpertiseUserCount {
         this.completionPercentage = completionPercentage;
     }
 }
+

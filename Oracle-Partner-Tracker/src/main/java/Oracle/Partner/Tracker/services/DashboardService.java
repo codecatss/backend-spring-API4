@@ -3,17 +3,24 @@ package Oracle.Partner.Tracker.services;
 import Oracle.Partner.Tracker.dto.DashboardDTO;
 import Oracle.Partner.Tracker.dto.StatePerCompany;
 import Oracle.Partner.Tracker.dto.TrackPerCompany;
+import Oracle.Partner.Tracker.dto.UserCertificationDTO;
+import Oracle.Partner.Tracker.entities.relations.UserCertification;
 import Oracle.Partner.Tracker.repositories.CompanyRepository;
 import Oracle.Partner.Tracker.repositories.ExpertiseRepository;
 import Oracle.Partner.Tracker.repositories.OpnTrackRepository;
+import Oracle.Partner.Tracker.repositories.UserCertificationRepository;
 import Oracle.Partner.Tracker.utils.DashboardColorEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 
 @Service
@@ -37,6 +44,14 @@ public class DashboardService {
             data.setQtyUsers(Integer.parseInt(String.valueOf(obj[4])));
             data.setQtyTracks(Integer.parseInt(String.valueOf(obj[5])));
             data.setQtyExpertise(Integer.parseInt(String.valueOf(obj[6])));
+
+            Long lastMonthCount = (Long) obj[7];
+            Long monthCount = (Long) obj[8];
+            Double growthPercentage = ((double) monthCount - lastMonthCount) / lastMonthCount * 100;
+
+            data.setQtygrowth(growthPercentage);
+
+
         }
         return data;
     }
@@ -83,4 +98,15 @@ public class DashboardService {
         }
         return queryDataMap;
     }
+
+    @Autowired
+    private UserCertificationRepository userCertificationRepository;
+
+    public List<Object[]> getCertificationsNearExpiration(int daysThreshold) {
+        LocalDateTime currentDate = LocalDateTime.now();
+        LocalDateTime expirationDateThreshold = currentDate.plusDays(daysThreshold);
+        return userCertificationRepository.getUserCertifications(currentDate, expirationDateThreshold);
+    }
+    
+    
 }

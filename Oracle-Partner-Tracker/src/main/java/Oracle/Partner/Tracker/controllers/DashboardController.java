@@ -1,11 +1,11 @@
 package Oracle.Partner.Tracker.controllers;
 
-import Oracle.Partner.Tracker.entities.CompanyExpertiseUserCount;
 import Oracle.Partner.Tracker.dto.DashboardDTO;
 import Oracle.Partner.Tracker.dto.TrackPerCompany;
+import Oracle.Partner.Tracker.dto.UserCertificationDTO;
+import Oracle.Partner.Tracker.entities.relations.UserCertification;
 import Oracle.Partner.Tracker.dto.StatePerCompany;
 import Oracle.Partner.Tracker.repositories.CompanyRepository;
-import Oracle.Partner.Tracker.services.CompanyExpertiseUserCountService;
 import Oracle.Partner.Tracker.services.DashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -53,6 +53,7 @@ public class DashboardController {
         }
         return ResponseEntity.ok(data);
     }
+    
 
     @GetMapping(path = "/opntrack/visualization")
     public Map<Integer, Map<String, String>> getOpnTrackUsageCount() {
@@ -63,14 +64,12 @@ public class DashboardController {
     public Map<Integer, Map<String, String>> getExpertiseUsageCount() {
         return dashboardService.getExpertiseUsageCount();
     }
+;
 
+    @GetMapping(value="/certification-per-user")
+    public List<Object[]> getUserCertification(){
+        return dashboardService.getCertificationsNearExpiration(90);
+}
 
-    @Autowired
-    CompanyExpertiseUserCountService companyExpertiseUserCountService;
-
-    @GetMapping(path = "/companyexpertiseusercountservice")
-    public List<CompanyExpertiseUserCount> getCompanyExpertiseUserCount() {
-        return companyExpertiseUserCountService.findAllCompanies();
-    }
 
 }

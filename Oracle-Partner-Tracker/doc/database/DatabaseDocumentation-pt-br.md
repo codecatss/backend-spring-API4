@@ -43,9 +43,6 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
 - **created_at**
   - Tipo: timestamp
   - Descrição: Data e hora de criação do registro.
-- **updated_at**
-  - Tipo: timestamp
-  - Descrição: Data e hora da última atualização do registro.
 - primary key (id)
 
 ### Tabela company
@@ -139,9 +136,6 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
 - **description**
   - Tipo: varchar(250)
   - Descrição: Descrição da expertise.
-- **life_time_month**
-  - Tipo: int
-  - Descrição: Quantos meses essa expertise tem validade.
 - **ingestion_operation**
   - Tipo: enum('CSV', 'MANUAL')
   - Descrição: Método de ingestão de dados que foi usado para salvar a expertise.
@@ -181,8 +175,63 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
   - Descrição: Data e hora da última atualização do registro.
 - primary key (id)
 
+### Tabela certification
+**Descrição da tabela:**
+- Esta tabela armazena as informações da certificação.
+
+**Campos:**
+- **id**
+  - Tipo: bigint unsigned
+  - Descrição: Identificador único da certification.
+- **name**
+  - Tipo: varchar(50)
+  - Descrição: Nome da certification.
+- **description**
+  - Tipo: varchar(250)
+  - Descrição: Descrição da certification.
+- **life_time_month**
+  - Tipo: int
+  - Descrição: Quantos meses essa expertise tem validade.
+- **ingestion_operation**
+  - Tipo: enum('CSV', 'MANUAL')
+  - Descrição: Método de ingestão de dados que foi usado para salvar a opn track.
+- **created_at**
+  - Tipo: timestamp
+  - Descrição: Data e hora de criação do registro.
+- **updated_at**
+  - Tipo: timestamp
+  - Descrição: Data e hora da última atualização do registro.
+- primary key (id)
+
 
 ## 2.2 Relações entre Tabelas
+
+### Tabela company_expertise
+**Descrição da Relação:**
+- Esta relação vai juntar as tabelas Company e service_expertise, onde uma empresa pode estar relacionado a N empresas e uma empresa pode ter N certificações.
+- Relação: Company (0-n : 0-n) service_expertise.
+
+**Campos:**
+- **company_id**
+  - Tipo: bigint unsigned
+  - Descrição: Chave estrangeira que referencia a tabela service_expertise pelo ID.
+- **service_expertise**
+  - Tipo: bigint unsigned
+  - Descrição: Chave estrangeira que referencia a tabela company pelo ID.
+
+### Tabela expertise_certification
+**Descrição da Relação:**
+- Esta relação vai juntar as tabelas service_expertise e certification, onde uma expertise pode conter N certificação e uma certificação pode pertencer N expertise.
+- Relação: certification (0-n : 0-n) service_expertise.
+
+**Campos:**
+- **service_expertise**
+  - Tipo: bigint unsigned
+  - Descrição: Chave estrangeira que referencia a tabela certification pelo ID.
+- **certification**
+  - Tipo: bigint unsigned
+  - Descrição: Chave estrangeira que referencia a tabela service_expertise pelo ID.
+
 
 ### Tabela company_and_user
 **Descrição da Relação:**
@@ -197,7 +246,7 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
   - Tipo: bigint unsigned
   - Descrição: Chave estrangeira que referencia a tabela user pelo ID.
 
-### Tabela company_and_opn_track
+### Tabela company_opn_track
 **Descrição da Relação:**
 - Esta relação vai juntar as tabelas Company e Opn_track.
 - Relação: Company (0-n : 0-n) Opn_track.
