@@ -113,7 +113,7 @@ create table user_certification (
     certification_id bigint unsigned not null,
     user_id bigint unsigned not null,
     expires_at timestamp not null,
-    status enum('PASSED', 'IN PROGRESS', 'EXPIRED'),
+    status enum('PASSED', 'IN_PROGRESS', 'EXPIRED'),
     create_at timestamp default current_timestamp,
     update_at timestamp default current_timestamp,
     primary key (id),
@@ -147,3 +147,4 @@ create table expertise_certification (
     foreign key certification_fk (certification_id) references certification (id) on delete restrict on update cascade,
     foreign key expertise_fk (expertise_id) references service_expertise (id) on delete restrict on update cascade
 );
+

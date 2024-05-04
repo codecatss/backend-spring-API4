@@ -1,20 +1,20 @@
 package Oracle.Partner.Tracker.entities;
 
-import org.hibernate.annotations.Immutable;
-import org.hibernate.annotations.Subselect;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-
+@Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "company_expertise_user_count")
+@Table(name = "company_expertise_user_count")
 public class CompanyExpertiseUserCount {
+
     @Id
     @Column(name = "company_name")
     private String companyName;
@@ -28,18 +28,23 @@ public class CompanyExpertiseUserCount {
     @Column(name = "track_name")
     private String trackName;
 
-    @Column(name = "progress_percentage")
-    private Double progressPercentage;
+    @Column(name = "total_certifications")
+    private Long totalCertifications;
 
-    @Column(name = "deadline")
-    private Integer deadline;
+    @Column(name = "passed_certifications")
+    private Long passedCertifications;
 
-    public CompanyExpertiseUserCount(String companyName, String companyState, String expertiseName, String trackName, Long progressPercentage, Integer deadline) {
+    @Column(name = "completion_percentage")
+    private Double completionPercentage;
+
+    public CompanyExpertiseUserCount(String companyName, String companyState, String expertiseName, String trackName, Long totalCertifications, Long passedCertifications, Double completionPercentage) {
         this.companyName = companyName;
         this.companyState = companyState;
         this.expertiseName = expertiseName;
         this.trackName = trackName;
-        this.progressPercentage = progressPercentage.doubleValue();
-        this.deadline = deadline;
+        this.totalCertifications = totalCertifications;
+        this.passedCertifications = passedCertifications;
+        this.completionPercentage = completionPercentage;
     }
 }
+

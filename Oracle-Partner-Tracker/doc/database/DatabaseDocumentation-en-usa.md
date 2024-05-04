@@ -1,21 +1,18 @@
-
 # Database Documentation
 
-# 1. Overview
-This database is being used in the [4th Semester of FATEC API](https://github.com/codecatss/API-BD4).
-We use a DDL script to create the database before running the project in Java,
-this way we're ensuring the SQL script's quality is the best possible.
+## 1. Overview
+This database is being used in the [4th Semester of FATEC's API](https://github.com/codecatss/API-BD4).
+We utilize a DDL script to create the database before executing the Java script, ensuring the highest possible quality of the SQL script.
 
+## 2. Data Model
 
-# 2. Data Model
+### 2.1 Tables
 
-## 2.1 Tables
-
-### Table user
+#### Table user:
 **Table Description:**
-- This table stores user information, including Oracle user and company responsible user.
+- This table stores user information, including Oracle users and users responsible for the company.
 
-**Fields:** 
+**Fields:**
 - **id**
   - Type: bigint unsigned
   - Description: Unique identifier of the user.
@@ -39,16 +36,13 @@ this way we're ensuring the SQL script's quality is the best possible.
   - Description: Data ingestion method used to save the user.
 - **status**
   - Type: enum('ACTIVE', 'INACTIVE')
-  - Description: User's account status (active or inactive).
+  - Description: User account status (active or inactive).
 - **created_at**
   - Type: timestamp
-  - Description: Date and time when the record was created.
-- **updated_at**
-  - Type: timestamp
-  - Description: Date and time of the last update to the record.
+  - Description: Date and time of record creation.
 - primary key (id)
 
-### Table company
+#### Table company
 **Table Description:**
 - This table stores company information, such as CNPJ, city, among others.
 
@@ -58,13 +52,13 @@ this way we're ensuring the SQL script's quality is the best possible.
   - Description: Unique identifier of the company.
 - **name**
   - Type: varchar(50)
-  - Description: Company's name.
+  - Description: Company name.
 - **slogan**
   - Type: varchar(200)
-  - Description: Company's slogan.
+  - Description: Company slogan.
 - **credit_hold**
   - Type: varchar(40)
-  - Description: Credit hold information.
+  - Description: Credit information.
 - **cnpj**
   - Type: varchar(150)
   - Description: Company's CNPJ.
@@ -88,16 +82,16 @@ this way we're ensuring the SQL script's quality is the best possible.
   - Description: Data ingestion method used to save the company.
 - **company_status**
   - Type: enum('ACTIVE', 'INACTIVE')
-  - Description: Company's status (active or inactive).
+  - Description: Company status (active or inactive).
 - **created_at**
   - Type: timestamp
-  - Description: Date and time when the record was created.
+  - Description: Date and time of record creation.
 - **updated_at**
   - Type: timestamp
-  - Description: Date and time of the last update to the record.
+  - Description: Date and time of the last record update.
 - primary key (id)
 
-### Table workload
+#### Table workload
 **Table Description:**
 - This table stores workload information.
 
@@ -107,25 +101,25 @@ this way we're ensuring the SQL script's quality is the best possible.
   - Description: Unique identifier of the workload.
 - **name**
   - Type: varchar(100)
-  - Description: Name of the workload.
+  - Description: Workload name.
 - **description**
   - Type: varchar(250)
-  - Description: Description of the workload.
+  - Description: Workload description.
 - **ingestion_operation**
   - Type: enum('CSV', 'MANUAL')
   - Description: Data ingestion method used to save the workload.
 - **status**
   - Type: enum('ACTIVE', 'INACTIVE')
-  - Description: Workload's status (active or inactive).
+  - Description: Workload status (active or inactive).
 - **created_at**
   - Type: timestamp
-  - Description: Date and time when the record was created.
+  - Description: Date and time of record creation.
 - **updated_at**
   - Type: timestamp
-  - Description: Date and time of the last update to the record.
+  - Description: Date and time of the last record update.
 - primary key (id)
 
-### Table service_expertise
+#### Table service_expertise
 **Table Description:**
 - This table stores expertise information.
 
@@ -135,28 +129,25 @@ this way we're ensuring the SQL script's quality is the best possible.
   - Description: Unique identifier of the expertise.
 - **name**
   - Type: varchar(100)
-  - Description: Name of the expertise.
+  - Description: Expertise name.
 - **description**
   - Type: varchar(250)
-  - Description: Description of the expertise.
-- **life_time_month**
-  - Type: int
-  - Description: How many months this expertise is valid for.
+  - Description: Expertise description.
 - **ingestion_operation**
   - Type: enum('CSV', 'MANUAL')
   - Description: Data ingestion method used to save the expertise.
 - **status**
   - Type: enum('ACTIVE', 'INACTIVE')
-  - Description: Expertise's status (active or inactive).
+  - Description: Expertise status (active or inactive).
 - **created_at**
   - Type: timestamp
-  - Description: Date and time when the record was created.
+  - Description: Date and time of record creation.
 - **updated_at**
   - Type: timestamp
-  - Description: Date and time of the last update to the record.
+  - Description: Date and time of the last record update.
 - primary key (id)
 
-### Table opn_track
+#### Table opn_track
 **Table Description:**
 - This table stores opn track information.
 
@@ -166,28 +157,84 @@ this way we're ensuring the SQL script's quality is the best possible.
   - Description: Unique identifier of the opn track.
 - **name**
   - Type: varchar(50)
-  - Description: Name of the opn track.
+  - Description: Opn track name.
 - **ingestion_operation**
   - Type: enum('CSV', 'MANUAL')
   - Description: Data ingestion method used to save the opn track.
 - **status**
   - Type: enum('ACTIVE', 'INACTIVE')
-  - Description: Opn track's status (active or inactive).
+  - Description: Opn track status (active or inactive).
 - **created_at**
   - Type: timestamp
-  - Description: Date and time when the record was created.
+  - Description: Date and time of record creation.
 - **updated_at**
   - Type: timestamp
-  - Description: Date and time of the last update to the record.
+  - Description: Date and time of the last record update.
 - primary key (id)
 
+#### Table certification
+**Table Description:**
+- This table stores certification information.
 
-## 2.2 Table Relationships
+**Fields:**
+- **id**
+  - Type: bigint unsigned
+  - Description: Unique identifier of the certification.
+- **name**
+  - Type: varchar(50)
+  - Description: Certification name.
+- **description**
+  - Type: varchar(250)
+  - Description: Certification description.
+- **life_time_month**
+  - Type: int
+  - Description: Number of months the certification is valid.
+- **ingestion_operation**
+  - Type: enum('CSV', 'MANUAL')
+  - Description: Data ingestion method used to save the certification.
+- **created_at**
+  - Type: timestamp
+  - Description: Date and time of record creation.
+- **updated_at**
+  - Type: timestamp
+  - Description: Date and time of the last record update.
+- primary key (id)
 
-### Table company_and_user
+### 2.2 Relationships between Tables
+
+#### Table company_expertise
 **Relation Description:**
-- This relation will join the Company and User tables, where a user can be related to only one company.
-- Relation: Company (0-1 : 1-n) User.
+- This relationship joins the Company and Service_expertise tables, where a company can be related to N expertise and a company can have N certifications.
+
+**Relation:** Company (0-n : 0-n) Service_expertise.
+
+**Fields:**
+- **company_id**
+  - Type: bigint unsigned
+  - Description: Foreign key referencing the service_expertise table by ID.
+- **service_expertise**
+  - Type: bigint unsigned
+  - Description: Foreign key referencing the company table by ID.
+
+#### Table expertise_certification
+**Relation Description:**
+- This relationship joins the Service_expertise and Certification tables, where an expertise can contain N certifications and a certification can belong to N expertise.
+
+**Relation:** Certification (0-n : 0-n) Service_expertise.
+
+**Fields:**
+- **service_expertise**
+  - Type: bigint unsigned
+  - Description: Foreign key referencing the certification table by ID.
+- **certification**
+  - Type: bigint unsigned
+  - Description: Foreign key referencing the service_expertise table by ID.
+
+#### Table company_and_user
+**Relation Description:**
+- This relationship joins the Company and User tables, where a user can be related to only one company.
+
+**Relation:** Company (0-1 : 0-n) User.
 
 **Fields:**
 - **company_id**
@@ -197,10 +244,11 @@ this way we're ensuring the SQL script's quality is the best possible.
   - Type: bigint unsigned
   - Description: Foreign key referencing the user table by ID.
 
-### Table company_and_opn_track
+#### Table company_opn_track
 **Relation Description:**
-- This relation will join the Company and Opn_track tables.
-- Relation: Company (n-n : n-n) Opn_track.
+- This relationship joins the Company and Opn_track tables.
+
+**Relation:** Company (0-n : 0-n) Opn_track.
 
 **Fields:**
 - **company_id**
@@ -210,10 +258,11 @@ this way we're ensuring the SQL script's quality is the best possible.
   - Type: bigint unsigned
   - Description: Foreign key referencing the opn_track table by ID.
 
-### Table company_and_workload
+#### Table company_and_workload
 **Relation Description:**
-- This relation will join the Company and Workload tables and save the workload progress (percentage of workload completed by the company).
-- Relation: Company (0-n : 0-n) Workload.
+- This relationship joins the Company and Workload tables and saves the workload progress (how much of the workload the company has completed).
+
+**Relation:** Company (0-n : 0-n) Workload.
 
 **Fields:**
 - **company_id**
@@ -224,21 +273,22 @@ this way we're ensuring the SQL script's quality is the best possible.
   - Description: Foreign key referencing the workload table by ID.
 - **score**
   - Type: numeric(3,2)
-  - Description: Percentage of the workload completed by the company.
+  - Description: Percentage of the workload the company has completed.
 - **status**
   - Type: enum('PASSED', 'IN PROGRESS', 'EXPIRED')
   - Description: Status to track the progress of the workload.
 - **created_at**
   - Type: timestamp
-  - Description: Date and time when the record was created.
+  - Description: Date and time of record creation.
 - **expiration_date**
   - Type: timestamp
   - Description: Expiration date of the relationship between the company and the workload.
 
-### Table opn_track_and_expertise
+#### Table opn_track_and_expertise
 **Relation Description:**
-- This relation will join the Opn_track and Service_expertise tables.
-- Relation: Opn_track (0-n : 0-n) Service_expertise.
+- This relationship joins the Opn_track and Service_expertise tables.
+
+**Relation:** Opn_track (0-n : 0-n) Service_expertise.
 
 **Fields:**
 - **opn_track_id**
@@ -248,10 +298,11 @@ this way we're ensuring the SQL script's quality is the best possible.
   - Type: bigint unsigned
   - Description: Foreign key referencing the service_expertise table by ID.
 
-### Table workload_and_expertise
+#### Table workload_and_expertise
 **Relation Description:**
-- This relation will join the Workload and Service_expertise tables.
-- Relation: Workload (0-n : 0-n) Service_expertise.
+- This relationship joins the Workload and Service_expertise tables.
+
+**Relation:** Workload (0-n : 0-n) Service_expertise.
 
 **Fields:**
 - **workload_id**
@@ -260,6 +311,7 @@ this way we're ensuring the SQL script's quality is the best possible.
 - **expertise_id**
   - Type: bigint unsigned
   - Description: Foreign key referencing the service_expertise table by ID.
+
 
 
 # 3. Diagram
