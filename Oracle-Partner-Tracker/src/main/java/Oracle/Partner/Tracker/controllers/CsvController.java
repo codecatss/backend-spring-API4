@@ -18,7 +18,7 @@ import java.util.Map;
 public class CsvController {
 
     @Autowired
-    private List<GenericService> genericServices;
+    private CsvService csvService;
 
     @PostMapping("/api/import-csv")
     public ResponseEntity<Map<String, List<?>>> importCsvOld(@RequestParam("file") MultipartFile file) {
@@ -42,6 +42,7 @@ public class CsvController {
             return ResponseEntity.badRequest().body(null);
         }
 
+        csvService.mapCsvToEntities(file);
 
         return ResponseEntity.ok().build();
     }
