@@ -38,6 +38,12 @@ public class OpnTrackDTO implements GenericDTO{
     @Schema(description = "Data de atualização da OpnTrack", example = "2022-01-01T12:00:00")
     private LocalDateTime updateAt;
 
+    public OpnTrackDTO() {
+        this.createAt = LocalDateTime.now();
+        this.updateAt = LocalDateTime.now();
+        this.ingestionOperation = IngestionOperation.CSV;
+    }
+
     public OpnTrackDTO(OpnTrack entity){
         this();
         this.id = entity.getId();
@@ -46,12 +52,6 @@ public class OpnTrackDTO implements GenericDTO{
         this.status = entity.getStatus();
 //        this.createAt = entity.getCreateAt();
 //        this.updateAt = entity.getUpdateAt();
-    }
-
-    public OpnTrackDTO() {
-        this.createAt = LocalDateTime.now();
-        this.updateAt = LocalDateTime.now();
-        this.ingestionOperation = IngestionOperation.CSV;
     }
 
     public void setStatusString(String statusString){
