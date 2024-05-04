@@ -32,29 +32,35 @@ public class DashboardService {
     @Autowired
     private OpnTrackRepository opnTrackRepository;
 
-    public DashboardDTO getAll(){
+
+    public DashboardDTO getAll() {
         List<Object[]> kpis = expertiseRepository.getDashboardDTO();
         DashboardDTO data = new DashboardDTO();
 
-        for(Object[] obj : kpis){
+        for (Object[] obj : kpis) {
             data.setQtyPartners(Integer.parseInt(String.valueOf(obj[0])));
             data.setQtyPartnersActive(Integer.parseInt(String.valueOf(obj[1])));
             data.setQtyPartnersInactive(Integer.parseInt(String.valueOf(obj[2])));
-            data.setAverageTracksPerPartners((BigDecimal) obj[3]);
+
+            data.setAverageTracksPerPartners(BigDecimal.valueOf((Double) obj[3]));
+
             data.setQtyUsers(Integer.parseInt(String.valueOf(obj[4])));
             data.setQtyTracks(Integer.parseInt(String.valueOf(obj[5])));
-            data.setQtyExpertise(Integer.parseInt(String.valueOf(obj[6])));
+            data.setQtyExpertise(Integer.parseInt(String.valueOf(obj[8])));
 
-            Long lastMonthCount = (Long) obj[7];
-            Long monthCount = (Long) obj[8];
-            Double growthPercentage = ((double) monthCount - lastMonthCount) / lastMonthCount * 100;
+            Long lastMonthCount = (Long) obj[6];
+            Long monthCount = (Long) obj[7];
+            System.out.println(obj[6]);
+            double lastMonthCountDouble = lastMonthCount.doubleValue();
+            double growthPercentage = ((monthCount - lastMonthCountDouble) / lastMonthCountDouble) * 100;
+
 
             data.setQtygrowth(growthPercentage);
-
 
         }
         return data;
     }
+
 
     public List<TrackPerCompany> getTrackPerCompany(){
         return companyRepository.getTrackPerCompany();
