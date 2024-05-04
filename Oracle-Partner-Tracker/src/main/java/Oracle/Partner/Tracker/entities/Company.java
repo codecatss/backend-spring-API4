@@ -27,7 +27,7 @@ public class Company {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private Long id;
     private String name;
     @Enumerated(EnumType.STRING)
     @Column(name = "opn_status" )

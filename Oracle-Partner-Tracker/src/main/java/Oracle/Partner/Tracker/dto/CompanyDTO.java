@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class CompanyDTO implements GenericDTO{
 
     @Schema(description = "ID da empresa", example = "1")
-    private String id;
+    private Long id;
 
     @CsvBindByName(column = "Company Name")
     @Schema(description = "Nome da empresa", example = "Empresa XYZ")

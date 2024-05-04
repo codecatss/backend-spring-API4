@@ -25,26 +25,26 @@ public class UserDTO implements GenericDTO{
 
     @CsvBindByName(column = "User OPN Admin Name")
     @Schema(description = "Nome do usuário", example = "João da Silva")
-    String name;
+    private String name;
 
     @CsvBindByName(column = "User OPN Admin Email")
     @Schema(description = "E-mail do usuário", example = "abcd@fatec.com.br")
-    String email;
+    private String email;
 
     @Schema(description = "Senha do usuário", example = "123456")
-    String password;
+    private String password;
 
     @CsvBindByName(column = "User OPN Admin Role")
     private String roleStatusString;
 
     @Schema(description = "Função do usuário", example = "USER")
-    RoleEnum role;
+    private RoleEnum role;
 
     @CsvBindByName(column = "User OPN Admin Status")
     private String statusString;
 
     @Schema(description = "Status do usuário", example = "ACTIVE")
-    Status status;
+    private Status status;
 
     @Schema(description = "Data de criação do usuário", example = "2022-01-01T12:00:00")
     private LocalDateTime createAt;
@@ -53,13 +53,13 @@ public class UserDTO implements GenericDTO{
     private LocalDateTime updateAt;
 
     @Schema(description = "Operação de ingestão do usuário", example = "MANUAL")
-    IngestionOperation ingestionOperation;
+    private IngestionOperation ingestionOperation;
 
     @CsvBindByName(column = "User Membership Type")
-    String memberShipTypeString;
+    private String memberShipTypeString;
 
     @Schema(description = "Tipo de associação do usuário", example = "PRINCIPAL")
-    MembershipEnum memberShipType;
+    private MembershipEnum memberShipType;
 
     @CsvBindByName(column = "Company CNPJ")
     private String cnpjComanyString;
