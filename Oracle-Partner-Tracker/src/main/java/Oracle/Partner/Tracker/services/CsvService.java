@@ -33,7 +33,7 @@ public class CsvService {
         assert csvData != null;
         String[] header = csvData.get(0);
 
-        for(GenericDTO companyDTO : mapCsvEntitiesToList(file, userService)){
+        for(GenericDTO companyDTO : mapCsvEntitiesToList(file, companyService)){
             System.out.println(companyDTO);
         }
 

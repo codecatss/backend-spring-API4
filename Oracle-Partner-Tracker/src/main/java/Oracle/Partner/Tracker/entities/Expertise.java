@@ -5,6 +5,7 @@ import Oracle.Partner.Tracker.entities.relations.CompanyExpertise;
 import Oracle.Partner.Tracker.entities.relations.ExpertiseCertification;
 import Oracle.Partner.Tracker.entities.relations.OpnTrackExpertise;
 import Oracle.Partner.Tracker.entities.relations.WorkloadExpertise;
+import Oracle.Partner.Tracker.utils.IngestionOperation;
 import Oracle.Partner.Tracker.utils.Status;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -40,8 +41,9 @@ public class Expertise {
     private LocalDateTime createAt;
     @Column(name = "update_at")
     private LocalDateTime updateAt;
-
-
+    @Enumerated(EnumType.STRING)
+    @Column(name= "ingestion_operation")
+    private IngestionOperation ingestionOperation;
     @OneToMany(mappedBy = "expertise", cascade = CascadeType.ALL)
     private List<CompanyExpertise> companyExpertise = new ArrayList<>();
 
@@ -54,8 +56,9 @@ public class Expertise {
         this.name = expertiseDTO.getName();
         this.description = expertiseDTO.getDescription();
         this.status = expertiseDTO.getStatus();
-        this.createAt = LocalDateTime.now();
-        this.updateAt = LocalDateTime.now();
+        this.createAt = expertiseDTO.getCreateAt();
+        this.updateAt = expertiseDTO.getUpdateAt();
+        this.ingestionOperation = expertiseDTO.getIngestionOperation();
     }
 
     public void addWorkloadExpertise(WorkloadExpertise workloadExpertise){

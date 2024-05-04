@@ -60,6 +60,8 @@ public class CompanyDTO implements GenericDTO{
     private Status status;
 
     @CsvBindByName(column = "Company Credit Hold")
+    private String statusString;
+
     @Schema(description = "Status de crédito da empresa", example = "true")
     private String creditHold;
 
@@ -69,8 +71,8 @@ public class CompanyDTO implements GenericDTO{
     @Schema(description = "Data de atualização do company", example = "2022-01-01T12:00:00")
     private LocalDateTime updateAt;
 
-    @Schema(name= "ingestion_operation")
-    private IngestionOperation ingestionOperation;
+    @Schema(description = "Operação de ingestão do company", example = "MANUAL")
+    IngestionOperation ingestionOperation;;
 
     public CompanyDTO(Company entity) {
         this.id = entity.getId();
@@ -98,6 +100,10 @@ public class CompanyDTO implements GenericDTO{
     public void setOpnStatusString(String opnStatusString) {
         this.opnStatusString = opnStatusString;
         this.opnStatus = OPNStatus.valueOf(opnStatusString.trim().toUpperCase());
+    }
+
+    public void setStatusString(String statusString){
+        this.status = Status.toStatus(statusString);
     }
 
 }
