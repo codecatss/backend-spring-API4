@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ExpertiseDTO {
+public class ExpertiseDTO implements GenericDTO{
     @Schema(description = "Nome da expertise", example = "Expertise XYZ")
     private String name;
 
@@ -30,4 +30,5 @@ public class ExpertiseDTO {
         this.name = name;
         this.description = description;
     }
+
 }

@@ -96,6 +96,11 @@ public class ExpertiseService implements GenericService{
 
     }
 
+    @Override
+    public Class<?> getDtoClass() {
+        return ExpertiseDTO.class;
+    }
+
 //    @Override
 //    public List<ExpertiseDTO> mapCsvToEntities(List<String[]> csvData) {
 //        List<ExpertiseDTO> expertises = new ArrayList<>();

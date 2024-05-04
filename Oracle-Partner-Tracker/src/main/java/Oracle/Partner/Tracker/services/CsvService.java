@@ -1,8 +1,7 @@
 package Oracle.Partner.Tracker.services;
 
 import Oracle.Partner.Tracker.dto.CompanyDTO;
-import Oracle.Partner.Tracker.dto.ExpertiseDTO;
-import Oracle.Partner.Tracker.dto.UserDTO;
+import Oracle.Partner.Tracker.dto.GenericDTO;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.stream.Collectors;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,25 +21,37 @@ public class CsvService {
     @Autowired
     private List<GenericService> genericServices;
 
+    @Autowired
+    private CompanyService companyService;
+
+    @Autowired
+    private UserService userService;
+
+
     public void mapCsvToEntities(MultipartFile file){
         List<String[]> csvData = processCsv(file);
         assert csvData != null;
         String[] header = csvData.get(0);
 
-        for(CompanyDTO dto : teste2teste(file)){
-            System.out.println(dto);
+        for(GenericDTO companyDTO : mapCsvEntitiesToList(file, userService)){
+            System.out.println(companyDTO);
         }
 
-//        for(GenericService genericService : this.genericServices){
+
+//        for(GenericService genericService : genericServices){
 //            System.out.println(genericService.getClass());
+//            for(GenericDTO companyDTO : mapCsvEntitiesToList(file, genericService)){
+//                System.out.println(companyDTO);
+//            }
 //        }
 
     }
 
-    public List<CompanyDTO> teste2teste(MultipartFile file) {
+
+    public List<GenericDTO> mapCsvEntitiesToList(MultipartFile file, GenericService genericService) {
         try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
-            CsvToBean<CompanyDTO> csvToBean = new CsvToBeanBuilder<CompanyDTO>(reader)
-                    .withType(CompanyDTO.class)
+            CsvToBean<GenericDTO> csvToBean = new CsvToBeanBuilder<GenericDTO>(reader)
+                    .withType((Class<? extends GenericDTO>) genericService.getDtoClass())
                     .withIgnoreLeadingWhiteSpace(true)
                     .build();
             return csvToBean.parse();

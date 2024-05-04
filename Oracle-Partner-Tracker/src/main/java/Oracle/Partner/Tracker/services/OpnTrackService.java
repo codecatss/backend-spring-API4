@@ -103,6 +103,11 @@ public class OpnTrackService implements GenericService{
 
     }
 
+    @Override
+    public Class<?> getDtoClass() {
+        return OpnTrackDTO.class;
+    }
+
 //    @Override
 //    public List<OpnTrackDTO> mapCsvToEntities(List<String[]> csvData){
 //        String[] header = csvData.get(0);

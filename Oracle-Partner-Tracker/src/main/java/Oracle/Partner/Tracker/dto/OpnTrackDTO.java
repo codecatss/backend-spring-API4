@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class OpnTrackDTO {
+public class OpnTrackDTO implements GenericDTO{
 
     @Schema(description = "ID da OPN Track", example = "123")
     private Long id;
@@ -42,5 +42,5 @@ public class OpnTrackDTO {
         this.createAt = entity.getCreateAt();
         this.updateAt = entity.getUpdateAt();
     }
-    
+
 }

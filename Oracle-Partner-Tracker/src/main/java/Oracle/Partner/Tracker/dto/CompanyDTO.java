@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 //@NoArgsConstructor
-public class CompanyDTO {
+public class CompanyDTO implements GenericDTO{
 
     @Schema(description = "ID da empresa", example = "1")
     private String id;
@@ -99,4 +99,5 @@ public class CompanyDTO {
         this.opnStatusString = opnStatusString;
         this.opnStatus = OPNStatus.valueOf(opnStatusString.trim().toUpperCase());
     }
+
 }

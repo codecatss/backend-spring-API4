@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class WorkloadDTO {
+public class WorkloadDTO implements GenericDTO{
 
     @Schema(description = "ID do Workload", example = "1")
     private Long id;
@@ -44,4 +44,5 @@ public class WorkloadDTO {
         this.updateAt = entity.getUpdateAt();
         this.ingestionOperation = entity.getIngestionOperation();
     }
+
 }

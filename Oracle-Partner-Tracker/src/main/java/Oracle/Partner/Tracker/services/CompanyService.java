@@ -1,9 +1,10 @@
 package Oracle.Partner.Tracker.services;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import Oracle.Partner.Tracker.dto.GenericDTO;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
 import Oracle.Partner.Tracker.utils.Status;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +83,6 @@ public class CompanyService implements GenericService{
         return Optional.of(new CompanyDTO(company));
     }
 
-
     public CompanyDTO updateCompany(Long id,CompanyDTO companyDTO) {
 
         Company company = companyRepository.findById(id).orElseThrow(
@@ -140,6 +140,12 @@ public class CompanyService implements GenericService{
     public void mapCsvToEntities(List<String[]> csvData) {
 
     }
+
+    @Override
+    public Class<?> getDtoClass() {
+        return CompanyDTO.class;
+    }
+
     public Optional<CompanyDTO> mapRowToCompany(String[] row, String[] header) {
         CompanyDTO companyDTO = new CompanyDTO();
     
