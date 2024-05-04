@@ -1,5 +1,6 @@
 package Oracle.Partner.Tracker.services;
 
+import Oracle.Partner.Tracker.dto.GenericDTO;
 import Oracle.Partner.Tracker.utils.Status;
 import org.springframework.stereotype.Service;
 import Oracle.Partner.Tracker.dto.ExpertiseDTO;
@@ -101,17 +102,8 @@ public class ExpertiseService implements GenericService{
         return ExpertiseDTO.class;
     }
 
-//    @Override
-//    public List<ExpertiseDTO> mapCsvToEntities(List<String[]> csvData) {
-//        List<ExpertiseDTO> expertises = new ArrayList<>();
-//        String[] header = csvData.get(0);
-//
-//        for (int i = 1; i < csvData.size(); i++) {
-//            ExpertiseDTO expertiseDTO = mapRowToExpertise(csvData.get(i), header);
-//            if(expertiseDTO != null){
-//                expertises.add(expertiseDTO);
-//            }
-//        }
-//        return expertises;
-//    }
+    @Override
+    public void saveAllGenericDTO(List<GenericDTO> genericDTOList) {
+
+    }
 }

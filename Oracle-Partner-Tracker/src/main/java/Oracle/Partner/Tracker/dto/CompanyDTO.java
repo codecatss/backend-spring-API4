@@ -56,12 +56,12 @@ public class CompanyDTO implements GenericDTO{
     private String address;
 
     @CsvBindByName(column = "Company Status")
+    private String statusString;
+
     @Schema(description = "Status do company", example = "true")
     private Status status;
 
     @CsvBindByName(column = "Company Credit Hold")
-    private String statusString;
-
     @Schema(description = "Status de crédito da empresa", example = "true")
     private String creditHold;
 

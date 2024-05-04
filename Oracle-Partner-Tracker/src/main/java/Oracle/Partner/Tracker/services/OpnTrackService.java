@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import Oracle.Partner.Tracker.dto.GenericDTO;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -106,6 +107,11 @@ public class OpnTrackService implements GenericService{
     @Override
     public Class<?> getDtoClass() {
         return OpnTrackDTO.class;
+    }
+
+    @Override
+    public void saveAllGenericDTO(List<GenericDTO> genericDTOList) {
+
     }
 
 //    @Override

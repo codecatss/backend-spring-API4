@@ -30,21 +30,20 @@ public class CsvService {
 
 
     public void mapCsvToEntities(MultipartFile file){
-        List<String[]> csvData = processCsv(file);
-        assert csvData != null;
-        String[] header = csvData.get(0);
+//        List<String[]> csvData = processCsv(file);
+//        assert csvData != null;
+//        String[] header = csvData.get(0);
+
 
         for(GenericDTO companyDTO : mapCsvEntitiesToList(file, companyService)){
             System.out.println(companyDTO);
         }
 
-
-//        for(GenericService genericService : genericServices){
-//            System.out.println(genericService.getClass());
-//            for(GenericDTO companyDTO : mapCsvEntitiesToList(file, genericService)){
-//                System.out.println(companyDTO);
-//            }
-//        }
+        for(GenericService genericService : genericServices){
+            System.out.println(genericService.getClass());
+            genericService.saveAllGenericDTO(mapCsvEntitiesToList(file, genericService));
+            break;
+        }
 
     }
 

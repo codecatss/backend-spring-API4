@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import Oracle.Partner.Tracker.dto.GenericDTO;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -114,21 +115,10 @@ public class WorkloadService implements GenericService{
         return WorkloadDTO.class;
     }
 
-//    @Override
-//    public List<WorkloadDTO> mapCsvToEntities(List<String[]> csvData){
-//        String[] header = csvData.get(0);
-//        List<WorkloadDTO> workloads = new ArrayList<>();
-//
-//        for (int i = 1; i < csvData.size(); i++){
-//            String[] row = csvData.get(i);
-//
-//            Optional<WorkloadDTO> workloadDTO = mapRowToWorkload(row, header);
-//            if (workloadDTO.isPresent()){
-//                workloads.add(workloadDTO.get());
-//            }
-//        }
-//        return workloads;
-//    }
+    @Override
+    public void saveAllGenericDTO(List<GenericDTO> genericDTOList) {
+
+    }
 
     public Optional<WorkloadDTO> mapRowToWorkload(String[] row, String[] header){
         WorkloadDTO workloadDTO = new WorkloadDTO();

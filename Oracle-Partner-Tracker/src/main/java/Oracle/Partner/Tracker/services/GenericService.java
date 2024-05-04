@@ -7,4 +7,5 @@ import java.util.List;
 public interface GenericService {
     void mapCsvToEntities(List<String[]> csvData);
     Class<?> getDtoClass();
+    void saveAllGenericDTO(List<GenericDTO> genericDTOList);
 }

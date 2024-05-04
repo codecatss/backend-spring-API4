@@ -150,6 +150,13 @@ public class CompanyService implements GenericService{
         return CompanyDTO.class;
     }
 
+    @Override
+    public void saveAllGenericDTO(List<GenericDTO> genericDTOList) {
+        for(GenericDTO genericDTO : genericDTOList){
+            companyRepository.save(new Company((CompanyDTO) genericDTO));
+        }
+    }
+
     public Optional<CompanyDTO> mapRowToCompany(String[] row, String[] header) {
         CompanyDTO companyDTO = new CompanyDTO();
     
