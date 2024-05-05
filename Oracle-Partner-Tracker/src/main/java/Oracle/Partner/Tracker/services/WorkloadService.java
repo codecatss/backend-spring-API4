@@ -106,11 +106,6 @@ public class WorkloadService implements GenericService{
     }
 
     @Override
-    public void mapCsvToEntities(List<String[]> csvData) {
-
-    }
-
-    @Override
     public Class<?> getDtoClass() {
         return WorkloadDTO.class;
     }

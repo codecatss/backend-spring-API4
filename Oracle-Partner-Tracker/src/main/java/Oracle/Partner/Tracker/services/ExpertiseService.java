@@ -93,11 +93,6 @@ public class ExpertiseService implements GenericService{
     }
 
     @Override
-    public void mapCsvToEntities(List<String[]> csvData) {
-
-    }
-
-    @Override
     public Class<?> getDtoClass() {
         return ExpertiseDTO.class;
     }

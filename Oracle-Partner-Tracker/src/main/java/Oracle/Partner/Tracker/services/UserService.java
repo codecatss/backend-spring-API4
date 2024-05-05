@@ -2,9 +2,9 @@ package Oracle.Partner.Tracker.services;
 
 import Oracle.Partner.Tracker.dto.GenericDTO;
 import Oracle.Partner.Tracker.dto.UserDTO;
+import Oracle.Partner.Tracker.entities.Company;
 import Oracle.Partner.Tracker.entities.User;
 import Oracle.Partner.Tracker.repositories.UserRepository;
-import Oracle.Partner.Tracker.utils.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,10 @@ import java.util.Optional;
 public class UserService implements GenericService{
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
+
+    @Autowired
+    private CompanyService companyService;
 
     public List<User> findAllUsers() {
         List<User> allUsers = userRepository.findAll();
@@ -41,11 +44,10 @@ public class UserService implements GenericService{
         if (userRepository.existsByEmail(user.getEmail())){
             throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
-        User newUser = new User();
-        newUser.setStatus(Status.ACTIVE);
-        newUser.setIngestionOperation(IngestionOperation.MANUAL);
-        BeanUtils.copyProperties(user, newUser);
-        return userRepository.save(newUser);
+//        newUser.setStatus(Status.ACTIVE);
+//        newUser.setIngestionOperation(IngestionOperation.MANUAL);
+//        BeanUtils.copyProperties(user, newUser);
+        return userRepository.save(new User(user));
     }
 
     public User updateUser(Long id, UserDTO userDTO){
@@ -69,17 +71,16 @@ public class UserService implements GenericService{
     }
 
     @Override
-    public void mapCsvToEntities(List<String[]> csvData) {
-
-    }
-
-    @Override
     public Class<?> getDtoClass() {
         return UserDTO.class;
     }
 
     @Override
     public void saveAllGenericDTO(List<GenericDTO> genericDTOList) {
-
+        for(GenericDTO genericDTO : genericDTOList){
+            UserDTO userDTO = (UserDTO) genericDTO;
+            userDTO.setCompany(new Company(companyService.findCompanyByCnpj(userDTO.getCnpjCompanyString())));
+            userRepository.save(new User(userDTO));
+        }
     }
 }

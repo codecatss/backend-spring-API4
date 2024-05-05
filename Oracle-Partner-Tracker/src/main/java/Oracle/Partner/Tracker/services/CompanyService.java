@@ -114,7 +114,6 @@ public class CompanyService implements GenericService{
 
         }
 
-
     private void copyDTOtoEntity(CompanyDTO companyDTO, Company company) {
         company.setName(companyDTO.getName());
         company.setAddress(companyDTO.getAddress());
@@ -139,12 +138,6 @@ public class CompanyService implements GenericService{
         company.setUpdateAt(LocalDateTime.now());
     }
 
-
-    @Override
-    public void mapCsvToEntities(List<String[]> csvData) {
-
-    }
-
     @Override
     public Class<?> getDtoClass() {
         return CompanyDTO.class;
@@ -156,84 +149,4 @@ public class CompanyService implements GenericService{
             companyRepository.save(new Company((CompanyDTO) genericDTO));
         }
     }
-
-    public Optional<CompanyDTO> mapRowToCompany(String[] row, String[] header) {
-        CompanyDTO companyDTO = new CompanyDTO();
-    
-        for (int i = 0; i < header.length; i++) {
-            companyDTO.setIngestionOperation(IngestionOperation.CSV);
-            switch (header[i]) {
-                case "Company Name":
-                    String companyName = row[i];
-                    if (companyName != null && !companyName.isBlank()) {
-                        companyDTO.setName(companyName);
-                    } else {
-                        // Se o nome da empresa for nulo ou vazio, pule esta linha
-                        return Optional.empty();
-                    }
-                    break;
-                case "Status":
-                    if(row[i].equals("Active")){
-                        companyDTO.setStatus(Status.ACTIVE);
-                    }else{
-                        companyDTO.setStatus(Status.INACTIVE);
-                    }
-                    break;
-                case "OPN Status":
-                    if(row[i].equals("Active")){
-                        companyDTO.setOpnStatus(OPNStatus.MEMBER);
-                    }else{
-                        companyDTO.setOpnStatus(OPNStatus.EXPIRED);
-                    };
-                    break;
-                case "Company ID":
-                    companyDTO.setCnpj(row[i]);
-                    break;
-                case "State":
-                    companyDTO.setState(row[i]);
-                    break;
-                case "Country":
-                    companyDTO.setCountry(row[i]);
-                    break;
-                case "City":
-                    companyDTO.setCity(row[i]);
-                    break;
-                case "Address":
-                    companyDTO.setAddress(row[i]);
-                    break;
-                case "Credit Hold":
-                    companyDTO.setCreditHold(row[i]);
-                    break;
-                case "Slogan":
-                    companyDTO.setSlogan(row[i]);
-                    break;
-                default:
-                    break;
-            }
-        }
-    
-        // Verifique se o nome da empresa foi definido
-        if (companyDTO.getName() == null || companyDTO.getName().isBlank()) {
-            // Se o nome da empresa ainda for nulo ou vazio, retorne Optional.empty()
-            return Optional.empty();
-        }
-    
-        // Verifique se a empresa já existe no banco de dados antes de inserir
-        CompanyDTO optionalCompany = this.findCompanyByCnpj(companyDTO.getCnpj());
-        if (optionalCompany != null) {
-
-            // Se a empresa já existir, retorne Optional.empty()
-            return null;
-        }
-    
-        Company company = new Company();
-        copyDTOtoEntity(companyDTO, company);
-    
-        // Insira a empresa no banco de dados
-        company = companyRepository.save(company);
-    
-        return Optional.of(new CompanyDTO(company));
-    }
-    
-
 }    
