@@ -1,5 +1,6 @@
 package Oracle.Partner.Tracker.services;
 
+import Oracle.Partner.Tracker.dto.CompanyDTO;
 import Oracle.Partner.Tracker.dto.GenericDTO;
 import Oracle.Partner.Tracker.dto.UserDTO;
 import Oracle.Partner.Tracker.entities.Company;
@@ -79,8 +80,13 @@ public class UserService implements GenericService{
     public void saveAllGenericDTO(List<GenericDTO> genericDTOList) {
         for(GenericDTO genericDTO : genericDTOList){
             UserDTO userDTO = (UserDTO) genericDTO;
-            userDTO.setCompany(new Company(companyService.findCompanyByCnpj(userDTO.getCnpjCompanyString())));
-            userRepository.save(new User(userDTO));
+            CompanyDTO companyDTO = companyService.findCompanyByCnpj(userDTO.getCnpjCompanyString());
+            Company company = new Company(companyDTO);
+            company.setId(companyDTO.getId());
+            userDTO.setCompany(company);
+            User user = new User(userDTO);
+            System.out.println(user.getRole());
+            userRepository.save(user);
         }
     }
 }

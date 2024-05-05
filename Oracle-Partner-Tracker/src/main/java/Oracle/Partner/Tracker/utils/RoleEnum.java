@@ -15,8 +15,7 @@ public enum RoleEnum {
     public static RoleEnum toRole(String roleString){
         return switch (roleString.toLowerCase().trim()) {
             case "admin" -> RoleEnum.ADM;
-            case "user" -> RoleEnum.USER;
-            default -> null;
+            default -> RoleEnum.USER;
         };
     }
 }

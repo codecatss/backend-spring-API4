@@ -31,7 +31,9 @@ public class User {
     private String name;
     private String email;
     private String password;
+    @Enumerated(EnumType.STRING)
     private RoleEnum role;
+    @Enumerated(EnumType.STRING)
     @Column(name = "ingestion_operation")
     private IngestionOperation ingestionOperation;
     @Enumerated(EnumType.STRING)

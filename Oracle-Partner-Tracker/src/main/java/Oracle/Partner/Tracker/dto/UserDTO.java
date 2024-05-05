@@ -66,15 +66,15 @@ public class UserDTO implements GenericDTO{
         this.ingestionOperation = IngestionOperation.CSV;
     }
 
-    public UserDTO(String name, String email, String roleStatusString, String statusString, String memberShipTypeString) {
-        this();
-        this.name = name;
-        this.email = email;
-        this.role = RoleEnum.toRole(roleStatusString);
-        this.status = Status.toStatus(statusString);
-        this.memberShipType = MembershipEnum.toMembership(memberShipTypeString);
-        this.ingestionOperation = IngestionOperation.MANUAL;
-    }
+//    public UserDTO(String name, String email, String roleStatusString, String statusString, String memberShipTypeString) {
+//        this();
+//        this.name = name;
+//        this.email = email;
+//        this.role = RoleEnum.toRole(roleStatusString);
+//        this.status = Status.toStatus(statusString);
+//        this.memberShipType = MembershipEnum.toMembership(memberShipTypeString);
+//        this.ingestionOperation = IngestionOperation.MANUAL;
+//    }
 
     public void setStatusString(String statusString){
         this.status = Status.toStatus(statusString);
