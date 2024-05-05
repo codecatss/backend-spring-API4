@@ -85,7 +85,6 @@ public class UserService implements GenericService{
             company.setId(companyDTO.getId());
             userDTO.setCompany(company);
             User user = new User(userDTO);
-            System.out.println(user.getRole());
             userRepository.save(user);
         }
     }

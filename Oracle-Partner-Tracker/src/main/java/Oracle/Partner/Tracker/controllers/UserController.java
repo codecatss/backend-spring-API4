@@ -29,10 +29,6 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> registerNewUser(@RequestBody UserDTO user){
-
-        System.out.println("\n\nEntrou no controller\n\n");
-        System.out.println("Role: "+user.getRole());
-
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.registerNewUser(user));
     }
 

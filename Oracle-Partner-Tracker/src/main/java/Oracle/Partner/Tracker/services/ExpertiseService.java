@@ -34,64 +34,6 @@ public class ExpertiseService implements GenericService{
         return expertiseRepository.findById(id).orElse(null);
     }
 
-    public List<ExpertiseDTO> mapCsvToExpertise(MultipartFile file) {
-        List<ExpertiseDTO> expertises = new ArrayList<>();
-        try {
-            String csvDelimiter = ";";
-            // Criando um arquivo temporário
-            File tempFile = File.createTempFile("temp", ".csv");
-
-            // Salvando o conteúdo do MultipartFile no arquivo temporário
-            try (OutputStream os = new FileOutputStream(tempFile)) {
-                os.write(file.getBytes());
-            }
-
-            // Lendo o arquivo temporário como um arquivo CSV
-            try (BufferedReader br = new BufferedReader(new FileReader(tempFile))) {
-                String rows;
-                String[] header = br.readLine().split(csvDelimiter);
-                while ((rows = br.readLine()) != null) {
-                    String[] row = rows.split(csvDelimiter);
-                    expertises.add(mapRowToExpertise(row, header));
-                }
-            }
-            // Removendo o arquivo temporário depois de usá-lo
-            tempFile.delete();
-        } catch (IOException e) {
-//            e.printStackTrace();
-        }
-        return expertises;
-    }
-
-    public ExpertiseDTO mapRowToExpertise(String[] rows, String[] header) {
-        ExpertiseDTO expertiseDTO = new ExpertiseDTO();
-        String row;
-        for (int i = 0; i < header.length; i++) {
-            row = rows[i].replaceAll(" ", "").trim();
-            switch (header[i].toLowerCase()) {
-                case "service expertise":
-                    expertiseDTO.setName(row);
-                    break;
-                case "description":
-                    expertiseDTO.setDescription(row);
-                    break;
-                case "status":
-                    expertiseDTO.setStatus(Status.toStatus(row));
-                    break;
-                default:
-                    expertiseDTO.setStatus(Status.ACTIVE);
-                    break;
-            }
-        }
-        try{
-            expertiseRepository.save(new Expertise(expertiseDTO));
-        }
-        catch (Exception error){
-            return null;
-        }
-        return expertiseDTO;
-    }
-
     @Override
     public Class<?> getDtoClass() {
         return ExpertiseDTO.class;

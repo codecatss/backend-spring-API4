@@ -6,13 +6,11 @@ import Oracle.Partner.Tracker.utils.Status;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
-//@NoArgsConstructor
 public class ExpertiseDTO implements GenericDTO{
     @CsvBindByName(column = "Expertise Service Name")
     @Schema(description = "Nome da expertise", example = "Expertise XYZ")
@@ -35,12 +33,20 @@ public class ExpertiseDTO implements GenericDTO{
     private LocalDateTime updateAt;
 
     @Schema(description = "Operação de ingestão do expertise", example = "MANUAL")
-    IngestionOperation ingestionOperation;;
+    private IngestionOperation ingestionOperation;
 
     public ExpertiseDTO() {
         this.createAt = LocalDateTime.now();
         this.updateAt = LocalDateTime.now();
         this.ingestionOperation = IngestionOperation.CSV;
+    }
+
+    public ExpertiseDTO(String name, String description, String statusString) {
+        this();
+        this.name = name;
+        this.description = description;
+        this.statusString = statusString;
+        this.ingestionOperation = IngestionOperation.MANUAL;
     }
 
     public void setStatusString(String statusString){

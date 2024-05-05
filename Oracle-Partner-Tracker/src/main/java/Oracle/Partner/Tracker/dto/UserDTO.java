@@ -7,12 +7,13 @@ import Oracle.Partner.Tracker.utils.MembershipEnum;
 import Oracle.Partner.Tracker.utils.RoleEnum;
 import Oracle.Partner.Tracker.utils.Status;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-//@AllArgsConstructor
+@AllArgsConstructor
 public class UserDTO implements GenericDTO{
 
     @CsvBindByName(column = "User OPN Admin Name")
@@ -66,15 +67,15 @@ public class UserDTO implements GenericDTO{
         this.ingestionOperation = IngestionOperation.CSV;
     }
 
-//    public UserDTO(String name, String email, String roleStatusString, String statusString, String memberShipTypeString) {
-//        this();
-//        this.name = name;
-//        this.email = email;
-//        this.role = RoleEnum.toRole(roleStatusString);
-//        this.status = Status.toStatus(statusString);
-//        this.memberShipType = MembershipEnum.toMembership(memberShipTypeString);
-//        this.ingestionOperation = IngestionOperation.MANUAL;
-//    }
+    public UserDTO(String name, String email, String roleStatusString, String statusString, String memberShipTypeString) {
+        this();
+        this.name = name;
+        this.email = email;
+        this.role = RoleEnum.toRole(roleStatusString);
+        this.status = Status.toStatus(statusString);
+        this.memberShipType = MembershipEnum.toMembership(memberShipTypeString);
+        this.ingestionOperation = IngestionOperation.MANUAL;
+    }
 
     public void setStatusString(String statusString){
         this.status = Status.toStatus(statusString);

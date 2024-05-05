@@ -1,6 +1,5 @@
 package Oracle.Partner.Tracker.controllers;
 
-import Oracle.Partner.Tracker.dto.CompanyDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,10 +7,8 @@ import Oracle.Partner.Tracker.dto.ExpertiseDTO;
 import Oracle.Partner.Tracker.entities.Expertise;
 import Oracle.Partner.Tracker.services.ExpertiseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import Oracle.Partner.Tracker.repositories.ExpertiseRepository;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/expertise")
