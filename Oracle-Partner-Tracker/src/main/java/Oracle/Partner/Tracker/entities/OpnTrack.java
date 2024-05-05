@@ -1,5 +1,6 @@
 package Oracle.Partner.Tracker.entities;
 
+import Oracle.Partner.Tracker.dto.OpnTrackDTO;
 import Oracle.Partner.Tracker.entities.relations.CompanyOpnTrack;
 import Oracle.Partner.Tracker.entities.relations.OpnTrackExpertise;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
@@ -38,6 +39,14 @@ public class OpnTrack {
     private List<CompanyOpnTrack> companyOpnTrack = new ArrayList<>();
     @OneToMany(mappedBy = "opnTrack")
     private List<OpnTrackExpertise> opnTrackExpertise = new ArrayList<>();
+
+    public OpnTrack(OpnTrackDTO opnTrackDTO) {
+        this.name = opnTrackDTO.getName();
+        this.ingestionOperation = opnTrackDTO.getIngestionOperation();
+        this.status = opnTrackDTO.getStatus();
+        this.createAt = opnTrackDTO.getCreateAt();
+        this.updateAt = opnTrackDTO.getUpdateAt();
+    }
 
     public void addOpnTracksExpertise(OpnTrackExpertise opnTrackExpertise){
         opnTrackExpertise.setOpnTrack(this);

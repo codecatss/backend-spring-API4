@@ -80,12 +80,14 @@ public class UserService implements GenericService{
     public void saveAllGenericDTO(List<GenericDTO> genericDTOList) {
         for(GenericDTO genericDTO : genericDTOList){
             UserDTO userDTO = (UserDTO) genericDTO;
-            CompanyDTO companyDTO = companyService.findCompanyByCnpj(userDTO.getCnpjCompanyString());
-            Company company = new Company(companyDTO);
-            company.setId(companyDTO.getId());
-            userDTO.setCompany(company);
-            User user = new User(userDTO);
-            userRepository.save(user);
+            if(!userRepository.existsByEmail(userDTO.getEmail())){
+                CompanyDTO companyDTO = companyService.findCompanyByCnpj(userDTO.getCnpjCompanyString());
+                Company company = new Company(companyDTO);
+                company.setId(companyDTO.getId());
+                userDTO.setCompany(company);
+                User user = new User(userDTO);
+                userRepository.save(user);
+            }
         }
     }
 }

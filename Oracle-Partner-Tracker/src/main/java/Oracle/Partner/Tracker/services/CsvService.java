@@ -23,31 +23,24 @@ public class CsvService {
     private List<GenericService> genericServices;
 
     @Autowired
+    private ExpertiseService expertiseService;
+    @Autowired
     private CompanyService companyService;
 
-    @Autowired
-    private UserService userService;
-
-
     public void mapCsvToEntities(MultipartFile file){
-//        for(GenericDTO companyDTO : mapCsvEntitiesToList(file, companyService)){
-//            System.out.println(companyDTO);
-//        }
-
-//        for(GenericService genericService : genericServices){
-//            System.out.println(genericService.getClass());
-//            genericService.saveAllGenericDTO(mapCsvEntitiesToList(file, genericService));
-//        }
-
-        companyService.saveAllGenericDTO(mapCsvEntitiesToList(file, companyService));
-        userService.saveAllGenericDTO(mapCsvEntitiesToList(file, userService));
-
-        System.out.println("\n\nDone!");
-//        System.out.println("Agora o user...");
-//        for(GenericDTO userDTO : mapCsvEntitiesToList(file, userService)){
-//            System.out.println(userDTO);
-//        }
-
+        System.out.println("Iniciando para salvar o csv no banco de dados...");
+        try{
+            for(GenericService genericService : genericServices){
+                System.out.println("Salvando: "+genericService.getClass());
+                genericService.saveAllGenericDTO(mapCsvEntitiesToList(file, genericService));
+                System.out.println("Salvo!\n");
+            }
+            System.out.println("Finalizou todo o processo sem erros");
+            System.out.println("\nDone!");
+        }
+        catch (Exception error){
+            error.printStackTrace();
+        }
     }
 
     public List<GenericDTO> mapCsvEntitiesToList(MultipartFile file, GenericService genericService) {
@@ -61,31 +54,5 @@ public class CsvService {
             e.printStackTrace();
             return null;
         }
-    }
-
-    private void test(String[] header, String[] row){
-        for (int i = 0; i < header.length; i++) {
-
-        }
-
-    }
-
-    private List<String[]> processCsv(MultipartFile file) {
-        try {
-            return readCsvData(file);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    private List<String[]> readCsvData(MultipartFile file) throws Exception {
-        Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
-        CSVReader csvReader = new CSVReader(reader);
-        List<String[]> csvData = csvReader.readAll();
-        csvReader.close();
-        reader.close();
-        return csvData;
     }
 }

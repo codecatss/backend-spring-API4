@@ -112,7 +112,12 @@ public class WorkloadService implements GenericService{
 
     @Override
     public void saveAllGenericDTO(List<GenericDTO> genericDTOList) {
-
+        for(GenericDTO genericDTO : genericDTOList){
+            WorkloadDTO workloadDTO = (WorkloadDTO) genericDTO;
+            if(workloadRepository.findByName(workloadDTO.getName()) == null){
+                workloadRepository.save(new Workload(workloadDTO));
+            }
+        }
     }
 
     public Optional<WorkloadDTO> mapRowToWorkload(String[] row, String[] header){

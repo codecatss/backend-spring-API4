@@ -8,13 +8,10 @@ import Oracle.Partner.Tracker.utils.Status;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
-//@NoArgsConstructor
 public class CompanyDTO implements GenericDTO{
 
     @Schema(description = "ID da empresa", example = "1")
@@ -28,12 +25,11 @@ public class CompanyDTO implements GenericDTO{
     @Schema(description = "Slogan da empresa", example = "Fazemos a diferença!")
     private String slogan;
 
-//    @CsvBindByName(column = "Company OPN Status")
-    @Schema(description = "Status da OPN (Oracle Partner Network) da empresa", example = "true")
-    private OPNStatus opnStatus;
-
     @CsvBindByName(column = "Company OPN Status")
     private String opnStatusString;
+
+    @Schema(description = "Status da OPN (Oracle Partner Network) da empresa", example = "true")
+    private OPNStatus opnStatus;
 
     @CsvBindByName(column = "Company CNPJ")
     @Schema(description = "CNPJ da empresa", example = "12345678901234")

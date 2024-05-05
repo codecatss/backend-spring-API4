@@ -1,7 +1,6 @@
 package Oracle.Partner.Tracker.services;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -106,7 +105,12 @@ public class OpnTrackService implements GenericService{
 
     @Override
     public void saveAllGenericDTO(List<GenericDTO> genericDTOList) {
-
+        for(GenericDTO genericDTO : genericDTOList){
+            OpnTrackDTO opnTrackDTO = (OpnTrackDTO) genericDTO;
+            if(opnTrackRepository.findByName(opnTrackDTO.getName()) == null){
+                opnTrackRepository.save(new OpnTrack(opnTrackDTO));
+            }
+        }
     }
 
     public Optional<OpnTrackDTO> mapRowToOpnTrack(String[] row, String[] header){

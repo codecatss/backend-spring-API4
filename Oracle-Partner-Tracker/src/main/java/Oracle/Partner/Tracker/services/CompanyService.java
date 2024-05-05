@@ -146,7 +146,10 @@ public class CompanyService implements GenericService{
     @Override
     public void saveAllGenericDTO(List<GenericDTO> genericDTOList) {
         for(GenericDTO genericDTO : genericDTOList){
-            companyRepository.save(new Company((CompanyDTO) genericDTO));
+            CompanyDTO companyDTO = (CompanyDTO) genericDTO;
+            if(companyRepository.findByCnpj(companyDTO.getCnpj()) == null){
+                companyRepository.save(new Company(companyDTO));
+            }
         }
     }
 }    

@@ -1,5 +1,6 @@
 package Oracle.Partner.Tracker.entities;
 
+import Oracle.Partner.Tracker.dto.WorkloadDTO;
 import Oracle.Partner.Tracker.entities.relations.OpnTrackExpertise;
 import Oracle.Partner.Tracker.entities.relations.WorkloadExpertise;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
@@ -38,6 +39,15 @@ public class Workload {
     private LocalDateTime updateAt;
     @OneToMany(fetch = FetchType.LAZY)
     private List<WorkloadExpertise> workloadExpertises = new ArrayList<>();
+
+    public Workload(WorkloadDTO workloadDTO) {
+        this.name = workloadDTO.getName();
+        this.description = workloadDTO.getDescription();
+        this.ingestionOperation = workloadDTO.getIngestionOperation();
+        this.status = workloadDTO.getStatus();
+        this.createAt = workloadDTO.getCreateAt();
+        this.updateAt = workloadDTO.getUpdateAt();
+    }
 
     public void addWorkloadExpertise(WorkloadExpertise workloadExpertise){
         workloadExpertise.setWorkload(this);
