@@ -22,21 +22,11 @@ public class CsvService {
     @Autowired
     private List<GenericService> genericServices;
 
-    @Autowired
-    private ExpertiseService expertiseService;
-    @Autowired
-    private CompanyService companyService;
-
     public void mapCsvToEntities(MultipartFile file){
-        System.out.println("Iniciando para salvar o csv no banco de dados...");
         try{
             for(GenericService genericService : genericServices){
-                System.out.println("Salvando: "+genericService.getClass());
                 genericService.saveAllGenericDTO(mapCsvEntitiesToList(file, genericService));
-                System.out.println("Salvo!\n");
             }
-            System.out.println("Finalizou todo o processo sem erros");
-            System.out.println("\nDone!");
         }
         catch (Exception error){
             error.printStackTrace();
