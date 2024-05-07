@@ -24,4 +24,6 @@ public interface ExpertiseRepository extends JpaRepository <Expertise,String>{
     @Query("select e.name, count(*) from CompanyExpertise ce join ce.expertise e group by e.name")
     List<Object[]> getExpertiseUsageCount();
 
+    Expertise findByName(String name);
+
 }
