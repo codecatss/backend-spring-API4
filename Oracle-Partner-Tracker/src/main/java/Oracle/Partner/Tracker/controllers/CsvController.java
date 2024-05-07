@@ -20,7 +20,7 @@ public class CsvController {
     @Autowired
     private CsvService csvService;
 
-    @PostMapping("/api/import-csv")
+    @PostMapping("/api/import-csv/old_version")
     public ResponseEntity<Map<String, List<?>>> importCsvOld(@RequestParam("file") MultipartFile file) {
         if (file == null || file.isEmpty()) {
             return ResponseEntity.badRequest().body(null);
@@ -36,7 +36,7 @@ public class CsvController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/api/import/csv")
+    @PostMapping("/api/import-csv")
     public ResponseEntity<?> importCsv(@RequestParam("file") MultipartFile file) {
         if (file == null || file.isEmpty()) {
             return ResponseEntity.badRequest().body(null);
