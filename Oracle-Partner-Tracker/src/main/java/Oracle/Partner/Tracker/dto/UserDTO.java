@@ -64,6 +64,7 @@ public class UserDTO implements GenericDTO{
         this.password = "oracle";
         this.createAt = LocalDateTime.now();
         this.updateAt = LocalDateTime.now();
+        this.status = Status.ACTIVE;
         this.ingestionOperation = IngestionOperation.CSV;
     }
 

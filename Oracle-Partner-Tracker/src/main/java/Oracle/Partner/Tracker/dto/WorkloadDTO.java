@@ -42,6 +42,7 @@ public class WorkloadDTO implements GenericDTO{
     public WorkloadDTO() {
         this.createAt = LocalDateTime.now();
         this.updateAt = LocalDateTime.now();
+        this.status = Status.ACTIVE;
         this.ingestionOperation = IngestionOperation.CSV;
     }
 
@@ -52,8 +53,6 @@ public class WorkloadDTO implements GenericDTO{
         this.description = entity.getDescription();
         this.status = entity.getStatus();
         this.ingestionOperation = entity.getIngestionOperation();
-//        this.createAt = entity.getCreateAt();
-//        this.updateAt = entity.getUpdateAt();
     }
 
     public WorkloadDTO(String name, String description, String statusString) {

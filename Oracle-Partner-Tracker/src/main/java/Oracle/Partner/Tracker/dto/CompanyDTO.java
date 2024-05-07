@@ -73,6 +73,7 @@ public class CompanyDTO implements GenericDTO{
     public CompanyDTO() {
         this.createAt = LocalDateTime.now();
         this.updateAt = LocalDateTime.now();
+        this.status = Status.ACTIVE;
         this.ingestionOperation = IngestionOperation.CSV;
     }
 

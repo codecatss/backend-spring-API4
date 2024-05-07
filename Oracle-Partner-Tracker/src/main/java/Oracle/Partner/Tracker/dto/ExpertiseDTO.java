@@ -38,6 +38,7 @@ public class ExpertiseDTO implements GenericDTO{
     public ExpertiseDTO() {
         this.createAt = LocalDateTime.now();
         this.updateAt = LocalDateTime.now();
+        this.status = Status.ACTIVE;
         this.ingestionOperation = IngestionOperation.CSV;
     }
 

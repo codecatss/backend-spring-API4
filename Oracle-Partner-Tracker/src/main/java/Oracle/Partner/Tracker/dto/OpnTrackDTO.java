@@ -39,6 +39,7 @@ public class OpnTrackDTO implements GenericDTO{
     public OpnTrackDTO() {
         this.createAt = LocalDateTime.now();
         this.updateAt = LocalDateTime.now();
+        this.status = Status.ACTIVE;
         this.ingestionOperation = IngestionOperation.CSV;
     }
 
@@ -48,8 +49,6 @@ public class OpnTrackDTO implements GenericDTO{
         this.name = entity.getName();
         this.ingestionOperation = entity.getIngestionOperation();
         this.status = entity.getStatus();
-//        this.createAt = entity.getCreateAt();
-//        this.updateAt = entity.getUpdateAt();
     }
 
     public OpnTrackDTO(String name, String statusString) {
