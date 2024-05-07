@@ -56,6 +56,14 @@ public class WorkloadDTO implements GenericDTO{
 //        this.updateAt = entity.getUpdateAt();
     }
 
+    public WorkloadDTO(String name, String description, String statusString) {
+        this();
+        this.name = name;
+        this.description = description;
+        this.status = Status.toStatus(statusString);
+        this.ingestionOperation = IngestionOperation.MANUAL;
+    }
+
     public void setStatusString(String statusString){
         this.status = Status.toStatus(statusString);
     }
