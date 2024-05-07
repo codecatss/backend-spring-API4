@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "company_expertise_user_count")
 public class CompanyExpertiseUserCount {
@@ -38,6 +37,14 @@ public class CompanyExpertiseUserCount {
     @Column(name = "completion_percentage")
     private Double completionPercentage;
 
-
-
+    public CompanyExpertiseUserCount(String companyName, String companyState, String expertiseName, String trackName, Long totalCertifications, Long passedCertifications, Double completionPercentage) {
+        this.companyName = companyName;
+        this.companyState = companyState;
+        this.expertiseName = expertiseName;
+        this.trackName = trackName;
+        this.totalCertifications = totalCertifications;
+        this.passedCertifications = passedCertifications;
+        this.completionPercentage = completionPercentage;
+    }
 }
+
