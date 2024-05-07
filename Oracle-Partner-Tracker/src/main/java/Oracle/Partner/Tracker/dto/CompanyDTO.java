@@ -70,6 +70,12 @@ public class CompanyDTO implements GenericDTO{
     @Schema(description = "Operação de ingestão do company", example = "MANUAL")
     IngestionOperation ingestionOperation;;
 
+    public CompanyDTO() {
+        this.createAt = LocalDateTime.now();
+        this.updateAt = LocalDateTime.now();
+        this.ingestionOperation = IngestionOperation.CSV;
+    }
+
     public CompanyDTO(Company entity) {
         this.id = entity.getId();
         this.name = entity.getName();
@@ -87,10 +93,19 @@ public class CompanyDTO implements GenericDTO{
         this.slogan = entity.getSlogan();
     }
 
-    public CompanyDTO() {
-        this.createAt = LocalDateTime.now();
-        this.updateAt = LocalDateTime.now();
-        this.ingestionOperation = IngestionOperation.CSV;
+    public CompanyDTO(String name, String slogan, String opnStatusString, String cnpj, String country, String state, String city, String address, String statusString, String creditHold) {
+        this();
+        this.name = name;
+        this.slogan = slogan;
+        this.opnStatus = OPNStatus.valueOf(opnStatusString.trim().toUpperCase());
+        this.cnpj = cnpj;
+        this.country = country;
+        this.state = state;
+        this.city = city;
+        this.address = address;
+        this.status = Status.toStatus(statusString);
+        this.creditHold = creditHold;
+        this.ingestionOperation = IngestionOperation.MANUAL;
     }
 
     public void setOpnStatusString(String opnStatusString) {
