@@ -1,15 +1,27 @@
 package Oracle.Partner.Tracker.entities;
 
-import Oracle.Partner.Tracker.dto.ExpertiseDTO;
-import Oracle.Partner.Tracker.entities.relations.CompanyExpertise;
 import Oracle.Partner.Tracker.entities.relations.ExpertiseCertification;
 import Oracle.Partner.Tracker.entities.relations.OpnTrackExpertise;
 import Oracle.Partner.Tracker.entities.relations.WorkloadExpertise;
+import Oracle.Partner.Tracker.entities.relations.CompanyExpertise;
+import Oracle.Partner.Tracker.utils.IngestionOperation;
+import Oracle.Partner.Tracker.dto.ExpertiseDTO;
 import Oracle.Partner.Tracker.utils.Status;
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -25,7 +37,7 @@ import lombok.Data;
 public class Expertise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
     private String name;
     private String description;
     @Enumerated(EnumType.STRING)
@@ -40,8 +52,9 @@ public class Expertise {
     private LocalDateTime createAt;
     @Column(name = "update_at")
     private LocalDateTime updateAt;
-
-
+    @Enumerated(EnumType.STRING)
+    @Column(name= "ingestion_operation")
+    private IngestionOperation ingestionOperation;
     @OneToMany(mappedBy = "expertise", cascade = CascadeType.ALL)
     private List<CompanyExpertise> companyExpertise = new ArrayList<>();
 
@@ -54,8 +67,9 @@ public class Expertise {
         this.name = expertiseDTO.getName();
         this.description = expertiseDTO.getDescription();
         this.status = expertiseDTO.getStatus();
-        this.createAt = LocalDateTime.now();
-        this.updateAt = LocalDateTime.now();
+        this.createAt = expertiseDTO.getCreateAt();
+        this.updateAt = expertiseDTO.getUpdateAt();
+        this.ingestionOperation = expertiseDTO.getIngestionOperation();
     }
 
     public void addWorkloadExpertise(WorkloadExpertise workloadExpertise){

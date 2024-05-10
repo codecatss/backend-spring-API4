@@ -1,6 +1,7 @@
 package Oracle.Partner.Tracker.controllers;
 
 import Oracle.Partner.Tracker.services.CsvService;
+import Oracle.Partner.Tracker.services.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,37 +18,32 @@ import java.util.Map;
 public class CsvController {
 
     @Autowired
-    private List<CsvService<?>> csvServices;
+    private CsvService csvService;
 
-    @PostMapping("/api/import-csv")
-    public ResponseEntity<Map<String, List<?>>> importCsv(@RequestParam("file") MultipartFile file) {
+    @PostMapping("/api/import-csv/old_version")
+    public ResponseEntity<Map<String, List<?>>> importCsvOld(@RequestParam("file") MultipartFile file) {
         if (file == null || file.isEmpty()) {
             return ResponseEntity.badRequest().body(null);
         }
 
         Map<String, List<?>> response = new HashMap<>();
 
-        for (CsvService<?> csvService : csvServices) {
-            List<?> entities = csvService.processCsv(file);
-            response.put(csvService.getClass().getSimpleName(), entities);
-        }
-    
+//        for (CsvService<?> csvService : csvServices) {
+//            List<?> entities = csvService.processCsv(file);
+//            response.put(csvService.getClass().getSimpleName(), entities);
+//        }
+//
         return ResponseEntity.ok(response);
     }
 
-/*
-    @PostMapping("/api/import-expertise-csv")
-    public ResponseEntity<List<ExpertiseDTO>> importExpertiseCsv(@RequestParam("file") MultipartFile file) {
+    @PostMapping("/api/import-csv")
+    public ResponseEntity<?> importCsv(@RequestParam("file") MultipartFile file) {
         if (file == null || file.isEmpty()) {
             return ResponseEntity.badRequest().body(null);
         }
 
-        List<ExpertiseDTO> expertises = csvService.processCsvExpertise(file);
+        csvService.mapCsvToEntities(file);
 
-        if (expertises != null) {
-            return ResponseEntity.ok(expertises);
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
-    }*/
+        return ResponseEntity.ok().build();
+    }
 }

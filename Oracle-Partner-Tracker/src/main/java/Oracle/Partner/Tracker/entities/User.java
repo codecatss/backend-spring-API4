@@ -1,7 +1,9 @@
 package Oracle.Partner.Tracker.entities;
 
+import Oracle.Partner.Tracker.dto.UserDTO;
 import Oracle.Partner.Tracker.entities.relations.UserCertification;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
+import Oracle.Partner.Tracker.utils.RoleEnum;
 import Oracle.Partner.Tracker.utils.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,15 +23,18 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
     private String name;
     private String email;
     private String password;
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private RoleEnum role;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ingestion_operation")
     private IngestionOperation ingestionOperation;
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -45,5 +50,18 @@ public class User {
     public void addUserCertificartion(UserCertification userCertificartion){
         userCertificartion.setUser(this);
         this.userCertification.add(userCertificartion);
+    }
+
+    public User(UserDTO userDTO) {
+        this.company = userDTO.getCompany();
+        this.name = userDTO.getName();
+        this.email = userDTO.getEmail();
+        this.password = userDTO.getPassword();
+        this.role = userDTO.getRole();
+        this.ingestionOperation = userDTO.getIngestionOperation();
+        this.status = userDTO.getStatus();
+        this.memberShipType = userDTO.getMemberShipTypeString();
+        this.createAt = userDTO.getCreateAt();
+        this.updateAt = userDTO.getUpdateAt();
     }
 }

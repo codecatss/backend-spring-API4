@@ -10,8 +10,6 @@ import java.util.List;
 
 @Service
 public class CompanyExpertiseUserCountService {
-
-
     @Autowired
     private CompanyExpertiseUserCountRepository companyExpertiseUserCountRepository;
 

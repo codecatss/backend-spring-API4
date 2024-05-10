@@ -1,5 +1,7 @@
 package Oracle.Partner.Tracker.entities;
 
+import Oracle.Partner.Tracker.dto.CompanyDTO;
+import Oracle.Partner.Tracker.dto.GenericDTO;
 import Oracle.Partner.Tracker.entities.relations.CompanyExpertise;
 import Oracle.Partner.Tracker.entities.relations.CompanyOpnTrack;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
@@ -24,8 +26,8 @@ import java.util.List;
 public class Company {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     @Enumerated(EnumType.STRING)
     @Column(name = "opn_status" )
@@ -54,6 +56,22 @@ public class Company {
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<CompanyExpertise> companyExpertise = new ArrayList<>();
+
+    public Company(CompanyDTO companyDTO) {
+        this.name = companyDTO.getName();
+        this.opnStatus = companyDTO.getOpnStatus();
+        this.cnpj = companyDTO.getCnpj();
+        this.country = companyDTO.getCountry();
+        this.state = companyDTO.getState();
+        this.city = companyDTO.getCity();
+        this.address = companyDTO.getAddress();
+        this.createAt = companyDTO.getCreateAt();
+        this.updateAt = companyDTO.getUpdateAt();
+        this.ingestionOperation = companyDTO.getIngestionOperation();
+        this.creditHold = companyDTO.getCreditHold();
+        this.status = companyDTO.getStatus();
+        this.slogan = companyDTO.getSlogan();
+    }
 
     public void addCompanyExpertise(CompanyExpertise companyExpertise){
         companyExpertise.setCompany(this);
