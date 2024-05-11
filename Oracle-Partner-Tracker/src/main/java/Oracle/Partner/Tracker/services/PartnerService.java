@@ -6,6 +6,7 @@ import Oracle.Partner.Tracker.entities.Partner;
 import Oracle.Partner.Tracker.repositories.PartnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -35,30 +36,34 @@ public class PartnerService implements GenericService{
         return user.get();
     }
 
-    public Partner registerNewPartner(PartnerDTO partnerDTO) {
+    public ResponseEntity registerNewPartner(PartnerDTO partnerDTO) {
         if (partnerRepository.existsByUsername(partnerDTO.getUsername())){
-            throw new ResponseStatusException(HttpStatus.CONFLICT);
+            return ResponseEntity.badRequest().build();
         }
-        return partnerRepository.save(new Partner(partnerDTO));
+        partnerRepository.save(new Partner(partnerDTO));
+        return ResponseEntity.ok().build();
     }
 
-    public void updateUser(Long id, PartnerDTO partnerDTO){
+    public ResponseEntity updateUser(Long id, PartnerDTO partnerDTO){
         Optional<Partner> partner = partnerRepository.findById(id);
         if (partner.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
         Partner partnerUpdate = partner.get();
         partnerUpdate.setUpdateAt(LocalDateTime.now());
 
         // Atualizar o Partner
+
+        return ResponseEntity.ok().build();
     }
 
-    public void deleteUser(Long id) {
+    public ResponseEntity deleteUser(Long id) {
         Optional<Partner> partner = partnerRepository.findById(id);
         if (partner.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
         partnerRepository.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 
     @Override
