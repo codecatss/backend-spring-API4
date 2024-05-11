@@ -11,7 +11,7 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
 
 ## 2.1 Tabelas
 
-### Tabela user: 
+### Tabela employee: 
 **Descrição da tabela:** 
 - Esta tabela armazena as informações do usuário, onde haverá usuário Oracle e usuário responsável da empresa.
 
@@ -244,7 +244,7 @@ assim garantimos que a qualidade do script SQL seja a melhor possível.
   - Descrição: Chave estrangeira que referencia a tabela company pelo ID.
 - **user_id**
   - Tipo: bigint unsigned
-  - Descrição: Chave estrangeira que referencia a tabela user pelo ID.
+  - Descrição: Chave estrangeira que referencia a tabela employee pelo ID.
 
 ### Tabela company_opn_track
 **Descrição da Relação:**
