@@ -58,7 +58,7 @@ public class PartnerDTO implements GenericDTO{
 
     public void setPassword(String password){
         // criptografar a senha, porque isso vai ser usado com o import csv
-        this.password = "¨$@¨cd)$&Adesa@bs)as$*A@)";
+        this.password = password;
     }
 }
 

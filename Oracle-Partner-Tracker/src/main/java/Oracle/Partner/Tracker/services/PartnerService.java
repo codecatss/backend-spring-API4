@@ -75,7 +75,7 @@ public class PartnerService implements GenericService{
     public void saveAllGenericDTO(List<GenericDTO> genericDTOList) {
         for(GenericDTO genericDTO : genericDTOList){
             PartnerDTO partnerDTO = (PartnerDTO) genericDTO;
-            if(!partnerRepository.existsByUsername(partnerDTO.getUsername()) & partnerDTO.getUsername() != null){
+            if(!partnerRepository.existsByUsername(partnerDTO.getUsername()) & partnerDTO.getUsername() != null & !partnerDTO.getUsername().isEmpty()){
                 partnerRepository.save(new Partner(partnerDTO));
             }
         }
