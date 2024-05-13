@@ -1,7 +1,6 @@
 package Oracle.Partner.Tracker.entities;
 
 import Oracle.Partner.Tracker.dto.CompanyDTO;
-import Oracle.Partner.Tracker.dto.GenericDTO;
 import Oracle.Partner.Tracker.entities.relations.CompanyExpertise;
 import Oracle.Partner.Tracker.entities.relations.CompanyOpnTrack;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
@@ -50,7 +49,7 @@ public class Company {
     private Status status;
     private String slogan;
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
-    private List<User> users = new ArrayList();
+    private List<Employee> employees = new ArrayList();
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<CompanyOpnTrack> companyOpnTrack = new ArrayList<>();
 

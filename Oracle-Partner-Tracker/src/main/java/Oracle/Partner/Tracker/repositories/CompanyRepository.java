@@ -5,12 +5,9 @@ import java.util.Optional;
 import Oracle.Partner.Tracker.dto.StatePerCompany;
 import Oracle.Partner.Tracker.dto.TrackPerCompany;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import Oracle.Partner.Tracker.entities.Company;
-import Oracle.Partner.Tracker.entities.relations.UserCertification;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
