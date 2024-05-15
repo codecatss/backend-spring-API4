@@ -2,7 +2,6 @@ package Oracle.Partner.Tracker.entities.relations;
 
 import Oracle.Partner.Tracker.entities.Certification;
 import Oracle.Partner.Tracker.entities.Expertise;
-import Oracle.Partner.Tracker.entities.OpnTrack;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
