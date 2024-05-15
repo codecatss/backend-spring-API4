@@ -31,19 +31,26 @@ public class Employee {
     private String name;
     private String email;
     private String password;
+
     @Enumerated(EnumType.STRING)
     private RoleEnum role;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "ingestion_operation")
     private IngestionOperation ingestionOperation;
+    
     @Enumerated(EnumType.STRING)
     private Status status;
+
     @Column(name = "membership_type")
     private String memberShipType;
+
     @Column(name = "create_at")
     private LocalDateTime createAt = LocalDateTime.now();
+
     @Column(name = "update_at")
     private LocalDateTime updateAt = LocalDateTime.now();
+
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private List<EmployeeCertification> employeeCertification = new ArrayList<>();
 

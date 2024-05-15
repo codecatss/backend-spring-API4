@@ -1,27 +1,26 @@
 package Oracle.Partner.Tracker.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import Oracle.Partner.Tracker.entities.User;
+import Oracle.Partner.Tracker.entities.Partner;
 import Oracle.Partner.Tracker.infra.security.UserAuthenticated;
-import Oracle.Partner.Tracker.repositories.UserRepository;
+import Oracle.Partner.Tracker.repositories.PartnerRepository;
 
 public class UserDetailsImp implements UserDetailsService{
 
-    private final UserRepository userRepository;
-    public UserDetailsImp(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    private final PartnerRepository partnerRepository;
+    public UserDetailsImp(PartnerRepository partnerRepository) {
+        this.partnerRepository = partnerRepository;
     }
 
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User usrToLog = userRepository.findByName(username);
-        if (usrToLog != null) {
-            return new UserAuthenticated(usrToLog);
+        Partner partnerToLog = partnerRepository.findByUsername(username);
+        if (partnerToLog != null) {
+            return new UserAuthenticated(partnerToLog);
         }
         throw new UsernameNotFoundException("User not found");
     }

@@ -18,20 +18,30 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 @Table(name = "partner")
 public class Partner {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "username")
     private String username;
+
     @Column(name = "password")
     private String password;
+
+    @Column(name = "role")
+    private String role;
+    
     @Enumerated(EnumType.STRING)
     @Column(name = "ingestion_operation")
     private IngestionOperation ingestionOperation;
+
     @Enumerated(EnumType.STRING)
     private Status status;
+
     @Column(name = "create_at")
     private LocalDateTime createAt = LocalDateTime.now();
+    
     @Column(name = "update_at")
     private LocalDateTime updateAt = LocalDateTime.now();
 

@@ -1,6 +1,5 @@
 package Oracle.Partner.Tracker.services;
 
-import Oracle.Partner.Tracker.entities.Company;
 import Oracle.Partner.Tracker.entities.CompanyExpertiseUserCount;
 import Oracle.Partner.Tracker.repositories.CompanyExpertiseUserCountRepository;
 import org.springframework.beans.factory.annotation.Autowired;

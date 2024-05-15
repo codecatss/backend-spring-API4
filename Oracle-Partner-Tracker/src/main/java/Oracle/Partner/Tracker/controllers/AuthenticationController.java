@@ -5,8 +5,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import Oracle.Partner.Tracker.services.AuthenticationService;
-
-
 @RestController
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
