@@ -2,6 +2,7 @@ package Oracle.Partner.Tracker.entities;
 
 import Oracle.Partner.Tracker.dto.PartnerDTO;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
+import Oracle.Partner.Tracker.utils.RoleEnum;
 import Oracle.Partner.Tracker.utils.Status;
 
 import jakarta.persistence.*;
@@ -28,9 +29,9 @@ public class Partner {
 
     @Column(name = "password")
     private String password;
-
-    @Column(name = "role")
-    private String role;
+    
+    @Enumerated(EnumType.STRING)
+    private RoleEnum role;
     
     @Enumerated(EnumType.STRING)
     @Column(name = "ingestion_operation")

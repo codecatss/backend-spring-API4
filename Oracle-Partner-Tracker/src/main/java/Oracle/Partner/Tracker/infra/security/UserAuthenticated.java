@@ -19,7 +19,7 @@ public class UserAuthenticated implements UserDetails{
     
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(() -> partner.getRole());
+        return List.of(() -> partner.getRole().name());
     }
 
     @Override
