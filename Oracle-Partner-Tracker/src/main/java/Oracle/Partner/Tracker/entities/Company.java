@@ -1,6 +1,7 @@
 package Oracle.Partner.Tracker.entities;
 
 import Oracle.Partner.Tracker.dto.CompanyDTO;
+import Oracle.Partner.Tracker.dto.CompanyRecord;
 import Oracle.Partner.Tracker.entities.relations.CompanyExpertise;
 import Oracle.Partner.Tracker.entities.relations.CompanyOpnTrack;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
@@ -72,10 +73,22 @@ public class Company {
         this.slogan = companyDTO.getSlogan();
     }
 
+    public Company(CompanyRecord companyRecord){
+        this.name = companyRecord.name();
+        this.cnpj = companyRecord.cnpj();
+        this.city = companyRecord.city();
+        this.address = companyRecord.address();
+        this.state = companyRecord.state();
+        if(!companyRecord.slogan().trim().isEmpty()){
+            this.slogan = companyRecord.slogan();
+        }
+    }
     public void addCompanyExpertise(CompanyExpertise companyExpertise){
         companyExpertise.setCompany(this);
         this.companyExpertise.add(companyExpertise);
     }
+
+
 
     public void addCompanyOpnTrack(CompanyOpnTrack companyOpnTrack){
         companyOpnTrack.setCompany(this);

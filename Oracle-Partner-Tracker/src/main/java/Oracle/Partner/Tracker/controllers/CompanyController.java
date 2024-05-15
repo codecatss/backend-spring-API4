@@ -1,6 +1,7 @@
 package Oracle.Partner.Tracker.controllers;
 
 import Oracle.Partner.Tracker.dto.CompanyDTO;
+import Oracle.Partner.Tracker.dto.CompanyRecord;
 import Oracle.Partner.Tracker.entities.Company;
 import Oracle.Partner.Tracker.services.CompanyService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,11 +14,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import java.net.URI;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping(value = "/company")
 public class CompanyController {
 
@@ -101,5 +102,11 @@ public class CompanyController {
     public ResponseEntity<Void> enableCompany(@PathVariable Long id) {
         companyService.enableCompany(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping(value = "/save")
+    public ResponseEntity company(@RequestBody CompanyRecord companyRecord){
+        companyService.saveCompany(companyRecord);
+        return ResponseEntity.ok().build();
     }
 }
