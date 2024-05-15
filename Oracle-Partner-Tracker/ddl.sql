@@ -159,3 +159,14 @@ create table expertise_certification (
     foreign key expertise_fk (expertise_id) references service_expertise (id) on delete restrict on update cascade
 );
 
+create table change_history (
+    id bigint unsigned not null auto_increment,
+    changed_by_partner_id bigint unsigned not null,
+    table_name varchar(100) not null,
+    change_type enum('INSERT', 'UPDATE', 'DELETE') not null,
+    old_value_json_format varchar(1000) not null,
+    new_value_json_format varchar(1000) not null,
+    changed_at timestamp default current_timestamp,
+    primary key (id),
+    foreign key partner_fk (changed_by_partner_id) references partner (id)
+);
