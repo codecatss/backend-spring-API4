@@ -25,25 +25,33 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
     private String name;
     private String email;
     private String password;
+
     @Enumerated(EnumType.STRING)
     private RoleEnum role;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "ingestion_operation")
     private IngestionOperation ingestionOperation;
+
     @Enumerated(EnumType.STRING)
     private Status status;
+
     @Column(name = "membership_type")
     private String memberShipType;
+
     @Column(name = "create_at")
     private LocalDateTime createAt = LocalDateTime.now();
+
     @Column(name = "update_at")
     private LocalDateTime updateAt = LocalDateTime.now();
+    
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserCertification> userCertification = new ArrayList<>();
 
