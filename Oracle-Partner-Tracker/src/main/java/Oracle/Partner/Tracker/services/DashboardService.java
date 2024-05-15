@@ -3,12 +3,10 @@ package Oracle.Partner.Tracker.services;
 import Oracle.Partner.Tracker.dto.DashboardDTO;
 import Oracle.Partner.Tracker.dto.StatePerCompany;
 import Oracle.Partner.Tracker.dto.TrackPerCompany;
-import Oracle.Partner.Tracker.dto.UserCertificationDTO;
-import Oracle.Partner.Tracker.entities.relations.UserCertification;
 import Oracle.Partner.Tracker.repositories.CompanyRepository;
 import Oracle.Partner.Tracker.repositories.ExpertiseRepository;
 import Oracle.Partner.Tracker.repositories.OpnTrackRepository;
-import Oracle.Partner.Tracker.repositories.UserCertificationRepository;
+import Oracle.Partner.Tracker.repositories.EmployeeCertificationsRepository;
 import Oracle.Partner.Tracker.utils.DashboardColorEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 
 @Service
@@ -96,12 +91,12 @@ public class DashboardService {
     }
 
     @Autowired
-    private UserCertificationRepository userCertificationRepository;
+    private EmployeeCertificationsRepository employeeCertificationsRepository;
 
     public List<Object[]> getCertificationsNearExpiration(int daysThreshold) {
         LocalDateTime currentDate = LocalDateTime.now();
         LocalDateTime expirationDateThreshold = currentDate.plusDays(daysThreshold);
-        return userCertificationRepository.getUserCertifications(currentDate, expirationDateThreshold);
+        return employeeCertificationsRepository.getEmployeeCertifications(currentDate, expirationDateThreshold);
     }
     
     

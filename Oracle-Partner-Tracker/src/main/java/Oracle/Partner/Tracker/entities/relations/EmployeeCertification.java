@@ -1,7 +1,7 @@
 package Oracle.Partner.Tracker.entities.relations;
 
 import Oracle.Partner.Tracker.entities.Certification;
-import Oracle.Partner.Tracker.entities.User;
+import Oracle.Partner.Tracker.entities.Employee;
 import Oracle.Partner.Tracker.utils.CertificationStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-@Table(name = "user_certification")
-public class UserCertification {
+@Table(name = "employee_certification")
+public class EmployeeCertification {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
@@ -28,8 +28,8 @@ public class UserCertification {
     @Column(name = "create_at")
     private LocalDateTime createAt;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "certification_id")
     private Certification certification;

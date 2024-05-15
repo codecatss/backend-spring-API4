@@ -8,14 +8,14 @@ We utilize a DDL script to create the database before executing the Java script,
 
 ### 2.1 Tables
 
-#### Table user:
+#### Table employee:
 **Table Description:**
-- This table stores user information, including Oracle users and users responsible for the company.
+- This table stores employee information, including Oracle users and users responsible for the company.
 
 **Fields:**
 - **id**
   - Type: bigint unsigned
-  - Description: Unique identifier of the user.
+  - Description: Unique identifier of the employee.
 - **email**
   - Type: varchar(50)
   - Description: User's email.
@@ -27,13 +27,13 @@ We utilize a DDL script to create the database before executing the Java script,
   - Description: User's name.
 - **role**
   - Type: enum('ADM', 'USER')
-  - Description: User's role in the system (administrator or user).
+  - Description: User's role in the system (administrator or employee).
 - **membership_type**
   - Type: enum('PRINCIPAL', 'WORLDWIDE')
   - Description: User's membership type (principal or worldwide).
 - **ingestion_operation**
   - Type: enum('CSV', 'MANUAL')
-  - Description: Data ingestion method used to save the user.
+  - Description: Data ingestion method used to save the employee.
 - **status**
   - Type: enum('ACTIVE', 'INACTIVE')
   - Description: User account status (active or inactive).
@@ -232,7 +232,7 @@ We utilize a DDL script to create the database before executing the Java script,
 
 #### Table company_and_user
 **Relation Description:**
-- This relationship joins the Company and User tables, where a user can be related to only one company.
+- This relationship joins the Company and User tables, where a employee can be related to only one company.
 
 **Relation:** Company (0-1 : 0-n) User.
 
@@ -242,7 +242,7 @@ We utilize a DDL script to create the database before executing the Java script,
   - Description: Foreign key referencing the company table by ID.
 - **user_id**
   - Type: bigint unsigned
-  - Description: Foreign key referencing the user table by ID.
+  - Description: Foreign key referencing the employee table by ID.
 
 #### Table company_opn_track
 **Relation Description:**
