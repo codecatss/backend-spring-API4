@@ -1,6 +1,5 @@
 package Oracle.Partner.Tracker.dto;
 
-import Oracle.Partner.Tracker.infra.security.PasswordEncryptor;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
 import Oracle.Partner.Tracker.utils.Status;
 import com.opencsv.bean.CsvBindByName;
@@ -38,7 +37,6 @@ public class PartnerDTO implements GenericDTO{
     private LocalDateTime updateAt;
 
     public PartnerDTO() {
-        this.password = PasswordEncryptor.encryptPassword("oracle");
         this.createAt = LocalDateTime.now();
         this.updateAt = LocalDateTime.now();
         this.status = Status.ACTIVE;
@@ -48,7 +46,7 @@ public class PartnerDTO implements GenericDTO{
     public PartnerDTO(String username, String password) {
         this();
         this.username = username;
-        this.password = PasswordEncryptor.encryptPassword(password);
+        this.password = password;
         this.status = Status.toStatus(statusString);
         this.ingestionOperation = IngestionOperation.MANUAL;
     }
@@ -58,7 +56,7 @@ public class PartnerDTO implements GenericDTO{
     }
 
     public void setPassword(String password){
-        this.password = PasswordEncryptor.encryptPassword(password);
+        this.password = password;
     }
 }
 
