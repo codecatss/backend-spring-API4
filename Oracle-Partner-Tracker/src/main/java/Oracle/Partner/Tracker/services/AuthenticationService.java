@@ -1,20 +1,28 @@
 package Oracle.Partner.Tracker.services;
 
-import org.springframework.security.core.Authentication;
+import javax.naming.AuthenticationException;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import lombok.extern.slf4j.Slf4j;
-@Slf4j
+import Oracle.Partner.Tracker.dto.AuthDTO;
+import Oracle.Partner.Tracker.repositories.PartnerRepository;
 @Service
 public class AuthenticationService {
+
+    @Autowired
+    PartnerRepository partnerRepository;
+
     private final JwtService jwtService;
     
     public AuthenticationService(JwtService jwtService) {
         this.jwtService = jwtService;
     }
 
-    public String authenticate(Authentication authentication) {
-        log.info("Tentativa de login com: " + authentication.getName());
+    public String authenticate(AuthDTO authentication) throws AuthenticationException{
+        if(partnerRepository.existsByEmail(authentication.email()) == false) {
+            throw new AuthenticationException("User not found: " + authentication.email());
+        }
         return jwtService.generateToken(authentication);
     }
 }

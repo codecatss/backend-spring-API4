@@ -1,11 +1,14 @@
 package Oracle.Partner.Tracker.controllers;
 
-import org.springframework.security.core.Authentication;
+import javax.naming.AuthenticationException;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import Oracle.Partner.Tracker.dto.AuthDTO;
 import Oracle.Partner.Tracker.services.AuthenticationService;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 @RestController
 @CrossOrigin
 public class AuthenticationController {
@@ -16,7 +19,14 @@ public class AuthenticationController {
     }
 
     @PostMapping("/auth")
-    public String authenticate(Authentication authentication) {
-        return authenticationService.authenticate(authentication);
+    public String authenticate(@RequestBody AuthDTO authentication) throws AuthenticationException {
+        if (authentication.email() == null || authentication.email().isBlank()) {
+            throw new RuntimeException("Email null ou blank");
+        }
+        try {
+            return authenticationService.authenticate(authentication);
+        } catch (AuthenticationException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 }

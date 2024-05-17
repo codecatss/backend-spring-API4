@@ -29,8 +29,12 @@ public class Partner {
 
     @Column(name = "password")
     private String password;
-    
+
+    @Column(name = "email")
+    private String email;
+
     @Enumerated(EnumType.STRING)
+    @Column(name = "role")
     private RoleEnum role;
     
     @Enumerated(EnumType.STRING)
