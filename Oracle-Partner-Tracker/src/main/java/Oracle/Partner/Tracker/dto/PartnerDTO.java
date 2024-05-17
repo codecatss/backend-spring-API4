@@ -51,10 +51,11 @@ public class PartnerDTO implements GenericDTO{
         this.ingestionOperation = IngestionOperation.CSV;
     }
 
-    public PartnerDTO(String username, String password) {
+    public PartnerDTO(String username, String password, String role) {
         this();
         this.username = username;
         this.password = password;
+        this.role = RoleEnum.valueOf(role);
         this.status = Status.toStatus(statusString);
         this.ingestionOperation = IngestionOperation.MANUAL;
     }
