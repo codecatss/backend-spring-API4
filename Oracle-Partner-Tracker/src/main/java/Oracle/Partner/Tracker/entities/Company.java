@@ -19,8 +19,6 @@ import java.util.List;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode
 @Table(name = "company")
 public class Company {
@@ -57,7 +55,13 @@ public class Company {
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<CompanyExpertise> companyExpertise = new ArrayList<>();
 
+    public Company(){
+        this.createAt = LocalDateTime.now();
+        this.updateAt = LocalDateTime.now();
+    }
+
     public Company(CompanyDTO companyDTO) {
+        this();
         this.name = companyDTO.getName();
         this.opnStatus = companyDTO.getOpnStatus();
         this.cnpj = companyDTO.getCnpj();
@@ -65,8 +69,6 @@ public class Company {
         this.state = companyDTO.getState();
         this.city = companyDTO.getCity();
         this.address = companyDTO.getAddress();
-        this.createAt = companyDTO.getCreateAt();
-        this.updateAt = companyDTO.getUpdateAt();
         this.ingestionOperation = companyDTO.getIngestionOperation();
         this.creditHold = companyDTO.getCreditHold();
         this.status = companyDTO.getStatus();
@@ -74,6 +76,7 @@ public class Company {
     }
 
     public Company(CompanyRecord companyRecord){
+        this();
         this.name = companyRecord.name();
         this.cnpj = companyRecord.cnpj();
         this.city = companyRecord.city();
