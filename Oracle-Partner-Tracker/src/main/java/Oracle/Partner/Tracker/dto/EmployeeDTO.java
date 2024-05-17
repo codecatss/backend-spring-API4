@@ -4,7 +4,6 @@ import com.opencsv.bean.CsvBindByName;
 import Oracle.Partner.Tracker.entities.Company;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
 import Oracle.Partner.Tracker.utils.MembershipEnum;
-import Oracle.Partner.Tracker.utils.RoleEnum;
 import Oracle.Partner.Tracker.utils.Status;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
-public class UserDTO implements GenericDTO{
+public class EmployeeDTO implements GenericDTO{
 
     @CsvBindByName(column = "User OPN Admin Name")
     @Schema(description = "Nome do usuário", example = "João da Silva")
@@ -26,12 +25,6 @@ public class UserDTO implements GenericDTO{
 
     @Schema(description = "Senha do usuário", example = "123456")
     private String password;
-
-    @CsvBindByName(column = "User OPN Admin Role")
-    private String roleStatusString;
-
-    @Schema(description = "Função do usuário", example = "USER")
-    private RoleEnum role;
 
     @CsvBindByName(column = "User OPN Admin Status")
     private String statusString;
@@ -60,7 +53,7 @@ public class UserDTO implements GenericDTO{
     @Schema(description = "Company que o usuario esta", example = "Company ABC")
     private Company company;
 
-    public UserDTO() {
+    public EmployeeDTO() {
         this.password = "oracle";
         this.createAt = LocalDateTime.now();
         this.updateAt = LocalDateTime.now();
@@ -68,11 +61,10 @@ public class UserDTO implements GenericDTO{
         this.ingestionOperation = IngestionOperation.CSV;
     }
 
-    public UserDTO(String name, String email, String roleStatusString, String statusString, String memberShipTypeString) {
+    public EmployeeDTO(String name, String email, String statusString, String memberShipTypeString) {
         this();
         this.name = name;
         this.email = email;
-        this.role = RoleEnum.toRole(roleStatusString);
         this.status = Status.toStatus(statusString);
         this.memberShipType = MembershipEnum.toMembership(memberShipTypeString);
         this.ingestionOperation = IngestionOperation.MANUAL;
@@ -80,10 +72,6 @@ public class UserDTO implements GenericDTO{
 
     public void setStatusString(String statusString){
         this.status = Status.toStatus(statusString);
-    }
-
-    public void setRoleStatusString(String roleStatusString){
-        this.role = RoleEnum.toRole(roleStatusString);
     }
 
     public void setMemberShipTypeString(String memberShipTypeString){

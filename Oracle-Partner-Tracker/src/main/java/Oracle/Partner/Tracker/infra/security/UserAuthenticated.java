@@ -6,35 +6,35 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import Oracle.Partner.Tracker.entities.User;
+import Oracle.Partner.Tracker.entities.Partner;
 import Oracle.Partner.Tracker.utils.Status;
 
 public class UserAuthenticated implements UserDetails{
 
-    public UserAuthenticated(User user) {
-        this.user = user;
+    public UserAuthenticated(Partner partner) {
+        this.partner = partner;
     }
 
-    private final User user;
+    private final Partner partner;
     
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(() -> user.getRole().name());
+        return List.of(() -> partner.getRole().name());
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return partner.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getName();
+        return partner.getUsername();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        if(user.getStatus() == Status.ACTIVE){
+        if(partner.getStatus() == Status.ACTIVE){
             return true;
         }
         return false;

@@ -30,7 +30,19 @@ create table company (
      primary key (id)
 );
 
-create table user (
+create table partner (
+    id bigint unsigned not null auto_increment,
+    username varchar(50) unique not null,
+    password varchar(100) not null,
+    role enum('ADM', 'USER') not null,
+    ingestion_operation enum('CSV', 'MANUAL'),
+    status enum('ACTIVE', 'INACTIVE'),
+    create_at timestamp default current_timestamp,
+    update_at timestamp default current_timestamp,
+    primary key (id)
+);
+
+create table employee (
     id bigint unsigned not null auto_increment,
     company_id bigint unsigned not null,
     email varchar(50) unique,
@@ -108,16 +120,16 @@ create table company_expertise (
 );
 
 
-create table user_certification (
+create table employee_certification (
     id bigint unsigned not null auto_increment,
     certification_id bigint unsigned not null,
-    user_id bigint unsigned not null,
+    employee_id bigint unsigned not null,
     expires_at timestamp not null,
     status enum('PASSED', 'IN_PROGRESS', 'EXPIRED'),
     create_at timestamp default current_timestamp,
     update_at timestamp default current_timestamp,
     primary key (id),
-    foreign key user_fk (user_id) references user (id) on delete restrict on update cascade,
+    foreign key employee_fk (employee_id) references employee (id) on delete restrict on update cascade,
     foreign key certification_fk (certification_id) references certification (id) on delete restrict on update cascade
 );
 
