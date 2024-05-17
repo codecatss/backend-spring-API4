@@ -56,6 +56,7 @@ public class Partner {
     public Partner(PartnerDTO partnerDTO) {
         this.username = partnerDTO.getUsername();
         this.password = partnerDTO.getPassword();
+        this.role = partnerDTO.getRole();
         this.ingestionOperation = partnerDTO.getIngestionOperation();
         this.status = partnerDTO.getStatus();
         this.createAt = partnerDTO.getCreateAt();

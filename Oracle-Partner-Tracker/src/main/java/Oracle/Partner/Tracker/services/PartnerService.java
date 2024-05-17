@@ -5,14 +5,18 @@ import Oracle.Partner.Tracker.dto.GenericDTO;
 import Oracle.Partner.Tracker.entities.Partner;
 import Oracle.Partner.Tracker.repositories.PartnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.parser.Part;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service
 public class PartnerService implements GenericService{
@@ -40,7 +44,14 @@ public class PartnerService implements GenericService{
         if (partnerRepository.existsByUsername(partnerDTO.getUsername())){
             return ResponseEntity.badRequest().build();
         }
-        partnerRepository.save(new Partner(partnerDTO));
+        
+        Partner partner = new Partner(partnerDTO);
+        if(partner.getPassword() == null || partner.getPassword().isEmpty()){
+            partner.setPassword("123456");
+        }
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        partner.setPassword(passwordEncoder.encode(partner.getPassword()));
+        partnerRepository.save(partner);
         return ResponseEntity.ok().build();
     }
 
