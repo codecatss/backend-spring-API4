@@ -20,9 +20,6 @@ public class AuthenticationController {
 
     @PostMapping("/auth")
     public String authenticate(@RequestBody AuthDTO authentication) throws AuthenticationException {
-        if (authentication.email() == null || authentication.email().isBlank()) {
-            throw new RuntimeException("Email null ou blank");
-        }
         try {
             return authenticationService.authenticate(authentication);
         } catch (AuthenticationException e) {
