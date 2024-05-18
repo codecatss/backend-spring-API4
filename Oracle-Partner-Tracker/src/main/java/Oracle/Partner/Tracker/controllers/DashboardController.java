@@ -24,6 +24,9 @@ public class DashboardController {
     @Autowired
     private DashboardService dashboardService;
 
+    @Autowired
+    private CompanyExpertiseUserCountService companyExpertiseUserCountService;
+
     @GetMapping
     public ResponseEntity<DashboardDTO> getAllKPI() {
 
@@ -52,7 +55,6 @@ public class DashboardController {
         }
         return ResponseEntity.ok(data);
     }
-    
 
     @GetMapping(path = "/opntrack/visualization")
     public Map<Integer, Map<String, String>> getOpnTrackUsageCount() {
@@ -68,17 +70,10 @@ public class DashboardController {
     @GetMapping(value="/certification-per-user")
     public List<Object[]> getUserCertification(){
         return dashboardService.getCertificationsNearExpiration(90);
-}
-
-
-
-
-    @Autowired
-    private CompanyExpertiseUserCountService companyExpertiseUserCountService;
+    }
 
     @GetMapping(value="/companyexpertiseusercountservice")
     public List<CompanyExpertiseUserCount> getCompanyExpertiseUserCountService(){
-        return companyExpertiseUserCountService.findAllCompanies();    }
-
-
+        return companyExpertiseUserCountService.findAllCompanies();
+    }
 }
