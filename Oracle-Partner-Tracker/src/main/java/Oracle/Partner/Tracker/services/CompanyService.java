@@ -1,5 +1,6 @@
 package Oracle.Partner.Tracker.services;
 
+import Oracle.Partner.Tracker.dto.CompanyRecord;
 import Oracle.Partner.Tracker.repositories.CompanyRepository;
 import Oracle.Partner.Tracker.utils.ChangeType;
 import Oracle.Partner.Tracker.entities.Company;
@@ -47,8 +48,12 @@ public class CompanyService implements GenericService{
         return companies;
     }
 
-    public void saveCompany(List<Company> companies){
+    public void saveAllCompany(List<Company> companies){
         companyRepository.saveAll(companies);
+    }
+
+    public void saveCompany(CompanyRecord companyRecord){
+        companyRepository.save(new Company(companyRecord));
     }
 
     public Optional<CompanyDTO> insertCompany(CompanyDTO companyDTO) {   

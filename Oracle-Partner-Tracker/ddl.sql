@@ -172,6 +172,6 @@ create table change_history (
     foreign key partner_fk (changed_by_partner_id) references partner (id)
 );
 
-insert into partner (username, password, ingestion_operation, status)
-values('admin', 'admin12', 'MANUAL', 'ACTIVE');
+insert into partner (username, password, role, ingestion_operation, status)
+values('admin', 'admin12', 'ADM', 'MANUAL', 'ACTIVE');
 
