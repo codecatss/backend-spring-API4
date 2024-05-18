@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import Oracle.Partner.Tracker.dto.AuthDTO;
 import Oracle.Partner.Tracker.services.AuthenticationService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -21,7 +24,12 @@ public class AuthenticationController {
     }
 
     @PostMapping("/auth")
-    public ResponseEntity<Object> authenticate(@RequestBody AuthDTO authentication) throws AuthenticationException {
+    public ResponseEntity<Object> authenticate(@RequestBody AuthDTO authentication) throws AuthenticationException, JsonProcessingException {
+        
+        System.out.println();
+        System.out.println(new ObjectMapper().writeValueAsString(authentication));
+        System.out.println();
+
         try {
             String token = authenticationService.authenticate(authentication);
             if (token != null && !token.contains("FALSE")) {
