@@ -3,9 +3,11 @@ package Oracle.Partner.Tracker.services;
 import Oracle.Partner.Tracker.dto.ExpertiseDTO;
 import Oracle.Partner.Tracker.dto.PartnerDTO;
 import Oracle.Partner.Tracker.dto.GenericDTO;
+import Oracle.Partner.Tracker.entities.ChangeHistory;
 import Oracle.Partner.Tracker.entities.Partner;
 import Oracle.Partner.Tracker.repositories.PartnerRepository;
 import Oracle.Partner.Tracker.utils.ChangeType;
+import Oracle.Partner.Tracker.utils.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -85,5 +87,19 @@ public class PartnerService implements GenericService{
                 changeHistoryService.saveChangeHistory(Long.decode("1"),"partner",ChangeType.CREATE, new PartnerDTO(), partnerDTO);
             }
         }
+
+        // Como usar o hitorico do banco de dados
+        Converter converter = new Converter();
+        List<ChangeHistory> changeHistoryList = changeHistoryService.findAll();
+        System.out.println("\nInicio de teste da tabela historica... \n");
+        for(ChangeHistory changeHistory : changeHistoryList){
+            System.out.println("ChangedByPartnerId: "+changeHistory.getChangedByPartnerId());
+            System.out.println("TableName: "+changeHistory.getTableName());
+            System.out.println("ChangeType: "+changeHistory.getChangeType());
+            System.out.println("OldValueJsonFormat: "+converter.byteToString(converter.hexadecimalToByte(changeHistory.getOldValueJsonFormat())));
+            System.out.println("NewValueJsonFormat: "+converter.byteToString(converter.hexadecimalToByte(changeHistory.getNewValueJsonFormat())));
+            System.out.println();
+        }
+        System.out.println("... Fim de teste da tabela historica");
     }
 }
