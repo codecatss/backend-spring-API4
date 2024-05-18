@@ -1,9 +1,11 @@
 package Oracle.Partner.Tracker.services;
 
+import Oracle.Partner.Tracker.dto.ExpertiseDTO;
 import Oracle.Partner.Tracker.dto.PartnerDTO;
 import Oracle.Partner.Tracker.dto.GenericDTO;
 import Oracle.Partner.Tracker.entities.Partner;
 import Oracle.Partner.Tracker.repositories.PartnerRepository;
+import Oracle.Partner.Tracker.utils.ChangeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,9 @@ public class PartnerService implements GenericService{
 
     @Autowired
     private PartnerRepository partnerRepository;
+
+    @Autowired
+    private ChangeHistoryService changeHistoryService;
 
     public List<Partner> findAllUsers() {
         List<Partner> allPartners = partnerRepository.findAll();
@@ -77,6 +82,7 @@ public class PartnerService implements GenericService{
             PartnerDTO partnerDTO = (PartnerDTO) genericDTO;
             if(!partnerRepository.existsByUsername(partnerDTO.getUsername()) & partnerDTO.getUsername() != null & !partnerDTO.getUsername().isEmpty()){
                 partnerRepository.save(new Partner(partnerDTO));
+                changeHistoryService.saveChangeHistory(Long.decode("1"),"partner",ChangeType.CREATE, new PartnerDTO(), partnerDTO);
             }
         }
     }

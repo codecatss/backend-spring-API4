@@ -163,7 +163,7 @@ create table change_history (
     id bigint unsigned not null auto_increment,
     changed_by_partner_id bigint unsigned not null,
     table_name varchar(100) not null,
-    change_type enum('INSERT', 'UPDATE', 'DELETE') not null,
+    change_type enum('CREATE', 'INSERT', 'UPDATE', 'DELETE') not null,
     old_value_json_format text not null,
     new_value_json_format text not null,
     changed_at timestamp default current_timestamp,
