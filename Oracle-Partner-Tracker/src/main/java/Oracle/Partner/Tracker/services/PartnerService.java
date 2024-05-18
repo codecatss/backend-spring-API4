@@ -1,22 +1,22 @@
 package Oracle.Partner.Tracker.services;
 
-import Oracle.Partner.Tracker.dto.ExpertiseDTO;
-import Oracle.Partner.Tracker.dto.PartnerDTO;
-import Oracle.Partner.Tracker.dto.GenericDTO;
+import Oracle.Partner.Tracker.repositories.PartnerRepository;
 import Oracle.Partner.Tracker.entities.ChangeHistory;
 import Oracle.Partner.Tracker.entities.Partner;
-import Oracle.Partner.Tracker.repositories.PartnerRepository;
 import Oracle.Partner.Tracker.utils.ChangeType;
 import Oracle.Partner.Tracker.utils.Converter;
+import Oracle.Partner.Tracker.dto.GenericDTO;
+import Oracle.Partner.Tracker.dto.PartnerDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
+import java.util.List;
 
 @Service
 public class PartnerService implements GenericService{

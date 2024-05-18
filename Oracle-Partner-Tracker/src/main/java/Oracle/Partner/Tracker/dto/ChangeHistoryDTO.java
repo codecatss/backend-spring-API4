@@ -1,14 +1,11 @@
 package Oracle.Partner.Tracker.dto;
 
 import Oracle.Partner.Tracker.utils.ChangeType;
-
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.Data;
-
 import java.time.LocalDateTime;
+import lombok.Data;
 
 @Data
 @AllArgsConstructor

@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 import Oracle.Partner.Tracker.dto.GenericDTO;
+import Oracle.Partner.Tracker.dto.PartnerDTO;
+import Oracle.Partner.Tracker.utils.ChangeType;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,12 +21,16 @@ import Oracle.Partner.Tracker.utils.Status;
 @Service
 public class WorkloadService implements GenericService{
 
+    @Autowired
     private WorkloadRepository workloadRepository;
 
     @Autowired
-    public void setWorkloadRepository(WorkloadRepository workloadRepository) {
-        this.workloadRepository = workloadRepository;
-    }
+    private ChangeHistoryService changeHistoryService;
+
+//    @Autowired
+//    public void setWorkloadRepository(WorkloadRepository workloadRepository) {
+//        this.workloadRepository = workloadRepository;
+//    }
 
     public Optional<WorkloadDTO> findWorkloadById(Long id){
         Optional<Workload> workload = workloadRepository.findById(id);
@@ -116,6 +122,7 @@ public class WorkloadService implements GenericService{
             WorkloadDTO workloadDTO = (WorkloadDTO) genericDTO;
             if(workloadRepository.findByName(workloadDTO.getName()) == null){
                 workloadRepository.save(new Workload(workloadDTO));
+                changeHistoryService.saveChangeHistory(Long.decode("1"),"workload", ChangeType.CREATE, new WorkloadDTO(), workloadDTO);
             }
         }
     }

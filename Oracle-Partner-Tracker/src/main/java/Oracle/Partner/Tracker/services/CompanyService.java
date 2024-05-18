@@ -1,25 +1,31 @@
 package Oracle.Partner.Tracker.services;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-
+import Oracle.Partner.Tracker.repositories.CompanyRepository;
+import Oracle.Partner.Tracker.utils.ChangeType;
+import Oracle.Partner.Tracker.entities.Company;
 import Oracle.Partner.Tracker.dto.GenericDTO;
+import Oracle.Partner.Tracker.dto.CompanyDTO;
 import Oracle.Partner.Tracker.utils.Status;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import Oracle.Partner.Tracker.dto.CompanyDTO;
-import Oracle.Partner.Tracker.entities.Company;
-import Oracle.Partner.Tracker.repositories.CompanyRepository;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.List;
 
 @Service
 public class CompanyService implements GenericService{
+
     @Autowired
     private CompanyRepository companyRepository;
 
-    public void setCompanyRepository(CompanyRepository companyRepository) {
-        this.companyRepository = companyRepository;
-    }
+    @Autowired
+    private ChangeHistoryService changeHistoryService;
+
+//    public void setCompanyRepository(CompanyRepository companyRepository) {
+//        this.companyRepository = companyRepository;
+//    }
 
     public CompanyDTO getCompanyById(Long id) {
         Optional<Company> company = companyRepository.findById(id);
@@ -109,7 +115,6 @@ public class CompanyService implements GenericService{
             );
             company.setStatus(Status.ACTIVE);
             companyRepository.save(company);
-
         }
 
     private void copyDTOtoEntity(CompanyDTO companyDTO, Company company) {
@@ -147,7 +152,8 @@ public class CompanyService implements GenericService{
             CompanyDTO companyDTO = (CompanyDTO) genericDTO;
             if(companyRepository.findByCnpj(companyDTO.getCnpj()) == null){
                 companyRepository.save(new Company(companyDTO));
+                changeHistoryService.saveChangeHistory(Long.decode("1"),"company", ChangeType.CREATE, new CompanyDTO(), companyDTO);
             }
         }
     }
-}    
+}

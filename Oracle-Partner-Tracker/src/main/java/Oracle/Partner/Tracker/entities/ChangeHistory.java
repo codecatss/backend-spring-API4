@@ -3,8 +3,6 @@ package Oracle.Partner.Tracker.entities;
 import Oracle.Partner.Tracker.dto.ChangeHistoryDTO;
 import Oracle.Partner.Tracker.utils.ChangeType;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Enumerated;
@@ -18,6 +16,8 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Data
