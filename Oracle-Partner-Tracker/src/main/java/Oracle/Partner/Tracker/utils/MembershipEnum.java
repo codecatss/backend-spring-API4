@@ -9,6 +9,7 @@ public enum MembershipEnum {
 
     PRINCIPAL("PRINCIPAL"), WORLDWIDE("WORLDWIDE");
 
+    @SuppressWarnings("unused")
     private String membership;
 
     public static MembershipEnum toMembership(String membershipString){

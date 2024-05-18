@@ -1,7 +1,6 @@
 package Oracle.Partner.Tracker.entities;
 
 import Oracle.Partner.Tracker.dto.WorkloadDTO;
-import Oracle.Partner.Tracker.entities.relations.OpnTrackExpertise;
 import Oracle.Partner.Tracker.entities.relations.WorkloadExpertise;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
 import Oracle.Partner.Tracker.utils.Status;

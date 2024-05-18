@@ -309,7 +309,8 @@ VALUES
     ('IBM Certified Administrator – Watson IoT V2.x', 'Esta certificação valida habilidades em administrar soluções com IBM Watson IoT.', 24, 'MANUAL');
 
 
-
+insert into company_opn_tracks (company_id, opn_tracks_id) values (1,1);
+insert into company_opn_tracks (company_id, opn_tracks_id) values (2,2);
 
 -- Cloud Service (ID = 1)
 INSERT INTO expertise_certification (certification_id, expertise_id) VALUES

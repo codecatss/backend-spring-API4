@@ -10,6 +10,7 @@ public enum RoleEnum {
     ADM("ADM"),
     USER("USER");
 
+    @SuppressWarnings("unused")
     private String role;
 
     public static RoleEnum toRole(String roleString){
