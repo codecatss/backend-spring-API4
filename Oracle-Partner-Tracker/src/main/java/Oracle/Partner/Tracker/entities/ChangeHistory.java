@@ -36,10 +36,10 @@ public class ChangeHistory {
     @Column(name = "change_type")
     @Enumerated(EnumType.STRING)
     private ChangeType changeType;
-    @Column(name = "old_value_json_format")
-    private String oldValueJsonFormat;
-    @Column(name = "new_value_json_format")
-    private String newValueJsonFormat;
+    @Column(name = "old_value_hexadecimal")
+    private String oldValueHexadecimal;
+    @Column(name = "new_value_hexadecimal")
+    private String newValueHexadecimal;
     @Column(name = "changed_at")
     private LocalDateTime changedAt;
 
@@ -47,8 +47,8 @@ public class ChangeHistory {
         this.changedByPartnerId = changeHistoryDTO.getChangedByPartnerId();
         this.tableName = changeHistoryDTO.getTableName();
         this.changeType = changeHistoryDTO.getChangeType();
-        this.oldValueJsonFormat = changeHistoryDTO.getOldValueJsonFormat();
-        this.newValueJsonFormat = changeHistoryDTO.getNewValueJsonFormat();
+        this.oldValueHexadecimal = changeHistoryDTO.getOldValueHexadecimal();
+        this.newValueHexadecimal = changeHistoryDTO.getNewValueHexadecimal();
         this.changedAt = changeHistoryDTO.getChangedAt();
     }
 }

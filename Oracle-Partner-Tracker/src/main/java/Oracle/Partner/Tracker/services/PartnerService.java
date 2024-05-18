@@ -96,8 +96,8 @@ public class PartnerService implements GenericService{
             System.out.println("ChangedByPartnerId: "+changeHistory.getChangedByPartnerId());
             System.out.println("TableName: "+changeHistory.getTableName());
             System.out.println("ChangeType: "+changeHistory.getChangeType());
-            System.out.println("OldValueJsonFormat: "+converter.byteToString(converter.hexadecimalToByte(changeHistory.getOldValueJsonFormat())));
-            System.out.println("NewValueJsonFormat: "+converter.byteToString(converter.hexadecimalToByte(changeHistory.getNewValueJsonFormat())));
+            System.out.println("OldValueJsonFormat: "+converter.hexadecimalToString(changeHistory.getOldValueHexadecimal()));
+            System.out.println("NewValueJsonFormat: "+converter.hexadecimalToString(changeHistory.getNewValueHexadecimal()));
             System.out.println();
         }
         System.out.println("... Fim de teste da tabela historica");

@@ -21,9 +21,9 @@ public class ChangeHistoryDTO {
     @Schema(description = "Tipo de mudança")
     private ChangeType changeType;
     @Schema(description = "Valor antigo")
-    private String oldValueJsonFormat;
+    private String oldValueHexadecimal;
     @Schema(description = "Novo valor")
-    private String newValueJsonFormat;
+    private String newValueHexadecimal;
     @Schema(description = "Data de mudança")
     private LocalDateTime changedAt;
 
@@ -31,8 +31,8 @@ public class ChangeHistoryDTO {
         this.changedByPartnerId = changedByPartnerId;
         this.tableName = tableName;
         this.changeType = changeType;
-        this.oldValueJsonFormat = oldValueJsonFormat;
-        this.newValueJsonFormat = newValueJsonFormat;
+        this.oldValueHexadecimal = oldValueJsonFormat;
+        this.newValueHexadecimal = newValueJsonFormat;
         this.changedAt = LocalDateTime.now();
     }
 }

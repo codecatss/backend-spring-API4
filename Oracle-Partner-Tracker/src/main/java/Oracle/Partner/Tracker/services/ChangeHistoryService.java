@@ -15,10 +15,6 @@ import org.springframework.stereotype.Service;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -43,8 +39,8 @@ public class ChangeHistoryService {
                     changedByPartnerId,
                     tableName.toUpperCase(),
                     changeType,
-                    this.converter.byteToHexadecimal(this.converter.stringToByte(entityToJson(oldEntity))),
-                    this.converter.byteToHexadecimal(this.converter.stringToByte(entityToJson(newEntity)))
+                    this.converter.stringToHexadecimal(entityToJson(oldEntity)),
+                    this.converter.stringToHexadecimal(entityToJson(newEntity))
             );
             changeHistoryRepository.save(new ChangeHistory(changeHistoryDTO));
             return ResponseEntity.ok().build();
