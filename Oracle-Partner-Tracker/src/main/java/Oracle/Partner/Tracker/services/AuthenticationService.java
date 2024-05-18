@@ -20,15 +20,21 @@ public class AuthenticationService {
     }
 
     public String authenticate(AuthDTO authentication) throws AuthenticationException{
+
         if (authentication.email() == null || authentication.email().isBlank()) {
-            throw new RuntimeException("Email null ou blank");
+            throw new AuthenticationException("Email null ou blank");
         }
+
         if (authentication.password() == null || authentication.password().isBlank()) {
-            throw new RuntimeException("Senha null ou blank");
+            throw new AuthenticationException("Senha null ou blank");
         }
+
         if(partnerRepository.existsByEmail(authentication.email()) == false) {
-            throw new AuthenticationException("User not found: " + authentication.email());
+            return "{'existsByEmail':'FALSE'}";
         }
+
+        //TODO: Implementar a verificação da senha
+
         return jwtService.generateToken(authentication);
     }
 }
