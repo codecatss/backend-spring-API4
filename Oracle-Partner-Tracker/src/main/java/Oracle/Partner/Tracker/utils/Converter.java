@@ -3,10 +3,6 @@ package Oracle.Partner.Tracker.utils;
 import java.nio.charset.StandardCharsets;
 
 public class Converter {
-    public byte[] stringToByte(String text) {
-        return text.getBytes(StandardCharsets.UTF_8);
-    }
-
     public String byteToString(byte[] bytes) {
         return new String(bytes, StandardCharsets.UTF_8);
     }
@@ -17,6 +13,18 @@ public class Converter {
             hexString.append(String.format("%02X", b));
         }
         return hexString.toString();
+    }
+
+    public String hexadecimalToString(String hexadecimal){
+        return byteToString(hexadecimalToByte(hexadecimal));
+    }
+
+    public String stringToHexadecimal(String text){
+        return byteToHexadecimal(stringToByte(text));
+    }
+
+    public byte[] stringToByte(String text) {
+        return text.getBytes(StandardCharsets.UTF_8);
     }
 
     public byte[] hexadecimalToByte(String hexadecimal) {
