@@ -25,7 +25,7 @@ public class AuthenticationController {
         try {
             String token = authenticationService.authenticate(authentication);
             if (token != null && !token.contains("FALSE")) {
-                return ResponseEntity.ok().body(token);
+                return ResponseEntity.created(null).body(token);
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(token);
             }
