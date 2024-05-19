@@ -42,6 +42,7 @@ public class AuthenticationController {
                 MultiValueMap<String, String> formData = new LinkedMultiValueMap<String, String>();
                 formData.add("token", response.get(0));
                 formData.add("userName", response.get(1));
+                formData.add("userRole", response.get(2));
 
                 return ResponseEntity.created(null).body(formData);
             } else {

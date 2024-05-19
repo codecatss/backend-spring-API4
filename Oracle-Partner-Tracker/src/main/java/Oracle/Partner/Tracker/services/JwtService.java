@@ -44,7 +44,10 @@ public class JwtService {
             .claim("scope", scopes)
             .build();
 
-        response = Arrays.asList(jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue(), partner.getUsername());
+        response = Arrays.asList(
+            jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue(),
+            partner.getUsername(),
+            partner.getRole().name());
 
         return response;
     }
