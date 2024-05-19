@@ -1,7 +1,11 @@
 package Oracle.Partner.Tracker.services;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.naming.AuthenticationException;
 
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +23,7 @@ public class AuthenticationService {
         this.jwtService = jwtService;
     }
 
-    public String authenticate(AuthDTO authentication) throws AuthenticationException{
+    public List<String> authenticate(AuthDTO authentication) throws Exception{
 
         if (authentication.email() == null || authentication.email().isBlank()) {
             throw new AuthenticationException("Email null ou blank");
@@ -30,11 +34,14 @@ public class AuthenticationService {
         }
 
         if(partnerRepository.existsByEmail(authentication.email()) == false) {
-            return "{'existsByEmail':'FALSE'}";
+            return Arrays.asList("{'existsByEmail':'FALSE'}");
         }
 
         //TODO: Implementar a verificação da senha
-
-        return jwtService.generateToken(authentication);
+        try {
+            return jwtService.generateToken(authentication);
+        } catch (Exception e) {
+            throw new ServiceException("Erro no serviço jwtService:\n", e);
+        }
     }
 }
