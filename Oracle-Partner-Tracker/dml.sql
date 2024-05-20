@@ -54,7 +54,7 @@ JOIN
 JOIN 
     certification cert ON ec.certification_id = cert.id
 LEFT JOIN 
-    user_certification uc ON uc.certification_id = cert.id
+    employee_certification uc ON uc.certification_id = cert.id
 JOIN 
     opn_track_and_expertise otae ON e.id = otae.expertise_id
 JOIN 
