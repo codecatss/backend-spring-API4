@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import Oracle.Partner.Tracker.dto.AuthDTO;
-import Oracle.Partner.Tracker.services.AuthenticationService;
+import Oracle.Partner.Tracker.services.Auth.AuthenticationService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 import org.springframework.util.MultiValueMap;
@@ -30,14 +28,11 @@ public class AuthenticationController {
 
     @PostMapping("/auth")
     public ResponseEntity<Object> authenticate(@RequestBody AuthDTO authentication) throws Exception {
-        
-        System.out.println();
-        System.out.println(new ObjectMapper().writeValueAsString(authentication));
-        System.out.println();
 
         try {
             List<String> response = authenticationService.authenticate(authentication);
-            if (response != null && !response.contains("FALSE")) {
+
+            if (response != null && !response.get(0).contains("FALSE")) {
 
                 MultiValueMap<String, String> formData = new LinkedMultiValueMap<String, String>();
                 formData.add("token", response.get(0));
