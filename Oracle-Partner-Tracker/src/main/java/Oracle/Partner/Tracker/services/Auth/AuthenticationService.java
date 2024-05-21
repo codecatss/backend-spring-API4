@@ -1,8 +1,7 @@
 package Oracle.Partner.Tracker.services.Auth;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.naming.AuthenticationException;
 
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,18 +26,38 @@ public class AuthenticationService {
 
     public List<String> authenticate(AuthDTO authentication) throws Exception{
 
+        List<String> response = new ArrayList<>();
+
         String email = authentication.email();
+
+        boolean generateToken = false;
+
+        if(email != null || !email.isBlank()){
+
+            if(emailService.validadeEmail(email)){
+                generateToken = passwordService.validatePassword(email, authentication.password());
+
+                if(!generateToken){
+                    response.add("isPasswordValid");
+                    response.add("FALSE");
+                    return response;
+                }
+
+            } else{
+                response.add("existsByEmail");
+                response.add("FALSE");
+                return response;
+            }
+        } else{
+            throw new ServiceException("Email null ou blank");
+        }
         
-        if( emailService.validadeEmail(email)){
-            passwordService.validatePassword(email, authentication.password());
-        }
-
-
-        //TODO: Implementar a verificação da senha
-        try {
+        if (generateToken) {
+            try {
                 return jwtService.generateToken(authentication);
-        } catch (Exception e) {
-            throw new ServiceException("Erro no serviço jwtService:\n", e);
-        }
+            } catch (Exception e) {
+                throw new ServiceException("Erro no serviço jwtService:\n", e);
+            }
+        } return null;
     }
 }

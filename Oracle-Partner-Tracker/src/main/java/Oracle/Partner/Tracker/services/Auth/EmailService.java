@@ -21,7 +21,7 @@ public class EmailService {
             if(partnerRepository.existsByEmail(email)) {
                 return true;
             } else{
-                throw new AuthenticationException("{'existsByEmail':'FALSE'}");
+                return false;
             }
         } else{
             throw new AuthenticationException("Email null ou blank");
