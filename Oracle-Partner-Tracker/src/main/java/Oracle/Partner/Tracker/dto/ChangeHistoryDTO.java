@@ -13,6 +13,8 @@ import lombok.Data;
 public class ChangeHistoryDTO {
     @Schema(description = "Id do Partner que mudou a tabela")
     private Long changedByPartnerId;
+    @Schema(description = "Id da linha que mudou")
+    private Long recordId;
     @Schema(description = "Nome da tabela que foi alterada")
     private String tableName;
     @Schema(description = "Tipo de mudança")
@@ -24,8 +26,9 @@ public class ChangeHistoryDTO {
     @Schema(description = "Data de mudança")
     private LocalDateTime changedAt;
 
-    public ChangeHistoryDTO(Long changedByPartnerId, String tableName, ChangeType changeType, String oldValueJsonFormat, String newValueJsonFormat) {
+    public ChangeHistoryDTO(Long changedByPartnerId, Long recordId, String tableName, ChangeType changeType, String oldValueJsonFormat, String newValueJsonFormat) {
         this.changedByPartnerId = changedByPartnerId;
+        this.recordId = recordId;
         this.tableName = tableName;
         this.changeType = changeType;
         this.oldValueHexadecimal = oldValueJsonFormat;

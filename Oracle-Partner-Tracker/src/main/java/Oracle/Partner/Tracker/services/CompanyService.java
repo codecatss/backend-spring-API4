@@ -157,7 +157,6 @@ public class CompanyService implements GenericService{
             CompanyDTO companyDTO = (CompanyDTO) genericDTO;
             if(companyRepository.findByCnpj(companyDTO.getCnpj()) == null){
                 companyRepository.save(new Company(companyDTO));
-                changeHistoryService.saveChangeHistory(Long.decode("1"),"company", ChangeType.CREATE, new CompanyDTO(), companyDTO);
             }
         }
     }

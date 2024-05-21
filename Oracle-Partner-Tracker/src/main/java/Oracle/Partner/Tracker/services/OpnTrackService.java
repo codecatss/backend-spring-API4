@@ -114,7 +114,6 @@ public class OpnTrackService implements GenericService{
             OpnTrackDTO opnTrackDTO = (OpnTrackDTO) genericDTO;
             if(opnTrackRepository.findByName(opnTrackDTO.getName()) == null){
                 opnTrackRepository.save(new OpnTrack(opnTrackDTO));
-                changeHistoryService.saveChangeHistory(Long.decode("1"),"opn_track", ChangeType.CREATE, new OpnTrackDTO(), opnTrackDTO);
             }
         }
     }

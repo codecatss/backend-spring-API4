@@ -31,6 +31,8 @@ public class ChangeHistory {
     private Long id;
     @Column(name = "changed_by_partner_id")
     private Long changedByPartnerId;
+    @Column(name = "record_id")
+    private Long recordId;
     @Column(name = "table_name")
     private String tableName;
     @Column(name = "change_type")

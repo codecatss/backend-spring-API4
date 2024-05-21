@@ -48,7 +48,6 @@ public class ExpertiseService implements GenericService{
             ExpertiseDTO expertiseDTO = (ExpertiseDTO) genericDTO;
             if(expertiseRepository.findByName(expertiseDTO.getName()) == null){
                 expertiseRepository.save(new Expertise(expertiseDTO));
-                changeHistoryService.saveChangeHistory(Long.decode("1"),"service_expertise", ChangeType.CREATE, new ExpertiseDTO(), expertiseDTO);
             }
         }
     }

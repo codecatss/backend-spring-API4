@@ -84,7 +84,6 @@ public class PartnerService implements GenericService{
             PartnerDTO partnerDTO = (PartnerDTO) genericDTO;
             if(!partnerRepository.existsByUsername(partnerDTO.getUsername()) & partnerDTO.getUsername() != null & !partnerDTO.getUsername().isEmpty()){
                 partnerRepository.save(new Partner(partnerDTO));
-                changeHistoryService.saveChangeHistory(Long.decode("1"),"partner",ChangeType.CREATE, new PartnerDTO(), partnerDTO);
             }
         }
 

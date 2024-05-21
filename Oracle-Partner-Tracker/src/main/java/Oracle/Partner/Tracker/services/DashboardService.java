@@ -20,12 +20,18 @@ import java.util.Map;
 
 @Service
 public class DashboardService {
+
     @Autowired
     private ExpertiseRepository expertiseRepository;
+
     @Autowired
     private CompanyRepository companyRepository;
+
     @Autowired
     private OpnTrackRepository opnTrackRepository;
+
+    @Autowired
+    private EmployeeCertificationsRepository employeeCertificationsRepository;
 
     public DashboardDTO getAll(){
         List<Object[]> kpis = expertiseRepository.getDashboardDTO();
@@ -90,14 +96,9 @@ public class DashboardService {
         return queryDataMap;
     }
 
-    @Autowired
-    private EmployeeCertificationsRepository employeeCertificationsRepository;
-
     public List<Object[]> getCertificationsNearExpiration(int daysThreshold) {
         LocalDateTime currentDate = LocalDateTime.now();
         LocalDateTime expirationDateThreshold = currentDate.plusDays(daysThreshold);
         return employeeCertificationsRepository.getEmployeeCertifications(currentDate, expirationDateThreshold);
     }
-    
-    
 }

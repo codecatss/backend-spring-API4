@@ -25,18 +25,17 @@ public class ChangeHistoryService {
 
     private final Converter converter = new Converter();
 
-    private final Gson gson = new GsonBuilder()
-            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
-            .create();
+    private final Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
 
     public List<ChangeHistory> findAll(){
         return changeHistoryRepository.findAll();
     }
 
-    public ResponseEntity saveChangeHistory(Long changedByPartnerId, String tableName, ChangeType changeType, GenericDTO oldEntity, GenericDTO newEntity){
+    public ResponseEntity saveChangeHistory(Long changedByPartnerId, Long recordId, String tableName, ChangeType changeType, GenericDTO oldEntity, GenericDTO newEntity){
         try{
             ChangeHistoryDTO changeHistoryDTO = new ChangeHistoryDTO(
                     changedByPartnerId,
+                    recordId,
                     tableName.toUpperCase(),
                     changeType,
                     this.converter.stringToHexadecimal(entityToJson(oldEntity)),

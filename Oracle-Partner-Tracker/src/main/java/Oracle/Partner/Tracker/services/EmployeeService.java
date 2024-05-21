@@ -89,7 +89,6 @@ public class EmployeeService implements GenericService{
                 employeeDTO.setCompany(company);
                 Employee employee = new Employee(employeeDTO);
                 employeeRepository.save(employee);
-                changeHistoryService.saveChangeHistory(Long.decode("1"),"employee", ChangeType.CREATE, new EmployeeDTO(), employeeDTO);
             }
         }
     }

@@ -121,7 +121,6 @@ public class WorkloadService implements GenericService{
             WorkloadDTO workloadDTO = (WorkloadDTO) genericDTO;
             if(workloadRepository.findByName(workloadDTO.getName()) == null){
                 workloadRepository.save(new Workload(workloadDTO));
-                changeHistoryService.saveChangeHistory(Long.decode("1"),"workload", ChangeType.CREATE, new WorkloadDTO(), workloadDTO);
             }
         }
     }
