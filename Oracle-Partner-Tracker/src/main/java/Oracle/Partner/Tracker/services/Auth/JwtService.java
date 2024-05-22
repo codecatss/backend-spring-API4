@@ -1,4 +1,4 @@
-package Oracle.Partner.Tracker.services;
+package Oracle.Partner.Tracker.services.Auth;
 
 import java.time.Instant;
 import java.util.Arrays;
