@@ -3,14 +3,7 @@ package Oracle.Partner.Tracker.entities;
 import Oracle.Partner.Tracker.dto.ChangeHistoryDTO;
 import Oracle.Partner.Tracker.utils.ChangeType;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -29,8 +22,9 @@ public class ChangeHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "changed_by_partner_id")
-    private Long changedByPartnerId;
+    @ManyToOne
+    @JoinColumn(name = "changed_by_partner_id")
+    private Partner changedByPartnerId;
     @Column(name = "record_id")
     private Long recordId;
     @Column(name = "table_name")
@@ -47,6 +41,7 @@ public class ChangeHistory {
 
     public ChangeHistory(ChangeHistoryDTO changeHistoryDTO) {
         this.changedByPartnerId = changeHistoryDTO.getChangedByPartnerId();
+        this.recordId = changeHistoryDTO.getRecordId();
         this.tableName = changeHistoryDTO.getTableName();
         this.changeType = changeHistoryDTO.getChangeType();
         this.oldValueHexadecimal = changeHistoryDTO.getOldValueHexadecimal();

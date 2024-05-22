@@ -1,5 +1,6 @@
 package Oracle.Partner.Tracker.services;
 
+import Oracle.Partner.Tracker.entities.Partner;
 import Oracle.Partner.Tracker.repositories.ChangeHistoryRepository;
 import Oracle.Partner.Tracker.utils.LocalDateTimeAdapter;
 import Oracle.Partner.Tracker.entities.ChangeHistory;
@@ -31,8 +32,14 @@ public class ChangeHistoryService {
         return changeHistoryRepository.findAll();
     }
 
-    public ResponseEntity saveChangeHistory(Long changedByPartnerId, Long recordId, String tableName, ChangeType changeType, GenericDTO oldEntity, GenericDTO newEntity){
+    public
+    List<Object[]> findAllTeste(){
+        return changeHistoryRepository.getAllOrderByChangeDate();
+    }
+
+    public ResponseEntity saveChangeHistory(Partner changedByPartnerId, Long recordId, String tableName, ChangeType changeType, GenericDTO oldEntity, GenericDTO newEntity){
         try{
+            System.out.println(recordId);
             ChangeHistoryDTO changeHistoryDTO = new ChangeHistoryDTO(
                     changedByPartnerId,
                     recordId,

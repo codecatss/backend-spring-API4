@@ -1,5 +1,6 @@
 package Oracle.Partner.Tracker.dto;
 
+import Oracle.Partner.Tracker.entities.Partner;
 import Oracle.Partner.Tracker.utils.ChangeType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -12,7 +13,7 @@ import lombok.Data;
 @NoArgsConstructor
 public class ChangeHistoryDTO {
     @Schema(description = "Id do Partner que mudou a tabela")
-    private Long changedByPartnerId;
+    private Partner changedByPartnerId;
     @Schema(description = "Id da linha que mudou")
     private Long recordId;
     @Schema(description = "Nome da tabela que foi alterada")
@@ -26,7 +27,7 @@ public class ChangeHistoryDTO {
     @Schema(description = "Data de mudança")
     private LocalDateTime changedAt;
 
-    public ChangeHistoryDTO(Long changedByPartnerId, Long recordId, String tableName, ChangeType changeType, String oldValueJsonFormat, String newValueJsonFormat) {
+    public ChangeHistoryDTO(Partner changedByPartnerId, Long recordId, String tableName, ChangeType changeType, String oldValueJsonFormat, String newValueJsonFormat) {
         this.changedByPartnerId = changedByPartnerId;
         this.recordId = recordId;
         this.tableName = tableName;
