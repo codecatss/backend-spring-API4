@@ -2,10 +2,12 @@ package Oracle.Partner.Tracker.services;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import Oracle.Partner.Tracker.dto.CompanyRecord;
 import Oracle.Partner.Tracker.dto.GenericDTO;
+import Oracle.Partner.Tracker.utils.MapObject;
 import Oracle.Partner.Tracker.utils.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -92,9 +94,10 @@ public class CompanyService implements GenericService{
         return Optional.ofNullable(company).orElse(null).map(CompanyDTO::new);
     }
 
-    public List<Company> findAllCompanies(){
-        List<Company> companies = companyRepository.findAll();
-        return companies;
+    public Map<Integer, Map<String, String>>  findAllCompanies(){
+        List<Object[]> companies = companyRepository.findAllCompanyAtributes();
+        String[] columns = {"name", "opnStatus", "country", "state", "city", "address", "createAt", "status", "slogan"};
+        return MapObject.mapObjectList(companies, columns, null);
     }
 
     public Optional<CompanyDTO> insertCompany(CompanyDTO companyDTO) {   

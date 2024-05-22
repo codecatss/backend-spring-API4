@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
@@ -26,21 +27,8 @@ public class CompanyController {
     private CompanyService companyService;
 
     @GetMapping
-    //@Operation(summary = "Company", description = "Get all companies")
-    //@ApiResponses(value = {
-    //        @ApiResponse(
-    //                responseCode = "200",
-    //                content = @Content(
-    //                        array = @ArraySchema(
-    //                                schema = @Schema(implementation = Company.class)
-    //                        )
-    //                ),
-    //                description = "Companies retrieved"
-    //        ),
-    //        @ApiResponse(responseCode = "404", description = "Companies not found")
-    //})
-    public ResponseEntity<List<Company>> getAllCompanies() {
-        List<Company> companies = companyService.findAllCompanies();
+    public ResponseEntity<Map<Integer, Map<String, String>> > getAllCompanies() {
+        Map<Integer, Map<String, String>>  companies = companyService.findAllCompanies();
         return ResponseEntity.ok(companies);
     }
 
