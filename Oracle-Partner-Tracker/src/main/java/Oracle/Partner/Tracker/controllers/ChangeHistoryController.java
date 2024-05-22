@@ -24,7 +24,6 @@ public class ChangeHistoryController {
     @Autowired
     private ChangeHistoryService changeHistoryService;
 
-
     @GetMapping(value = "/data")
     public ResponseEntity<List<ChangeHistory>> teste(){
         List<ChangeHistory> changeHistoryList = changeHistoryService.findAll();
