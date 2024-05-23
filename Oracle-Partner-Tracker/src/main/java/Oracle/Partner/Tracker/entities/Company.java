@@ -86,9 +86,12 @@ public class Company {
         this.address = companyRecord.address();
         this.state = companyRecord.state();
         this.status = Status.ACTIVE;
-        if(!companyRecord.slogan().trim().isEmpty()) {
-            this.slogan = companyRecord.slogan();
-        }
+//        if(companyRecord.slogan().isBlank()){
+//            if(!companyRecord.slogan().trim().isEmpty()) {
+//                this.slogan = companyRecord.slogan();
+//            }
+//        }
+
     }
     public void addCompanyExpertise(CompanyExpertise companyExpertise){
         companyExpertise.setCompany(this);

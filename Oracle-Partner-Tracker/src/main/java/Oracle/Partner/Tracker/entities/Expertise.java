@@ -1,5 +1,6 @@
 package Oracle.Partner.Tracker.entities;
 
+import Oracle.Partner.Tracker.dto.ExpertiseRecord;
 import Oracle.Partner.Tracker.entities.relations.ExpertiseCertification;
 import Oracle.Partner.Tracker.entities.relations.OpnTrackExpertise;
 import Oracle.Partner.Tracker.entities.relations.WorkloadExpertise;
@@ -70,6 +71,12 @@ public class Expertise {
         this.createAt = expertiseDTO.getCreateAt();
         this.updateAt = expertiseDTO.getUpdateAt();
         this.ingestionOperation = expertiseDTO.getIngestionOperation();
+    }
+
+    public Expertise(ExpertiseRecord expertiseRecord){
+        this.name = expertiseRecord.name();
+        this.description = expertiseRecord.description();
+        this.status = Status.valueOf(expertiseRecord.statusString());
     }
 
     public void addWorkloadExpertise(WorkloadExpertise workloadExpertise){

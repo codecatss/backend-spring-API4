@@ -1,5 +1,6 @@
 package Oracle.Partner.Tracker.controllers;
 
+import Oracle.Partner.Tracker.dto.ExpertiseRecord;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,5 +31,10 @@ public class ExpertiseController {
     @PostMapping
     public void addNewExpertise(@RequestBody ExpertiseDTO expertiseDTO){
         expertiseService.saveExpertise(expertiseDTO);
+    }
+
+    @PostMapping(value = "/save")
+    public void saveNewExpertise(@RequestBody ExpertiseRecord expertiseRecord){
+        expertiseService.saveExpertise(expertiseRecord);
     }
 }
