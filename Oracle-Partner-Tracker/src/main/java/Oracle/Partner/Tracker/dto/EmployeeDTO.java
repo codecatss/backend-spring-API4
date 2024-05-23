@@ -1,5 +1,6 @@
 package Oracle.Partner.Tracker.dto;
 
+import Oracle.Partner.Tracker.utils.RoleEnum;
 import com.opencsv.bean.CsvBindByName;
 import Oracle.Partner.Tracker.entities.Company;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
@@ -61,13 +62,12 @@ public class EmployeeDTO implements GenericDTO{
         this.ingestionOperation = IngestionOperation.CSV;
     }
 
-    public EmployeeDTO(String name, String email, String statusString, String memberShipTypeString) {
-        this();
+    public EmployeeDTO(String name, String email, String cnpj, String password) {
         this.name = name;
         this.email = email;
-        this.status = Status.toStatus(statusString);
-        this.memberShipType = MembershipEnum.toMembership(memberShipTypeString);
-        this.ingestionOperation = IngestionOperation.MANUAL;
+        this.cnpjCompanyString = cnpj;
+        this.password = password;
+        this.memberShipType = MembershipEnum.PRINCIPAL;
     }
 
     public void setStatusString(String statusString){
