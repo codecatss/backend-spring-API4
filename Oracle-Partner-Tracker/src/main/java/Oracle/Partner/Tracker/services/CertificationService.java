@@ -1,5 +1,7 @@
 package Oracle.Partner.Tracker.services;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,5 +35,25 @@ public class CertificationService {
     public CertificationDTO getCertificationById(Long id) {
         Optional<Certification> certification = certificationRepository.findById(id);
         return certification.map(this::convertToDto).orElse(null);
+    };
+
+    public CertificationDTO createCertification(CertificationDTO certificationDTO) {
+        Certification certification = convertToEntity(certificationDTO);
+        Certification savedCertification = certificationRepository.save(certification);
+
+        return convertToDto(savedCertification);
+    };
+
+    private Certification convertToEntity(CertificationDTO certificationDTO) {
+        Certification certification = new Certification();
+        certification.setName(certificationDTO.getName());
+        certification.setDescription(certificationDTO.getDescription());
+        certification.setIngestionOperation(certificationDTO.getIngestionOperation());
+        certification.setEmployeeCertification(new ArrayList<>());
+        certification.setExpertiseCertification(new ArrayList<>());
+        certification.setCreateAt(LocalDateTime.now());
+        certification.setLifeTimeMonth(null);
+
+        return certification;
     };
 }
