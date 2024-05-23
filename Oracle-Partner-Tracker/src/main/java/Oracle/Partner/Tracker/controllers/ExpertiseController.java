@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/expertise")
 public class ExpertiseController {
