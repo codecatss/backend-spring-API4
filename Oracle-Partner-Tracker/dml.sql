@@ -1,5 +1,6 @@
 use oracle_partner_network;
 
+--drop view if exists DashboardDTO;
 -- VIEW's
 -- create view DashboardDTO as
 -- SELECT
@@ -20,6 +21,8 @@ use oracle_partner_network;
 -- left join opn_track o on o.id = co.opn_track_id
 -- group by o.name;
 
+
+drop view if exists StatePerCompany;
 create view StatePerCompany as
 select
     c.state,
@@ -28,14 +31,15 @@ from company c
 group by c.state;
 
 -- TERMINAR - averageExpertisePerCompany
-select count(w.workload_id) as workload, w.expertise_id from workload_and_expertise w group by w.expertise_id;
+select count(w.workload_id) as workload, w.expertise_id from workload_and_expertise w group by w.expertise_id
+;
 
 
-
-
+drop view if exists company_expertise_user_count;
 -- Cria a view que trará a quantidade de usuários por empresa com certificação e o progresso de cada um
 CREATE VIEW company_expertise_user_count AS
 SELECT
+
     c.name AS company_name,
     c.state AS company_state,
     e.name AS expertise_name,
@@ -56,6 +60,7 @@ FROM
         LEFT JOIN
     employee_certification uc ON uc.certification_id = cert.id
         JOIN
+
     opn_track_and_expertise otae ON e.id = otae.expertise_id
         JOIN
     opn_track t ON otae.opn_track_id = t.id

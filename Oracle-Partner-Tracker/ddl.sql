@@ -153,6 +153,7 @@ create table workload_and_expertise (
 );
 
 create table expertise_certification (
+
                                          id bigint unsigned not null auto_increment,
                                          certification_id bigint unsigned not null,
                                          expertise_id bigint unsigned not null,
@@ -160,3 +161,4 @@ create table expertise_certification (
                                          foreign key certification_fk (certification_id) references certification (id) on delete restrict on update cascade,
                                          foreign key expertise_fk (expertise_id) references service_expertise (id) on delete restrict on update cascade
 );
+

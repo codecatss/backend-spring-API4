@@ -8,7 +8,11 @@ import Oracle.Partner.Tracker.repositories.ExpertiseRepository;
 import Oracle.Partner.Tracker.repositories.OpnTrackRepository;
 import Oracle.Partner.Tracker.repositories.EmployeeCertificationsRepository;
 import Oracle.Partner.Tracker.utils.DashboardColorEnum;
+
 import Oracle.Partner.Tracker.utils.MapObject;
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
@@ -21,12 +25,18 @@ import java.util.Map;
 
 @Service
 public class DashboardService {
+
     @Autowired
     private ExpertiseRepository expertiseRepository;
+
     @Autowired
     private CompanyRepository companyRepository;
+
     @Autowired
     private OpnTrackRepository opnTrackRepository;
+
+    @Autowired
+    private EmployeeCertificationsRepository employeeCertificationsRepository;
 
     public DashboardDTO getAll(){
         List<Object[]> kpis = expertiseRepository.getDashboardDTO();
@@ -60,24 +70,26 @@ public class DashboardService {
         String[] columnsName = {"title", "amount"};
         Map<String, String> additionalInformation = new HashMap<>();
         additionalInformation.put("avatarIcon", "bx-bar-chart-alt-2");
+
         return MapObject.mapObjectList(opnTrackRepository.getOpnTrackUsageCount(), columnsName, additionalInformation);
+
     }
 
     public Map<Integer, Map<String, String>> getExpertiseUsageCount(){
         String[] columnsName = {"title", "amount"};
         Map<String, String> additionalInformation = new HashMap<>();
         additionalInformation.put("avatarIcon", "bx-bar-chart-alt-2");
+
         return MapObject.mapObjectList(expertiseRepository.getExpertiseUsageCount(), columnsName, additionalInformation);
     }
 
     @Autowired
     private EmployeeCertificationsRepository employeeCertificationsRepository;
 
+
     public List<Object[]> getCertificationsNearExpiration(int daysThreshold) {
         LocalDateTime currentDate = LocalDateTime.now();
         LocalDateTime expirationDateThreshold = currentDate.plusDays(daysThreshold);
         return employeeCertificationsRepository.getEmployeeCertifications(currentDate, expirationDateThreshold);
     }
-    
-    
 }
