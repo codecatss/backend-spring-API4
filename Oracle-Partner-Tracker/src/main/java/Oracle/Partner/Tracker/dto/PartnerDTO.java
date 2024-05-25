@@ -22,17 +22,17 @@ public class PartnerDTO implements GenericDTO{
     @Schema(description = "Senha do usuário", example = "123456")
     private String password;
 
-    @CsvBindByName(column = "Oracle User Status")
-    private String statusString;
-
-    @CsvBindByName(column = "Oracle User Role")
-    private String roleString;
-
     @Schema(description = "Operação de ingestão do usuário", example = "MANUAL")
     private IngestionOperation ingestionOperation;
 
+    @CsvBindByName(column = "Oracle User Status")
+    private String statusString;
+
     @Schema(description = "Status do usuário", example = "ACTIVE")
     private Status status;
+
+    @CsvBindByName(column = "Oracle User Role")
+    private String roleString;
 
     @Schema(description = "Role do usuário", example = "USER")
     private RoleEnum role;
@@ -44,18 +44,18 @@ public class PartnerDTO implements GenericDTO{
     private LocalDateTime updateAt;
 
     public PartnerDTO() {
-        this.password = "oracle";
         this.createAt = LocalDateTime.now();
         this.updateAt = LocalDateTime.now();
         this.status = Status.ACTIVE;
+        this.role = RoleEnum.USER;
         this.ingestionOperation = IngestionOperation.CSV;
     }
 
-    public PartnerDTO(String username, String password, String role) {
+    public PartnerDTO(String username, String password, String role, String statusString) {
         this();
         this.username = username;
         this.password = password;
-        this.role = RoleEnum.valueOf(role);
+        this.role = RoleEnum.toRole(role);
         this.status = Status.toStatus(statusString);
         this.ingestionOperation = IngestionOperation.MANUAL;
     }
@@ -64,8 +64,11 @@ public class PartnerDTO implements GenericDTO{
         this.status = Status.toStatus(statusString);
     }
 
+    public void setRoleString(String roleString){
+        this.role = RoleEnum.toRole(roleString);
+    }
+
     public void setPassword(String password){
-        // criptografar a senha, porque isso vai ser usado com o import csv
         this.password = password;
     }
 }

@@ -1,5 +1,6 @@
 package Oracle.Partner.Tracker.dto;
 
+import Oracle.Partner.Tracker.entities.Expertise;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
 import com.opencsv.bean.CsvBindByName;
 import Oracle.Partner.Tracker.utils.Status;
@@ -40,6 +41,15 @@ public class ExpertiseDTO implements GenericDTO{
         this.updateAt = LocalDateTime.now();
         this.status = Status.ACTIVE;
         this.ingestionOperation = IngestionOperation.CSV;
+    }
+
+    public ExpertiseDTO(Expertise expertise) {
+        this.name = expertise.getName();
+        this.description = expertise.getDescription();
+        this.status = expertise.getStatus();
+        this.ingestionOperation = expertise.getIngestionOperation();
+        this.createAt = expertise.getCreateAt();
+        this.updateAt = expertise.getUpdateAt();
     }
 
     public ExpertiseDTO(String name, String description, String statusString) {
