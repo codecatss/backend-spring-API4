@@ -26,6 +26,7 @@ import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/expertise")
 public class ExpertiseController {
