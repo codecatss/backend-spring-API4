@@ -22,8 +22,8 @@ use oracle_partner_network;
 
 create view StatePerCompany as
 select
-c.state,
-count(c.name) qtde
+    c.state,
+    count(c.name) qtde
 from company c
 group by c.state;
 
@@ -35,7 +35,7 @@ select count(w.workload_id) as workload, w.expertise_id from workload_and_expert
 
 -- Cria a view que trará a quantidade de usuários por empresa com certificação e o progresso de cada um
 CREATE VIEW company_expertise_user_count AS
-SELECT 
+SELECT
     c.name AS company_name,
     c.state AS company_state,
     e.name AS expertise_name,
@@ -43,22 +43,31 @@ SELECT
     COUNT(DISTINCT cert.id) AS total_certifications,
     COUNT(DISTINCT CASE WHEN uc.status = 'PASSED' THEN cert.id END) AS passed_certifications,
     (COUNT(DISTINCT CASE WHEN uc.status = 'PASSED' THEN cert.id END) / COUNT(DISTINCT cert.id)) * 100 AS completion_percentage
-FROM 
+FROM
     company c
-JOIN 
+        JOIN
     company_expertise ce ON c.id = ce.company_id
-JOIN 
+        JOIN
     service_expertise e ON ce.expertise_id = e.id
-JOIN 
+        JOIN
     expertise_certification ec ON e.id = ec.expertise_id
-JOIN 
+        JOIN
     certification cert ON ec.certification_id = cert.id
-LEFT JOIN 
-    user_certification uc ON uc.certification_id = cert.id
-JOIN 
+        LEFT JOIN
+    employee_certification uc ON uc.certification_id = cert.id
+        JOIN
     opn_track_and_expertise otae ON e.id = otae.expertise_id
-JOIN 
+        JOIN
     opn_track t ON otae.opn_track_id = t.id
-GROUP BY 
+GROUP BY
     c.name, c.state, e.name, t.name;
 SELECT * FROM company_expertise_user_count;
+
+
+
+
+
+
+
+
+
