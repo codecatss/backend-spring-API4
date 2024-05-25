@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.CascadeType;
@@ -42,10 +44,13 @@ public class Expertise {
     private String description;
     @Enumerated(EnumType.STRING)
     private Status status;
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY)
     private List<OpnTrackExpertise> opnTrackExpertise = new ArrayList<>();
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY)
     private List<WorkloadExpertise> workloadExpertise = new ArrayList<>();
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY)
     private List<ExpertiseCertification> expertiseCertification = new ArrayList<>();
     @Column(name = "create_at")
