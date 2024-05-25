@@ -1,5 +1,6 @@
 package Oracle.Partner.Tracker.entities;
 
+import Oracle.Partner.Tracker.dto.ExpertiseRecord;
 import Oracle.Partner.Tracker.entities.relations.ExpertiseCertification;
 import Oracle.Partner.Tracker.entities.relations.OpnTrackExpertise;
 import Oracle.Partner.Tracker.entities.relations.WorkloadExpertise;
@@ -49,6 +50,7 @@ public class Expertise {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY)
     private List<OpnTrackExpertise> opnTrackExpertise = new ArrayList<>();
@@ -61,6 +63,7 @@ public class Expertise {
     @OneToMany(fetch = FetchType.LAZY)
     private List<ExpertiseCertification> expertiseCertification = new ArrayList<>();
 
+
     @Column(name = "create_at")
     private LocalDateTime createAt;
 
@@ -71,13 +74,15 @@ public class Expertise {
     @Column(name= "ingestion_operation")
     private IngestionOperation ingestionOperation;
 
+
     @JsonIgnore
     @OneToMany(mappedBy = "expertise", cascade = CascadeType.ALL)
     private List<CompanyExpertise> companyExpertise = new ArrayList<>();
 
+
     public void addCompanyExpertise(CompanyExpertise companyExpertise){
-        companyExpertise.setExpertise(this);
-        this.companyExpertise.add(companyExpertise);
+//        companyExpertise.setExpertise(this);
+//        this.companyExpertise.add(companyExpertise);
     }
 
     public Expertise(ExpertiseDTO expertiseDTO) {
@@ -89,18 +94,24 @@ public class Expertise {
         this.ingestionOperation = expertiseDTO.getIngestionOperation();
     }
 
+    public Expertise(ExpertiseRecord expertiseRecord){
+        this.name = expertiseRecord.name();
+        this.description = expertiseRecord.description();
+        this.status = Status.valueOf(expertiseRecord.statusString());
+    }
+
     public void addWorkloadExpertise(WorkloadExpertise workloadExpertise){
         workloadExpertise.setExpertise(this);
-        this.workloadExpertise.add(workloadExpertise);
+//        this.workloadExpertise.add(workloadExpertise);
     }
 
     public void addOpnTracksExpertise(OpnTrackExpertise opnTrackExpertise){
         opnTrackExpertise.setExpertise(this);
-        this.opnTrackExpertise.add(opnTrackExpertise);
+//        this.opnTrackExpertise.add(opnTrackExpertise);
     }
 
     public void addExpertiseCertification(ExpertiseCertification expertiseCertification){
         expertiseCertification.setExpertise(this);
-        this.expertiseCertification.add(expertiseCertification);
+//        this.expertiseCertification.add(expertiseCertification);
     }
 }
