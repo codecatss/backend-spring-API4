@@ -33,6 +33,7 @@ public class CertificationService {
         CertificationDTO dto = new CertificationDTO();
         dto.setName(certification.getName());
         dto.setDescription(certification.getDescription());
+        dto.setLifeTimeMonth(certification.getLifeTimeMonth());
         dto.setIngestionOperation(certification.getIngestionOperation());
         return dto;
     };
@@ -57,7 +58,7 @@ public class CertificationService {
         certification.setEmployeeCertification(new ArrayList<>());
         certification.setExpertiseCertification(new ArrayList<>());
         certification.setCreateAt(LocalDateTime.now());
-        certification.setLifeTimeMonth(24);
+        certification.setLifeTimeMonth(certificationDTO.getLifeTimeMonth());
 
         return certification;
     };
