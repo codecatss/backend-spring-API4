@@ -48,7 +48,6 @@ public class ExpertiseController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<ExpertiseDTO> updateCompany(@PathVariable Long id, @RequestBody ExpertiseDTO companyDTO) {
-        System.out.println(id);
         ExpertiseDTO oldExpertiseDTO = expertiseService.findExpertiseDtoById(id);
         expertiseService.updateExpertise(id, companyDTO);
         Partner partner = new Partner();

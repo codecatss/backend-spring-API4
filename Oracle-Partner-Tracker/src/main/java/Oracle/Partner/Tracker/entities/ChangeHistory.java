@@ -32,10 +32,10 @@ public class ChangeHistory {
     @Column(name = "change_type")
     @Enumerated(EnumType.STRING)
     private ChangeType changeType;
-    @Column(name = "old_value_hexadecimal")
-    private String oldValueHexadecimal;
-    @Column(name = "new_value_hexadecimal")
-    private String newValueHexadecimal;
+    @Column(name = "old_value")
+    private String oldValue;
+    @Column(name = "new_value")
+    private String newValue;
     @Column(name = "changed_at")
     private LocalDateTime changedAt;
 
@@ -44,8 +44,8 @@ public class ChangeHistory {
         this.recordId = changeHistoryDTO.getRecordId();
         this.tableName = changeHistoryDTO.getTableName();
         this.changeType = changeHistoryDTO.getChangeType();
-        this.oldValueHexadecimal = changeHistoryDTO.getOldValueHexadecimal();
-        this.newValueHexadecimal = changeHistoryDTO.getNewValueHexadecimal();
+        this.oldValue = changeHistoryDTO.getOldValue();
+        this.newValue = changeHistoryDTO.getNewValue();
         this.changedAt = changeHistoryDTO.getChangedAt();
     }
 }

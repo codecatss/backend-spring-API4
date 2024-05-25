@@ -86,19 +86,5 @@ public class PartnerService implements GenericService{
                 partnerRepository.save(new Partner(partnerDTO));
             }
         }
-
-        // Como usar o hitorico do banco de dados
-        Converter converter = new Converter();
-        List<ChangeHistory> changeHistoryList = changeHistoryService.findAll();
-        System.out.println("\nInicio de teste da tabela historica... \n");
-        for(ChangeHistory changeHistory : changeHistoryList){
-            System.out.println("ChangedByPartnerId: "+changeHistory.getChangedByPartnerId());
-            System.out.println("TableName: "+changeHistory.getTableName());
-            System.out.println("ChangeType: "+changeHistory.getChangeType());
-            System.out.println("OldValueJsonFormat: "+converter.hexadecimalToString(changeHistory.getOldValueHexadecimal()));
-            System.out.println("NewValueJsonFormat: "+converter.hexadecimalToString(changeHistory.getNewValueHexadecimal()));
-            System.out.println();
-        }
-        System.out.println("... Fim de teste da tabela historica");
     }
 }
