@@ -14,6 +14,8 @@ public class CertificationDTO implements GenericDTO {
 
     private String description;
 
+    private Integer lifeTimeMonth;
+
     private IngestionOperation ingestionOperation;
 
 }
