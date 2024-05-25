@@ -1,8 +1,13 @@
 package Oracle.Partner.Tracker.controllers;
 
-import Oracle.Partner.Tracker.entities.Partner;
-import Oracle.Partner.Tracker.services.ChangeHistoryService;
-import Oracle.Partner.Tracker.utils.ChangeType;
+
+import Oracle.Partner.Tracker.dto.ExpertiseRecord;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import Oracle.Partner.Tracker.dto.ExpertiseDTO;
+import Oracle.Partner.Tracker.entities.Expertise;
+
 import Oracle.Partner.Tracker.services.ExpertiseService;
 import Oracle.Partner.Tracker.entities.Expertise;
 import Oracle.Partner.Tracker.dto.ExpertiseDTO;
@@ -46,9 +51,9 @@ public class ExpertiseController {
         expertiseService.saveExpertise(expertiseDTO);
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<ExpertiseDTO> updateCompany(@PathVariable Long id, @RequestBody ExpertiseDTO companyDTO) {
-        expertiseService.updateExpertise(id, companyDTO);
-        return ResponseEntity.ok(new ExpertiseDTO());
+    @PostMapping(value = "/save")
+    public void saveNewExpertise(@RequestBody ExpertiseRecord expertiseRecord){
+        expertiseService.saveExpertise(expertiseRecord);
+
     }
 }

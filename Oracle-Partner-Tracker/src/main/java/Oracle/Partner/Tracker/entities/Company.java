@@ -7,6 +7,7 @@ import Oracle.Partner.Tracker.entities.relations.CompanyOpnTrack;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
 import Oracle.Partner.Tracker.utils.Status;
 import Oracle.Partner.Tracker.utils.OPNStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -47,15 +48,17 @@ public class Company {
     @Enumerated(EnumType.STRING)
     private Status status;
     private String slogan;
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
-    private List<Employee> employees = new ArrayList();
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
-    private List<CompanyOpnTrack> companyOpnTrack = new ArrayList<>();
-
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
-    private List<CompanyExpertise> companyExpertise = new ArrayList<>();
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+    private List<Employee> employees;
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+    private List<CompanyOpnTrack> companyOpnTrack;
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+    private List<CompanyExpertise> companyExpertise;
 
     public Company(){
+        this.employees = new ArrayList<>();
+        this.companyOpnTrack = new ArrayList<>();
+        this.companyExpertise = new ArrayList<>();
         this.createAt = LocalDateTime.now();
         this.updateAt = LocalDateTime.now();
     }
@@ -82,9 +85,13 @@ public class Company {
         this.city = companyRecord.city();
         this.address = companyRecord.address();
         this.state = companyRecord.state();
-        if(!companyRecord.slogan().trim().isEmpty()){
-            this.slogan = companyRecord.slogan();
-        }
+        this.status = Status.ACTIVE;
+//        if(companyRecord.slogan().isBlank()){
+//            if(!companyRecord.slogan().trim().isEmpty()) {
+//                this.slogan = companyRecord.slogan();
+//            }
+//        }
+
     }
     public void addCompanyExpertise(CompanyExpertise companyExpertise){
         companyExpertise.setCompany(this);
@@ -96,5 +103,20 @@ public class Company {
     public void addCompanyOpnTrack(CompanyOpnTrack companyOpnTrack){
         companyOpnTrack.setCompany(this);
         this.companyOpnTrack.add(companyOpnTrack);
+    }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "name='" + name + '\'' +
+                ", opnStatus=" + opnStatus +
+                ", country='" + country + '\'' +
+                ", state='" + state + '\'' +
+                ", city='" + city + '\'' +
+                ", address='" + address + '\'' +
+                ", createAt=" + createAt +
+                ", status=" + status +
+                ", slogan='" + slogan + '\'' +
+                '}';
     }
 }

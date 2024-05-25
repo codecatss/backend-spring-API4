@@ -1,5 +1,6 @@
 package Oracle.Partner.Tracker.repositories;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import Oracle.Partner.Tracker.dto.StatePerCompany;
@@ -26,5 +27,7 @@ public interface CompanyRepository extends JpaRepository <Company,Long>{
             "GROUP BY o.name")
     public List<TrackPerCompany> getTrackPerCompany();
 
+    @Query(value = "SELECT c.name, c.opnStatus, c.country, c.state, c.city, c.address, c.createAt, c.status, c.slogan FROM Company c")
+    List<Object[]> findAllCompanyAtributes();
 }
 

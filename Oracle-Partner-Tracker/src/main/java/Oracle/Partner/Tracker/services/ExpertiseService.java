@@ -1,6 +1,14 @@
 package Oracle.Partner.Tracker.services;
 
+
+import Oracle.Partner.Tracker.dto.ExpertiseRecord;
+import Oracle.Partner.Tracker.dto.GenericDTO;
+import org.springframework.stereotype.Service;
+import Oracle.Partner.Tracker.dto.ExpertiseDTO;
+import Oracle.Partner.Tracker.entities.Expertise;
+
 import Oracle.Partner.Tracker.entities.Partner;
+
 import Oracle.Partner.Tracker.repositories.ExpertiseRepository;
 import Oracle.Partner.Tracker.entities.Expertise;
 import Oracle.Partner.Tracker.dto.ExpertiseDTO;
@@ -24,6 +32,10 @@ public class ExpertiseService implements GenericService{
 
     public void saveExpertise(ExpertiseDTO expertiseDTO){
         expertiseRepository.save(new Expertise(expertiseDTO));
+    }
+
+    public void saveExpertise(ExpertiseRecord expertiseRecord){
+        expertiseRepository.save(new Expertise(expertiseRecord));
     }
 
     public List<Expertise> findAllExpertise(){

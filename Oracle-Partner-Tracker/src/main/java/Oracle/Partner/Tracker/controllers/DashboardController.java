@@ -65,15 +65,19 @@ public class DashboardController {
     public Map<Integer, Map<String, String>> getExpertiseUsageCount() {
         return dashboardService.getExpertiseUsageCount();
     }
-;
 
     @GetMapping(value="/certification-per-user")
     public List<Object[]> getUserCertification(){
         return dashboardService.getCertificationsNearExpiration(90);
-    }
+}
+
+    @Autowired
+    private CompanyExpertiseUserCountService companyExpertiseUserCountService;
+
 
     @GetMapping(value="/companyexpertiseusercountservice")
     public List<CompanyExpertiseUserCount> getCompanyExpertiseUserCountService(){
         return companyExpertiseUserCountService.findAllCompanies();
     }
-}
+
+
