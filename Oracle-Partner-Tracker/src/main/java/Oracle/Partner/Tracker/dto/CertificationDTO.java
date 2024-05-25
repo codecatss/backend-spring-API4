@@ -1,5 +1,7 @@
 package Oracle.Partner.Tracker.dto;
 
+import java.time.LocalDateTime;
+
 import Oracle.Partner.Tracker.utils.IngestionOperation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,5 +19,7 @@ public class CertificationDTO implements GenericDTO {
     private Integer lifeTimeMonth;
 
     private IngestionOperation ingestionOperation;
+
+    private LocalDateTime createAt;
 
 }
