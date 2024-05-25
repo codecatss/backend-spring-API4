@@ -37,29 +37,41 @@ import lombok.Data;
 @EqualsAndHashCode
 @Table(name = "service_expertise")
 public class Expertise {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
     private String description;
+
     @Enumerated(EnumType.STRING)
     private Status status;
+
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY)
     private List<OpnTrackExpertise> opnTrackExpertise = new ArrayList<>();
+
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY)
     private List<WorkloadExpertise> workloadExpertise = new ArrayList<>();
+
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY)
     private List<ExpertiseCertification> expertiseCertification = new ArrayList<>();
+
     @Column(name = "create_at")
     private LocalDateTime createAt;
+
     @Column(name = "update_at")
     private LocalDateTime updateAt;
+
     @Enumerated(EnumType.STRING)
     @Column(name= "ingestion_operation")
     private IngestionOperation ingestionOperation;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "expertise", cascade = CascadeType.ALL)
     private List<CompanyExpertise> companyExpertise = new ArrayList<>();
 
