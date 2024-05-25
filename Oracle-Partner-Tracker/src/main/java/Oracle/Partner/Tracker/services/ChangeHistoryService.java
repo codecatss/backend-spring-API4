@@ -35,23 +35,22 @@ public class ChangeHistoryService {
     }
 
     public Map<Integer, Map<String, String>> getAllFromChangeHistoryView(){
-        String[] columns = {"changed_by","table_name","name","old_value","new_value"};
+        String[] columns = {"changeBy", "changeType","tableName","lineName","oldValue","newValue"};
         return MapObjectList.mapObjectList(changeHistoryRepository.getAllFromChangeHistoryView(), columns, null);
     }
 
     public Map<Integer, Map<String, String>> getByIdFromChangeHistoryView(String tableName, String recordId){
-        String[] columns = {"changed_by","table_name","name","old_value","new_value"};
+        String[] columns = {"changeBy","changeType","tableName","lineName","oldValue","newValue","lastChange"};
         return MapObjectList.mapObjectList(changeHistoryRepository.getByIdFromChangeHistoryView(tableName, recordId), columns, null);
     }
 
-    public
-    List<Object[]> findAllTeste(){
-        return changeHistoryRepository.getAllOrderByChangeDate();
+    public Map<Integer, Map<String, String>> getAllGroupByFromChangeHistoryView(){
+        String[] columns = {"recordId","lineName","tableName","quantity","lastChange"};
+        return MapObjectList.mapObjectList(changeHistoryRepository.getAllGroupByFromChangeHistoryView(), columns, null);
     }
 
     public ResponseEntity saveChangeHistory(Partner changedByPartnerId, Long recordId, String tableName, ChangeType changeType, GenericDTO oldEntity, GenericDTO newEntity){
         try{
-            System.out.println(recordId);
             ChangeHistoryDTO changeHistoryDTO = new ChangeHistoryDTO(
                     changedByPartnerId,
                     recordId,

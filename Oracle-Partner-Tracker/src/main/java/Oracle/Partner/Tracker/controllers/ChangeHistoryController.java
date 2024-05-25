@@ -23,18 +23,20 @@ public class ChangeHistoryController {
     private ChangeHistoryService changeHistoryService;
 
     @GetMapping(value = "/data")
-    public ResponseEntity<Map<Integer, Map<String, String>>> teste(){
+    public ResponseEntity<Map<Integer, Map<String, String>>> getAllFromChangeHistoryView(){
         return ResponseEntity.ok(changeHistoryService.getAllFromChangeHistoryView());
     }
 
+    @GetMapping(value = "/data/grouped")
+    public ResponseEntity<Map<Integer, Map<String, String>>> getAllGroupByFromChangeHistoryView(){
+        return ResponseEntity.ok(changeHistoryService.getAllGroupByFromChangeHistoryView());
+    }
+
     @GetMapping(value = "/data/{tableAndId}")
-    public ResponseEntity<Map<Integer, Map<String, String>>> teste2(@PathVariable String tableAndId){
+    public ResponseEntity<Map<Integer, Map<String, String>>> getByIdFromChangeHistoryView(@PathVariable String tableAndId){
         String[] parts = tableAndId.split("-");
         String tableName = parts[0];
         String id = parts[1];
-        System.out.println(tableAndId);
-        System.out.println(tableName);
-        System.out.println(id);
         return ResponseEntity.ok(changeHistoryService.getByIdFromChangeHistoryView(tableName, id));
     }
 }

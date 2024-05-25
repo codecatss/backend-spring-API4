@@ -72,11 +72,13 @@ drop view if exists view_change_history;
 create view view_change_history as
 select
     cp.username,
+    ch.change_type,
     ch.table_name,
     ch.record_id,
     coalesce(c.name,e.name,se.name,ot.name,w.name,ce.name) as name,
     ch.old_value,
-    ch.new_value
+    ch.new_value,
+    ch.changed_at
 from
     change_history ch
 left join partner cp
@@ -93,5 +95,6 @@ left join workload w
     on w.id = case when upper(ch.table_name) = 'WORKLOAD' then ch.record_id else 0 end
 left join certification ce
     on ce.id = case when upper(ch.table_name) = 'CERTIFICATION' then ch.record_id else 0 end
+order by
+    ch.changed_at asc
 ;
-

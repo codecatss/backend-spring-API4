@@ -1,13 +1,16 @@
 package Oracle.Partner.Tracker.services;
 
+import Oracle.Partner.Tracker.entities.Partner;
 import Oracle.Partner.Tracker.repositories.ExpertiseRepository;
 import Oracle.Partner.Tracker.entities.Expertise;
 import Oracle.Partner.Tracker.dto.ExpertiseDTO;
 import Oracle.Partner.Tracker.dto.GenericDTO;
 
+import Oracle.Partner.Tracker.utils.ChangeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -33,12 +36,22 @@ public class ExpertiseService implements GenericService{
 
     public ExpertiseDTO findExpertiseDtoById(Long id){
         return new ExpertiseDTO(findExpertiseById(id));
-
     }
 
-    public void updateExpertise(Long id, ExpertiseDTO expertiseDTO){
-        Expertise expertise = new Expertise(expertiseDTO);
+    public void updateExpertise(Long id, ExpertiseDTO newExpertiseDTO){
+        Expertise oldExpertise = expertiseRepository.findById(id).get();
+
+        Expertise expertise = new Expertise(newExpertiseDTO);
         expertise.setId(id);
+        expertise.setCreateAt(oldExpertise.getCreateAt());
+
+        newExpertiseDTO.setCreateAt(expertise.getCreateAt());
+
+        ExpertiseDTO oldExpertiseDTO = new ExpertiseDTO(oldExpertise);
+
+        Partner partner = new Partner();
+        partner.setId(Long.decode("1"));
+        changeHistoryService.saveChangeHistory(partner, id, "expertise", ChangeType.UPDATE, oldExpertiseDTO, newExpertiseDTO);
         expertiseRepository.save(expertise);
     }
 

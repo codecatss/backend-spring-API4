@@ -48,11 +48,7 @@ public class ExpertiseController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<ExpertiseDTO> updateCompany(@PathVariable Long id, @RequestBody ExpertiseDTO companyDTO) {
-        ExpertiseDTO oldExpertiseDTO = expertiseService.findExpertiseDtoById(id);
         expertiseService.updateExpertise(id, companyDTO);
-        Partner partner = new Partner();
-        partner.setId(Long.decode("1"));
-        changeHistoryService.saveChangeHistory(partner, id, "expertise", ChangeType.UPDATE, oldExpertiseDTO, companyDTO);
         return ResponseEntity.ok(new ExpertiseDTO());
     }
 }
