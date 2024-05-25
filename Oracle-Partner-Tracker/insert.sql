@@ -51,10 +51,26 @@ VALUES
     ('Saúde & Bem-Estar', 'Promovendo uma vida saudável', 'No', '11223344000190', 'Brasil', 'Rio de Janeiro', 'Rio de Janeiro', 'Rua da Saúde, 10000', 'MEMBER', 'CSV', 'ACTIVE'),
     ('Construções Modernas', 'Construindo o futuro com inovação', 'Yes', '22334455000101', 'Brasil', 'Minas Gerais', 'Belo Horizonte', 'Av. da Construção, 8000', 'MEMBER', 'MANUAL', 'ACTIVE');
 
+INSERT INTO partner (username, password, email, role, ingestion_operation, status)
+VALUES
+    ('user_1', 'senha123', 'user_1@email.com', 'USER', 'MANUAL', 'ACTIVE'),
+    ('user_2', 'senha123', 'user_2@email.com', 'USER', 'CSV', 'ACTIVE'),
+    ('user_3', 'senha123', 'user_3@email.com', 'USER', 'CSV', 'INACTIVE'),
+    ('JohnDoe', 'senha123', 'johndoe@email.com', 'USER', 'MANUAL', 'ACTIVE'),
+    ('RobertSmith', 'senha123', 'robertsmith@email.com', 'USER', 'CSV', 'ACTIVE'),
+    ('EmilyJohnson', 'senha123', 'emilyjohnson@email.com', 'USER', 'CSV', 'INACTIVE'),
+    ('MichaelWilliams', 'senha123', 'michaelwilliams@email.com', 'USER', 'CSV', 'ACTIVE'),
+    ('SarahBrown', 'senha123', 'sarahbrown@email.com', 'USER', 'MANUAL', 'ACTIVE'),
+    ('Alec', 'senha123', 'alec@email.com', 'USER', 'MANUAL', 'ACTIVE'),
+    ('Cauana', 'senha123', 'cauana@email.com', 'USER', 'CSV', 'ACTIVE'),
+    ('Larissa', 'senha123', 'larissa@email.com', 'USER', 'CSV', 'ACTIVE'),
+    ('Laroy', 'senha123', 'laroy@email.com', 'USER', 'CSV', 'ACTIVE'),
+    ('Lucas', 'senha123', 'lucas@email.com', 'USER', 'MANUAL', 'ACTIVE'),
+    ('Lukas', 'senha123', 'lukas@email.com', 'USER', 'CSV', 'ACTIVE'),
+    ('Pablo', 'senha123', 'pablo@email.com', 'USER', 'CSV', 'ACTIVE'),
+    ('Willian', 'senha123', 'willian@email.com', 'USER', 'MANUAL', 'ACTIVE');
 
-
-
-INSERT INTO user (company_id, email, password, name, role, membership_type, ingestion_operation, status)
+INSERT INTO employee (company_id, email, password, name, role, membership_type, ingestion_operation, status)
 VALUES
     (1, 'admin@inovatech.com', 'hashed_password_123', 'João Silva', 'ADM', 'PRINCIPAL', 'MANUAL', 'ACTIVE'),
     (2, 'user1@inovatech.com', 'hashed_password_456', 'Maria Santos', 'USER', 'WORLDWIDE', 'CSV', 'ACTIVE'),
@@ -365,7 +381,7 @@ INSERT INTO expertise_certification (certification_id, expertise_id) VALUES
                                                                          (16, 40), (17, 40), (18, 40), (19, 40), (20, 40);
 
 
-INSERT INTO user_certification (certification_id, user_id, expires_at, status) VALUES
+INSERT INTO employee_certification (certification_id, employee_id, expires_at, status) VALUES
       (1, 1, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
       (2, 2, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
       (3, 3, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),

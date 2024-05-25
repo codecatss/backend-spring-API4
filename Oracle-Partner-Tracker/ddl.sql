@@ -34,6 +34,7 @@ create table partner (
     id bigint unsigned not null auto_increment,
     username varchar(50) unique not null,
     password varchar(100) not null,
+    email varchar(50) unique not null,
     role enum('ADM', 'USER') not null,
     ingestion_operation enum('CSV', 'MANUAL'),
     status enum('ACTIVE', 'INACTIVE'),
