@@ -33,8 +33,8 @@ public class EmployeeController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Object> updateUser(@PathVariable Long id,
-                                             @RequestBody EmployeeDTO employeeDTO){
+    public ResponseEntity<Object> updateUser(@PathVariable Long id, @RequestBody EmployeeDTO employeeDTO){
+//        EmployeeDTO newEmployeeDTO = employeeService.findUserById(id);
         return ResponseEntity.status(HttpStatus.OK).body(employeeService.updateUser(id, employeeDTO));
     }
 
