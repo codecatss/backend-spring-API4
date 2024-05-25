@@ -6,7 +6,6 @@ import Oracle.Partner.Tracker.utils.LocalDateTimeAdapter;
 import Oracle.Partner.Tracker.entities.ChangeHistory;
 import Oracle.Partner.Tracker.dto.ChangeHistoryDTO;
 import Oracle.Partner.Tracker.utils.ChangeType;
-import Oracle.Partner.Tracker.utils.Converter;
 import Oracle.Partner.Tracker.dto.GenericDTO;
 
 import Oracle.Partner.Tracker.utils.MapObjectList;
@@ -25,8 +24,6 @@ import java.util.Map;
 public class ChangeHistoryService {
     @Autowired
     private ChangeHistoryRepository changeHistoryRepository;
-
-    private final Converter converter = new Converter();
 
     private final Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
 

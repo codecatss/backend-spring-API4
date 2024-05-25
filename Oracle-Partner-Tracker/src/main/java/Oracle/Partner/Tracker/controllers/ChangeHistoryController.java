@@ -1,17 +1,10 @@
 package Oracle.Partner.Tracker.controllers;
 
-import Oracle.Partner.Tracker.entities.ChangeHistory;
-import Oracle.Partner.Tracker.services.ChangeHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import Oracle.Partner.Tracker.services.ChangeHistoryService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.HttpStatus;
 
-import Oracle.Partner.Tracker.dto.ExpertiseDTO;
-import Oracle.Partner.Tracker.entities.Expertise;
-import Oracle.Partner.Tracker.services.ExpertiseService;
-
-import java.util.List;
 import java.util.Map;
 
 @RestController

@@ -1,10 +1,7 @@
 package Oracle.Partner.Tracker.services;
 
 import Oracle.Partner.Tracker.repositories.PartnerRepository;
-import Oracle.Partner.Tracker.entities.ChangeHistory;
 import Oracle.Partner.Tracker.entities.Partner;
-import Oracle.Partner.Tracker.utils.ChangeType;
-import Oracle.Partner.Tracker.utils.Converter;
 import Oracle.Partner.Tracker.dto.GenericDTO;
 import Oracle.Partner.Tracker.dto.PartnerDTO;
 
