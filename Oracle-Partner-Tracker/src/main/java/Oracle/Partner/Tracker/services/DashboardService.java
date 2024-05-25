@@ -83,9 +83,6 @@ public class DashboardService {
         return MapObject.mapObjectList(expertiseRepository.getExpertiseUsageCount(), columnsName, additionalInformation);
     }
 
-    @Autowired
-    private EmployeeCertificationsRepository employeeCertificationsRepository;
-
 
     public List<Object[]> getCertificationsNearExpiration(int daysThreshold) {
         LocalDateTime currentDate = LocalDateTime.now();

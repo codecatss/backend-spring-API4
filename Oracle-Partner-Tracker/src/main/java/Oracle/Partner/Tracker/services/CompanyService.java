@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import Oracle.Partner.Tracker.dto.CompanyDTO;
 import Oracle.Partner.Tracker.dto.CompanyRecord;
 import Oracle.Partner.Tracker.repositories.CompanyRepository;
 import Oracle.Partner.Tracker.utils.ChangeType;
