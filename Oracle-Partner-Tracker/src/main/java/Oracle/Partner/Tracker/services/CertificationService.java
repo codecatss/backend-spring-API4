@@ -24,6 +24,11 @@ public class CertificationService {
         return certifications.stream().map(this::convertToDto).collect(Collectors.toList());
     };
 
+    public List<Certification> getAllCertificationsWithId() {
+        List<Certification> certifications = certificationRepository.findAll();
+        return certifications;
+    };
+
     private CertificationDTO convertToDto(Certification certification) {
         CertificationDTO dto = new CertificationDTO();
         dto.setName(certification.getName());
@@ -52,7 +57,7 @@ public class CertificationService {
         certification.setEmployeeCertification(new ArrayList<>());
         certification.setExpertiseCertification(new ArrayList<>());
         certification.setCreateAt(LocalDateTime.now());
-        certification.setLifeTimeMonth(null);
+        certification.setLifeTimeMonth(24);
 
         return certification;
     };
