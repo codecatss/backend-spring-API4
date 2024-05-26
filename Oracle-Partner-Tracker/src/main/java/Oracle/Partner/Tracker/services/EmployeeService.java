@@ -1,5 +1,10 @@
 package Oracle.Partner.Tracker.services;
 
+import Oracle.Partner.Tracker.dto.CompanyDTO;
+import Oracle.Partner.Tracker.dto.EmployeeDTO;
+import Oracle.Partner.Tracker.dto.GenericDTO;
+import Oracle.Partner.Tracker.entities.Company;
+import Oracle.Partner.Tracker.entities.Employee;
 import Oracle.Partner.Tracker.repositories.EmployeeRepository;
 
 import Oracle.Partner.Tracker.utils.IngestionOperation;
@@ -10,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -11,7 +11,7 @@ public class DashboardDTO {
     private Integer qtyPartners;
     private Integer qtyPartnersActive;
     private Integer qtyPartnersInactive;
-    private BigDecimal averageTracksPerPartners;
+    private Double averageTracksPerPartners;
     private Integer qtyUsers;
     private Integer qtyTracks;
     private Integer qtyExpertise;

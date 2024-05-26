@@ -46,7 +46,7 @@ public class DashboardService {
             data.setQtyPartners(Integer.parseInt(String.valueOf(obj[0])));
             data.setQtyPartnersActive(Integer.parseInt(String.valueOf(obj[1])));
             data.setQtyPartnersInactive(Integer.parseInt(String.valueOf(obj[2])));
-            data.setAverageTracksPerPartners((BigDecimal) obj[3]);
+            data.setAverageTracksPerPartners((Double) obj[3]);
             data.setQtyUsers(Integer.parseInt(String.valueOf(obj[4])));
             data.setQtyTracks(Integer.parseInt(String.valueOf(obj[5])));
             data.setQtyExpertise(Integer.parseInt(String.valueOf(obj[6])));
