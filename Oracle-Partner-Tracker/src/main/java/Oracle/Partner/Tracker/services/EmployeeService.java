@@ -1,14 +1,11 @@
 package Oracle.Partner.Tracker.services;
 
 import Oracle.Partner.Tracker.repositories.EmployeeRepository;
-import Oracle.Partner.Tracker.entities.Employee;
-import Oracle.Partner.Tracker.entities.Company;
-import Oracle.Partner.Tracker.utils.ChangeType;
-import Oracle.Partner.Tracker.dto.EmployeeDTO;
-import Oracle.Partner.Tracker.dto.GenericDTO;
-import Oracle.Partner.Tracker.dto.CompanyDTO;
 
-import org.springframework.web.server.ResponseStatusException;
+import Oracle.Partner.Tracker.utils.IngestionOperation;
+import Oracle.Partner.Tracker.utils.MembershipEnum;
+import org.springframework.beans.BeanUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.BeanUtils;
@@ -47,13 +44,25 @@ public class EmployeeService implements GenericService{
     }
 
     public Employee registerNewUser(EmployeeDTO user) {
-        if (employeeRepository.existsByEmail(user.getEmail())){
+        if (employeeRepository.existsByEmail(user.getEmail())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
+
+        CompanyDTO companyDto = companyService.findCompanyByCnpj(user.getCnpjCompanyString());
+        if (companyDto == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found");
+        }
+        Company company = new Company(companyDto);
+        company.setId(companyDto.getId());
+        user.setCompany(company);
+        user.setStatusString("ACTIVE");
+        user.setIngestionOperation(IngestionOperation.toIngestionOperation("MANUAL"));
+        user.setMemberShipType(MembershipEnum.toMembership("PRINCIPAL"));
+
         return employeeRepository.save(new Employee(user));
     }
 
-    public Employee updateUser(Long id, EmployeeDTO employeeDTO){
+        public Employee updateUser(Long id, EmployeeDTO employeeDTO){
         Optional<Employee> user = employeeRepository.findById(id);
         if (user.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);

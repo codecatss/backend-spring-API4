@@ -3,6 +3,7 @@ package Oracle.Partner.Tracker.entities;
 import Oracle.Partner.Tracker.dto.EmployeeDTO;
 import Oracle.Partner.Tracker.entities.relations.EmployeeCertification;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
+import Oracle.Partner.Tracker.utils.RoleEnum;
 import Oracle.Partner.Tracker.utils.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -38,6 +39,9 @@ public class Employee {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Enumerated(EnumType.STRING)
+    private RoleEnum role;
+
     @Column(name = "membership_type")
     private String memberShipType;
 
@@ -60,6 +64,7 @@ public class Employee {
         this.name = employeeDTO.getName();
         this.email = employeeDTO.getEmail();
         this.password = employeeDTO.getPassword();
+        this.role = RoleEnum.USER;
         this.ingestionOperation = employeeDTO.getIngestionOperation();
         this.status = employeeDTO.getStatus();
         this.memberShipType = employeeDTO.getMemberShipTypeString();

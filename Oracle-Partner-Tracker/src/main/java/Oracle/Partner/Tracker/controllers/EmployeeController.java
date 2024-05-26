@@ -28,6 +28,7 @@ public class EmployeeController {
     }
 
     @PostMapping
+    @CrossOrigin
     public ResponseEntity<Employee> registerNewUser(@RequestBody EmployeeDTO user){
         return ResponseEntity.status(HttpStatus.CREATED).body(employeeService.registerNewUser(user));
     }

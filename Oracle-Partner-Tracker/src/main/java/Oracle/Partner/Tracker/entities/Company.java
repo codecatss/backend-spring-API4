@@ -48,12 +48,17 @@ public class Company {
     @Enumerated(EnumType.STRING)
     private Status status;
     private String slogan;
-    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
-    private List<Employee> employees;
-    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
-    private List<CompanyOpnTrack> companyOpnTrack;
-    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
-    private List<CompanyExpertise> companyExpertise;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    private List<Employee> employees = new ArrayList();
+    @JsonIgnore
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    private List<CompanyOpnTrack> companyOpnTrack = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    private List<CompanyExpertise> companyExpertise = new ArrayList<>();
 
     public Company(){
         this.employees = new ArrayList<>();
