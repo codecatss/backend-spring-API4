@@ -69,10 +69,34 @@ GROUP BY
 SELECT * FROM company_expertise_user_count;
 
 
-
-
-
-
-
-
+drop view if exists view_change_history;
+create view view_change_history as
+select
+    cp.username,
+    ch.change_type,
+    ch.table_name,
+    ch.record_id,
+    coalesce(c.name,e.name,se.name,ot.name,w.name,ce.name) as name,
+    ch.old_value,
+    ch.new_value,
+    ch.changed_at
+from
+    change_history ch
+left join partner cp
+    on cp.id = ch.changed_by_partner_id
+left join company c
+    on c.id = case when upper(ch.table_name) = 'COMPANY' then ch.record_id else 0 end
+left join employee e
+    on e.id = case when upper(ch.table_name) = 'EMPLOYEE' then ch.record_id else 0 end
+left join service_expertise se
+    on se.id = case when upper(ch.table_name) = 'EXPERTISE' then ch.record_id else 0 end
+left join opn_track ot
+    on ot.id = case when upper(ch.table_name) = 'TRACK' then ch.record_id else 0 end
+left join workload w
+    on w.id = case when upper(ch.table_name) = 'WORKLOAD' then ch.record_id else 0 end
+left join certification ce
+    on ce.id = case when upper(ch.table_name) = 'CERTIFICATION' then ch.record_id else 0 end
+order by
+    ch.changed_at asc
+;
 
