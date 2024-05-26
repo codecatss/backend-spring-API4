@@ -44,6 +44,12 @@ public class CompanyController {
         return ResponseEntity.ok(companies);
     }
 
+    @GetMapping(value = "/active")
+    public ResponseEntity<List<Company>> getAllCompaniesActive() {
+        List<Company> companies = companyService.findAllCompiniesActive();
+        return ResponseEntity.ok(companies);
+    }
+
     @GetMapping(value = "/{id}")
     @Operation(summary = "Find Company by ID", description = "Get a company by its ID")
     @ApiResponses(value = {

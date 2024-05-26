@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import Oracle.Partner.Tracker.dto.StatePerCompany;
 import Oracle.Partner.Tracker.dto.TrackPerCompany;
+import Oracle.Partner.Tracker.utils.Status;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -26,5 +27,6 @@ public interface CompanyRepository extends JpaRepository <Company,Long>{
             "GROUP BY o.name")
     public List<TrackPerCompany> getTrackPerCompany();
 
+    List<Company> findAllByStatus(Status status);
 }
 

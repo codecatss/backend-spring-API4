@@ -97,6 +97,11 @@ public class CompanyService implements GenericService{
         return companies;
     }
 
+    public List<Company> findAllCompiniesActive(){
+        List<Company> companies = companyRepository.findAllByStatus(Status.ACTIVE);
+        return companies;
+    }
+
     public Optional<CompanyDTO> insertCompany(CompanyDTO companyDTO) {   
 
         // Verificando se o CNPJ da empresa é válido

@@ -7,6 +7,7 @@ import Oracle.Partner.Tracker.entities.relations.CompanyOpnTrack;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
 import Oracle.Partner.Tracker.utils.Status;
 import Oracle.Partner.Tracker.utils.OPNStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -47,11 +48,15 @@ public class Company {
     @Enumerated(EnumType.STRING)
     private Status status;
     private String slogan;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<Employee> employees = new ArrayList();
+    @JsonIgnore
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<CompanyOpnTrack> companyOpnTrack = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<CompanyExpertise> companyExpertise = new ArrayList<>();
 
