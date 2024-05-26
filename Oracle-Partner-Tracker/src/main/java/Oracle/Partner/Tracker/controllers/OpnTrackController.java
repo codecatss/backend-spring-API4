@@ -49,7 +49,6 @@ public class OpnTrackController {
         ),
         @ApiResponse(responseCode = "404", description = "OpnTracks not found")
     })
-
     public ResponseEntity<Page<OpnTrackDTO>> getAllOpnTracks(Pageable pageable) {
         Page<OpnTrackDTO> opnTracks = opnTrackService.findAllOpnTracks(pageable);
         return new ResponseEntity<>(opnTracks, HttpStatus.OK);
@@ -70,8 +69,6 @@ public class OpnTrackController {
             description = "OpnTrack not found"
         )
     })
-
-
     public ResponseEntity<OpnTrackDTO> getOpnTrackById(@PathVariable Long id){
         Optional<OpnTrackDTO> opnTrackDTO = opnTrackService.findOpnTrackById(id);
         if (opnTrackDTO != null){

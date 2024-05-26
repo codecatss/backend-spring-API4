@@ -61,6 +61,9 @@ public class Company {
     private List<CompanyExpertise> companyExpertise = new ArrayList<>();
 
     public Company(){
+        this.employees = new ArrayList<>();
+        this.companyOpnTrack = new ArrayList<>();
+        this.companyExpertise = new ArrayList<>();
         this.createAt = LocalDateTime.now();
         this.updateAt = LocalDateTime.now();
     }
@@ -87,9 +90,13 @@ public class Company {
         this.city = companyRecord.city();
         this.address = companyRecord.address();
         this.state = companyRecord.state();
-        if(!companyRecord.slogan().trim().isEmpty()){
-            this.slogan = companyRecord.slogan();
-        }
+        this.status = Status.ACTIVE;
+//        if(companyRecord.slogan().isBlank()){
+//            if(!companyRecord.slogan().trim().isEmpty()) {
+//                this.slogan = companyRecord.slogan();
+//            }
+//        }
+
     }
     public void addCompanyExpertise(CompanyExpertise companyExpertise){
         companyExpertise.setCompany(this);
@@ -101,5 +108,20 @@ public class Company {
     public void addCompanyOpnTrack(CompanyOpnTrack companyOpnTrack){
         companyOpnTrack.setCompany(this);
         this.companyOpnTrack.add(companyOpnTrack);
+    }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "name='" + name + '\'' +
+                ", opnStatus=" + opnStatus +
+                ", country='" + country + '\'' +
+                ", state='" + state + '\'' +
+                ", city='" + city + '\'' +
+                ", address='" + address + '\'' +
+                ", createAt=" + createAt +
+                ", status=" + status +
+                ", slogan='" + slogan + '\'' +
+                '}';
     }
 }

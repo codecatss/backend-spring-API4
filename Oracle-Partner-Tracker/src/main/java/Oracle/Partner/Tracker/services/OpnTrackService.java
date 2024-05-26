@@ -1,29 +1,34 @@
 package Oracle.Partner.Tracker.services;
 
+import Oracle.Partner.Tracker.repositories.OpnTrackRepository;
+import Oracle.Partner.Tracker.utils.IngestionOperation;
+import Oracle.Partner.Tracker.entities.OpnTrack;
+import Oracle.Partner.Tracker.utils.ChangeType;
+import Oracle.Partner.Tracker.dto.OpnTrackDTO;
+import Oracle.Partner.Tracker.dto.GenericDTO;
+import Oracle.Partner.Tracker.utils.Status;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import Oracle.Partner.Tracker.dto.GenericDTO;
-import Oracle.Partner.Tracker.utils.IngestionOperation;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import Oracle.Partner.Tracker.dto.OpnTrackDTO;
-import Oracle.Partner.Tracker.entities.OpnTrack;
-import Oracle.Partner.Tracker.repositories.OpnTrackRepository;
-import Oracle.Partner.Tracker.utils.Status;
-
 @Service
 public class OpnTrackService implements GenericService{
-
+    @Autowired
     private OpnTrackRepository opnTrackRepository;
 
     @Autowired
-    public void setOpnTrackRepository(OpnTrackRepository opnTrackRepository) {
-        this.opnTrackRepository = opnTrackRepository;
-    }
+    private ChangeHistoryService changeHistoryService;
+
+//    @Autowired
+//    public void setOpnTrackRepository(OpnTrackRepository opnTrackRepository) {
+//        this.opnTrackRepository = opnTrackRepository;
+//    }
 
     public Optional<OpnTrackDTO> findOpnTrackById(Long id){
         Optional<OpnTrack> opnTrack = opnTrackRepository.findById(id);

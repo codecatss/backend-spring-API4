@@ -3,7 +3,9 @@ package Oracle.Partner.Tracker.controllers;
 import Oracle.Partner.Tracker.dto.CompanyDTO;
 import Oracle.Partner.Tracker.dto.CompanyRecord;
 import Oracle.Partner.Tracker.entities.Company;
+import Oracle.Partner.Tracker.services.ChangeHistoryService;
 import Oracle.Partner.Tracker.services.CompanyService;
+import Oracle.Partner.Tracker.utils.ChangeType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
@@ -25,22 +28,12 @@ public class CompanyController {
     @Autowired
     private CompanyService companyService;
 
+    @Autowired
+    private ChangeHistoryService changeHistoryService;
+
     @GetMapping
-    //@Operation(summary = "Company", description = "Get all companies")
-    //@ApiResponses(value = {
-    //        @ApiResponse(
-    //                responseCode = "200",
-    //                content = @Content(
-    //                        array = @ArraySchema(
-    //                                schema = @Schema(implementation = Company.class)
-    //                        )
-    //                ),
-    //                description = "Companies retrieved"
-    //        ),
-    //        @ApiResponse(responseCode = "404", description = "Companies not found")
-    //})
-    public ResponseEntity<List<Company>> getAllCompanies() {
-        List<Company> companies = companyService.findAllCompanies();
+    public ResponseEntity<Map<Integer, Map<String, String>> > getAllCompanies() {
+        Map<Integer, Map<String, String>>  companies = companyService.findAllCompanies();
         return ResponseEntity.ok(companies);
     }
 
@@ -94,8 +87,10 @@ public class CompanyController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<CompanyDTO> updateCompany(@PathVariable Long id, @RequestBody CompanyDTO companyDTO) {
-        companyDTO = companyService.updateCompany(id, companyDTO);
-        return ResponseEntity.ok(companyDTO);
+        CompanyDTO oldCompanyDTO = companyService.getCompanyById(id);
+        CompanyDTO newCompanyDTO = companyService.updateCompany(id, companyDTO);
+//        changeHistoryService.saveChangeHistory(Long.decode("1"), id, "company", ChangeType.UPDATE, oldCompanyDTO, newCompanyDTO);
+        return ResponseEntity.ok(newCompanyDTO);
     }
 
     @DeleteMapping(value = "/{id}")

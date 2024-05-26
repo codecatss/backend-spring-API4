@@ -1,18 +1,15 @@
 package Oracle.Partner.Tracker.services;
 
-import Oracle.Partner.Tracker.dto.CompanyDTO;
-import Oracle.Partner.Tracker.dto.GenericDTO;
-import Oracle.Partner.Tracker.dto.EmployeeDTO;
-import Oracle.Partner.Tracker.entities.Company;
-import Oracle.Partner.Tracker.entities.Employee;
 import Oracle.Partner.Tracker.repositories.EmployeeRepository;
+
 import Oracle.Partner.Tracker.utils.IngestionOperation;
 import Oracle.Partner.Tracker.utils.MembershipEnum;
 import org.springframework.beans.BeanUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,6 +23,9 @@ public class EmployeeService implements GenericService{
 
     @Autowired
     private CompanyService companyService;
+
+    @Autowired
+    private ChangeHistoryService changeHistoryService;
 
     public List<Employee> findAllUsers() {
         List<Employee> allEmployees = employeeRepository.findAll();
