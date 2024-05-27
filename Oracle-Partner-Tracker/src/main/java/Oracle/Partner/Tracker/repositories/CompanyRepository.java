@@ -1,16 +1,15 @@
 package Oracle.Partner.Tracker.repositories;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import Oracle.Partner.Tracker.dto.StatePerCompany;
 import Oracle.Partner.Tracker.dto.TrackPerCompany;
+import Oracle.Partner.Tracker.utils.Status;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import Oracle.Partner.Tracker.entities.Company;
-import Oracle.Partner.Tracker.entities.relations.UserCertification;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -28,6 +27,11 @@ public interface CompanyRepository extends JpaRepository <Company,Long>{
             "LEFT JOIN co.opnTrack o " +
             "GROUP BY o.name")
     public List<TrackPerCompany> getTrackPerCompany();
+
+    List<Company> findAllByStatus(Status status);
+
+    @Query(value = "SELECT c.name, c.opnStatus, c.country, c.state, c.city, c.address, c.createAt, c.status, c.slogan FROM Company c")
+    List<Object[]> findAllCompanyAtributes();
 
 }
 

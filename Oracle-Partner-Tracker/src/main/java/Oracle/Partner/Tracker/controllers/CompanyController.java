@@ -1,51 +1,45 @@
 package Oracle.Partner.Tracker.controllers;
 
 import Oracle.Partner.Tracker.dto.CompanyDTO;
+import Oracle.Partner.Tracker.dto.CompanyRecord;
 import Oracle.Partner.Tracker.entities.Company;
-import Oracle.Partner.Tracker.repositories.CompanyRepository;
+import Oracle.Partner.Tracker.services.ChangeHistoryService;
 import Oracle.Partner.Tracker.services.CompanyService;
+import Oracle.Partner.Tracker.utils.ChangeType;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.Map;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping(value = "/company")
 public class CompanyController {
 
     @Autowired
     private CompanyService companyService;
 
+    @Autowired
+    private ChangeHistoryService changeHistoryService;
+
     @GetMapping
-    //@Operation(summary = "Company", description = "Get all companies")
-    //@ApiResponses(value = {
-    //        @ApiResponse(
-    //                responseCode = "200",
-    //                content = @Content(
-    //                        array = @ArraySchema(
-    //                                schema = @Schema(implementation = Company.class)
-    //                        )
-    //                ),
-    //                description = "Companies retrieved"
-    //        ),
-    //        @ApiResponse(responseCode = "404", description = "Companies not found")
-    //})
-    public ResponseEntity<List<Company>> getAllCompanies() {
-        List<Company> companies = companyService.findAllCompanies();
+    public ResponseEntity<Map<Integer, Map<String, String>> > getAllCompanies() {
+        Map<Integer, Map<String, String>>  companies = companyService.findAllCompanies();
+        return ResponseEntity.ok(companies);
+    }
+
+    @GetMapping(value = "/active")
+    public ResponseEntity<List<Company>> getAllCompaniesActive() {
+        List<Company> companies = companyService.findAllCompiniesActive();
         return ResponseEntity.ok(companies);
     }
 
@@ -93,8 +87,10 @@ public class CompanyController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<CompanyDTO> updateCompany(@PathVariable Long id, @RequestBody CompanyDTO companyDTO) {
-        companyDTO = companyService.updateCompany(id, companyDTO);
-        return ResponseEntity.ok(companyDTO);
+        CompanyDTO oldCompanyDTO = companyService.getCompanyById(id);
+        CompanyDTO newCompanyDTO = companyService.updateCompany(id, companyDTO);
+//        changeHistoryService.saveChangeHistory(Long.decode("1"), id, "company", ChangeType.UPDATE, oldCompanyDTO, newCompanyDTO);
+        return ResponseEntity.ok(newCompanyDTO);
     }
 
     @DeleteMapping(value = "/{id}")
@@ -107,5 +103,11 @@ public class CompanyController {
     public ResponseEntity<Void> enableCompany(@PathVariable Long id) {
         companyService.enableCompany(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping(value = "/save")
+    public ResponseEntity company(@RequestBody CompanyRecord companyRecord){
+        companyService.saveCompany(companyRecord);
+        return ResponseEntity.ok().build();
     }
 }

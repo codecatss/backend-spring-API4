@@ -1,6 +1,5 @@
 package Oracle.Partner.Tracker.entities.relations;
 
-import Oracle.Partner.Tracker.entities.Company;
 import Oracle.Partner.Tracker.entities.Expertise;
 import Oracle.Partner.Tracker.entities.OpnTrack;
 import jakarta.persistence.*;

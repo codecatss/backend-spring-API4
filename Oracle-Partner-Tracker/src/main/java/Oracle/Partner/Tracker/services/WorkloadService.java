@@ -1,10 +1,12 @@
 package Oracle.Partner.Tracker.services;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import Oracle.Partner.Tracker.dto.GenericDTO;
+import Oracle.Partner.Tracker.dto.PartnerDTO;
+import Oracle.Partner.Tracker.utils.ChangeType;
 import Oracle.Partner.Tracker.utils.IngestionOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,14 +18,18 @@ import Oracle.Partner.Tracker.repositories.WorkloadRepository;
 import Oracle.Partner.Tracker.utils.Status;
 
 @Service
-public class WorkloadService extends CsvService<WorkloadDTO>{
+public class WorkloadService implements GenericService{
 
+    @Autowired
     private WorkloadRepository workloadRepository;
 
     @Autowired
-    public void setWorkloadRepository(WorkloadRepository workloadRepository) {
-        this.workloadRepository = workloadRepository;
-    }
+    private ChangeHistoryService changeHistoryService;
+
+//    @Autowired
+//    public void setWorkloadRepository(WorkloadRepository workloadRepository) {
+//        this.workloadRepository = workloadRepository;
+//    }
 
     public Optional<WorkloadDTO> findWorkloadById(Long id){
         Optional<Workload> workload = workloadRepository.findById(id);
@@ -105,19 +111,18 @@ public class WorkloadService extends CsvService<WorkloadDTO>{
     }
 
     @Override
-    public List<WorkloadDTO> mapCsvToEntities(List<String[]> csvData){
-        String[] header = csvData.get(0);
-        List<WorkloadDTO> workloads = new ArrayList<>();
+    public Class<?> getDtoClass() {
+        return WorkloadDTO.class;
+    }
 
-        for (int i = 1; i < csvData.size(); i++){
-            String[] row = csvData.get(i);
-
-            Optional<WorkloadDTO> workloadDTO = mapRowToWorkload(row, header);
-            if (workloadDTO.isPresent()){
-                workloads.add(workloadDTO.get());
+    @Override
+    public void saveAllGenericDTO(List<GenericDTO> genericDTOList) {
+        for(GenericDTO genericDTO : genericDTOList){
+            WorkloadDTO workloadDTO = (WorkloadDTO) genericDTO;
+            if(workloadRepository.findByName(workloadDTO.getName()) == null){
+                workloadRepository.save(new Workload(workloadDTO));
             }
         }
-        return workloads;
     }
 
     public Optional<WorkloadDTO> mapRowToWorkload(String[] row, String[] header){

@@ -1,27 +1,40 @@
 package Oracle.Partner.Tracker.services;
 
+
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import Oracle.Partner.Tracker.utils.IngestionOperation;
+
+import Oracle.Partner.Tracker.dto.CompanyDTO;
+import Oracle.Partner.Tracker.dto.CompanyRecord;
+import Oracle.Partner.Tracker.repositories.CompanyRepository;
+import Oracle.Partner.Tracker.utils.ChangeType;
+import Oracle.Partner.Tracker.entities.Company;
+import Oracle.Partner.Tracker.dto.GenericDTO;
+
+import Oracle.Partner.Tracker.utils.MapObject;
 import Oracle.Partner.Tracker.utils.Status;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import Oracle.Partner.Tracker.utils.OPNStatus;
-import Oracle.Partner.Tracker.dto.CompanyDTO;
-import Oracle.Partner.Tracker.entities.Company;
-import Oracle.Partner.Tracker.repositories.CompanyRepository;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.List;
 
 @Service
-public class CompanyService extends CsvService<CompanyDTO>{
+public class CompanyService implements GenericService{
 
     @Autowired
     private CompanyRepository companyRepository;
 
-    public void setCompanyRepository(CompanyRepository companyRepository) {
-        this.companyRepository = companyRepository;
-    }
+    @Autowired
+    private ChangeHistoryService changeHistoryService;
+
+//    public void setCompanyRepository(CompanyRepository companyRepository) {
+//        this.companyRepository = companyRepository;
+//    }
 
     public CompanyDTO getCompanyById(Long id) {
         Optional<Company> company = companyRepository.findById(id);
@@ -38,8 +51,22 @@ public class CompanyService extends CsvService<CompanyDTO>{
         return Optional.ofNullable(company).orElse(null).map(CompanyDTO::new);
     }
 
-    public List<Company> findAllCompanies(){
-        List<Company> companies = companyRepository.findAll();
+    public Map<Integer, Map<String, String>>  findAllCompanies(){
+        List<Object[]> companies = companyRepository.findAllCompanyAtributes();
+        String[] columns = {"name", "opnStatus", "country", "state", "city", "address", "createAt", "status", "slogan"};
+        return MapObject.mapObjectList(companies, columns, null);
+    }
+
+    public void saveAllCompany(List<Company> companies){
+        companyRepository.saveAll(companies);
+    }
+
+    public void saveCompany(CompanyRecord companyRecord){
+        companyRepository.save(new Company(companyRecord));
+    }
+
+    public List<Company> findAllCompiniesActive(){
+        List<Company> companies = companyRepository.findAllByStatus(Status.ACTIVE);
         return companies;
     }
 
@@ -83,7 +110,6 @@ public class CompanyService extends CsvService<CompanyDTO>{
         return Optional.of(new CompanyDTO(company));
     }
 
-
     public CompanyDTO updateCompany(Long id,CompanyDTO companyDTO) {
 
         Company company = companyRepository.findById(id).orElseThrow(
@@ -108,9 +134,7 @@ public class CompanyService extends CsvService<CompanyDTO>{
             );
             company.setStatus(Status.ACTIVE);
             companyRepository.save(company);
-
         }
-
 
     private void copyDTOtoEntity(CompanyDTO companyDTO, Company company) {
         company.setName(companyDTO.getName());
@@ -136,102 +160,18 @@ public class CompanyService extends CsvService<CompanyDTO>{
         company.setUpdateAt(LocalDateTime.now());
     }
 
+    @Override
+    public Class<?> getDtoClass() {
+        return CompanyDTO.class;
+    }
 
     @Override
-    public List<CompanyDTO> mapCsvToEntities(List<String[]> csvData) {
-
-        String[] header = csvData.get(0);
-        List<CompanyDTO> companies = new ArrayList<>();
-
-
-        for (int i = 1; i < csvData.size(); i++) {
-            String[] row = csvData.get(i);
-
-            Optional<CompanyDTO> companyDTO =  mapRowToCompany(row, header);
-            if (companyDTO != null){
-                companies.add(companyDTO.get());
+    public void saveAllGenericDTO(List<GenericDTO> genericDTOList) {
+        for(GenericDTO genericDTO : genericDTOList){
+            CompanyDTO companyDTO = (CompanyDTO) genericDTO;
+            if(companyRepository.findByCnpj(companyDTO.getCnpj()) == null){
+                companyRepository.save(new Company(companyDTO));
             }
         }
-
-        return companies;
     }
-    public Optional<CompanyDTO> mapRowToCompany(String[] row, String[] header) {
-        CompanyDTO companyDTO = new CompanyDTO();
-    
-        for (int i = 0; i < header.length; i++) {
-            companyDTO.setIngestionOperation(IngestionOperation.CSV);
-            switch (header[i]) {
-                case "Company Name":
-                    String companyName = row[i];
-                    if (companyName != null && !companyName.isBlank()) {
-                        companyDTO.setName(companyName);
-                    } else {
-                        // Se o nome da empresa for nulo ou vazio, pule esta linha
-                        return Optional.empty();
-                    }
-                    break;
-                case "Status":
-                    if(row[i].equals("Active")){
-                        companyDTO.setStatus(Status.ACTIVE);
-                    }else{
-                        companyDTO.setStatus(Status.INACTIVE);
-                    }
-                    break;
-                case "OPN Status":
-                    if(row[i].equals("Active")){
-                        companyDTO.setOpnStatus(OPNStatus.MEMBER);
-                    }else{
-                        companyDTO.setOpnStatus(OPNStatus.EXPIRED);
-                    };
-                    break;
-                case "Company ID":
-                    companyDTO.setCnpj(row[i]);
-                    break;
-                case "State":
-                    companyDTO.setState(row[i]);
-                    break;
-                case "Country":
-                    companyDTO.setCountry(row[i]);
-                    break;
-                case "City":
-                    companyDTO.setCity(row[i]);
-                    break;
-                case "Address":
-                    companyDTO.setAddress(row[i]);
-                    break;
-                case "Credit Hold":
-                    companyDTO.setCreditHold(row[i]);
-                    break;
-                case "Slogan":
-                    companyDTO.setSlogan(row[i]);
-                    break;
-                default:
-                    break;
-            }
-        }
-    
-        // Verifique se o nome da empresa foi definido
-        if (companyDTO.getName() == null || companyDTO.getName().isBlank()) {
-            // Se o nome da empresa ainda for nulo ou vazio, retorne Optional.empty()
-            return Optional.empty();
-        }
-    
-        // Verifique se a empresa já existe no banco de dados antes de inserir
-        CompanyDTO optionalCompany = this.findCompanyByCnpj(companyDTO.getCnpj());
-        if (optionalCompany != null) {
-
-            // Se a empresa já existir, retorne Optional.empty()
-            return null;
-        }
-    
-        Company company = new Company();
-        copyDTOtoEntity(companyDTO, company);
-    
-        // Insira a empresa no banco de dados
-        company = companyRepository.save(company);
-    
-        return Optional.of(new CompanyDTO(company));
-    }
-    
-
-}    
+}

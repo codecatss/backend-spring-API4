@@ -7,10 +7,9 @@ public enum Status {
 
     public static Status toStatus(String statusString){
         return switch (statusString.toLowerCase().trim()) {
-            case "active" -> Status.ACTIVE;
+//            case "active" -> Status.ACTIVE;
             case "inactive" -> Status.INACTIVE;
-            default -> null;
+            default -> Status.ACTIVE;
         };
     }
-
 }
