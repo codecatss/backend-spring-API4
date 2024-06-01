@@ -3,6 +3,7 @@ package Oracle.Partner.Tracker.controllers;
 import Oracle.Partner.Tracker.dto.CompanyDTO;
 import Oracle.Partner.Tracker.dto.CompanyRecord;
 import Oracle.Partner.Tracker.entities.Company;
+import Oracle.Partner.Tracker.repositories.CompanyRepository;
 import Oracle.Partner.Tracker.services.ChangeHistoryService;
 import Oracle.Partner.Tracker.services.CompanyService;
 import Oracle.Partner.Tracker.utils.ChangeType;
@@ -34,6 +35,16 @@ public class CompanyController {
     @GetMapping
     public ResponseEntity<Map<Integer, Map<String, String>> > getAllCompanies() {
         Map<Integer, Map<String, String>>  companies = companyService.findAllCompanies();
+        return ResponseEntity.ok(companies);
+    }
+
+
+    @Autowired
+    private CompanyRepository companyRepository;
+
+    @GetMapping(value = "/companies")
+    public ResponseEntity<List<Company>> getAllCompaniesData() {
+        List<Company> companies = companyRepository.findAll();
         return ResponseEntity.ok(companies);
     }
 
