@@ -3,6 +3,7 @@ package Oracle.Partner.Tracker.controllers;
 import Oracle.Partner.Tracker.dto.CompanyDTO;
 import Oracle.Partner.Tracker.dto.CompanyRecord;
 import Oracle.Partner.Tracker.entities.Company;
+import Oracle.Partner.Tracker.repositories.CompanyRepository;
 import Oracle.Partner.Tracker.services.ChangeHistoryService;
 import Oracle.Partner.Tracker.services.CompanyService;
 import Oracle.Partner.Tracker.utils.ChangeType;
@@ -37,35 +38,31 @@ public class CompanyController {
         return ResponseEntity.ok(companies);
     }
 
+
+    @Autowired
+    private CompanyRepository companyRepository;
+
+
+
+    @CrossOrigin("*")
+    @GetMapping(value = "/companies")
+    public ResponseEntity<List<Company>> getAllCompaniesData() {
+        List<Company> companies = companyRepository.findAll();
+        return ResponseEntity.ok(companies);
+    }
+
     @GetMapping(value = "/active")
     public ResponseEntity<List<Company>> getAllCompaniesActive() {
         List<Company> companies = companyService.findAllCompiniesActive();
         return ResponseEntity.ok(companies);
     }
 
-    @GetMapping(value = "/{id}")
-    @Operation(summary = "Find Company by ID", description = "Get a company by its ID")
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Successful operation",
-                    content = @Content(
-                            schema = @Schema(implementation = CompanyDTO.class)
-                    )
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "Company not found"
-            )
-    })
-    public ResponseEntity<CompanyDTO> getCompanyById(@PathVariable Long id) {
-        CompanyDTO companyDTO = companyService.getCompanyById(id);
-        if (companyDTO != null) {
-            return new ResponseEntity<>(companyDTO, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @GetMapping(value = "/{cnpj}")
+    public ResponseEntity<Company> getCompanyByCnpj(@PathVariable String cnpj) {
+        Company company = companyRepository.findByCnpj(cnpj);
+        return ResponseEntity.ok(company);
     }
+
 
     @PostMapping
     @Operation(summary = "Insert Company", description = "Insert a new company")
