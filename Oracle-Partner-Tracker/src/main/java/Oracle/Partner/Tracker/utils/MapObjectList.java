@@ -1,29 +1,26 @@
 package Oracle.Partner.Tracker.utils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class MapObjectList {
-    public static Map<Integer, Map<String, String>> mapObjectList(List<Object[]> objectList, String[] columnsName, Map<String, String> additionalInformation){
-        List<DashboardColorEnum> listOfColorsAlreadyUsed = new ArrayList<>();
-        DashboardColorEnum color = DashboardColorEnum.getRandom();
-        Map<Integer, Map<String, String>> queryDataMap = new HashMap<>();
-        int cont = 1;
-        for(Object[] object : objectList){
-            Map<String, String> mapOfObject = new HashMap<>();
-            for (int i = 0; i < object.length; i++) {
-                mapOfObject.put(columnsName[i], object[i].toString());
+    public static Map<Integer, Map<String, String>> mapObjectList(List<Object[]> objectList, String[] columns, String dateFormat) {
+        Map<Integer, Map<String, String>> resultMap = new HashMap<>();
+
+        for (int i = 0; i < objectList.size(); i++) {
+            Object[] object = objectList.get(i);
+            Map<String, String> columnMap = new HashMap<>();
+            for (int j = 0; j < columns.length; j++) {
+                if (object[j] != null) {
+                    columnMap.put(columns[j], object[j].toString());
+                } else {
+                    columnMap.put(columns[j], null);
+                }
             }
-            if (additionalInformation != null) {
-                mapOfObject.putAll(additionalInformation);
-            }
-            mapOfObject.put("avatarColor", DashboardColorEnum.getValueFormated(DashboardColorEnum.getRandom()));
-            queryDataMap.put(cont++, mapOfObject);
-            listOfColorsAlreadyUsed.add(color);
-            color = DashboardColorEnum.getRandomColorDifferentOf(listOfColorsAlreadyUsed);
+            resultMap.put(i, columnMap);
         }
-        return queryDataMap;
+
+        return resultMap;
     }
 }
