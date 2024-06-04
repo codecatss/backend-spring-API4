@@ -53,7 +53,7 @@ public class CompanyService implements GenericService{
 
     public Map<Integer, Map<String, String>>  findAllCompanies(){
         List<Object[]> companies = companyRepository.findAllCompanyAtributes();
-        String[] columns = {"name", "opnStatus", "country", "state", "city", "address", "createAt", "status", "slogan"};
+        String[] columns = {"name", "opnStatus", "country", "state", "city", "address", "createAt", "status", "site"};
         return MapObject.mapObjectList(companies, columns, null);
     }
 
@@ -144,7 +144,7 @@ public class CompanyService implements GenericService{
         company.setCountry(companyDTO.getCountry());
         company.setCnpj(companyDTO.getCnpj());
         company.setCreditHold(companyDTO.getCreditHold());
-        company.setSlogan(companyDTO.getSlogan());
+        company.setSite(companyDTO.getSite());
         company.setIngestionOperation(companyDTO.getIngestionOperation());
         company.setOpnStatus(companyDTO.getOpnStatus());
 

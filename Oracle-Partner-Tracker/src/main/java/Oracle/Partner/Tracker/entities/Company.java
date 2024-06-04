@@ -47,7 +47,7 @@ public class Company {
     private String creditHold;
     @Enumerated(EnumType.STRING)
     private Status status;
-    private String slogan;
+    private String site;
 
     @JsonIgnore
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
@@ -80,7 +80,7 @@ public class Company {
         this.ingestionOperation = companyDTO.getIngestionOperation();
         this.creditHold = companyDTO.getCreditHold();
         this.status = companyDTO.getStatus();
-        this.slogan = companyDTO.getSlogan();
+        this.site = companyDTO.getSite();
     }
 
     public Company(CompanyRecord companyRecord){
@@ -91,9 +91,9 @@ public class Company {
         this.address = companyRecord.address();
         this.state = companyRecord.state();
         this.status = Status.ACTIVE;
-//        if(companyRecord.slogan().isBlank()){
-//            if(!companyRecord.slogan().trim().isEmpty()) {
-//                this.slogan = companyRecord.slogan();
+//        if(companyRecord.site().isBlank()){
+//            if(!companyRecord.site().trim().isEmpty()) {
+//                this.site = companyRecord.site();
 //            }
 //        }
 
@@ -121,7 +121,7 @@ public class Company {
                 ", address='" + address + '\'' +
                 ", createAt=" + createAt +
                 ", status=" + status +
-                ", slogan='" + slogan + '\'' +
+                ", site='" + site + '\'' +
                 '}';
     }
 }

@@ -30,7 +30,7 @@ public interface CompanyRepository extends JpaRepository <Company,Long>{
 
     List<Company> findAllByStatus(Status status);
 
-    @Query(value = "SELECT c.name, c.opnStatus, c.country, c.state, c.city, c.address, c.createAt, c.status, c.slogan FROM Company c")
+    @Query(value = "SELECT c.name, c.opnStatus, c.country, c.state, c.city, c.address, c.createAt, c.status, c.site FROM Company c")
     List<Object[]> findAllCompanyAtributes();
 
 }
