@@ -34,7 +34,7 @@ group by c.state;
 select count(w.workload_id) as workload, w.expertise_id from workload_and_expertise w group by w.expertise_id
 ;
 
--- Drop the existing view if it exists
+--- Drop the existing view if it exists
 DROP VIEW IF EXISTS company_expertise_user_count;
 
 -- Cria a view que trará a quantidade de usuários por empresa com certificação e o progresso de cada um
@@ -71,6 +71,7 @@ FROM
 GROUP BY
     c.name, c.state, e.name, t.name, w.name;
 
+-- Seleciona tudo da view criada para visualização
 SELECT * FROM company_expertise_user_count;
 
 drop view if exists view_change_history;
