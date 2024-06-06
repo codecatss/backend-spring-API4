@@ -4,6 +4,7 @@ import Oracle.Partner.Tracker.dto.DashboardDTO;
 import Oracle.Partner.Tracker.dto.TrackPerCompany;
 import Oracle.Partner.Tracker.entities.CompanyExpertiseUserCount;
 import Oracle.Partner.Tracker.dto.StatePerCompany;
+import Oracle.Partner.Tracker.repositories.CompanyRepository;
 import Oracle.Partner.Tracker.services.CompanyExpertiseUserCountService;
 import Oracle.Partner.Tracker.services.DashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,5 +78,16 @@ import java.util.Map;
             return companyExpertiseUserCountService.findAllCompanies();
         }
 
+        @Autowired
+        CompanyRepository companyRepository;
+
+        @GetMapping(value = "/completeworkloads")
+        public ResponseEntity<List<Object[]>> getCompaniesWithCompleteWorkloads() {
+            List<Object[]> data = companyRepository.findCompaniesWithCompleteWorkloads();
+            if (data == null || data.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(data);
+        }
 
     }
