@@ -34,16 +34,17 @@ group by c.state;
 select count(w.workload_id) as workload, w.expertise_id from workload_and_expertise w group by w.expertise_id
 ;
 
+-- Drop the existing view if it exists
+DROP VIEW IF EXISTS company_expertise_user_count;
 
-drop view if exists company_expertise_user_count;
 -- Cria a view que trará a quantidade de usuários por empresa com certificação e o progresso de cada um
 CREATE VIEW company_expertise_user_count AS
 SELECT
-
     c.name AS company_name,
     c.state AS company_state,
     e.name AS expertise_name,
     t.name AS track_name,
+    w.name AS workload_name,
     COUNT(DISTINCT cert.id) AS total_certifications,
     COUNT(DISTINCT CASE WHEN uc.status = 'PASSED' THEN cert.id END) AS passed_certifications,
     (COUNT(DISTINCT CASE WHEN uc.status = 'PASSED' THEN cert.id END) / COUNT(DISTINCT cert.id)) * 100 AS completion_percentage
@@ -60,14 +61,17 @@ FROM
         LEFT JOIN
     employee_certification uc ON uc.certification_id = cert.id
         JOIN
-
     opn_track_and_expertise otae ON e.id = otae.expertise_id
         JOIN
     opn_track t ON otae.opn_track_id = t.id
+        JOIN
+    workload_and_expertise wae ON e.id = wae.expertise_id
+        JOIN
+    workload w ON wae.workload_id = w.id
 GROUP BY
-    c.name, c.state, e.name, t.name;
-SELECT * FROM company_expertise_user_count;
+    c.name, c.state, e.name, t.name, w.name;
 
+SELECT * FROM company_expertise_user_count;
 
 drop view if exists view_change_history;
 create view view_change_history as
