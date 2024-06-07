@@ -32,17 +32,14 @@ public class CompanyController {
     @Autowired
     private ChangeHistoryService changeHistoryService;
 
+    @Autowired
+    private CompanyRepository companyRepository;
+
     @GetMapping
     public ResponseEntity<Map<Integer, Map<String, String>> > getAllCompanies() {
         Map<Integer, Map<String, String>>  companies = companyService.findAllCompanies();
         return ResponseEntity.ok(companies);
     }
-
-
-    @Autowired
-    private CompanyRepository companyRepository;
-
-
 
     @CrossOrigin("*")
     @GetMapping(value = "/companies")
@@ -62,7 +59,6 @@ public class CompanyController {
         Company company = companyRepository.findByCnpj(cnpj);
         return ResponseEntity.ok(company);
     }
-
 
     @PostMapping
     @Operation(summary = "Insert Company", description = "Insert a new company")
