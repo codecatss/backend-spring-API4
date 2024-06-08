@@ -217,6 +217,25 @@ VALUES ('Gestão de Licenciamento de Software e Compliance', 'Gestão eficiente 
        ('Consultoria em Estratégias de Licenciamento e Aquisição de Hardware e Software', 'Assessoria especializada na definição de estratégias de licenciamento e aquisição de hardware e software alinhadas aos objetivos e necessidades da organização.', 'MANUAL', 'ACTIVE');
 
 
+-- Workload Entries
+INSERT INTO workload (name, description, ingestion_operation, status)
+VALUES
+    ('Processamento de Dados em Lote', 'Execução de tarefas de processamento de dados em grandes volumes.', 'CSV', 'ACTIVE'),
+    ('Integração de Sistemas', 'Sincronização de dados entre diferentes sistemas para garantir a consistência e a integridade.', 'MANUAL', 'ACTIVE'),
+    ('Monitoramento em Tempo Real', 'Acompanhamento e análise de dados em tempo real para fornecer insights imediatos.', 'CSV', 'ACTIVE'),
+    ('Armazenamento de Dados', 'Gestão eficiente do armazenamento de dados em diferentes plataformas.', 'MANUAL', 'ACTIVE'),
+    ('Análise Preditiva', 'Uso de técnicas de machine learning para prever tendências futuras com base em dados históricos.', 'CSV', 'ACTIVE'),
+    ('Visualização de Dados', 'Criação de dashboards e relatórios interativos para visualização de dados.', 'MANUAL', 'ACTIVE'),
+    ('Gerenciamento de Projetos', 'Planejamento e controle de projetos para garantir a entrega dentro do prazo e orçamento.', 'CSV', 'ACTIVE'),
+    ('Automação de Processos', 'Implementação de soluções para automatizar processos repetitivos e melhorar a eficiência.', 'MANUAL', 'ACTIVE'),
+    ('Segurança de Dados', 'Proteção dos dados contra acessos não autorizados e perda de dados.', 'CSV', 'ACTIVE'),
+    ('Compliance e Conformidade', 'Garantia de que as operações estão em conformidade com as regulamentações e políticas.', 'MANUAL', 'ACTIVE'),
+    ('Auditoria de Sistemas', 'Revisão sistemática e detalhada dos sistemas para verificar a conformidade e identificar melhorias.', 'MANUAL', 'ACTIVE'),
+    ('Gerenciamento de Riscos', 'Identificação, avaliação e mitigação de riscos associados às operações de TI.', 'CSV', 'INACTIVE'),
+    ('Backup e Recuperação de Dados', 'Implementação de estratégias de backup e recuperação de dados para garantir a continuidade dos negócios.', 'MANUAL', 'ACTIVE'),
+    ('Otimização de Performance', 'Análise e ajuste de sistemas e processos para melhorar a performance.', 'CSV', 'ACTIVE'),
+    ('Gerenciamento de Configuração', 'Gestão das configurações de hardware e software para manter a integridade e o desempenho.', 'MANUAL', 'ACTIVE');
+
 
 
 -- Relacionamento entre as faixas e suas especialidades
@@ -619,3 +638,41 @@ INSERT INTO company_opn_tracks (company_id, opn_tracks_id) VALUES
                                                                (48, 4),
                                                                (49, 1),
                                                                (50, 2);
+
+
+
+
+
+-- Relacionamento aleatório entre workload e expertise
+INSERT INTO workload_and_expertise (workload_id, expertise_id)
+VALUES
+    (1, 5),  -- Processamento de Dados em Lote - Arquitetura de Nuvem Híbrida
+    (1, 22), -- Processamento de Dados em Lote - Implementação de Serviços de Infraestrutura como Código (IaC)
+    (2, 13), -- Integração de Sistemas - Negociação de Contratos e Acordos de Nível de Serviço (SLA) em Nuvem
+    (2, 18), -- Integração de Sistemas - Desenvolvimento de Propostas Comerciais Personalizadas para Clientes em Potencial
+    (3, 28), -- Monitoramento em Tempo Real - Implementação de Monitoramento e Diagnóstico em Tempo Real em Ambientes Cloud
+    (3, 8),  -- Monitoramento em Tempo Real - Orquestração de Containers em Ambientes Cloud
+    (4, 36), -- Armazenamento de Dados - Gestão de Ativos de TI e Inventário de Hardware e Software
+    (4, 34), -- Armazenamento de Dados - Implementação e Gerenciamento de Servidores e Data Centers On-Premises
+    (5, 27), -- Análise Preditiva - Desenvolvimento de Soluções Escaláveis e Tolerantes a Falhas na Nuvem
+    (5, 9),  -- Análise Preditiva - Gestão de Custos em Nuvem
+    (6, 24), -- Visualização de Dados - Desenvolvimento de APIs e Microsserviços na Nuvem
+    (6, 7),  -- Visualização de Dados - Implementação de Redes Definidas por Software (SDN) na Nuvem
+    (7, 1),  -- Gerenciamento de Projetos - Gestão de Infraestrutura em Nuvem
+    (7, 23), -- Gerenciamento de Projetos - Integração Contínua e Entrega Contínua (CI/CD) em Ambientes Cloud
+    (8, 6),  -- Automação de Processos - Automação de Processos na Nuvem
+    (8, 25), -- Automação de Processos - DevOps e Cultura de Colaboração em Equipes de Desenvolvimento e Operações na Nuvem
+    (9, 4),  -- Segurança de Dados - Segurança de Dados em Ambientes Cloud
+    (9, 29), -- Segurança de Dados - Práticas de Desenvolvimento Seguro em Nuvem
+    (10, 31), -- Compliance e Conformidade - Gestão de Licenciamento de Software e Compliance
+    (10, 15), -- Compliance e Conformidade - Análise de Competitividade e Posicionamento no Mercado de Serviços em Nuvem
+    (11, 11), -- Auditoria de Sistemas - Desenvolvimento de Estratégias de Vendas para Soluções em Nuvem
+    (11, 35), -- Auditoria de Sistemas - Virtualização de Servidores e Armazenamento
+    (12, 22), -- Gerenciamento de Riscos - Implementação de Serviços de Infraestrutura como Código (IaC)
+    (12, 20), -- Gerenciamento de Riscos - Análise de Tendências de Mercado e Antecipação de Demandas Futuras
+    (13, 10), -- Backup e Recuperação de Dados - Recuperação de Desastres em Nuvem
+    (13, 32), -- Backup e Recuperação de Dados - Otimização de Custos em Licenciamento de Software e Hardware
+    (14, 2),  -- Otimização de Performance - Otimização de Desempenho em Ambientes Cloud
+    (14, 27), -- Otimização de Performance - Desenvolvimento de Soluções Escaláveis e Tolerantes a Falhas na Nuvem
+    (15, 33), -- Gerenciamento de Configuração - Avaliação de Necessidades de Hardware e Software para Ambientes Específicos
+    (15, 26); -- Gerenciamento de Configuração - Gerenciamento de Bancos de Dados em Nuvem

@@ -37,7 +37,7 @@ public interface CompanyRepository extends JpaRepository <Company,Long>{
             "WHERE c.completionPercentage > 10.0 " +
             "GROUP BY c.workloadName, c.expertiseName, c.companyName")
     List<Object[]> findCompaniesGroupedByWorkloadAndExpertise();
-    
+
     @Query("SELECT MONTH(c.createAt) as month, " +
             "COUNT(CASE WHEN YEAR(c.createAt) = YEAR(CURRENT_DATE()) THEN c.id END) as count_current_year, " +
             "COUNT(CASE WHEN YEAR(c.createAt) = YEAR(CURRENT_DATE()) - 1 THEN c.id END) as count_previous_year " +
