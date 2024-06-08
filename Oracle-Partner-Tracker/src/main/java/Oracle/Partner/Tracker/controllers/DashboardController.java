@@ -17,67 +17,66 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
 
 @RestController
-    @CrossOrigin("*")
-    @RequestMapping(value = "/dash")
-    public class DashboardController {
+@CrossOrigin("*")
+@RequestMapping(value = "/dash")
+public class DashboardController {
 
-        @Autowired
-        private DashboardService dashboardService;
+    @Autowired
+    private DashboardService dashboardService;
 
-        @Autowired
-        private CompanyExpertiseUserCountService companyExpertiseUserCountService;
+    @Autowired
+    private CompanyExpertiseUserCountService companyExpertiseUserCountService;
+    @Autowired
+    CompanyRepository companyRepository;
 
-        @GetMapping
-        public ResponseEntity<DashboardDTO> getAllKPI() {
-        @Autowired
-        CompanyRepository companyRepository;
-
-            DashboardDTO data = dashboardService.getAll();
-            if (data == null) {
-                return ResponseEntity.notFound().build();
-            }
-            return ResponseEntity.ok(data);
+    @GetMapping
+    public ResponseEntity<DashboardDTO> getAllKPI() {
+        DashboardDTO data = dashboardService.getAll();
+        if (data == null) {
+            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.ok(data);
+    }
 
-        @GetMapping(value = "/track-per-company")
-        public ResponseEntity<List<TrackPerCompany>> getTrackPerCompany() {
+    @GetMapping(value = "/track-per-company")
+    public ResponseEntity<List<TrackPerCompany>> getTrackPerCompany() {
 
-            List<TrackPerCompany> data = dashboardService.getTrackPerCompany();
-            if (data == null) {
-                return ResponseEntity.notFound().build();
-            }
-            return ResponseEntity.ok(data);
+        List<TrackPerCompany> data = dashboardService.getTrackPerCompany();
+        if (data == null) {
+            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.ok(data);
+    }
 
-        @GetMapping(value = "/state-per-company")
-        public ResponseEntity<List<StatePerCompany>> getStatePerCompany() {
-            List<StatePerCompany> data = dashboardService.getStatePerCompany();
-            if (data == null) {
-                return ResponseEntity.notFound().build();
-            }
-            return ResponseEntity.ok(data);
+    @GetMapping(value = "/state-per-company")
+    public ResponseEntity<List<StatePerCompany>> getStatePerCompany() {
+        List<StatePerCompany> data = dashboardService.getStatePerCompany();
+        if (data == null) {
+            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.ok(data);
+    }
 
-        @GetMapping(path = "/opntrack/visualization")
-        public Map<Integer, Map<String, String>> getOpnTrackUsageCount() {
-            return dashboardService.getOpnTrackUsageCount();
-        }
+    @GetMapping(path = "/opntrack/visualization")
+    public Map<Integer, Map<String, String>> getOpnTrackUsageCount() {
+        return dashboardService.getOpnTrackUsageCount();
+    }
 
-        @GetMapping(path = "/expertise/visualization")
-        public Map<Integer, Map<String, String>> getExpertiseUsageCount() {
-            return dashboardService.getExpertiseUsageCount();
-        }
+    @GetMapping(path = "/expertise/visualization")
+    public Map<Integer, Map<String, String>> getExpertiseUsageCount() {
+        return dashboardService.getExpertiseUsageCount();
+    }
 
-        @GetMapping(value = "/certification-per-user")
-        public List<Object[]> getUserCertification() {
-            return dashboardService.getCertificationsNearExpiration(90);
-        }
+    @GetMapping(value = "/certification-per-user")
+    public List<Object[]> getUserCertification() {
+        return dashboardService.getCertificationsNearExpiration(90);
+    }
 
 
-        @GetMapping(value = "/companyexpertiseusercountservice")
-        public List<CompanyExpertiseUserCount> getCompanyExpertiseUserCountService() {
-            return companyExpertiseUserCountService.findAllCompanies();
-        }
+    @GetMapping(value = "/companyexpertiseusercountservice")
+    public List<CompanyExpertiseUserCount> getCompanyExpertiseUserCountService() {
+        return companyExpertiseUserCountService.findAllCompanies();
+    }
 
 
     @GetMapping(value = "/completeworkloads")
@@ -130,4 +129,4 @@ import java.util.*;
         return dashboardService.getAllCertificationsAnalysisInProgress();
     }
 
-    }
+}
