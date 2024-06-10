@@ -1,6 +1,6 @@
 use oracle_partner_network;
 
---drop view if exists DashboardDTO;
+-- drop view if exists DashboardDTO;
 -- VIEW's
 -- create view DashboardDTO as
 -- SELECT
@@ -37,10 +37,17 @@ select count(w.workload_id) as workload, w.expertise_id from workload_and_expert
 --- Drop the existing view if it exists
 DROP VIEW IF EXISTS company_expertise_user_count;
 
--- Cria a view que trará a quantidade de usuários por empresa com certificação e o progresso de cada um
+
+
+-- Drop the existing view if it exists
+DROP VIEW IF EXISTS company_expertise_user_count;
+
+-- Cria a view que trará a quantidade de usuários por empresa com certificação, progresso de cada um,
+-- o CNPJ da empresa e o workload relacionado à expertise da empresa
 CREATE VIEW company_expertise_user_count AS
 SELECT
     c.name AS company_name,
+    c.cnpj AS company_cnpj,  -- Adiciona o CNPJ da empresa
     c.state AS company_state,
     e.name AS expertise_name,
     t.name AS track_name,
@@ -69,7 +76,11 @@ FROM
         JOIN
     workload w ON wae.workload_id = w.id
 GROUP BY
-    c.name, c.state, e.name, t.name, w.name;
+    c.name, c.cnpj, c.state, e.name, t.name, w.name;
+
+-- Seleciona tudo da view criada para visualização
+SELECT * FROM company_expertise_user_count;
+
 
 -- Seleciona tudo da view criada para visualização
 SELECT * FROM company_expertise_user_count;
