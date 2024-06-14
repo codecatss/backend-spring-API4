@@ -9,6 +9,7 @@ import Oracle.Partner.Tracker.utils.ChangeType;
 import Oracle.Partner.Tracker.dto.GenericDTO;
 
 import Oracle.Partner.Tracker.utils.MapObjectList;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,15 @@ import com.google.gson.Gson;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+
+
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
+
+
 
 @Service
 public class ChangeHistoryService {
@@ -53,8 +63,8 @@ public class ChangeHistoryService {
                     recordId,
                     tableName.toUpperCase(),
                     changeType,
-                    entityToJson(oldEntity),
-                    entityToJson(newEntity)
+                    "",
+                    getDifferenceBetweenJSON(entityToJson(oldEntity), entityToJson(newEntity))
             );
             changeHistoryRepository.save(new ChangeHistory(changeHistoryDTO));
             return ResponseEntity.ok().build();
@@ -67,6 +77,35 @@ public class ChangeHistoryService {
 
     private String entityToJson(Object entity){
         return gson.toJson(entity);
+    }
+
+    private String getDifferenceBetweenJSON(String oldEntity, String newEntity) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        return findJsonDifferences(mapper.readTree(oldEntity), mapper.readTree(newEntity)).toString();
+    }
+
+    private static JsonNode findJsonDifferences(JsonNode node1, JsonNode node2) {
+        if (node1.equals(node2)) {
+            return null;
+        }
+
+        if (node1.isObject() && node2.isObject()) {
+            ObjectNode diff = ((ObjectNode) node2.deepCopy());
+            node1.fields().forEachRemaining(entry -> {
+                String key = entry.getKey();
+                JsonNode value1 = entry.getValue();
+                JsonNode value2 = node2.get(key);
+                JsonNode childDiff = findJsonDifferences(value1, value2);
+                if (childDiff != null) {
+                    diff.set(key, childDiff);
+                } else {
+                    diff.remove(key);
+                }
+            });
+            return diff.isEmpty() ? null : diff;
+        } else {
+            return node2;
+        }
     }
 }
 
