@@ -3,10 +3,8 @@ package Oracle.Partner.Tracker.services;
 import Oracle.Partner.Tracker.dto.DashboardDTO;
 import Oracle.Partner.Tracker.dto.StatePerCompany;
 import Oracle.Partner.Tracker.dto.TrackPerCompany;
-import Oracle.Partner.Tracker.repositories.CompanyRepository;
-import Oracle.Partner.Tracker.repositories.ExpertiseRepository;
-import Oracle.Partner.Tracker.repositories.OpnTrackRepository;
-import Oracle.Partner.Tracker.repositories.EmployeeCertificationsRepository;
+import Oracle.Partner.Tracker.repositories.*;
+import Oracle.Partner.Tracker.utils.CertificationStatus;
 import Oracle.Partner.Tracker.utils.DashboardColorEnum;
 
 import Oracle.Partner.Tracker.utils.MapObject;
@@ -34,6 +32,9 @@ public class DashboardService {
 
     @Autowired
     private OpnTrackRepository opnTrackRepository;
+
+    @Autowired
+    private CertificationRepository certificationRepository;
 
     @Autowired
     private EmployeeCertificationsRepository employeeCertificationsRepository;
@@ -88,5 +89,17 @@ public class DashboardService {
         LocalDateTime currentDate = LocalDateTime.now();
         LocalDateTime expirationDateThreshold = currentDate.plusDays(daysThreshold);
         return employeeCertificationsRepository.getEmployeeCertifications(currentDate, expirationDateThreshold);
+    }
+
+    public List<Object[]> getAllCompanyAnalysis(){
+        return companyRepository.getAllCompanyAnalysis();
+    }
+
+    public List<Object[]> getAllCertificationsAnalysisExpired(){
+        return employeeCertificationsRepository.getAllCertificationsAnalysis(CertificationStatus.EXPIRED);
+    }
+
+    public List<Object[]> getAllCertificationsAnalysisInProgress(){
+        return employeeCertificationsRepository.getAllCertificationsAnalysis(CertificationStatus.IN_PROGRESS);
     }
 }
