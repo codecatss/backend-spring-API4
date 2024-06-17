@@ -56,6 +56,10 @@ public class ExpertiseController {
     @PostMapping(value = "/save")
     public void saveNewExpertise(@RequestBody ExpertiseRecord expertiseRecord){
         expertiseService.saveExpertise(expertiseRecord);
+    }
 
+    @PutMapping(path = "/{id}")
+    public void update(@PathVariable Long id, @RequestBody ExpertiseDTO expertiseDTO){
+        expertiseService.updateExpertise(id, expertiseDTO);
     }
 }
