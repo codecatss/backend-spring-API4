@@ -21,9 +21,9 @@ public class CompanyDTO implements GenericDTO{
     @Schema(description = "Nome da empresa", example = "Empresa XYZ")
     private String name;
 
-    @CsvBindByName(column = "Company Slogan")
-    @Schema(description = "Slogan da empresa", example = "Fazemos a diferença!")
-    private String slogan;
+    @CsvBindByName(column = "Company site")
+    @Schema(description = "site da empresa", example = "Fazemos a diferença!")
+    private String site;
 
     @CsvBindByName(column = "Company OPN Status")
     private String opnStatusString;
@@ -91,13 +91,13 @@ public class CompanyDTO implements GenericDTO{
         this.updateAt = entity.getUpdateAt();
         this.ingestionOperation = entity.getIngestionOperation();
         this.creditHold = entity.getCreditHold();
-        this.slogan = entity.getSlogan();
+        this.site = entity.getSite();
     }
 
-    public CompanyDTO(String name, String slogan, String opnStatusString, String cnpj, String country, String state, String city, String address, String statusString, String creditHold) {
+    public CompanyDTO(String name, String site, String opnStatusString, String cnpj, String country, String state, String city, String address, String statusString, String creditHold) {
         this();
         this.name = name;
-        this.slogan = slogan;
+        this.site = site;
         this.opnStatus = OPNStatus.valueOf(opnStatusString.trim().toUpperCase());
         this.cnpj = cnpj;
         this.country = country;

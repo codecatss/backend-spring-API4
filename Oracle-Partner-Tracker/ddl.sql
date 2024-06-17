@@ -14,8 +14,8 @@ use oracle_partner_network;
 -- Create table section
 create table company (
                          id bigint unsigned not null auto_increment,
-                         name varchar(50),
-                         slogan varchar(200),
+                         name varchar(100),
+                         site varchar(200),
                          credit_hold varchar(40),
                          cnpj varchar(150) unique,
                          country varchar(20),

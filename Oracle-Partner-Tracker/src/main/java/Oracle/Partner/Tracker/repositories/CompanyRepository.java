@@ -30,8 +30,21 @@ public interface CompanyRepository extends JpaRepository <Company,Long>{
 
     List<Company> findAllByStatus(Status status);
 
-    @Query(value = "SELECT c.name, c.opnStatus, c.country, c.state, c.city, c.address, c.createAt, c.status, c.slogan FROM Company c")
+    @Query(value = "SELECT c.name, c.opnStatus, c.country, c.state, c.city, c.address, c.createAt, c.status, c.site FROM Company c")
     List<Object[]> findAllCompanyAtributes();
+
+    @Query("SELECT c.workloadName, c.expertiseName, c.companyName FROM CompanyExpertiseUserCount c " +
+            "WHERE c.completionPercentage > 10.0 " +
+            "GROUP BY c.workloadName, c.expertiseName, c.companyName")
+    List<Object[]> findCompaniesGroupedByWorkloadAndExpertise();
+
+    @Query("SELECT MONTH(c.createAt) as month, " +
+            "COUNT(CASE WHEN YEAR(c.createAt) = YEAR(CURRENT_DATE()) THEN c.id END) as count_current_year, " +
+            "COUNT(CASE WHEN YEAR(c.createAt) = YEAR(CURRENT_DATE()) - 1 THEN c.id END) as count_previous_year " +
+            "FROM Company c " +
+            "WHERE YEAR(c.createAt) IN (YEAR(CURRENT_DATE()), YEAR(CURRENT_DATE()) - 1) " +
+            "GROUP BY MONTH(c.createAt)")
+    List<Object[]> getAllCompanyAnalysis();
 
 }
 

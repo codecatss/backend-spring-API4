@@ -1,55 +1,55 @@
-INSERT INTO company (name, slogan, credit_hold, cnpj, country, state, city, address, opn_status, ingestion_operation, status)
+INSERT INTO company (name, site, credit_hold, cnpj, country, state, city, address, opn_status, ingestion_operation, status)
 VALUES
-    ('InovaTech', 'Inovação para o seu negócio', 'No', '12345678000101', 'Brasil', 'São Paulo', 'São Paulo', 'Av. Paulista, 1000', 'MEMBER', 'CSV', 'ACTIVE'),
-    ('Alimentos Saudáveis', 'Sua saúde em primeiro lugar', 'Yes', '23456789000112', 'Brasil', 'Rio de Janeiro', 'Rio de Janeiro', 'Rua das Frutas, 200', 'MEMBER', 'MANUAL', 'ACTIVE'),
-    ('AutoPeças 2000', 'Qualidade e confiança em peças automotivas', 'No', '34567890100023', 'Brasil', 'Minas Gerais', 'Belo Horizonte', 'Av. das Indústrias, 300', 'EXPIRED', 'CSV', 'ACTIVE'),
-    ('Consultoria Empresarial Ltda', 'Soluções inteligentes para o seu negócio', 'Yes', '45678901200034', 'Brasil', 'São Paulo', 'Campinas', 'Rua dos Negócios, 400', 'MEMBER', 'MANUAL', 'INACTIVE'),
-    ('Construções Rápidas', 'Construindo o futuro com agilidade', 'No', '56789012300045', 'Brasil', 'Rio Grande do Sul', 'Porto Alegre', 'Av. da Construção, 500', 'MEMBER', 'CSV', 'ACTIVE'),
-    ('Farmácia Central', 'Cuidando da sua saúde com amor', 'Yes', '67890123400056', 'Brasil', 'Rio de Janeiro', 'Niterói', 'Rua das Farmácias, 600', 'INACTIVE', 'MANUAL', 'ACTIVE'),
-    ('Energia Solar Ltda', 'Energia limpa para um futuro sustentável', 'No', '78901234500067', 'Brasil', 'São Paulo', 'São Paulo', 'Av. da Energia, 700', 'MEMBER', 'CSV', 'ACTIVE'),
-    ('Moda Jovem', 'Estilo e tendência para todas as idades', 'Yes', '89012345600078', 'Brasil', 'Minas Gerais', 'Belo Horizonte', 'Rua da Moda, 800', 'EXPIRED', 'MANUAL', 'INACTIVE'),
-    ('Tecnologia Avançada S.A.', 'Inovação tecnológica para o seu dia a dia', 'No', '90123456700089', 'Brasil', 'São Paulo', 'Campinas', 'Av. da Tecnologia, 800', 'MEMBER', 'CSV', 'ACTIVE'),
-    ('Educação Inteligente', 'Transformando conhecimento em oportunidades', 'Yes', '01234567800090', 'Brasil', 'Rio de Janeiro', 'Rio de Janeiro', 'Rua da Educação, 700', 'MEMBER', 'MANUAL', 'ACTIVE'),
-    ('Beleza Natural', 'Respeitando a sua beleza', 'No', '12345678900010', 'Brasil', 'Paraná', 'Curitiba', 'Av. da Beleza, 600', 'INACTIVE', 'CSV', 'ACTIVE'),
-    ('Agricultura Moderna', 'Inovação no campo para alimentar o mundo', 'Yes', '23456789000011', 'Brasil', 'São Paulo', 'São Paulo', 'Av. da Agricultura, 900', 'MEMBER', 'MANUAL', 'ACTIVE'),
-    ('Tecnologia da Informação Ltda', 'Transformando dados em soluções', 'No', '34567890100012', 'Brasil', 'Minas Gerais', 'Uberlândia', 'Rua da TI, 700', 'EXPIRED', 'CSV', 'ACTIVE'),
-    ('Automotiva Nacional', 'Qualidade e confiança em cada veículo', 'Yes', '45678901200013', 'Brasil', 'São Paulo', 'Campinas', 'Av. Automotiva, 600', 'MEMBER', 'MANUAL', 'ACTIVE'),
-    ('Saúde em Foco', 'Cuidando da sua saúde com excelência', 'No', '56789012300014', 'Brasil', 'Rio de Janeiro', 'Rio de Janeiro', 'Rua da Saúde, 800', 'MEMBER', 'CSV', 'INACTIVE'),
-    ('Construções Sustentáveis', 'Construindo o futuro com responsabilidade', 'Yes', '67890123400015', 'Brasil', 'Minas Gerais', 'Belo Horizonte', 'Av. da Sustentabilidade, 700', 'INACTIVE', 'MANUAL', 'ACTIVE'),
-    ('Moda Fashion', 'Estilo e elegância para todos os momentos', 'No', '78901234500016', 'Brasil', 'São Paulo', 'São Paulo', 'Av. da Moda, 900', 'MEMBER', 'CSV', 'ACTIVE'),
-    ('Gastronomia Gourmet', 'Sabor e qualidade em cada prato', 'Yes', '89012345600017', 'Brasil', 'Rio de Janeiro', 'Niterói', 'Rua da Gastronomia, 500', 'MEMBER', 'MANUAL', 'ACTIVE'),
-    ('Tecnologia Aplicada', 'Soluções tecnológicas para o seu negócio', 'No', '90123456700018', 'Brasil', 'Paraná', 'Curitiba', 'Av. da Tecnologia, 700', 'EXPIRED', 'CSV', 'ACTIVE'),
-    ('Educação Moderna', 'Transformando o aprendizado em oportunidades', 'Yes', '01234567800019', 'Brasil', 'São Paulo', 'São Paulo', 'Rua da Educação, 1000', 'MEMBER', 'MANUAL', 'ACTIVE'),
-    ('Indústria Têxtil Ltda', 'Moda que transforma vidas', 'No', '98765432000101', 'Brasil', 'São Paulo', 'São Paulo', 'Av. das Indústrias, 2000', 'MEMBER', 'CSV', 'ACTIVE'),
-    ('Tech Solutions', 'Soluções tecnológicas para seu negócio', 'Yes', '87654321000112', 'Brasil', 'Rio de Janeiro', 'Rio de Janeiro', 'Rua da Tecnologia, 3000', 'MEMBER', 'MANUAL', 'ACTIVE'),
-    ('Culinária Caseira', 'O sabor que você procura', 'No', '76543210000123', 'Brasil', 'Minas Gerais', 'Belo Horizonte', 'Av. dos Sabores, 4000', 'EXPIRED', 'CSV', 'ACTIVE'),
-    ('Saúde Integral', 'Cuidando de você por completo', 'Yes', '65432100000134', 'Brasil', 'São Paulo', 'Campinas', 'Rua da Saúde, 5000', 'MEMBER', 'MANUAL', 'INACTIVE'),
-    ('Construções S/A', 'Construindo o futuro com qualidade', 'No', '54321000000145', 'Brasil', 'Rio Grande do Sul', 'Porto Alegre', 'Av. da Construção, 6000', 'MEMBER', 'CSV', 'ACTIVE'),
-    ('Farmácia Popular', 'Medicamentos de qualidade a preços acessíveis', 'Yes', '43210000000156', 'Brasil', 'Rio de Janeiro', 'Niterói', 'Rua da Farmácia, 7000', 'INACTIVE', 'MANUAL', 'ACTIVE'),
-    ('Energia Renovável Ltda', 'Energia limpa para um mundo sustentável', 'No', '32100000000167', 'Brasil', 'São Paulo', 'São Paulo', 'Av. da Energia, 8000', 'MEMBER', 'CSV', 'ACTIVE'),
-    ('Fashion Store', 'Estilo e tendência para todos os estilos', 'Yes', '21000000000178', 'Brasil', 'Minas Gerais', 'Belo Horizonte', 'Rua da Moda, 10000', 'EXPIRED', 'MANUAL', 'INACTIVE'),
-    ('Tecnologia Futura', 'Inovação que impulsiona seu negócio', 'No', '10000000000189', 'Brasil', 'São Paulo', 'Campinas', 'Av. da Tecnologia, 9000', 'MEMBER', 'CSV', 'ACTIVE'),
-    ('Educação Digital', 'Aprendizado flexível e acessível', 'Yes', '11111111000101', 'Brasil', 'Rio de Janeiro', 'Rio de Janeiro', 'Rua da Educação, 8000', 'MEMBER', 'MANUAL', 'ACTIVE'),
-    ('Bem-Estar & Saúde', 'Seu bem-estar é nossa prioridade', 'No', '22222222000112', 'Brasil', 'Paraná', 'Curitiba', 'Av. do Bem-Estar, 7000', 'INACTIVE', 'CSV', 'ACTIVE'),
-    ('Agronegócio Brasileiro', 'Alimentando o mundo com excelência', 'Yes', '33333333000123', 'Brasil', 'São Paulo', 'São Paulo', 'Av. do Agronegócio, 6000', 'MEMBER', 'MANUAL', 'ACTIVE'),
-    ('Software Solutions', 'Soluções eficientes para seus desafios', 'No', '44444444000134', 'Brasil', 'Minas Gerais', 'Uberlândia', 'Rua do Software, 8000', 'EXPIRED', 'CSV', 'ACTIVE'),
-    ('AutoMecânica 2000', 'Qualidade e confiança em cada reparo', 'Yes', '55555555000145', 'Brasil', 'São Paulo', 'Campinas', 'Av. Automotiva, 9000', 'MEMBER', 'MANUAL', 'ACTIVE'),
-    ('Saúde & Bem-Estar', 'Promovendo uma vida saudável', 'No', '66666666000156', 'Brasil', 'Rio de Janeiro', 'Rio de Janeiro', 'Rua da Saúde, 10000', 'MEMBER', 'CSV', 'INACTIVE'),
-    ('Construções Modernas', 'Construindo o futuro com inovação', 'Yes', '77777777000167', 'Brasil', 'Minas Gerais', 'Belo Horizonte', 'Av. da Construção, 8000', 'INACTIVE', 'MANUAL', 'ACTIVE'),
-    ('Moda Estilosa', 'Estilo que reflete sua personalidade', 'No', '88888888000178', 'Brasil', 'São Paulo', 'São Paulo', 'Av. da Moda, 9000', 'MEMBER', 'CSV', 'ACTIVE'),
-    ('Gastronomia Deliciosa', 'Sabor que conquista paladares', 'Yes', '99999999000189', 'Brasil', 'Rio de Janeiro', 'Niterói', 'Rua da Gastronomia, 5000', 'MEMBER', 'MANUAL', 'ACTIVE'),
-    ('Tecnologia Inovadora', 'Inovação que transforma sua realidade', 'No', '10101010000190', 'Brasil', 'Paraná', 'Curitiba', 'Av. da Tecnologia, 7000', 'EXPIRED', 'CSV', 'ACTIVE'),
-    ('Educação de Qualidade', 'Conhecimento que faz a diferença', 'Yes', '20202020000101', 'Brasil', 'São Paulo', 'São Paulo', 'Rua da Educação, 11000', 'MEMBER', 'MANUAL', 'ACTIVE'),
-    ('Saúde & Harmonia', 'Equilíbrio para o seu corpo e mente', 'No', '30303030000112', 'Brasil', 'Rio de Janeiro', 'Rio de Janeiro', 'Av. da Saúde, 8000', 'MEMBER', 'CSV', 'INACTIVE'),
-    ('Construções Inteligentes', 'Inovação em cada projeto', 'Yes', '40404040000123', 'Brasil', 'Minas Gerais', 'Belo Horizonte', 'Rua da Construção, 10000', 'INACTIVE', 'MANUAL', 'ACTIVE'),
-    ('Beleza & Estilo', 'Respeitando sua beleza única', 'No', '50505050000134', 'Brasil', 'São Paulo', 'Campinas', 'Av. da Beleza, 7000', 'MEMBER', 'CSV', 'ACTIVE'),
-    ('Gastronomia Gourmet', 'Sabor e qualidade em cada prato', 'Yes', '60606060000145', 'Brasil', 'Rio de Janeiro', 'Niterói', 'Rua da Gastronomia, 5000', 'MEMBER', 'MANUAL', 'ACTIVE'),
-    ('Tecnologia Avançada', 'Inovação que impulsiona seu negócio', 'No', '70707070000156', 'Brasil', 'Paraná', 'Curitiba', 'Av. da Tecnologia, 8000', 'EXPIRED', 'CSV', 'ACTIVE'),
-    ('Educação Moderna', 'Transformando o aprendizado em oportunidades', 'Yes', '80808080000167', 'Brasil', 'São Paulo', 'São Paulo', 'Rua da Educação, 10000', 'MEMBER', 'MANUAL', 'ACTIVE'),
-    ('Consultoria Empresarial', 'Soluções inteligentes para seu negócio', 'No', '90909090000178', 'Brasil', 'Minas Gerais', 'Uberlândia', 'Av. da Consultoria, 6000', 'MEMBER', 'CSV', 'INACTIVE'),
-    ('Automotiva Nacional', 'Qualidade e confiança em cada veículo', 'Yes', '01010101000189', 'Brasil', 'São Paulo', 'Campinas', 'Av. Automotiva, 9000', 'INACTIVE', 'MANUAL', 'ACTIVE'),
-    ('Saúde & Bem-Estar', 'Promovendo uma vida saudável', 'No', '11223344000190', 'Brasil', 'Rio de Janeiro', 'Rio de Janeiro', 'Rua da Saúde, 10000', 'MEMBER', 'CSV', 'ACTIVE'),
-    ('Construções Modernas', 'Construindo o futuro com inovação', 'Yes', '22334455000101', 'Brasil', 'Minas Gerais', 'Belo Horizonte', 'Av. da Construção, 8000', 'MEMBER', 'MANUAL', 'ACTIVE');
+    ('InovaTech', 'www.inovatech.com.br', 'No', '12345678000101', 'Brasil', 'São Paulo', 'São Paulo', 'Av. Paulista, 1000', 'MEMBER', 'CSV', 'ACTIVE'),
+    ('Alimentos Saudáveis', 'www.alimentossaudaveis.com.br', 'Yes', '23456789000112', 'Brasil', 'Rio de Janeiro', 'Rio de Janeiro', 'Rua das Frutas, 200', 'MEMBER', 'MANUAL', 'ACTIVE'),
+    ('AutoPeças 2000', 'www.autopecas2000.com.br', 'No', '34567890100023', 'Brasil', 'Minas Gerais', 'Belo Horizonte', 'Av. das Indústrias, 300', 'EXPIRED', 'CSV', 'ACTIVE'),
+    ('Consultoria Empresarial Ltda', 'www.consultoriaempresarial.com.br', 'Yes', '45678901200034', 'Brasil', 'São Paulo', 'Campinas', 'Rua dos Negócios, 400', 'MEMBER', 'MANUAL', 'INACTIVE'),
+    ('Construções Rápidas', 'www.construcoesrapidas.com.br', 'No', '56789012300045', 'Brasil', 'Rio Grande do Sul', 'Porto Alegre', 'Av. da Construção, 500', 'MEMBER', 'CSV', 'ACTIVE'),
+    ('Farmácia Central', 'www.farmaciacentral.com.br', 'Yes', '67890123400056', 'Brasil', 'Rio de Janeiro', 'Niterói', 'Rua das Farmácias, 600', 'INACTIVE', 'MANUAL', 'ACTIVE'),
+    ('Energia Solar Ltda', 'www.energiasolar.com.br', 'No', '78901234500067', 'Brasil', 'São Paulo', 'São Paulo', 'Av. da Energia, 700', 'MEMBER', 'CSV', 'ACTIVE'),
+    ('Moda Jovem', 'www.modajovem.com.br', 'Yes', '89012345600078', 'Brasil', 'Minas Gerais', 'Belo Horizonte', 'Rua da Moda, 800', 'EXPIRED', 'MANUAL', 'INACTIVE'),
+    ('Tecnologia Avançada S.A.', 'www.tecnologiaavancada.com.br', 'No', '90123456700089', 'Brasil', 'São Paulo', 'Campinas', 'Av. da Tecnologia, 800', 'MEMBER', 'CSV', 'ACTIVE'),
+    ('Educação Inteligente', 'www.educacaointeligente.com.br', 'Yes', '01234567800090', 'Brasil', 'Rio de Janeiro', 'Rio de Janeiro', 'Rua da Educação, 700', 'MEMBER', 'MANUAL', 'ACTIVE'),
+    ('Beleza Natural', 'www.belezanatural.com.br', 'No', '12345678900010', 'Brasil', 'Paraná', 'Curitiba', 'Av. da Beleza, 600', 'INACTIVE', 'CSV', 'ACTIVE'),
+    ('Agricultura Moderna', 'www.agriculturamoderna.com.br', 'Yes', '23456789000011', 'Brasil', 'São Paulo', 'São Paulo', 'Av. da Agricultura, 900', 'MEMBER', 'MANUAL', 'ACTIVE'),
+    ('Tecnologia da Informação Ltda', 'www.tecnologiadainformacao.com.br', 'No', '34567890100012', 'Brasil', 'Minas Gerais', 'Uberlândia', 'Rua da TI, 700', 'EXPIRED', 'CSV', 'ACTIVE'),
+    ('Automotiva Nacional', 'www.automotivanacional.com.br', 'Yes', '45678901200013', 'Brasil', 'São Paulo', 'Campinas', 'Av. Automotiva, 600', 'MEMBER', 'MANUAL', 'ACTIVE'),
+    ('Saúde em Foco', 'www.saudeemfoco.com.br', 'No', '56789012300014', 'Brasil', 'Rio de Janeiro', 'Rio de Janeiro', 'Rua da Saúde, 800', 'MEMBER', 'CSV', 'INACTIVE'),
+    ('Construções Sustentáveis', 'www.construcoessustentaveis.com.br', 'Yes', '67890123400015', 'Brasil', 'Minas Gerais', 'Belo Horizonte', 'Av. da Sustentabilidade, 700', 'INACTIVE', 'MANUAL', 'ACTIVE'),
+    ('Moda Fashion', 'www.modafashion.com.br', 'No', '78901234500016', 'Brasil', 'São Paulo', 'São Paulo', 'Av. da Moda, 900', 'MEMBER', 'CSV', 'ACTIVE'),
+    ('Gastronomia Gourmet', 'www.gastronomiagourmet.com.br', 'Yes', '89012345600017', 'Brasil', 'Rio de Janeiro', 'Niterói', 'Rua da Gastronomia, 500', 'MEMBER', 'MANUAL', 'ACTIVE'),
+    ('Tecnologia Aplicada', 'www.tecnologiaaplicada.com.br', 'No', '90123456700018', 'Brasil', 'Paraná', 'Curitiba', 'Av. da Tecnologia, 700', 'EXPIRED', 'CSV', 'ACTIVE'),
+    ('Educação Moderna', 'www.educacaomoderna.com.br', 'Yes', '01234567800019', 'Brasil', 'São Paulo', 'São Paulo', 'Rua da Educação, 1000', 'MEMBER', 'MANUAL', 'ACTIVE'),
+    ('Indústria Têxtil Ltda', 'www.industriatextil.com.br', 'No', '98765432000101', 'Brasil', 'São Paulo', 'São Paulo', 'Av. das Indústrias, 2000', 'MEMBER', 'CSV', 'ACTIVE'),
+    ('Tech Solutions', 'www.techsolutions.com.br', 'Yes', '87654321000112', 'Brasil', 'Rio de Janeiro', 'Rio de Janeiro', 'Rua da Tecnologia, 3000', 'MEMBER', 'MANUAL', 'ACTIVE'),
+    ('Culinária Caseira', 'www.culinariacaseira.com.br', 'No', '76543210000123', 'Brasil', 'Minas Gerais', 'Belo Horizonte', 'Av. dos Sabores, 4000', 'EXPIRED', 'CSV', 'ACTIVE'),
+    ('Saúde Integral', 'www.saudeintegral.com.br', 'Yes', '65432100000134', 'Brasil', 'São Paulo', 'Campinas', 'Rua da Saúde, 5000', 'MEMBER', 'MANUAL', 'INACTIVE'),
+    ('Construções S/A', 'www.construcoessa.com.br', 'No', '54321000000145', 'Brasil', 'Rio Grande do Sul', 'Porto Alegre', 'Av. da Construção, 6000', 'MEMBER', 'CSV', 'ACTIVE'),
+    ('Farmácia Popular', 'www.farmaciapopular.com.br', 'Yes', '43210000000156', 'Brasil', 'Rio de Janeiro', 'Niterói', 'Rua da Farmácia, 7000', 'INACTIVE', 'MANUAL', 'ACTIVE'),
+    ('Energia Renovável Ltda', 'www.energialimpa.com.br', 'No', '32100000000167', 'Brasil', 'São Paulo', 'São Paulo', 'Av. da Energia, 8000', 'MEMBER', 'CSV', 'ACTIVE'),
+    ('Fashion Store', 'www.fashionstore.com.br', 'Yes', '21000000000178', 'Brasil', 'Minas Gerais', 'Belo Horizonte', 'Rua da Moda, 10000', 'EXPIRED', 'MANUAL', 'INACTIVE'),
+    ('Tecnologia Futura', 'www.tecnologiafutura.com.br', 'No', '10000000000189', 'Brasil', 'São Paulo', 'Campinas', 'Av. da Tecnologia, 9000', 'MEMBER', 'CSV', 'ACTIVE'),
+    ('Educação Digital', 'www.educacaodigital.com.br', 'Yes', '11111111000101', 'Brasil', 'Rio de Janeiro', 'Rio de Janeiro', 'Rua da Educação, 8000', 'MEMBER', 'MANUAL', 'ACTIVE'),
+    ('Bem-Estar & Saúde', 'www.bemestarsaude.com.br', 'No', '22222222000112', 'Brasil', 'Paraná', 'Curitiba', 'Av. do Bem-Estar, 7000', 'INACTIVE', 'CSV', 'ACTIVE'),
+    ('Agronegócio Brasileiro', 'www.agronegociobrasileiro.com.br', 'Yes', '33333333000123', 'Brasil', 'São Paulo', 'São Paulo', 'Av. do Agronegócio, 6000', 'MEMBER', 'MANUAL', 'ACTIVE'),
+    ('Software Solutions', 'www.softwaresolutions.com.br', 'No', '44444444000134', 'Brasil', 'Minas Gerais', 'Uberlândia', 'Rua do Software, 8000', 'EXPIRED', 'CSV', 'ACTIVE'),
+    ('AutoMecânica 2000', 'www.automecanica2000.com.br', 'Yes', '55555555000145', 'Brasil', 'São Paulo', 'Campinas', 'Av. Automotiva, 9000', 'MEMBER', 'MANUAL', 'ACTIVE'),
+    ('Saúde & Bem-Estar', 'www.saudeebemestar.com.br', 'No', '66666666000156', 'Brasil', 'Rio de Janeiro', 'Rio de Janeiro', 'Rua da Saúde, 10000', 'MEMBER', 'CSV', 'INACTIVE'),
+    ('Construções Modernas', 'www.construcoesmodernas.com.br', 'Yes', '77777777000167', 'Brasil', 'Minas Gerais', 'Belo Horizonte', 'Av. da Construção, 8000', 'INACTIVE', 'MANUAL', 'ACTIVE'),
+    ('Moda Estilosa', 'www.modaestilosa.com.br', 'No', '88888888000178', 'Brasil', 'São Paulo', 'São Paulo', 'Av. da Moda, 9000', 'MEMBER', 'CSV', 'ACTIVE'),
+    ('Gastronomia Deliciosa', 'www.gastronomiadeliciosa.com.br', 'Yes', '99999999000189', 'Brasil', 'Rio de Janeiro', 'Niterói', 'Rua da Gastronomia, 5000', 'MEMBER', 'MANUAL', 'ACTIVE'),
+    ('Tecnologia Inovadora', 'www.tecnologiainovadora.com.br', 'No', '10101010000190', 'Brasil', 'Paraná', 'Curitiba', 'Av. da Tecnologia, 7000', 'EXPIRED', 'CSV', 'ACTIVE'),
+    ('Educação de Qualidade', 'www.educacaodequalidade.com.br', 'Yes', '20202020000101', 'Brasil', 'São Paulo', 'São Paulo', 'Rua da Educação, 11000', 'MEMBER', 'MANUAL', 'ACTIVE'),
+    ('Saúde & Harmonia', 'www.saudeharmonia.com.br', 'No', '30303030000112', 'Brasil', 'Rio de Janeiro', 'Rio de Janeiro', 'Av. da Saúde, 8000', 'MEMBER', 'CSV', 'INACTIVE'),
+    ('Construções Inteligentes', 'www.construcoesinteligentes.com.br', 'Yes', '40404040000123', 'Brasil', 'Minas Gerais', 'Belo Horizonte', 'Rua da Construção, 10000', 'INACTIVE', 'MANUAL', 'ACTIVE'),
+    ('Beleza & Estilo', 'www.belezaestilo.com.br', 'No', '50505050000134', 'Brasil', 'São Paulo', 'Campinas', 'Av. da Beleza, 7000', 'MEMBER', 'CSV', 'ACTIVE'),
+    ('Gastronomia Gourmet', 'www.gastronomiagourmet.com.br', 'Yes', '60606060000145', 'Brasil', 'Rio de Janeiro', 'Niterói', 'Rua da Gastronomia, 5000', 'MEMBER', 'MANUAL', 'ACTIVE'),
+    ('Tecnologia Avançada', 'www.tecnologiaavancada.com.br', 'No', '70707070000156', 'Brasil', 'Paraná', 'Curitiba', 'Av. da Tecnologia, 8000', 'EXPIRED', 'CSV', 'ACTIVE'),
+    ('Educação Moderna', 'www.educacaomoderna.com.br', 'Yes', '80808080000167', 'Brasil', 'São Paulo', 'São Paulo', 'Rua da Educação, 10000', 'MEMBER', 'MANUAL', 'ACTIVE'),
+    ('Consultoria Empresarial', 'www.consultoriaempresarial.com.br', 'No', '90909090000178', 'Brasil', 'Minas Gerais', 'Uberlândia', 'Av. da Consultoria, 6000', 'MEMBER', 'CSV', 'INACTIVE'),
+    ('Automotiva Nacional', 'www.automotivanacional.com.br', 'Yes', '01010101000189', 'Brasil', 'São Paulo', 'Campinas', 'Av. Automotiva, 9000', 'INACTIVE', 'MANUAL', 'ACTIVE'),
+    ('Saúde & Bem-Estar', 'www.saudeebemestar.com.br', 'No', '11223344000190', 'Brasil', 'Rio de Janeiro', 'Rio de Janeiro', 'Rua da Saúde, 10000', 'MEMBER', 'CSV', 'ACTIVE'),
+    ('Construções Modernas', 'www.construcoesmodernas.com.br', 'Yes', '22334455000101', 'Brasil', 'Minas Gerais', 'Belo Horizonte', 'Av. da Construção, 8000', 'MEMBER', 'MANUAL', 'ACTIVE');
 
 
 INSERT INTO partner (username, password, email, role, ingestion_operation, status)
@@ -216,6 +216,25 @@ VALUES ('Gestão de Licenciamento de Software e Compliance', 'Gestão eficiente 
        ('Integração de Novas Tecnologias de Hardware e Software em Infraestruturas Existentes', 'Incorporação de novas tecnologias de hardware e software em infraestruturas existentes para aumentar a eficiência e a competitividade.', 'MANUAL', 'ACTIVE'),
        ('Consultoria em Estratégias de Licenciamento e Aquisição de Hardware e Software', 'Assessoria especializada na definição de estratégias de licenciamento e aquisição de hardware e software alinhadas aos objetivos e necessidades da organização.', 'MANUAL', 'ACTIVE');
 
+
+-- Workload Entries
+INSERT INTO workload (name, description, ingestion_operation, status)
+VALUES
+    ('Processamento de Dados em Lote', 'Execução de tarefas de processamento de dados em grandes volumes.', 'CSV', 'ACTIVE'),
+    ('Integração de Sistemas', 'Sincronização de dados entre diferentes sistemas para garantir a consistência e a integridade.', 'MANUAL', 'ACTIVE'),
+    ('Monitoramento em Tempo Real', 'Acompanhamento e análise de dados em tempo real para fornecer insights imediatos.', 'CSV', 'ACTIVE'),
+    ('Armazenamento de Dados', 'Gestão eficiente do armazenamento de dados em diferentes plataformas.', 'MANUAL', 'ACTIVE'),
+    ('Análise Preditiva', 'Uso de técnicas de machine learning para prever tendências futuras com base em dados históricos.', 'CSV', 'ACTIVE'),
+    ('Visualização de Dados', 'Criação de dashboards e relatórios interativos para visualização de dados.', 'MANUAL', 'ACTIVE'),
+    ('Gerenciamento de Projetos', 'Planejamento e controle de projetos para garantir a entrega dentro do prazo e orçamento.', 'CSV', 'ACTIVE'),
+    ('Automação de Processos', 'Implementação de soluções para automatizar processos repetitivos e melhorar a eficiência.', 'MANUAL', 'ACTIVE'),
+    ('Segurança de Dados', 'Proteção dos dados contra acessos não autorizados e perda de dados.', 'CSV', 'ACTIVE'),
+    ('Compliance e Conformidade', 'Garantia de que as operações estão em conformidade com as regulamentações e políticas.', 'MANUAL', 'ACTIVE'),
+    ('Auditoria de Sistemas', 'Revisão sistemática e detalhada dos sistemas para verificar a conformidade e identificar melhorias.', 'MANUAL', 'ACTIVE'),
+    ('Gerenciamento de Riscos', 'Identificação, avaliação e mitigação de riscos associados às operações de TI.', 'CSV', 'INACTIVE'),
+    ('Backup e Recuperação de Dados', 'Implementação de estratégias de backup e recuperação de dados para garantir a continuidade dos negócios.', 'MANUAL', 'ACTIVE'),
+    ('Otimização de Performance', 'Análise e ajuste de sistemas e processos para melhorar a performance.', 'CSV', 'ACTIVE'),
+    ('Gerenciamento de Configuração', 'Gestão das configurações de hardware e software para manter a integridade e o desempenho.', 'MANUAL', 'ACTIVE');
 
 
 
@@ -384,84 +403,94 @@ INSERT INTO expertise_certification (certification_id, expertise_id) VALUES
 
 
 INSERT INTO employee_certification (certification_id, employee_id, expires_at, status) VALUES
-                                                                     (1, 1, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (2, 2, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (3, 3, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (4, 4, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (5, 5, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (6, 6, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (7, 7, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (8, 8, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (9, 9, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (10, 10, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (11, 11, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (12, 12, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (13, 13, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (14, 14, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (15, 15, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (16, 16, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (17, 17, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (18, 18, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (19, 19, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (20, 20, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (21, 21, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (22, 22, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (23, 23, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (24, 24, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (25, 25, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (26, 26, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (27, 27, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (28, 28, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (29, 29, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (30, 30, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (31, 31, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (32, 32, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (33, 33, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (34, 34, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (35, 35, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (36, 36, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (37, 37, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (38, 38, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (39, 39, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (40, 40, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (41, 41, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (42, 42, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (43, 43, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (44, 44, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (45, 45, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (46, 46, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (47, 47, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (4, 48, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (9, 49, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (5, 50, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (21, 51, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (32, 52, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (33, 53, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (14, 54, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (45, 55, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (16, 56, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (27, 57, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (38, 58, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (39, 59, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (20, 60, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (7, 61, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (6, 62, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (3, 63, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (14, 64, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (45, 65, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (26, 66, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (17, 67, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (38, 68, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (29, 69, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (10, 70, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (11, 71, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (12, 72, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (43, 73, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (21, 74, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (25, 75, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (16, 76, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
-                                                                     (7, 77, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
-                                                                     (8, 78, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS');
+     (1, 1, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (2, 1, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (3, 1, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (4, 1, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (5, 1, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (6, 1, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (1, 2, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (1, 3, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (1, 4, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (1, 5, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (1, 6, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (2, 2, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (3, 3, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (4, 4, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (5, 5, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (6, 6, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (7, 7, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (8, 8, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (9, 9, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (10, 10, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (11, 11, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (12, 12, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (13, 13, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (14, 14, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (15, 15, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (16, 16, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (17, 17, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (18, 18, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (19, 19, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (20, 20, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (21, 21, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (22, 22, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (23, 23, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (24, 24, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (25, 25, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (26, 26, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (27, 27, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (28, 28, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (29, 29, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (30, 30, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (31, 31, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (32, 32, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (33, 33, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (34, 34, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (35, 35, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (36, 36, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (37, 37, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (38, 38, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (39, 39, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (40, 40, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (41, 41, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (42, 42, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (43, 43, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (44, 44, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (45, 45, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (46, 46, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (47, 47, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (4, 48, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (9, 49, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (5, 50, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (21, 51, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (32, 52, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (33, 53, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (14, 54, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (45, 55, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (16, 56, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (27, 57, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (38, 58, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (39, 59, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (20, 60, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (7, 61, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (6, 62, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (3, 63, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (14, 64, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (45, 65, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (26, 66, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (17, 67, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (38, 68, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (29, 69, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (10, 70, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (11, 71, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (12, 72, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (43, 73, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (21, 74, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (25, 75, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (16, 76, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS'),
+     (7, 77, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'PASSED'),
+     (8, 78, DATE_ADD('2024-04-27', INTERVAL FLOOR(RAND() * 365) DAY), 'IN_PROGRESS');
 
 
 
@@ -619,3 +648,41 @@ INSERT INTO company_opn_tracks (company_id, opn_tracks_id) VALUES
                                                                (48, 4),
                                                                (49, 1),
                                                                (50, 2);
+
+
+
+
+
+-- Relacionamento aleatório entre workload e expertise
+INSERT INTO workload_and_expertise (workload_id, expertise_id)
+VALUES
+    (1, 5),  -- Processamento de Dados em Lote - Arquitetura de Nuvem Híbrida
+    (1, 22), -- Processamento de Dados em Lote - Implementação de Serviços de Infraestrutura como Código (IaC)
+    (2, 13), -- Integração de Sistemas - Negociação de Contratos e Acordos de Nível de Serviço (SLA) em Nuvem
+    (2, 18), -- Integração de Sistemas - Desenvolvimento de Propostas Comerciais Personalizadas para Clientes em Potencial
+    (3, 28), -- Monitoramento em Tempo Real - Implementação de Monitoramento e Diagnóstico em Tempo Real em Ambientes Cloud
+    (3, 8),  -- Monitoramento em Tempo Real - Orquestração de Containers em Ambientes Cloud
+    (4, 36), -- Armazenamento de Dados - Gestão de Ativos de TI e Inventário de Hardware e Software
+    (4, 34), -- Armazenamento de Dados - Implementação e Gerenciamento de Servidores e Data Centers On-Premises
+    (5, 27), -- Análise Preditiva - Desenvolvimento de Soluções Escaláveis e Tolerantes a Falhas na Nuvem
+    (5, 9),  -- Análise Preditiva - Gestão de Custos em Nuvem
+    (6, 24), -- Visualização de Dados - Desenvolvimento de APIs e Microsserviços na Nuvem
+    (6, 7),  -- Visualização de Dados - Implementação de Redes Definidas por Software (SDN) na Nuvem
+    (7, 1),  -- Gerenciamento de Projetos - Gestão de Infraestrutura em Nuvem
+    (7, 23), -- Gerenciamento de Projetos - Integração Contínua e Entrega Contínua (CI/CD) em Ambientes Cloud
+    (8, 6),  -- Automação de Processos - Automação de Processos na Nuvem
+    (8, 25), -- Automação de Processos - DevOps e Cultura de Colaboração em Equipes de Desenvolvimento e Operações na Nuvem
+    (9, 4),  -- Segurança de Dados - Segurança de Dados em Ambientes Cloud
+    (9, 29), -- Segurança de Dados - Práticas de Desenvolvimento Seguro em Nuvem
+    (10, 31), -- Compliance e Conformidade - Gestão de Licenciamento de Software e Compliance
+    (10, 15), -- Compliance e Conformidade - Análise de Competitividade e Posicionamento no Mercado de Serviços em Nuvem
+    (11, 11), -- Auditoria de Sistemas - Desenvolvimento de Estratégias de Vendas para Soluções em Nuvem
+    (11, 35), -- Auditoria de Sistemas - Virtualização de Servidores e Armazenamento
+    (12, 22), -- Gerenciamento de Riscos - Implementação de Serviços de Infraestrutura como Código (IaC)
+    (12, 20), -- Gerenciamento de Riscos - Análise de Tendências de Mercado e Antecipação de Demandas Futuras
+    (13, 10), -- Backup e Recuperação de Dados - Recuperação de Desastres em Nuvem
+    (13, 32), -- Backup e Recuperação de Dados - Otimização de Custos em Licenciamento de Software e Hardware
+    (14, 2),  -- Otimização de Performance - Otimização de Desempenho em Ambientes Cloud
+    (14, 27), -- Otimização de Performance - Desenvolvimento de Soluções Escaláveis e Tolerantes a Falhas na Nuvem
+    (15, 33), -- Gerenciamento de Configuração - Avaliação de Necessidades de Hardware e Software para Ambientes Específicos
+    (15, 26); -- Gerenciamento de Configuração - Gerenciamento de Bancos de Dados em Nuvem

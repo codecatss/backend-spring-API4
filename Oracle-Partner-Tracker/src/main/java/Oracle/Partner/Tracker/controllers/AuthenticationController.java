@@ -7,18 +7,16 @@ import javax.naming.AuthenticationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import Oracle.Partner.Tracker.dto.AuthDTO;
 import Oracle.Partner.Tracker.services.Auth.AuthenticationService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 import org.springframework.util.MultiValueMap;
 
 @RestController
 @CrossOrigin
+@RequestMapping(value = "/auth")
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
@@ -26,9 +24,9 @@ public class AuthenticationController {
         this.authenticationService = authenticationService;
     }
 
-    @PostMapping("/auth")
+    @PostMapping
     public ResponseEntity<Object> authenticate(@RequestBody AuthDTO authentication) throws Exception {
-
+        System.out.println(authentication);
         try {
             List<String> response = authenticationService.authenticate(authentication);
 

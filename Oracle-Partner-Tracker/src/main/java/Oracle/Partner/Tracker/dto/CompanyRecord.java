@@ -19,5 +19,5 @@ public record CompanyRecord(
         @NotBlank
         String state,
         
-        String slogan
+        String site
 ) {}
